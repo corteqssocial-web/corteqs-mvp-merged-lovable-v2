@@ -172,6 +172,3 @@ const WhatsAppGroupLanding = () => {
 };
 
 export default WhatsAppGroupLanding;
-
-// Tiny copy helper avoidance — using copy icon in case
-export { Copy };
