@@ -36,6 +36,9 @@ const AmbassadorDetail = lazy(() => import("./pages/AmbassadorDetail"));
 const CityNews = lazy(() => import("./pages/CityNews"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const HospitalAppointment = lazy(() => import("./pages/HospitalAppointment"));
+const Founders1000 = lazy(() => import("./pages/Founders1000"));
+const Career = lazy(() => import("./pages/Career"));
+const Dashboards = lazy(() => import("./pages/Dashboards"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 const queryClient = new QueryClient();
@@ -127,6 +130,11 @@ const App = () => (
                   <Route path="/ambassador/:id" element={<AmbassadorDetail />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/hospital-appointment/:hospitalId?" element={<HospitalAppointment />} />
+                  <Route path="/founders-1000" element={<Founders1000 />} />
+                  <Route path="/founding-1000" element={<Founders1000 />} />
+                  <Route path="/kariyer" element={<Career />} />
+                  <Route path="/career" element={<Career />} />
+                  <Route path="/dashboards" element={<Dashboards />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
