@@ -229,7 +229,7 @@ export const associations: Association[] = [
 
 export const whatsappGroups: WhatsAppGroup[] = [
   // Alumni
-  { id: "odtu-almanya", name: "ODTÜ Mezunları Almanya", category: "alumni", country: "Almanya", city: "Berlin", members: 420, description: "ODTÜ mezunlarının Almanya'daki buluşma ve networking grubu", link: "https://chat.whatsapp.com/odtu-almanya", university: "ODTÜ" },
+  { id: "odtu-almanya", name: "ODTÜ Mezunları Almanya", category: "alumni", country: "Almanya", city: "Berlin", members: 420, description: "ODTÜ mezunlarının Almanya'daki buluşma ve networking grubu", link: "https://chat.whatsapp.com/odtu-almanya", university: "ODTÜ", landingId: "odtu-almanya" },
   { id: "odtu-ingiltere", name: "ODTÜ Mezunları İngiltere", category: "alumni", country: "İngiltere", city: "Londra", members: 310, description: "ODTÜ mezunlarının İngiltere networking grubu", link: "https://chat.whatsapp.com/odtu-uk", university: "ODTÜ" },
   { id: "bogazici-almanya", name: "Boğaziçi Mezunları Almanya", category: "alumni", country: "Almanya", city: "Münih", members: 385, description: "Boğaziçi Üniversitesi mezunlarının Almanya'daki grubu", link: "https://chat.whatsapp.com/bogazici-de", university: "Boğaziçi" },
   { id: "bogazici-bae", name: "Boğaziçi Mezunları Dubai", category: "alumni", country: "BAE", city: "Dubai", members: 275, description: "Boğaziçi mezunlarının Dubai networking grubu", link: "https://chat.whatsapp.com/bogazici-dubai", university: "Boğaziçi" },
