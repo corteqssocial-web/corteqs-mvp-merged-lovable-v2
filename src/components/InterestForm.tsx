@@ -70,10 +70,10 @@ interface InterestFormProps {
 }
 
 const titles: Record<InterestCategory, string> = {
-  founders_1000: "Founding 1000'e Katıl",
-  yarisma: "Yarışmaya Başvur",
-  kariyer: "İş İlanına Başvur",
-  genel: "İlginizi Kaydedin",
+  founders_1000: "Founding 1000'e Katıl — Diaspora Pasaportunuzu Oluşturun",
+  yarisma: "Yarışmaya Başvur — Diaspora Pasaportunuzu Oluşturun",
+  kariyer: "İş İlanına Başvur — Diaspora Pasaportunuzu Oluşturun",
+  genel: "Diaspora Pasaportunuzu Oluşturun",
 };
 
 const InterestForm = ({

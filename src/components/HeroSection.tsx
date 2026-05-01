@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import landmarksImage from "@/assets/landmarks-collage.png";
 import { useDiaspora } from "@/contexts/DiasporaContext";
+import HeroCityCounters from "@/components/HeroCityCounters";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
@@ -24,11 +25,11 @@ const HeroSection = () => {
         <img
           src={landmarksImage}
           alt="World landmarks"
-          className="w-full h-full object-contain object-bottom opacity-25"
+          className="w-full h-full object-contain object-bottom opacity-55"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-transparent" />
       </div>
 
       <div className="container mx-auto px-4 pt-20 relative z-10">
@@ -50,11 +51,14 @@ const HeroSection = () => {
 
           {/* Primary 5 CTA buttons */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <Link to="/auth">
+            <Link to="/auth" className="relative">
               <Button size="lg" className="w-full text-sm px-4 py-6 bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-2">
                 <UserPlus className="h-4 w-4" />
                 Ücretsiz Kayıt
               </Button>
+              <span className="absolute -bottom-5 left-0 right-0 text-center text-[10px] font-semibold text-turquoise">
+                🪪 Diaspora Pasaportu
+              </span>
             </Link>
             <Link to="/whatsapp-groups">
               <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
@@ -124,6 +128,8 @@ const HeroSection = () => {
               <span className="text-sm text-muted-foreground font-body">{h.stat3}</span>
             </div>
           </div>
+
+          <HeroCityCounters />
         </div>
       </div>
       </section>
