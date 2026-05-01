@@ -1,4 +1,4 @@
-import { ArrowRight, Globe, MapPin, Users, Trophy } from "lucide-react";
+import { ArrowRight, Globe, MapPin, Users, Trophy, MessageCircle, Sparkles, Video, PenSquare, UserPlus } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import landmarksImage from "@/assets/landmarks-collage.png";
@@ -48,16 +48,36 @@ const HeroSection = () => {
             {h.subtitle}
           </p>
 
-          <div className="flex flex-col sm:flex-row gap-4 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <Link to="/pricing">
-              <Button size="lg" className="text-base px-8 py-6 bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg">
-                {h.cta1}
-                <ArrowRight className="ml-1 h-5 w-5" />
+          {/* Primary 5 CTA buttons */}
+          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
+            <Link to="/auth">
+              <Button size="lg" className="w-full text-sm px-4 py-6 bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-2">
+                <UserPlus className="h-4 w-4" />
+                Ücretsiz Kayıt
               </Button>
             </Link>
-            <Link to="/pricing">
-              <Button variant="outline" size="lg" className="text-base px-8 py-6 border-foreground/20 text-foreground hover:bg-foreground/5">
-                {h.cta2}
+            <Link to="/whatsapp-groups">
+              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
+                <MessageCircle className="h-4 w-4 text-emerald-500" />
+                WhatsApp
+              </Button>
+            </Link>
+            <Link to="/founders-1000">
+              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 gap-2">
+                <Sparkles className="h-4 w-4 text-amber-500" />
+                Founding 1000
+              </Button>
+            </Link>
+            <Link to="/blog-contest">
+              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
+                <PenSquare className="h-4 w-4 text-gold" />
+                Blogger Yarışması
+              </Button>
+            </Link>
+            <Link to="/blog-contest">
+              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
+                <Video className="h-4 w-4 text-primary" />
+                Vlogger Yarışması
               </Button>
             </Link>
           </div>
