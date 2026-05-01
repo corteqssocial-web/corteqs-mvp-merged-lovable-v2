@@ -95,6 +95,51 @@ export type Database = {
         }
         Relationships: []
       }
+      interest_registrations: {
+        Row: {
+          category: string
+          city: string | null
+          country: string | null
+          created_at: string
+          email: string | null
+          id: string
+          message: string | null
+          name: string | null
+          phone: string | null
+          referral_code: string | null
+          role: string | null
+          source: string | null
+        }
+        Insert: {
+          category?: string
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          referral_code?: string | null
+          role?: string | null
+          source?: string | null
+        }
+        Update: {
+          category?: string
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string | null
+          id?: string
+          message?: string | null
+          name?: string | null
+          phone?: string | null
+          referral_code?: string | null
+          role?: string | null
+          source?: string | null
+        }
+        Relationships: []
+      }
       notifications: {
         Row: {
           created_at: string
