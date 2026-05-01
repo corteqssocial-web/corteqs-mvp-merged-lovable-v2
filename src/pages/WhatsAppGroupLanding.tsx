@@ -1,7 +1,7 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
-  MessageSquare, Users, MapPin, ArrowLeft, ShieldCheck, Share2, Copy, Check,
+  MessageSquare, Users, MapPin, ArrowLeft, ShieldCheck, Share2, Check,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
