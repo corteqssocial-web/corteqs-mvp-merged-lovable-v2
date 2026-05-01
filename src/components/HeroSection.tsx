@@ -3,6 +3,7 @@ import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import landmarksImage from "@/assets/landmarks-collage.png";
 import { useDiaspora } from "@/contexts/DiasporaContext";
+import HeroCityCounters from "@/components/HeroCityCounters";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
@@ -24,11 +25,11 @@ const HeroSection = () => {
         <img
           src={landmarksImage}
           alt="World landmarks"
-          className="w-full h-full object-contain object-bottom opacity-25"
+          className="w-full h-full object-contain object-bottom opacity-55"
           loading="eager"
         />
-        <div className="absolute inset-0 bg-gradient-to-t from-background via-background/30 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/50 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/15 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-transparent" />
       </div>
 
       <div className="container mx-auto px-4 pt-20 relative z-10">
