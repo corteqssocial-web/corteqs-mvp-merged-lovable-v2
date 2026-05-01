@@ -16,7 +16,7 @@ import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import { Tabs, TabsList, TabsTrigger, TabsContent } from "@/components/ui/tabs";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import DemoBadge from "@/components/DemoBadge";
+
 import { whatsappGroups } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import { saveLanding, slugify, type LandingMode } from "@/lib/whatsappLandings";
@@ -266,7 +266,7 @@ const WhatsAppGroups = () => {
           </div>
 
           <h2 className="text-xl font-bold mb-4 flex items-center justify-center gap-2 text-center">
-            <Sparkles className="h-5 w-5 text-turquoise" /> Demo Gruplar
+            <Sparkles className="h-5 w-5 text-turquoise" /> Öne Çıkan Gruplar
           </h2>
 
           {/* 4 demo cards centered */}
@@ -279,7 +279,6 @@ const WhatsAppGroups = () => {
                   key={g.id}
                   className="relative bg-card rounded-2xl border border-border p-5 shadow-card hover:shadow-card-hover transition-all hover:-translate-y-0.5 flex flex-col"
                 >
-                  <DemoBadge />
                   <div className={`w-11 h-11 rounded-xl border ${meta.color} flex items-center justify-center mb-3`}>
                     <Icon className="h-5 w-5" />
                   </div>
