@@ -400,10 +400,21 @@ const Businesses = () => {
           </div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-20 text-muted-foreground font-body">
+            <div className="text-center py-10 text-muted-foreground font-body">
               Bu filtrelerde işletme bulunamadı.
             </div>
           )}
+
+          <div className="mt-10 max-w-2xl mx-auto" id="kayit-form">
+            <InterestForm
+              modal={false}
+              context="genel"
+              defaultCategory="isletme"
+              title="İşletmenizi Kaydedin"
+              description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategoriyi isterseniz değiştirin."
+              source="businesses-listing"
+            />
+          </div>
         </div>
       </main>
       <Footer />
