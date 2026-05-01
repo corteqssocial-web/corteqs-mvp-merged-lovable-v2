@@ -97,46 +97,61 @@ export type Database = {
       }
       interest_registrations: {
         Row: {
+          attachment_urls: string[] | null
           category: string
           city: string | null
           country: string | null
           created_at: string
           email: string | null
+          heard_from: string | null
           id: string
+          interest_area: string | null
           message: string | null
           name: string | null
+          organization: string | null
           phone: string | null
           referral_code: string | null
           role: string | null
           source: string | null
+          supply_demand: string | null
         }
         Insert: {
+          attachment_urls?: string[] | null
           category?: string
           city?: string | null
           country?: string | null
           created_at?: string
           email?: string | null
+          heard_from?: string | null
           id?: string
+          interest_area?: string | null
           message?: string | null
           name?: string | null
+          organization?: string | null
           phone?: string | null
           referral_code?: string | null
           role?: string | null
           source?: string | null
+          supply_demand?: string | null
         }
         Update: {
+          attachment_urls?: string[] | null
           category?: string
           city?: string | null
           country?: string | null
           created_at?: string
           email?: string | null
+          heard_from?: string | null
           id?: string
+          interest_area?: string | null
           message?: string | null
           name?: string | null
+          organization?: string | null
           phone?: string | null
           referral_code?: string | null
           role?: string | null
           source?: string | null
+          supply_demand?: string | null
         }
         Relationships: []
       }
