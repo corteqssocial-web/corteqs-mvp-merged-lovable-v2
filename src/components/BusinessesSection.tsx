@@ -5,6 +5,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { businesses } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoBadge from "@/components/DemoBadge";
 
 const offeringColors: Record<string, string> = {
   "iş ilanı": "bg-turquoise/10 text-turquoise border-turquoise/20",
@@ -13,7 +14,7 @@ const offeringColors: Record<string, string> = {
 };
 
 const BusinessesSection = () => {
-  const featured = businesses.slice(0, 3);
+  const featured = businesses.slice(0, 2);
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
 
