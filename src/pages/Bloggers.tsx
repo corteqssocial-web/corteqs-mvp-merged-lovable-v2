@@ -52,12 +52,12 @@ const Bloggers = () => {
           </h2>
 
           {/* 2 Demo Cards — centered: 1 Blogger + 1 Vlogger */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto">
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto items-stretch">
             {demoList.map((b) => (
               <Link
                 to={`/blogger/${b.id}`}
                 key={b.id}
-                className="group relative bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border block"
+                className="group relative bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border flex flex-col h-full"
               >
                 <DemoBadge />
                 <div className="flex items-center gap-3 mb-4">
@@ -84,20 +84,23 @@ const Bloggers = () => {
                   </div>
                 </div>
 
-                <div className="flex flex-wrap gap-1 mb-4">
+                <div className="flex flex-wrap gap-1 mb-4 min-h-[24px]">
                   {b.specialties.slice(0, 2).map((s) => (
                     <span key={s} className="text-xs bg-primary/10 text-primary rounded-full px-2 py-0.5">{s}</span>
                   ))}
                 </div>
 
-                {b.adCollaboration && (
-                  <div className="flex items-center gap-1.5 bg-gold/10 text-gold rounded-lg px-3 py-1.5 mb-4 text-xs font-semibold">
-                    <Handshake className="h-3.5 w-3.5" />
-                    Reklam İşbirliği Açık
-                  </div>
-                )}
+                {/* Sabit yükseklikli ad-collab slot — kartların eşit hizalanması için */}
+                <div className="mb-4 min-h-[36px]">
+                  {b.adCollaboration && (
+                    <div className="flex items-center gap-1.5 bg-gold/10 text-gold rounded-lg px-3 py-1.5 text-xs font-semibold">
+                      <Handshake className="h-3.5 w-3.5" />
+                      Reklam İşbirliği Açık
+                    </div>
+                  )}
+                </div>
 
-                <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
+                <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4 min-h-[18px]">
                   {b.blogPosts.length > 0 && (
                     <span className="flex items-center gap-1">
                       <PenLine className="h-3 w-3" /> {b.blogPosts.length} Blog
@@ -115,7 +118,7 @@ const Bloggers = () => {
                   )}
                 </div>
 
-                <Button variant="default" size="sm" className="w-full gap-1 text-xs">
+                <Button variant="default" size="sm" className="w-full gap-1 text-xs mt-auto">
                   <Eye className="h-3 w-3" /> Profili Gör
                 </Button>
               </Link>

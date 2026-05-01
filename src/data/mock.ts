@@ -407,7 +407,7 @@ export const bloggers: Blogger[] = [
     region: "Ortadoğu",
     bio: "Dubai merkezli yaşam ve lüks vlogger. Markalarla işbirliği yaparak diaspora'ya özel içerikler üretiyor.",
     avatar: "EG",
-    photo: "https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?w=400&h=400&fit=crop&crop=face",
+    photo: "https://images.unsplash.com/photo-1492562080023-ab3db95bfbce?w=400&h=400&fit=crop&crop=face",
     website: "https://emregezgin.com",
     instagram: "@emregezgin",
     youtube: "EmreGezginTV",
