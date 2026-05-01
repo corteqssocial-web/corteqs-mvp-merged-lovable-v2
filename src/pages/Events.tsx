@@ -268,6 +268,48 @@ const Events = () => {
             </div>
           )}
 
+          {/* Topluluğun İçin Etkinlik Düzenle */}
+          <section className="mb-12 rounded-3xl border border-border bg-card overflow-hidden shadow-card">
+            <div className="grid lg:grid-cols-2 gap-0">
+              <div className="p-6 md:p-10 flex flex-col justify-center">
+                <Badge className="mb-3 w-fit bg-gold/15 text-gold border-0">📣 Topluluk Liderleri İçin</Badge>
+                <h2 className="text-2xl md:text-3xl font-extrabold text-foreground leading-tight mb-3">
+                  Topluluğun İçin <span className="text-gradient-primary">Etkinlik Düzenle</span>
+                </h2>
+                <p className="text-muted-foreground font-body mb-4">
+                  Dashboard'undan tüm davetli sistemini, bilet satışını ve sosyal medya erişimini tek yerden yönet.
+                  Diasporandaki herkese ulaş, etkinliğini burada listele.
+                </p>
+                <ul className="space-y-2 text-sm text-foreground mb-6">
+                  <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-turquoise" /> Davetli ve katılımcı yönetimi</li>
+                  <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-turquoise" /> Bilet satışı ve gelir takibi</li>
+                  <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-turquoise" /> Sosyal medya erişim ve paylaşım araçları</li>
+                  <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-turquoise" /> Şehir ve ülke bazlı hedefli duyuru</li>
+                </ul>
+                <div className="flex flex-wrap gap-3">
+                  <Button size="lg" className="gap-2">
+                    <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                  </Button>
+                  <Link to="/profile">
+                    <Button size="lg" variant="outline" className="gap-2">
+                      Dashboard'a Git
+                    </Button>
+                  </Link>
+                </div>
+              </div>
+              <div className="relative bg-gradient-to-br from-primary/10 via-turquoise/10 to-gold/10 p-6 md:p-10 flex items-center justify-center">
+                <img
+                  src={eventDashboardImg}
+                  alt="Etkinlik yönetim dashboard önizleme"
+                  width={1280}
+                  height={896}
+                  loading="lazy"
+                  className="w-full h-auto rounded-xl shadow-card-hover border border-border"
+                />
+              </div>
+            </div>
+          </section>
+
           {/* 🔴 Şu an Canlı */}
           {categoryFilter === "all" && (
             <div className="mb-12">
