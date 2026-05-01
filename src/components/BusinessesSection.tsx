@@ -47,15 +47,16 @@ const BusinessesSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {featured.map((b) => {
             const isFollowed = followedIds.has(b.id);
             return (
               <Link
                 to={`/business/${b.id}`}
                 key={b.id}
-                className="bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:-translate-y-1 block"
+                className="relative bg-card rounded-2xl p-6 pt-9 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:-translate-y-1 block overflow-hidden"
               >
+                <DemoBadge variant="card" />
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <div className="w-12 h-12 rounded-xl bg-secondary flex items-center justify-center text-secondary-foreground font-bold text-sm shrink-0">
