@@ -128,6 +128,8 @@ const HeroSection = () => {
               <span className="text-sm text-muted-foreground font-body">{h.stat3}</span>
             </div>
           </div>
+
+          <HeroCityCounters />
         </div>
       </div>
       </section>
