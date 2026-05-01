@@ -251,6 +251,9 @@ export const whatsappGroups: WhatsAppGroup[] = [
   { id: "finans-dubai", name: "Dubai Türk Finans Grubu", category: "is", country: "BAE", city: "Dubai", members: 310, description: "Dubai'deki Türk finans profesyonelleri networking grubu", link: "https://chat.whatsapp.com/finans-dubai" },
   { id: "saglik-almanya", name: "Almanya Türk Sağlık Profesyonelleri", category: "is", country: "Almanya", city: "Frankfurt", members: 290, description: "Almanya'daki Türk doktor, hemşire ve sağlık çalışanları", link: "https://chat.whatsapp.com/saglik-de" },
   { id: "hukuk-hollanda", name: "Hollanda Türk Hukukçular", category: "is", country: "Hollanda", city: "Amsterdam", members: 165, description: "Hollanda'daki Türk avukat ve hukuk profesyonelleri", link: "https://chat.whatsapp.com/hukuk-nl" },
+  // Doktorlar
+  { id: "doktor-londra", name: "Londra Türk Doktorlar Networking", category: "doktor", country: "İngiltere", city: "Londra", members: 245, description: "Londra'da pratik yapan Türk doktorların vaka tartışması ve referans grubu", link: "https://chat.whatsapp.com/doktor-london", landingId: "doktor-londra" },
+  { id: "doktor-berlin", name: "Berlin Türk Doktorlar", category: "doktor", country: "Almanya", city: "Berlin", members: 198, description: "Berlin'deki Türk hekimler için mesleki dayanışma grubu", link: "https://chat.whatsapp.com/doktor-berlin" },
 ];
 
 export interface Business {
