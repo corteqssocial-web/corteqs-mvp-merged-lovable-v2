@@ -5,11 +5,12 @@ import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { consultants } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoBadge from "@/components/DemoBadge";
 
 const FeaturedConsultants = () => {
   const featured = [
     consultants.find((c) => c.id === "dr-hasan-turk")!,
-    ...consultants.filter((c) => c.id !== "dr-hasan-turk").slice(0, 3),
+    ...consultants.filter((c) => c.id !== "dr-hasan-turk").slice(0, 1),
   ];
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
