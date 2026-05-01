@@ -160,10 +160,21 @@ const Associations = () => {
           </div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-20 text-muted-foreground font-body">
+            <div className="text-center py-10 text-muted-foreground font-body">
               Bu filtrelerde kuruluş bulunamadı.
             </div>
           )}
+
+          <div className="mt-10 max-w-2xl mx-auto" id="kayit-form">
+            <InterestForm
+              modal={false}
+              context="genel"
+              defaultCategory="kurulus"
+              title="Kuruluşumuzu Kaydet"
+              description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategori sabitlenmedi — istediğinizi seçin."
+              source="associations-listing"
+            />
+          </div>
         </div>
       </main>
       <Footer />
