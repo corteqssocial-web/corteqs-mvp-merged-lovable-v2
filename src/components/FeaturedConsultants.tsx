@@ -44,15 +44,16 @@ const FeaturedConsultants = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {featured.map((c) => {
             const isFollowed = followedIds.has(c.id);
             return (
               <Link
                 to={`/consultant/${c.id}`}
                 key={c.id}
-                className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border block"
+                className="group relative bg-card rounded-2xl p-6 pt-9 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border block overflow-hidden"
               >
+                <DemoBadge variant="card" />
                 <div className="flex items-center justify-between mb-4">
                   <div className="flex items-center gap-3">
                     <img src={c.photo} alt={c.name} className="w-14 h-14 rounded-full object-cover" />
