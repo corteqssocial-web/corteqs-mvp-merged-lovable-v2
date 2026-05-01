@@ -19,6 +19,7 @@ import CityDropdown from "@/components/CityDropdown";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { events, countries } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import eventDashboardImg from "@/assets/event-dashboard.jpg";
 
 const categoryLabels: Record<string, string> = {
   networking: "Networking",
