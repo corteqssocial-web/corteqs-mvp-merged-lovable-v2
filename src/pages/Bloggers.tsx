@@ -1,19 +1,20 @@
 import { Link } from "react-router-dom";
 import {
   Star, PenLine, Video, Instagram, Users, Handshake, Eye,
-  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles
+  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import DemoBadge from "@/components/DemoBadge";
-import CategoryListingBanner from "@/components/CategoryListingBanner";
 import InterestForm from "@/components/InterestForm";
 import { bloggers } from "@/data/mock";
 
 const Bloggers = () => {
-  const demoBloggers = bloggers.slice(0, 2);
+  const demoBlogger = bloggers.find((b) => b.type === "blogger");
+  const demoVlogger = bloggers.find((b) => b.type === "influencer");
+  const demoList = [demoBlogger, demoVlogger].filter(Boolean) as typeof bloggers;
 
   return (
     <div className="min-h-screen bg-background">
@@ -22,26 +23,37 @@ const Bloggers = () => {
         <div className="container mx-auto px-4">
 
           {/* Hero */}
-          <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-10">
+          <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-8 text-center">
             <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎬 Blogger & Vlogger Programı</Badge>
             <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-3">
-              Hayran Kitleni <span className="text-gradient-primary">Globale Aç</span>, Etkini Para'ya Çevir
+              Global Türklerin Hikayelerini <span className="text-gradient-primary">Gelin Birlikte Oluşturalım</span>
             </h1>
-            <p className="text-base md:text-lg text-muted-foreground font-body max-w-3xl">
-              CorteQS Diaspora ekosisteminde sponsor & marka talepleri, AI Clone, canlı görüşme ve BOS ile içerik üreticiliğini profesyonel bir işe dönüştür.
+            <p className="text-base md:text-lg text-muted-foreground font-body max-w-3xl mx-auto mb-4">
+              CorteQS Diaspora Kütüphanesinde yerinizi alın. Markaların kolayca ulaştığı, taleplerinin AI ile eşleştirildiği süper bir sistemin parçası olun.
             </p>
+            <Badge className="bg-success/15 text-success border-0 text-sm px-3 py-1">
+              <Gift className="h-3.5 w-3.5 mr-1.5" /> Blogger & Vlogger kayıtlarımız tamamen ücretsizdir
+            </Badge>
           </section>
 
-          {/* Listing Banner */}
-          <CategoryListingBanner categoryLabel="Blogger / Vlogger" formAnchorId="kayit-form" />
+          {/* Info strip (replaces Founders banner) */}
+          <div className="rounded-2xl border border-turquoise/30 bg-gradient-to-br from-turquoise/5 via-card to-orange-50/40 p-5 md:p-6 mb-8 text-center">
+            <div className="flex items-center justify-center gap-2 mb-2">
+              <BookOpen className="h-5 w-5 text-turquoise" />
+              <h2 className="text-lg md:text-xl font-bold">CorteQS Diaspora Kütüphanesi</h2>
+            </div>
+            <p className="text-sm text-muted-foreground max-w-2xl mx-auto">
+              Aşağıda gördüğünüz kartlar örnek (DEMO) içeriklerdir. Gerçek profiller başvurular değerlendirildikçe yayına alınacaktır.
+            </p>
+          </div>
 
-          <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+          <h2 className="text-xl font-bold mb-4 flex items-center justify-center gap-2 text-center">
             <Sparkles className="h-5 w-5 text-turquoise" /> Demo İçerik Üreticiler
           </h2>
 
-          {/* 2 Demo Blogger Cards */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 max-w-4xl">
-            {demoBloggers.map((b) => (
+          {/* 2 Demo Cards — centered: 1 Blogger + 1 Vlogger */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto">
+            {demoList.map((b) => (
               <Link
                 to={`/blogger/${b.id}`}
                 key={b.id}
@@ -110,75 +122,35 @@ const Bloggers = () => {
             ))}
           </div>
 
-          {/* Value Proposition Grid */}
+          {/* Value Proposition Grid — compact (≥50% smaller) */}
           <section className="mb-12">
-            <h2 className="text-2xl md:text-3xl font-extrabold mb-2">
+            <h2 className="text-xl md:text-2xl font-extrabold mb-1 text-center">
               CorteQS Blogger & Vlogger <span className="text-gradient-primary">Avantajları</span>
             </h2>
-            <p className="text-muted-foreground font-body mb-6 max-w-3xl">
+            <p className="text-sm text-muted-foreground font-body mb-5 max-w-2xl mx-auto text-center">
               Sadece bir yayıncı değil, global bir topluluk lideri ol.
             </p>
 
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
               {[
-                {
-                  icon: Megaphone,
-                  title: "Sponsor & Marka Talepleri",
-                  desc: "Sponsorlardan ve markalardan gelen reklam ve iş birliği taleplerini tek panelden topla, fiyatlandır ve yönet.",
-                  color: "text-gold bg-gold/10 border-gold/20",
-                },
-                {
-                  icon: Globe2,
-                  title: "Globale Açılan Görünürlük",
-                  desc: "Görünürlüğünü diaspora ağı üzerinden katla; ülke, şehir ve konu bazlı keşfedilebilir ol.",
-                  color: "text-turquoise bg-turquoise/10 border-turquoise/20",
-                },
-                {
-                  icon: Users,
-                  title: "Topluluk Liderleri Toplantıları",
-                  desc: "CorteQS Topluluk Liderleri buluşmalarında diğer yöneticilerle bağ kur, ortak etkinlikler düzenle.",
-                  color: "text-primary bg-primary/10 border-primary/20",
-                },
-                {
-                  icon: Bot,
-                  title: "AI Clone — 7/24 Etkileşim",
-                  desc: "AI Clone'un hayran kitlenle sürekli temasta kalsın. Sen uyurken bile sorulara cevap versin.",
-                  color: "text-purple-600 bg-purple-500/10 border-purple-500/20",
-                },
-                {
-                  icon: Phone,
-                  title: "Ücretli Canlı & Clone Görüşmeleri",
-                  desc: "Canlı veya AI Clone üzerinden 1:1 görüşmelerini dakika bazlı ücretlendir, otomatik tahsilat.",
-                  color: "text-success bg-success/10 border-success/20",
-                },
-                {
-                  icon: Briefcase,
-                  title: "BOS — Business Operating System",
-                  desc: "Sözleşme, fatura, takvim, bilet ve gelir; tüm iş süreçlerini tek bir dijital BOS ile yönet.",
-                  color: "text-pink-600 bg-pink-500/10 border-pink-500/20",
-                },
-                {
-                  icon: Database,
-                  title: "CorteQS Data Evrenine Erişim",
-                  desc: "Diaspora trend raporları, kitle insights ve içerik fırsat verilerine doğrudan erişim sağla.",
-                  color: "text-orange-600 bg-orange-500/10 border-orange-500/20",
-                },
-                {
-                  icon: Handshake,
-                  title: "Ortak Etkinlik & Cross-Promo",
-                  desc: "Diğer içerik üreticileri ile cross-promotion ve ortak etkinliklerle topluluğunu hayallerin ötesinde büyüt.",
-                  color: "text-blue-600 bg-blue-500/10 border-blue-500/20",
-                },
+                { icon: Megaphone, title: "Sponsor & Marka Talepleri", desc: "AI eşleştirmeli marka talepleri tek panelde.", color: "text-gold bg-gold/10 border-gold/20" },
+                { icon: Globe2, title: "Global Görünürlük", desc: "Ülke-şehir-konu bazlı keşfedilebilirlik.", color: "text-turquoise bg-turquoise/10 border-turquoise/20" },
+                { icon: Users, title: "Topluluk Liderleri", desc: "Ortak etkinlikler ve networking.", color: "text-primary bg-primary/10 border-primary/20" },
+                { icon: Bot, title: "AI Clone 7/24", desc: "Hayran kitlenle sürekli temas.", color: "text-purple-600 bg-purple-500/10 border-purple-500/20" },
+                { icon: Phone, title: "Ücretli Görüşme", desc: "Canlı & Clone 1:1 dakika ücreti.", color: "text-success bg-success/10 border-success/20" },
+                { icon: Briefcase, title: "BOS Sistemi", desc: "Sözleşme, fatura, takvim, gelir.", color: "text-pink-600 bg-pink-500/10 border-pink-500/20" },
+                { icon: Database, title: "Data Evreni", desc: "Diaspora trend & insight raporları.", color: "text-orange-600 bg-orange-500/10 border-orange-500/20" },
+                { icon: Handshake, title: "Cross-Promo", desc: "Diğer üreticilerle ortak büyüme.", color: "text-blue-600 bg-blue-500/10 border-blue-500/20" },
               ].map((f) => (
                 <div
                   key={f.title}
-                  className="rounded-2xl border border-border bg-card p-5 hover:shadow-card-hover transition-all"
+                  className="rounded-xl border border-border bg-card p-3 hover:shadow-card-hover transition-all"
                 >
-                  <div className={`w-10 h-10 rounded-lg flex items-center justify-center mb-3 border ${f.color}`}>
-                    <f.icon className="h-5 w-5" />
+                  <div className={`w-7 h-7 rounded-md flex items-center justify-center mb-2 border ${f.color}`}>
+                    <f.icon className="h-3.5 w-3.5" />
                   </div>
-                  <h3 className="font-bold mb-1">{f.title}</h3>
-                  <p className="text-sm text-muted-foreground font-body">{f.desc}</p>
+                  <h3 className="font-semibold text-xs mb-0.5 leading-tight">{f.title}</h3>
+                  <p className="text-[11px] text-muted-foreground font-body leading-snug">{f.desc}</p>
                 </div>
               ))}
             </div>
@@ -187,16 +159,21 @@ const Bloggers = () => {
           {/* CTA strip */}
           <section className="rounded-3xl bg-gradient-to-r from-primary/15 via-turquoise/10 to-gold/15 border border-border p-6 md:p-10 mb-12 text-center">
             <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
-              Topluluğunu Hayallerin Ötesinde Büyüt
+              CorteQS Diaspora Kütüphanesinde Yerinizi Alın
             </h3>
-            <p className="text-muted-foreground font-body mb-6 max-w-2xl mx-auto">
-              Tagline: "Sunum / CV / One-Pager vb. tüm dökümanlarını yükleyebilirsin." Aşağıdaki formdan başvur, CorteQS ekibi seninle iletişime geçsin.
+            <p className="text-muted-foreground font-body mb-3 max-w-2xl mx-auto">
+              Markaların kolayca ulaştığı, taleplerinin AI ile eşleştirildiği süper bir sistemin parçası olun.
             </p>
-            <a href="#kayit-form">
-              <Button size="lg" className="gap-2">
-                <Sparkles className="h-4 w-4" /> Hemen Başvur
-              </Button>
-            </a>
+            <Badge className="bg-success/15 text-success border-0 mb-5">
+              <Gift className="h-3.5 w-3.5 mr-1.5" /> Kayıt tamamen ücretsizdir
+            </Badge>
+            <div>
+              <a href="#kayit-form">
+                <Button size="lg" className="gap-2">
+                  <Sparkles className="h-4 w-4" /> Hemen Ücretsiz Başvur
+                </Button>
+              </a>
+            </div>
           </section>
 
           {/* Inline Form */}
@@ -205,8 +182,8 @@ const Bloggers = () => {
               modal={false}
               context="genel"
               defaultCategory="blogger"
-              title="Blogger / Vlogger Olarak Kayıt Ol"
-              description="Sunum / CV / One-Pager / kanal istatistikleri vb. tüm dökümanlarını yükleyebilirsin. İstersen kategoriyi değiştirebilirsin."
+              title="Blogger / Vlogger Olarak Ücretsiz Kayıt Ol"
+              description="Sunum / CV / One-Pager / kanal istatistikleri vb. tüm dökümanlarını yükleyebilirsin. Kayıtlarımız tamamen ücretsizdir."
               source="bloggers-listing"
             />
           </div>
