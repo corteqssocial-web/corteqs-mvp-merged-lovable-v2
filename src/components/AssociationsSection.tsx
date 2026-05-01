@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { associations } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoBadge from "@/components/DemoBadge";
 
 const AssociationsSection = () => {
-  const featured = associations.slice(0, 3);
+  const featured = associations.slice(0, 2);
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
 
