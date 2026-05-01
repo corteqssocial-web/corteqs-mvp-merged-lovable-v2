@@ -33,13 +33,15 @@ export interface Association {
 export interface WhatsAppGroup {
   id: string;
   name: string;
-  category: "alumni" | "hobi" | "is";
+  category: "alumni" | "hobi" | "is" | "doktor";
   country: string;
   city: string;
   members: number;
   description: string;
   link: string;
   university?: string;
+  /** Optional landing page id (for groups that prefer a landing page over direct link) */
+  landingId?: string;
 }
 
 export interface Event {
