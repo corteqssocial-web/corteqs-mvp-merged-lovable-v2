@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import CityDropdown from "@/components/CityDropdown";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { associations } from "@/data/mock";
+import DemoBadge from "@/components/DemoBadge";
+import CategoryListingBanner from "@/components/CategoryListingBanner";
+import InterestForm from "@/components/InterestForm";
 
 const typeFilters = [
   { key: "all", label: "Tümü" },
