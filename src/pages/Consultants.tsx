@@ -472,10 +472,21 @@ const Consultants = () => {
           )}
 
           {category === "ambassador" && filteredAmbassadors.length === 0 && (
-            <div className="text-center py-20 text-muted-foreground font-body">
+            <div className="text-center py-10 text-muted-foreground font-body">
               Bu ülkede henüz şehir elçisi bulunmuyor.
             </div>
           )}
+
+          <div className="mt-10 max-w-2xl mx-auto" id="kayit-form">
+            <InterestForm
+              modal={false}
+              context="genel"
+              defaultCategory="danisman"
+              title="Danışman Olarak Kayıt Ol"
+              description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategoriyi isterseniz değiştirin."
+              source="consultants-listing"
+            />
+          </div>
         </div>
       </main>
       <Footer />
