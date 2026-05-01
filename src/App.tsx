@@ -19,6 +19,7 @@ const Businesses = lazy(() => import("./pages/Businesses"));
 const BusinessDetail = lazy(() => import("./pages/BusinessDetail"));
 const Profile = lazy(() => import("./pages/Profile"));
 const WhatsAppGroups = lazy(() => import("./pages/WhatsAppGroups"));
+const WhatsAppGroupLanding = lazy(() => import("./pages/WhatsAppGroupLanding"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
 const RadioSongRequest = lazy(() => import("./pages/RadioSongRequest"));
