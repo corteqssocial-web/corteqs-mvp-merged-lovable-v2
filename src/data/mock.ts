@@ -33,13 +33,15 @@ export interface Association {
 export interface WhatsAppGroup {
   id: string;
   name: string;
-  category: "alumni" | "hobi" | "is";
+  category: "alumni" | "hobi" | "is" | "doktor";
   country: string;
   city: string;
   members: number;
   description: string;
   link: string;
   university?: string;
+  /** Optional landing page id (for groups that prefer a landing page over direct link) */
+  landingId?: string;
 }
 
 export interface Event {
@@ -227,7 +229,7 @@ export const associations: Association[] = [
 
 export const whatsappGroups: WhatsAppGroup[] = [
   // Alumni
-  { id: "odtu-almanya", name: "ODTÜ Mezunları Almanya", category: "alumni", country: "Almanya", city: "Berlin", members: 420, description: "ODTÜ mezunlarının Almanya'daki buluşma ve networking grubu", link: "https://chat.whatsapp.com/odtu-almanya", university: "ODTÜ" },
+  { id: "odtu-almanya", name: "ODTÜ Mezunları Almanya", category: "alumni", country: "Almanya", city: "Berlin", members: 420, description: "ODTÜ mezunlarının Almanya'daki buluşma ve networking grubu", link: "https://chat.whatsapp.com/odtu-almanya", university: "ODTÜ", landingId: "odtu-almanya" },
   { id: "odtu-ingiltere", name: "ODTÜ Mezunları İngiltere", category: "alumni", country: "İngiltere", city: "Londra", members: 310, description: "ODTÜ mezunlarının İngiltere networking grubu", link: "https://chat.whatsapp.com/odtu-uk", university: "ODTÜ" },
   { id: "bogazici-almanya", name: "Boğaziçi Mezunları Almanya", category: "alumni", country: "Almanya", city: "Münih", members: 385, description: "Boğaziçi Üniversitesi mezunlarının Almanya'daki grubu", link: "https://chat.whatsapp.com/bogazici-de", university: "Boğaziçi" },
   { id: "bogazici-bae", name: "Boğaziçi Mezunları Dubai", category: "alumni", country: "BAE", city: "Dubai", members: 275, description: "Boğaziçi mezunlarının Dubai networking grubu", link: "https://chat.whatsapp.com/bogazici-dubai", university: "Boğaziçi" },
@@ -241,7 +243,7 @@ export const whatsappGroups: WhatsAppGroup[] = [
   { id: "futbol-berlin", name: "Berlin Türk Futbol Grubu", category: "hobi", country: "Almanya", city: "Berlin", members: 340, description: "Berlin'deki Türk futbol severler için haftalık maç organizasyonu", link: "https://chat.whatsapp.com/futbol-berlin" },
   { id: "yemek-londra", name: "Londra Türk Yemek Kulübü", category: "hobi", country: "İngiltere", city: "Londra", members: 520, description: "Londra'da Türk mutfağı severler, yemek tarifleri ve restoran önerileri", link: "https://chat.whatsapp.com/yemek-london" },
   { id: "outdoor-munchen", name: "Münih Doğa & Hiking", category: "hobi", country: "Almanya", city: "Münih", members: 215, description: "Münih çevresinde doğa yürüyüşleri ve outdoor aktiviteler", link: "https://chat.whatsapp.com/hiking-munich" },
-  { id: "kitap-dubai", name: "Dubai Türk Kitap Kulübü", category: "hobi", country: "BAE", city: "Dubai", members: 180, description: "Dubai'deki Türk kitapseverler için aylık okuma ve tartışma grubu", link: "https://chat.whatsapp.com/kitap-dubai" },
+  { id: "kitap-dubai", name: "Dubai Türk Kitap Kulübü", category: "hobi", country: "BAE", city: "Dubai", members: 180, description: "Dubai'deki Türk kitapseverler için aylık okuma ve tartışma grubu", link: "https://chat.whatsapp.com/kitap-dubai", landingId: "kitap-dubai" },
   { id: "fotograf-amsterdam", name: "Amsterdam Fotoğrafçılık Grubu", category: "hobi", country: "Hollanda", city: "Amsterdam", members: 145, description: "Amsterdam'da fotoğraf turları ve workshop'lar", link: "https://chat.whatsapp.com/foto-amsterdam" },
   // İş
   { id: "tech-berlin", name: "Berlin Türk Tech Network", category: "is", country: "Almanya", city: "Berlin", members: 680, description: "Berlin'deki Türk yazılımcı ve teknoloji profesyonelleri networking grubu", link: "https://chat.whatsapp.com/tech-berlin" },
@@ -249,6 +251,9 @@ export const whatsappGroups: WhatsAppGroup[] = [
   { id: "finans-dubai", name: "Dubai Türk Finans Grubu", category: "is", country: "BAE", city: "Dubai", members: 310, description: "Dubai'deki Türk finans profesyonelleri networking grubu", link: "https://chat.whatsapp.com/finans-dubai" },
   { id: "saglik-almanya", name: "Almanya Türk Sağlık Profesyonelleri", category: "is", country: "Almanya", city: "Frankfurt", members: 290, description: "Almanya'daki Türk doktor, hemşire ve sağlık çalışanları", link: "https://chat.whatsapp.com/saglik-de" },
   { id: "hukuk-hollanda", name: "Hollanda Türk Hukukçular", category: "is", country: "Hollanda", city: "Amsterdam", members: 165, description: "Hollanda'daki Türk avukat ve hukuk profesyonelleri", link: "https://chat.whatsapp.com/hukuk-nl" },
+  // Doktorlar
+  { id: "doktor-londra", name: "Londra Türk Doktorlar Networking", category: "doktor", country: "İngiltere", city: "Londra", members: 245, description: "Londra'da pratik yapan Türk doktorların vaka tartışması ve referans grubu", link: "https://chat.whatsapp.com/doktor-london", landingId: "doktor-londra" },
+  { id: "doktor-berlin", name: "Berlin Türk Doktorlar", category: "doktor", country: "Almanya", city: "Berlin", members: 198, description: "Berlin'deki Türk hekimler için mesleki dayanışma grubu", link: "https://chat.whatsapp.com/doktor-berlin" },
 ];
 
 export interface Business {

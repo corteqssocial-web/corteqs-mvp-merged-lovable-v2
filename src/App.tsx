@@ -19,6 +19,7 @@ const Businesses = lazy(() => import("./pages/Businesses"));
 const BusinessDetail = lazy(() => import("./pages/BusinessDetail"));
 const Profile = lazy(() => import("./pages/Profile"));
 const WhatsAppGroups = lazy(() => import("./pages/WhatsAppGroups"));
+const WhatsAppGroupLanding = lazy(() => import("./pages/WhatsAppGroupLanding"));
 const Events = lazy(() => import("./pages/Events"));
 const EventDetail = lazy(() => import("./pages/EventDetail"));
 const RadioSongRequest = lazy(() => import("./pages/RadioSongRequest"));
@@ -113,6 +114,7 @@ const App = () => (
                   <Route path="/business/:id" element={<BusinessDetail />} />
                   <Route path="/profile" element={<Profile />} />
                   <Route path="/whatsapp-groups" element={<WhatsAppGroups />} />
+                  <Route path="/whatsapp-groups/:id" element={<WhatsAppGroupLanding />} />
                   <Route path="/events" element={<Events />} />
                   <Route path="/event/:id" element={<EventDetail />} />
                   <Route path="/radio/:id/song-request" element={<RadioSongRequest />} />
