@@ -11,6 +11,9 @@ import { useDiaspora } from "@/contexts/DiasporaContext";
 import { consultants, cityAmbassadors } from "@/data/mock";
 import { countryCities } from "@/data/countryCities";
 import { useToast } from "@/hooks/use-toast";
+import DemoBadge from "@/components/DemoBadge";
+import CategoryListingBanner from "@/components/CategoryListingBanner";
+import InterestForm from "@/components/InterestForm";
 
 // Each filter can match by `category` and/or by keywords found in role/specialties/bio.
 // `subs` are sub-category chips that appear under the row when this filter is active.
