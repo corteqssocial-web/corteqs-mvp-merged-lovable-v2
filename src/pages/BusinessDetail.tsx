@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { businesses } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoPageBanner from "@/components/DemoPageBanner";
 
 const offeringColors: Record<string, string> = {
   "iş ilanı": "bg-turquoise/10 text-turquoise border-turquoise/20",
