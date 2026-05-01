@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { consultants } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoPageBanner from "@/components/DemoPageBanner";
 
 const ConsultantDetail = () => {
   const { id } = useParams<{ id: string }>();
@@ -46,7 +47,10 @@ const ConsultantDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <main className="pt-24 pb-16">
+      <div className="pt-16">
+        <DemoPageBanner categoryLabel="Danışmanlık" listingHref="/consultants" />
+      </div>
+      <main className="pt-8 pb-16">
         <div className="container mx-auto px-4">
           <Link to="/consultants" className="inline-flex items-center gap-1 text-sm text-muted-foreground hover:text-foreground mb-6 transition-colors">
             <ArrowLeft className="h-4 w-4" /> Danışmanlara dön

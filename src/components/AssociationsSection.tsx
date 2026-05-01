@@ -4,9 +4,10 @@ import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { associations } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoBadge from "@/components/DemoBadge";
 
 const AssociationsSection = () => {
-  const featured = associations.slice(0, 3);
+  const featured = associations.slice(0, 2);
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
 
@@ -39,15 +40,16 @@ const AssociationsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {featured.map((a) => {
             const isFollowed = followedIds.has(a.id);
             return (
               <Link
                 to={`/association/${a.id}`}
                 key={a.id}
-                className="bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:-translate-y-1 block"
+                className="relative bg-card rounded-2xl p-6 pt-9 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:-translate-y-1 block overflow-hidden"
               >
+                <DemoBadge variant="card" />
                 <div className="flex items-center justify-between mb-4">
                   <span className="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-semibold">
                     {a.type}

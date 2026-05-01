@@ -11,6 +11,9 @@ import { useDiaspora } from "@/contexts/DiasporaContext";
 import { consultants, cityAmbassadors } from "@/data/mock";
 import { countryCities } from "@/data/countryCities";
 import { useToast } from "@/hooks/use-toast";
+import DemoBadge from "@/components/DemoBadge";
+import CategoryListingBanner from "@/components/CategoryListingBanner";
+import InterestForm from "@/components/InterestForm";
 
 // Each filter can match by `category` and/or by keywords found in role/specialties/bio.
 // `subs` are sub-category chips that appear under the row when this filter is active.
@@ -394,18 +397,21 @@ const Consultants = () => {
                   <h2 className="text-lg font-bold text-foreground">Danışmanlar</h2>
                 </div>
               )}
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-6">
-                {sortedFiltered.map((c, index) => {
+              <CategoryListingBanner categoryLabel="Danışmanlık" formAnchorId="kayit-form" />
+
+              <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+                {sortedFiltered.slice(0, 2).map((c, index) => {
                   const isFollowed = followedIds.has(c.id);
                   const isShowcase = showcasePurchasedIds.has(c.id) && index < 6;
                   return (
                     <Link
                       to={`/consultant/${c.id}`}
                       key={c.id}
-                      className={`group bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 block ${
+                      className={`group relative bg-card rounded-2xl p-6 pt-9 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 block overflow-hidden ${
                         isShowcase ? "border-2 border-gold/40 ring-1 ring-gold/20" : "border border-border"
                       }`}
                     >
+                      <DemoBadge variant="card" />
                       {isShowcase && (
                         <div className="flex items-center gap-1.5 mb-3">
                           <Crown className="h-3.5 w-3.5 text-gold" />
@@ -466,10 +472,21 @@ const Consultants = () => {
           )}
 
           {category === "ambassador" && filteredAmbassadors.length === 0 && (
-            <div className="text-center py-20 text-muted-foreground font-body">
+            <div className="text-center py-10 text-muted-foreground font-body">
               Bu ülkede henüz şehir elçisi bulunmuyor.
             </div>
           )}
+
+          <div className="mt-10 max-w-2xl mx-auto" id="kayit-form">
+            <InterestForm
+              modal={false}
+              context="genel"
+              defaultCategory="danisman"
+              title="Danışman Olarak Kayıt Ol"
+              description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategoriyi isterseniz değiştirin."
+              source="consultants-listing"
+            />
+          </div>
         </div>
       </main>
       <Footer />

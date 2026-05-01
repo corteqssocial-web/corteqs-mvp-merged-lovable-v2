@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import CityDropdown from "@/components/CityDropdown";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { associations } from "@/data/mock";
+import DemoBadge from "@/components/DemoBadge";
+import CategoryListingBanner from "@/components/CategoryListingBanner";
+import InterestForm from "@/components/InterestForm";
 
 const typeFilters = [
   { key: "all", label: "Tümü" },
@@ -85,13 +88,16 @@ const Associations = () => {
             </div>
           </div>
 
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((a) => (
+          <CategoryListingBanner categoryLabel="Kuruluşlar" formAnchorId="kayit-form" />
+
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
+            {filtered.slice(0, 2).map((a) => (
               <Link
                 to={`/association/${a.id}`}
                 key={a.id}
-                className="group bg-card rounded-2xl p-6 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:-translate-y-1 block"
+                className="group relative bg-card rounded-2xl p-6 pt-9 shadow-card hover:shadow-card-hover transition-all duration-300 border border-border hover:-translate-y-1 block overflow-hidden"
               >
+                <DemoBadge variant="card" />
                 <div className="flex items-center gap-4 mb-4">
                   <div className="w-14 h-14 rounded-xl bg-secondary flex items-center justify-center text-secondary-foreground font-bold text-sm shrink-0">
                     {a.logo}
@@ -154,10 +160,21 @@ const Associations = () => {
           </div>
 
           {filtered.length === 0 && (
-            <div className="text-center py-20 text-muted-foreground font-body">
+            <div className="text-center py-10 text-muted-foreground font-body">
               Bu filtrelerde kuruluş bulunamadı.
             </div>
           )}
+
+          <div className="mt-10 max-w-2xl mx-auto" id="kayit-form">
+            <InterestForm
+              modal={false}
+              context="genel"
+              defaultCategory="kurulus"
+              title="Kuruluşumuzu Kaydet"
+              description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategori sabitlenmedi — istediğinizi seçin."
+              source="associations-listing"
+            />
+          </div>
         </div>
       </main>
       <Footer />

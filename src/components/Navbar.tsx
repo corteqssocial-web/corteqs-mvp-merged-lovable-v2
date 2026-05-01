@@ -128,34 +128,12 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center gap-3">
-            {/* User Profiles Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-1.5">
-                  <Users className="h-4 w-4" />
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-56">
-                <DropdownMenuLabel className="text-xs text-muted-foreground">Dashboardlar</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link to="/profile?view=individual" className="flex items-center gap-2 cursor-pointer"><User className="h-3.5 w-3.5 text-primary" />Bireysel Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/profile?view=consultant" className="flex items-center gap-2 cursor-pointer"><Briefcase className="h-3.5 w-3.5 text-primary" />Danışman Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/profile?view=business" className="flex items-center gap-2 cursor-pointer"><Briefcase className="h-3.5 w-3.5 text-primary" />İşletme Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/profile?view=association" className="flex items-center gap-2 cursor-pointer"><Building2 className="h-3.5 w-3.5 text-primary" />Kuruluş Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/profile?view=blogger" className="flex items-center gap-2 cursor-pointer"><PenLine className="h-3.5 w-3.5 text-primary" />V/Blogger Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuItem asChild><Link to="/profile?view=ambassador" className="flex items-center gap-2 cursor-pointer"><Flag className="h-3.5 w-3.5 text-gold" />Şehir Elçisi Dashboard</Link></DropdownMenuItem>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem asChild><Link to="/admin" className="flex items-center gap-2 cursor-pointer"><Shield className="h-3.5 w-3.5 text-destructive" />Admin Dashboard</Link></DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
             {user ? (
               <>
                 <Link to="/profile">
                   <Button variant="ghost" size="sm" className="gap-1.5">
                     <User className="h-4 w-4" />
-                    {profile?.full_name || t.nav.profile}
+                    Dashboard
                   </Button>
                 </Link>
                 <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground" onClick={handleSignOut}>
