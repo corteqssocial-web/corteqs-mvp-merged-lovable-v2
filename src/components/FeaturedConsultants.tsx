@@ -97,7 +97,7 @@ const FeaturedConsultants = () => {
                 </div>
 
                 <div className="flex gap-2">
-                  <Link to={`/consultant/${c.id}`} className="flex-1" onClick={(e) => e.stopPropagation()}>
+                  <Link to={linkTo} className="flex-1" onClick={(e) => e.stopPropagation()}>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
