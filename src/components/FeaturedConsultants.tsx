@@ -1,16 +1,30 @@
 import { useState } from "react";
-import { Star, Bot, Video, UserPlus, UserCheck, Info, Clock } from "lucide-react";
+import { Star, Bot, Video, UserPlus, UserCheck, Info, Clock, Flag } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
-import { consultants } from "@/data/mock";
+import { consultants, cityAmbassadors } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import DemoBadge from "@/components/DemoBadge";
 
 const FeaturedConsultants = () => {
+  const amb = cityAmbassadors[0];
+  // Şehir Elçisi (amb) + Doktor + Emlakçı + Vizeci
   const featured = [
-    consultants.find((c) => c.id === "dr-hasan-turk")!,
-    ...consultants.filter((c) => c.id !== "dr-hasan-turk").slice(0, 1),
+    {
+      id: amb.id,
+      name: amb.name,
+      role: "Şehir Elçisi",
+      city: amb.city,
+      country: amb.country,
+      photo: amb.photo,
+      rating: amb.rating,
+      reviews: amb.usersOnboarded,
+      isAmbassador: true,
+    },
+    ...["dr-hasan-turk", "ayse-kara", "mehmet-yilmaz"]
+      .map((id) => consultants.find((c) => c.id === id)!)
+      .map((c) => ({ ...c, isAmbassador: false })),
   ];
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
@@ -44,12 +58,13 @@ const FeaturedConsultants = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
-          {featured.map((c) => {
+        <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+          {featured.map((c: any) => {
             const isFollowed = followedIds.has(c.id);
+            const linkTo = c.isAmbassador ? `/ambassador/${c.id}` : `/consultant/${c.id}`;
             return (
               <Link
-                to={`/consultant/${c.id}`}
+                to={linkTo}
                 key={c.id}
                 className="group relative bg-card rounded-2xl p-6 pt-9 shadow-card hover:shadow-card-hover transition-all duration-300 hover:-translate-y-1 border border-border block overflow-hidden"
               >
@@ -59,7 +74,10 @@ const FeaturedConsultants = () => {
                     <img src={c.photo} alt={c.name} className="w-14 h-14 rounded-full object-cover" />
                     <div>
                       <h3 className="font-bold text-foreground">{c.name}</h3>
-                      <p className="text-xs text-muted-foreground font-body">{c.role}</p>
+                      <p className="text-xs text-muted-foreground font-body flex items-center gap-1">
+                        {c.isAmbassador && <Flag className="h-3 w-3 text-gold" />}
+                        {c.role}
+                      </p>
                     </div>
                   </div>
                   <button
@@ -79,7 +97,7 @@ const FeaturedConsultants = () => {
                 </div>
 
                 <div className="flex gap-2">
-                  <Link to={`/consultant/${c.id}`} className="flex-1" onClick={(e) => e.stopPropagation()}>
+                  <Link to={linkTo} className="flex-1" onClick={(e) => e.stopPropagation()}>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
