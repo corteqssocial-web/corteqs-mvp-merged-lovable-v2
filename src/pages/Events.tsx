@@ -85,7 +85,33 @@ const Events = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
 
-          {/* Header */}
+          {/* Tagline Hero */}
+          <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-10">
+            <div className="max-w-4xl">
+              <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎟️ Diaspora Etkinlik Merkezi</Badge>
+              <h2 className="text-2xl md:text-4xl font-extrabold text-foreground leading-tight mb-3">
+                Yakında <span className="text-gradient-primary">Ülke · Şehir · Konu Bazlı</span> Tüm Diaspora Etkinlikleri Elinizin Altında
+              </h2>
+              <p className="text-base md:text-lg text-muted-foreground font-body mb-2">
+                İnternette gruplarda fırsatları kaçırma dönemi bitti.
+              </p>
+              <p className="text-lg md:text-xl font-semibold text-foreground mb-6">
+                👉 Yerini ayırt, biletini al.
+              </p>
+              <div className="flex flex-wrap gap-3">
+                <Button size="lg" className="gap-2">
+                  <Ticket className="h-4 w-4" /> Yerimi Ayırt
+                </Button>
+                <Button size="lg" variant="outline" className="gap-2">
+                  <Search className="h-4 w-4" /> Etkinlik Keşfet
+                </Button>
+              </div>
+              <p className="text-xs text-muted-foreground mt-4 max-w-2xl">
+                Diasporanda herkesin etkinliklerini takip et, kendi etkinliğini burada listele — tek bir platformdan.
+              </p>
+            </div>
+          </section>
+
           <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
