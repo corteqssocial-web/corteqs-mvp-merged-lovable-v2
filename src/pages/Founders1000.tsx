@@ -297,7 +297,7 @@ const Founders1000 = () => {
       <InterestForm
         open={formOpen}
         onOpenChange={setFormOpen}
-        category="founders_1000"
+        context="founders_1000" defaultCategory="founders_1000" lockCategory
         title="Founding 1000'e Katıl"
         description="Bilgilerinizi bırakın, sizinle iletişime geçelim ve referral kodunuzu tanımlayalım."
         source="founders-1000-page"

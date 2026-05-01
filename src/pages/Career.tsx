@@ -353,7 +353,7 @@ const Career = () => {
       <InterestForm
         open={open}
         onOpenChange={setOpen}
-        category="kariyer"
+        context="kariyer" lockCategory
         title={activeJob ? `Başvuru: ${activeJob.title}` : "Genel Başvuru"}
         description="Bilgilerinizi bırakın, başvurunuzu inceleyip dönüş yapalım."
         defaultRole={activeJob?.title}
