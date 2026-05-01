@@ -8,6 +8,7 @@ import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { associations } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoPageBanner from "@/components/DemoPageBanner";
 
 const AssociationDetail = () => {
   const { id } = useParams<{ id: string }>();
