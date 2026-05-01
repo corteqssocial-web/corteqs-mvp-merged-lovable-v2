@@ -9,6 +9,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { consultants } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import DemoPageBanner from "@/components/DemoPageBanner";
 
 const ConsultantDetail = () => {
   const { id } = useParams<{ id: string }>();
