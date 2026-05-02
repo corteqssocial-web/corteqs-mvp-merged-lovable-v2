@@ -25,9 +25,13 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const categoryMeta = {
   alumni: { icon: GraduationCap, label: "Alumni", color: "text-primary bg-primary/10 border-primary/20" },
+  doktor: { icon: Stethoscope, label: "Doktor", color: "text-success bg-success/10 border-success/20" },
   hobi: { icon: Heart, label: "Hobi", color: "text-turquoise bg-turquoise/10 border-turquoise/20" },
   is: { icon: Users, label: "İş", color: "text-gold bg-gold/10 border-gold/20" },
-  doktor: { icon: Stethoscope, label: "Doktor", color: "text-success bg-success/10 border-success/20" },
+  yatirim: { icon: TrendingUp, label: "Yatırım", color: "text-emerald-600 bg-emerald-500/10 border-emerald-500/20" },
+  girisim: { icon: Rocket, label: "Girişim", color: "text-orange-600 bg-orange-500/10 border-orange-500/20" },
+  akademik: { icon: BookOpen, label: "Akademik", color: "text-indigo-600 bg-indigo-500/10 border-indigo-500/20" },
+  dayanisma: { icon: HandHeart, label: "Dayanışma", color: "text-rose-600 bg-rose-500/10 border-rose-500/20" },
 } as const;
 
 const WhatsAppGroups = () => {
