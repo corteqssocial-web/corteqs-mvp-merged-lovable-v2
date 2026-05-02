@@ -87,18 +87,18 @@ const Events = () => {
 
           {/* Tagline Hero */}
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-10">
-            <div className="max-w-4xl">
+            <div className="max-w-4xl mx-auto text-center">
               <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎟️ Diaspora Etkinlik Merkezi</Badge>
               <h2 className="text-2xl md:text-4xl font-extrabold text-foreground leading-tight mb-3">
                 Yakında <span className="text-gradient-primary">Ülke · Şehir · Konu Bazlı</span> Tüm Diaspora Etkinlikleri Elinizin Altında
               </h2>
               <p className="text-base md:text-lg text-muted-foreground font-body mb-2">
-                İnternette gruplarda fırsatları kaçırma dönemi bitti.
+                İnternette gruplarda etkinlikleri kaçırma dönemi bitti.
               </p>
               <p className="text-lg md:text-xl font-semibold text-foreground mb-6">
-                👉 Yerini ayırt, biletini al.
+                👉 Yer ayırt — Bilet/Ödeme al — Canlı Katıl — Kendi Etkinliğini Yap
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <Button size="lg" className="gap-2">
                   <Ticket className="h-4 w-4" /> Yerimi Ayırt
                 </Button>
@@ -106,7 +106,7 @@ const Events = () => {
                   <Search className="h-4 w-4" /> Etkinlik Keşfet
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-4 max-w-2xl">
+              <p className="text-xs text-muted-foreground mt-4 max-w-2xl mx-auto">
                 Diasporanda herkesin etkinliklerini takip et, kendi etkinliğini burada listele — tek bir platformdan.
               </p>
             </div>
@@ -126,11 +126,17 @@ const Events = () => {
                     <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>Yeni Etkinlik Oluştur</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-4 mt-4">
+                  <div className="relative">
+                    <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden">
+                      <div className="-rotate-12 bg-gold text-primary-foreground font-extrabold text-lg md:text-2xl px-8 py-3 rounded-xl shadow-card-hover border-2 border-gold/60 tracking-wide text-center">
+                        🛠️ Etkinlik Yöneticisi<br />Hazırlanıyor
+                      </div>
+                    </div>
+                    <div className="space-y-4 mt-4 blur-sm select-none pointer-events-none max-h-[60vh] overflow-hidden">
                     <div>
                       <Label>Etkinlik Adı</Label>
                       <Input placeholder="Örn: Networking Akşam Yemeği" />
@@ -151,30 +157,6 @@ const Events = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <Label>Kategori</Label>
-                        <Select>
-                          <SelectTrigger><SelectValue placeholder="Seçin" /></SelectTrigger>
-                          <SelectContent>
-                            {Object.entries(categoryLabels).map(([k, v]) => (
-                              <SelectItem key={k} value={k}>{v}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label>Tür</Label>
-                        <Select>
-                          <SelectTrigger><SelectValue placeholder="Seçin" /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="online">Online</SelectItem>
-                            <SelectItem value="yüz yüze">Yüz yüze</SelectItem>
-                            <SelectItem value="hybrid">Hybrid</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
                         <Label>Ülke</Label>
                         <Select>
                           <SelectTrigger><SelectValue placeholder="Ülke" /></SelectTrigger>
@@ -188,27 +170,10 @@ const Events = () => {
                         <Input placeholder="Şehir veya mekan adı" />
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label>Kontenjan</Label>
-                        <Input type="number" placeholder="Maks. katılımcı" />
-                      </div>
-                      <div>
-                        <Label>Ücret (€)</Label>
-                        <Input type="number" placeholder="0 = Ücretsiz" />
-                      </div>
-                    </div>
-                    <div>
-                      <Label>Görsel URL (opsiyonel)</Label>
-                      <Input placeholder="https://..." />
-                    </div>
-                    <div>
-                      <Label>Etiketler (virgülle ayır)</Label>
-                      <Input placeholder="Networking, Yatırım, Workshop" />
-                    </div>
-                    <Button className="w-full gap-2" onClick={handleCreateEvent}>
+                    <Button className="w-full gap-2" >
                       <Calendar className="h-4 w-4" /> Etkinliği Yayınla
                     </Button>
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
@@ -320,16 +285,16 @@ const Events = () => {
                 </span>
                 Şu an Canlı
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
                 {/* Live Event 1 - Ücretsiz */}
                 <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
                   <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
                     <Radio className="h-3 w-3 animate-pulse" /> CANLI
                   </div>
-                  <div className="relative h-36">
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=280&fit=crop" alt="Webinar" className="w-full h-full object-cover" />
+                  <div className="relative h-[72px]">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=140&fit=crop" alt="Webinar" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
+                    <div className="absolute bottom-2 left-3">
                       <Badge className="bg-turquoise/90 text-primary-foreground border-0 text-xs">Networking</Badge>
                     </div>
                   </div>
@@ -357,10 +322,10 @@ const Events = () => {
                   <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
                     <Radio className="h-3 w-3 animate-pulse" /> CANLI
                   </div>
-                  <div className="relative h-36">
-                    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=500&h=280&fit=crop" alt="Workshop" className="w-full h-full object-cover" />
+                  <div className="relative h-[72px]">
+                    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=500&h=140&fit=crop" alt="Workshop" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
+                    <div className="absolute bottom-2 left-3">
                       <Badge className="bg-primary/90 text-primary-foreground border-0 text-xs">Eğitim</Badge>
                     </div>
                   </div>
@@ -378,37 +343,6 @@ const Events = () => {
                       </Badge>
                       <Button size="sm" className="gap-1.5 bg-gold hover:bg-gold/90 text-primary-foreground">
                         <Ticket className="h-3.5 w-3.5" /> Bilet Al & Katıl
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-
-                {/* Live Event 3 - Ücretsiz */}
-                <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    <Radio className="h-3 w-3 animate-pulse" /> CANLI
-                  </div>
-                  <div className="relative h-36">
-                    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&h=280&fit=crop" alt="Panel" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
-                      <Badge className="bg-gold/90 text-primary-foreground border-0 text-xs">İş & Kariyer</Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-foreground mb-1">Yatırımcı Buluşması — Q&A</h3>
-                    <p className="text-xs text-muted-foreground font-body mb-3">Dubai'deki yatırım fırsatları hakkında canlı soru-cevap oturumu.</p>
-                    <div className="space-y-1.5 text-sm text-muted-foreground font-body mb-4">
-                      <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 20:00 – 21:00 GST <span className="text-xs bg-destructive/10 text-destructive rounded px-1.5 ml-1">18 dk kaldı</span></p>
-                      <p className="flex items-center gap-1.5"><Video className="h-3.5 w-3.5" /> YouTube Live · Online</p>
-                      <p className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> 215 izleyici</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline" className="text-success border-success/30 gap-1">
-                        <Unlock className="h-3 w-3" /> Ücretsiz
-                      </Badge>
-                      <Button size="sm" className="gap-1.5">
-                        <Video className="h-3.5 w-3.5" /> İzle
                       </Button>
                     </div>
                   </div>

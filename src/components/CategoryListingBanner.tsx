@@ -12,16 +12,14 @@ interface CategoryListingBannerProps {
 const CategoryListingBanner = ({ categoryLabel, formAnchorId }: CategoryListingBannerProps) => {
   return (
     <div className="rounded-2xl border border-turquoise/30 bg-gradient-to-br from-turquoise/5 via-card to-orange-50/40 p-6 md:p-8 mb-8">
-      <div className="flex items-start gap-3 mb-4">
-        <Sparkles className="h-5 w-5 text-turquoise shrink-0 mt-1" />
-        <div>
-          <h2 className="text-xl md:text-2xl font-bold">
-            {categoryLabel} kategorimize başvurularımız devam etmektedir
-          </h2>
-          <p className="text-sm text-muted-foreground mt-1">
-            Aşağıda gördüğünüz kartlar örnek (DEMO) içeriklerdir. Gerçek profiller başvurular değerlendirildikçe yayına alınacaktır.
-          </p>
-        </div>
+      <div className="flex flex-col items-center text-center gap-2 mb-4">
+        <Sparkles className="h-5 w-5 text-turquoise" />
+        <h2 className="text-xl md:text-2xl font-bold">
+          {categoryLabel} kategorimize başvurularımız devam etmektedir
+        </h2>
+        <p className="text-sm text-muted-foreground max-w-2xl">
+          Aşağıda gördüğünüz kartlar örnek (DEMO) içeriklerdir. Gerçek profiller başvurular değerlendirildikçe yayına alınacaktır.
+        </p>
       </div>
 
       <div className="flex flex-col sm:flex-row gap-3">
