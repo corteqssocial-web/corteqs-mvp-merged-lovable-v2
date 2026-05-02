@@ -17,8 +17,6 @@ export const diasporaOptions: DiasporaOption[] = [
   { key: "ph", flag: "🇵🇭", label: "Filipino Diaspora", nativeLabel: "Filipino" },
 ];
 
-import { allCountries } from "@/data/countryCities";
-
 export const countryList = allCountries;
 
 export const diasporaTranslations: Record<DiasporaKey, {
