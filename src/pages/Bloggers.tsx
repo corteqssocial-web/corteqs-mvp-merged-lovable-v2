@@ -25,7 +25,7 @@ const Bloggers = () => {
           {/* Hero */}
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-8 text-center">
             <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎬 Blogger & Vlogger Programı</Badge>
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-3">
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
               Global Türklerin Hikayelerini <span className="text-gradient-primary">Gelin Birlikte Oluşturalım</span>
             </h1>
             <p className="text-base md:text-lg text-muted-foreground font-body max-w-3xl mx-auto mb-4">

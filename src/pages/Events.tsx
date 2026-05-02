@@ -129,9 +129,9 @@ const Events = () => {
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-10">
             <div className="max-w-4xl mx-auto text-center">
               <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎟️ Diaspora Etkinlik Merkezi</Badge>
-              <h2 className="text-2xl md:text-4xl font-extrabold text-foreground leading-tight mb-3">
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-3">
                 Yakında <span className="text-gradient-primary">Ülke · Şehir · Konu Bazlı</span> Tüm Diaspora Etkinlikleri Elinizin Altında
-              </h2>
+              </h1>
               <p className="text-base md:text-lg text-muted-foreground font-body mb-2">
                 İnternette gruplarda etkinlikleri kaçırma dönemi bitti.
               </p>
@@ -154,9 +154,9 @@ const Events = () => {
 
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
-                <Calendar className="h-8 w-8 text-primary" /> Etkinlikler
-              </h1>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground flex items-center gap-3">
+                <Calendar className="h-7 w-7 text-primary" /> Etkinlikler
+              </h2>
               <p className="text-muted-foreground font-body mt-1">
                 {loadingEvents ? "Yükleniyor..." : `${filteredLive.length} canlı etkinlik`}
               </p>

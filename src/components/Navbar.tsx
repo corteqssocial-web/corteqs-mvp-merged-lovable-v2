@@ -124,7 +124,6 @@ const Navbar = () => {
             <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">{t.nav.consultants}</Link>
             <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.businesses}</Link>
             <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.organizations}</Link>
-            <Link to="/events" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.events}</Link>
             <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">V/Blogger</Link>
 
             {/* Daha Fazla Dropdown */}
@@ -136,6 +135,11 @@ const Navbar = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-52">
+                <DropdownMenuItem asChild>
+                  <Link to="/events" className="flex items-center gap-2 cursor-pointer">
+                    <Calendar className="h-3.5 w-3.5 text-primary" />{t.nav.events}
+                  </Link>
+                </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/whatsapp-groups" className="flex items-center gap-2 cursor-pointer">
                     <MessageCircle className="h-3.5 w-3.5 text-primary" />{t.nav.groups}

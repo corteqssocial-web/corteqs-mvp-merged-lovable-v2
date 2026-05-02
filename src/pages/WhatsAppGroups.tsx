@@ -155,7 +155,7 @@ const WhatsAppGroups = () => {
             <Badge className="mb-4 bg-[#25D366]/15 text-[#25D366] border-0">
               <MessageSquare className="h-3 w-3 mr-1" /> WhatsApp Diaspora Ağı
             </Badge>
-            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-3">
+            <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
               Diasporanın WhatsApp Gruplarını <span className="text-gradient-primary">Tek Çatı Altında</span> Bul
             </h1>
             <p className="text-base md:text-lg text-muted-foreground font-body max-w-3xl mx-auto mb-2">
