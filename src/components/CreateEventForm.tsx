@@ -365,6 +365,76 @@ const CreateEventForm = ({ onClose, onCreated, organizerType = "community" }: Cr
         />
       </div>
 
+      {/* ── SOCIAL MEDIA PREVIEW & PUBLISH ── */}
+      <div className="border-t border-border pt-6">
+        <h3 className="text-lg font-bold text-foreground mb-1 flex items-center gap-2">
+          <Send className="h-5 w-5 text-primary" /> Sosyal Medya Provası
+        </h3>
+        <p className="text-sm text-muted-foreground mb-4">
+          Etkinlik görseliniz ve metniniz farklı sosyal medya formatlarında nasıl görüneceğini yan yana inceleyin.
+          Tıklayarak — eğer hesabınız bağlıysa — doğrudan paylaşabilirsiniz.
+        </p>
+
+        <div className="mb-4">
+          <Label className="text-sm font-semibold mb-1.5 block">Sosyal Medya Metni</Label>
+          <Textarea
+            value={socialCaption}
+            onChange={(e) => setSocialCaption(e.target.value)}
+            placeholder={`📣 ${form.title || "Etkinlik adı"}\n\n${form.description || "Kısa etkinlik açıklaması"}\n\n#diaspora #corteqs`}
+            rows={3}
+          />
+        </div>
+
+        <div className="overflow-x-auto -mx-2 px-2 pb-2">
+          <div className="flex items-end gap-3 min-w-max">
+            {socialPreviews.map((p) => {
+              const Icon = p.icon;
+              const isConnected = connectedAccounts[p.key];
+              return (
+                <div key={p.key} className="flex flex-col items-center gap-1.5">
+                  <div
+                    onClick={() => handleSocialPost(p.key, p.label)}
+                    className={`relative ${p.w} ${p.ratio} rounded-xl overflow-hidden border-2 cursor-pointer transition-all hover:scale-[1.02] hover:shadow-card-hover ${
+                      isConnected ? "border-primary" : "border-border"
+                    }`}
+                    title={isConnected ? `${p.label}'ye gönder` : `${p.label} hesabı bağlı değil`}
+                  >
+                    {form.image ? (
+                      <img src={form.image} alt={p.label} className="absolute inset-0 w-full h-full object-cover" />
+                    ) : (
+                      <div className="absolute inset-0 bg-gradient-to-br from-primary/20 via-turquoise/15 to-gold/20 flex items-center justify-center">
+                        <Image className="h-6 w-6 text-muted-foreground" />
+                      </div>
+                    )}
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/10 to-transparent" />
+                    <div className="absolute top-1.5 left-1.5">
+                      <Icon className={`h-3.5 w-3.5 ${p.color} drop-shadow`} />
+                    </div>
+                    {!isConnected && (
+                      <div className="absolute top-1.5 right-1.5 bg-background/90 rounded px-1 py-0.5 text-[8px] font-semibold text-muted-foreground">
+                        Bağlı değil
+                      </div>
+                    )}
+                    <div className="absolute bottom-1.5 left-1.5 right-1.5 text-white">
+                      <p className="text-[10px] font-bold leading-tight line-clamp-2 drop-shadow">
+                        {form.title || "Etkinlik Başlığı"}
+                      </p>
+                      <p className="text-[8px] leading-tight line-clamp-2 opacity-90 mt-0.5 drop-shadow">
+                        {(socialCaption || form.description || "Kısa açıklama burada görünecek.").slice(0, 70)}
+                      </p>
+                    </div>
+                  </div>
+                  <span className="text-[10px] text-muted-foreground font-medium">{p.label}</span>
+                </div>
+              );
+            })}
+          </div>
+        </div>
+        <p className="text-xs text-muted-foreground mt-3 italic">
+          💡 Not: Sosyal medya hesap bağlama özelliği yakında. Şimdilik bağlı görünen hesaplara gönderim mock olarak çalışır.
+        </p>
+      </div>
+
       {/* ── PROMOTION OPTIONS ── */}
       <div className="border-t border-border pt-6">
         <h3 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
