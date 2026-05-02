@@ -16,6 +16,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CountryCitySelector from "@/components/CountryCitySelector";
+import { useDiaspora } from "@/contexts/DiasporaContext";
 
 import { useToast } from "@/hooks/use-toast";
 import { submitLanding, listLandings, type LandingMode, type WhatsAppLanding } from "@/lib/whatsappLandings";
@@ -37,7 +39,11 @@ const WhatsAppGroups = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
+  const { selectedCountry } = useDiaspora();
+  const [filterCity, setFilterCity] = useState("all");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => { setFilterCity("all"); }, [selectedCountry]);
 
   // 4 örnek demo grup: 2 Alumni (farklı şehir), 1 Doktor, 1 Hobi
   const [landings, setLandings] = useState<WhatsAppLanding[]>([]);
