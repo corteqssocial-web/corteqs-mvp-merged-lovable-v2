@@ -49,36 +49,38 @@ const HeroSection = () => {
             {h.subtitle}
           </p>
 
-          {/* Primary 5 CTA buttons */}
-          <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <Link to="/auth">
-              <Button size="lg" className="w-full text-xs sm:text-sm px-2 py-4 h-auto min-h-[3.5rem] bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-1.5 leading-tight whitespace-normal text-center">
-                <UserPlus className="h-4 w-4 shrink-0" />
-                <span className="whitespace-normal">Kaydol — Diaspora<br className="sm:hidden" /> Pasaportun Çıksın 🪪</span>
+          {/* Primary CTA buttons */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 gap-3 animate-fade-in-up mb-3" style={{ animationDelay: '0.3s' }}>
+            <Link to="/auth" className="sm:col-span-2">
+              <Button size="lg" className="w-full text-sm sm:text-base px-6 py-4 h-auto min-h-[3.5rem] bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-2 leading-tight whitespace-normal text-center">
+                <UserPlus className="h-5 w-5 shrink-0" />
+                <span className="whitespace-normal">Kaydol — Diaspora Pasaportun Çıksın 🪪</span>
               </Button>
             </Link>
+          </div>
+          <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 animate-fade-in-up" style={{ animationDelay: '0.32s' }}>
             <Link to="/whatsapp-groups">
-              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
-                <MessageCircle className="h-4 w-4 text-emerald-500" />
-                WhatsApp
+              <Button size="lg" variant="outline" className="w-full text-xs sm:text-sm px-3 py-4 h-auto min-h-[3.5rem] border-foreground/20 hover:bg-foreground/5 gap-2 leading-tight whitespace-normal text-center">
+                <MessageCircle className="h-4 w-4 text-emerald-500 shrink-0" />
+                <span className="whitespace-normal">WhatsApp</span>
               </Button>
             </Link>
             <Link to="/founders-1000">
-              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 gap-2">
-                <Sparkles className="h-4 w-4 text-amber-500" />
-                Founding 1000
+              <Button size="lg" variant="outline" className="w-full text-xs sm:text-sm px-3 py-4 h-auto min-h-[3.5rem] border-amber-400/40 bg-amber-400/10 hover:bg-amber-400/20 gap-2 leading-tight whitespace-normal text-center">
+                <Sparkles className="h-4 w-4 text-amber-500 shrink-0" />
+                <span className="whitespace-normal">Founding 1000</span>
               </Button>
             </Link>
             <Link to="/blog-contest">
-              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
-                <PenSquare className="h-4 w-4 text-gold" />
-                Blogger Yarışması
+              <Button size="lg" variant="outline" className="w-full text-xs sm:text-sm px-3 py-4 h-auto min-h-[3.5rem] border-foreground/20 hover:bg-foreground/5 gap-2 leading-tight whitespace-normal text-center">
+                <PenSquare className="h-4 w-4 text-gold shrink-0" />
+                <span className="whitespace-normal">Blogger Yarışması</span>
               </Button>
             </Link>
             <Link to="/vlogger-contest">
-              <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
-                <Video className="h-4 w-4 text-primary" />
-                Vlogger Yarışması
+              <Button size="lg" variant="outline" className="w-full text-xs sm:text-sm px-3 py-4 h-auto min-h-[3.5rem] border-foreground/20 hover:bg-foreground/5 gap-2 leading-tight whitespace-normal text-center">
+                <Video className="h-4 w-4 text-primary shrink-0" />
+                <span className="whitespace-normal">Vlogger Yarışması</span>
               </Button>
             </Link>
           </div>
