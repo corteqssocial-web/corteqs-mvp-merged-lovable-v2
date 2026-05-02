@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Calendar, MapPin, Users, Clock, Star, PlusCircle,
   Search, Ticket, Globe, Filter, ChevronLeft, ChevronRight,
-  Radio, Video, Lock, Unlock
+  Radio
 } from "lucide-react";
 import MapShareButtons from "@/components/MapShareButtons";
 import { Button } from "@/components/ui/button";
