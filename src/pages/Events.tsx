@@ -157,55 +157,23 @@ const Events = () => {
               <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
                 <Calendar className="h-8 w-8 text-primary" /> Etkinlikler
               </h1>
-              <p className="text-muted-foreground font-body mt-1">{filtered.length} etkinlik bulundu</p>
+              <p className="text-muted-foreground font-body mt-1">
+                {loadingEvents ? "Yükleniyor..." : `${filteredLive.length} canlı etkinlik`}
+              </p>
             </div>
             <div className="flex items-start gap-3 flex-wrap">
               <Dialog open={createOpen} onOpenChange={setCreateOpen}>
                 <Button className="gap-2 h-10" onClick={() => requireAuth(() => setCreateOpen(true))}>
                   <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
                 </Button>
-                <DialogContent className="max-w-lg max-h-[90vh] overflow-hidden">
+                <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
                   <DialogHeader>
                     <DialogTitle>Yeni Etkinlik Oluştur</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-4 mt-4">
-                    <div>
-                      <Label>Etkinlik Adı</Label>
-                      <Input placeholder="Örn: Networking Akşam Yemeği" />
-                    </div>
-                    <div>
-                      <Label>Açıklama</Label>
-                      <Textarea placeholder="Etkinlik hakkında detaylı bilgi..." rows={4} />
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label>Tarih</Label>
-                        <Input type="date" />
-                      </div>
-                      <div>
-                        <Label>Saat</Label>
-                        <Input type="time" />
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label>Ülke</Label>
-                        <Select>
-                          <SelectTrigger><SelectValue placeholder="Ülke" /></SelectTrigger>
-                          <SelectContent>
-                            {countries.map((c) => <SelectItem key={c} value={c}>{c}</SelectItem>)}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label>Şehir / Mekan</Label>
-                        <Input placeholder="Şehir veya mekan adı" />
-                      </div>
-                    </div>
-                    <Button className="w-full gap-2" onClick={() => { handleCreateEvent(); setCreateOpen(false); }}>
-                      <Calendar className="h-4 w-4" /> Etkinliği Yayınla
-                    </Button>
-                  </div>
+                  <CreateEventForm
+                    onClose={() => setCreateOpen(false)}
+                    onCreated={fetchEvents}
+                  />
                 </DialogContent>
               </Dialog>
               <CountryCitySelector city={city} onCityChange={setCity} />
