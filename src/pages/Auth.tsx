@@ -11,6 +11,7 @@ import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
+import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
 const Auth = () => {
   const { user, onboardingCompleted } = useAuth();
@@ -27,6 +28,7 @@ const Auth = () => {
 
   const [resetEmail, setResetEmail] = useState("");
   const [showReset, setShowReset] = useState(false);
+  const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
   useEffect(() => {
     if (user) {
@@ -55,12 +57,27 @@ const Auth = () => {
 
   const handleSignup = async (e: React.FormEvent) => {
     e.preventDefault();
+    if (!isConsentValid(consent)) {
+      toast({
+        title: "Onay gerekli",
+        description: "Devam etmek için Gizlilik Politikası, Kullanım Şartları ve KVKK/GDPR onaylarını işaretleyin.",
+        variant: "destructive",
+      });
+      return;
+    }
     setLoading(true);
     const { error } = await supabase.auth.signUp({
       email: signupEmail,
       password: signupPassword,
       options: {
-        data: { full_name: signupName },
+        data: {
+          full_name: signupName,
+          consent_privacy: consent.privacy,
+          consent_terms: consent.terms,
+          consent_data_processing: consent.dataProcessing,
+          consent_marketing: consent.marketing,
+          consent_timestamp: new Date().toISOString(),
+        },
         emailRedirectTo: window.location.origin,
       },
     });
@@ -169,7 +186,8 @@ const Auth = () => {
                           <Input className="pl-9" type="password" placeholder="Min. 6 karakter" value={signupPassword} onChange={e => setSignupPassword(e.target.value)} required minLength={6} />
                         </div>
                       </div>
-                      <Button type="submit" className="w-full" disabled={loading}>
+                      <ConsentCheckboxes value={consent} onChange={setConsent} />
+                      <Button type="submit" className="w-full" disabled={loading || !isConsentValid(consent)}>
                         {loading ? "Kaydediliyor..." : "Kayıt Ol"}
                       </Button>
                     </form>
