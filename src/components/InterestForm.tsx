@@ -20,6 +20,7 @@ import {
 } from "@/components/ui/dialog";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, CheckCircle2, Upload, X, Hourglass, Target, Globe2, Rocket } from "lucide-react";
+import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
 export type InterestCategory =
   | "founders_1000"
@@ -92,6 +93,7 @@ const InterestForm = ({
   const [submitting, setSubmitting] = useState(false);
   const [submitted, setSubmitted] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [consent, setConsent] = useState<ConsentState>(emptyConsent);
   const [form, setForm] = useState({
     selected_category: defaultCategory || "",
     name: "",
@@ -143,6 +145,10 @@ const InterestForm = ({
     e.preventDefault();
     if (!form.name || !form.email) {
       toast({ title: "Eksik bilgi", description: "Ad ve e-posta zorunlu.", variant: "destructive" });
+      return;
+    }
+    if (!isConsentValid(consent)) {
+      toast({ title: "Onay gerekli", description: "KVKK / GDPR onaylarını işaretleyin.", variant: "destructive" });
       return;
     }
     setSubmitting(true);
@@ -337,7 +343,9 @@ const InterestForm = ({
             </p>
           </div>
 
-          <Button type="submit" disabled={submitting} className="w-full" size="lg">
+          <ConsentCheckboxes compact value={consent} onChange={setConsent} />
+
+          <Button type="submit" disabled={submitting || !isConsentValid(consent)} className="w-full" size="lg">
             {submitting ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Rocket className="h-4 w-4 mr-2" />}
             Kaydı Tamamla
           </Button>
