@@ -66,40 +66,48 @@ const WhatsAppGroups = () => {
     setAdminName(""); setAdminContact(""); setMode("visual"); setCreateLanding(true);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!groupName || !country || !city || !whatsappLink) {
       toast({ title: "Eksik alan", description: "Grup adı, ülke, şehir ve WhatsApp linki zorunludur.", variant: "destructive" });
       return;
     }
+    if (!user) {
+      toast({ title: "Giriş gerekli", description: "Grup eklemek için önce giriş yap.", variant: "destructive" });
+      navigate("/auth");
+      return;
+    }
 
-    if (createLanding) {
-      const id = slugify(`${groupName}-${city}`) || `landing-${Date.now()}`;
-      saveLanding({
-        id,
+    setSubmitting(true);
+    try {
+      await submitLanding({
         groupName,
         category,
         country,
         city,
         mode,
-        heroImage: mode === "visual" ? (heroImage || undefined) : undefined,
+        heroImage: mode === "visual" ? heroImage : undefined,
         tagline: tagline || description.slice(0, 100),
         callToActionText: callToActionText || description,
         conditions,
         whatsappLink,
-        adminName: adminName || undefined,
-        adminContact: adminContact || undefined,
-        createdAt: new Date().toISOString(),
+        adminName,
+        adminContact,
+        description,
       });
-      toast({ title: "Landing sayfan hazır!", description: "Linki paylaşmaya başlayabilirsin." });
+      toast({
+        title: "Başvurun alındı! 🎉",
+        description: createLanding
+          ? "Landing sayfan admin onayından sonra herkese görünür olacak."
+          : "Grubun admin onayından sonra listede yayınlanacak.",
+      });
       setOpenDialog(false);
       resetForm();
-      navigate(`/whatsapp-groups/${id}`);
-      return;
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Bilinmeyen hata";
+      toast({ title: "Gönderilemedi", description: msg, variant: "destructive" });
+    } finally {
+      setSubmitting(false);
     }
-
-    toast({ title: "Grup başvurun alındı!", description: "İnceleme sonrası listede yayınlanacak." });
-    setOpenDialog(false);
-    resetForm();
   };
 
   return (
