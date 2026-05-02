@@ -112,17 +112,17 @@ const Events = () => {
             </div>
           </section>
 
-          <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-4 mb-8">
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
             <div>
               <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
                 <Calendar className="h-8 w-8 text-primary" /> Etkinlikler
               </h1>
               <p className="text-muted-foreground font-body mt-1">{filtered.length} etkinlik bulundu</p>
             </div>
-            <div className="flex items-center gap-3 flex-wrap">
+            <div className="flex items-start gap-3 flex-wrap">
               <Dialog>
                 <DialogTrigger asChild>
-                  <Button className="gap-2">
+                  <Button className="gap-2 h-10">
                     <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
                   </Button>
                 </DialogTrigger>
@@ -178,6 +178,25 @@ const Events = () => {
                 </DialogContent>
               </Dialog>
               <CountryCitySelector city={city} onCityChange={setCity} />
+            </div>
+          </div>
+
+          {/* Search & Category Filters — directly under title */}
+          <div className="flex flex-col sm:flex-row gap-3 mb-8">
+            <div className="relative flex-1">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                placeholder="Etkinlik ara..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="pl-10"
+              />
+            </div>
+            <div className="flex flex-wrap gap-2">
+              <Button variant={categoryFilter === "all" ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter("all")} className="text-xs">Tümü</Button>
+              {Object.entries(categoryLabels).map(([k, v]) => (
+                <Button key={k} variant={categoryFilter === k ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter(k)} className="text-xs">{v}</Button>
+              ))}
             </div>
           </div>
 
