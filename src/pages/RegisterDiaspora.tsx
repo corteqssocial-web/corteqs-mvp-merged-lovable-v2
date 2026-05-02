@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Globe, Sparkles, Users, Briefcase, Building2, MapPin, MessageCircle,
   Calendar, Newspaper, Home, Plane, Scale, TrendingUp, Heart, GraduationCap,
-  Rocket, CheckCircle2, Loader2, Upload, X, Languages,
+  Rocket, CheckCircle2, Loader2, Upload, X, Languages, HeartHandshake,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -16,6 +16,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
+import multiculturalHero from "@/assets/multicultural-diaspora-hero.jpg";
 
 /**
  * EN landing — "Register Diaspora" — mirrors the Turkish hero structure
