@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Globe, User, LogIn, LogOut, MapPin, PenLine, ChevronDown, Users, Briefcase, Building2, Shield, Flag, Newspaper, MoreHorizontal, MessageCircle, Calendar } from "lucide-react";
 import corteqsLogo from "@/assets/corteqs-logo.png";
 import { Button } from "@/components/ui/button";
