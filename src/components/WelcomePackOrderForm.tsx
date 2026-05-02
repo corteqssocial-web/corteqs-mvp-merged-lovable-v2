@@ -249,7 +249,9 @@ const WelcomePackOrderForm = ({
             />
           </div>
 
-          <Button onClick={handleSubmit} disabled={loading} className="w-full gap-2" variant="hero" size="lg">
+          <ConsentCheckboxes compact value={consent} onChange={setConsent} />
+
+          <Button onClick={handleSubmit} disabled={loading || !isConsentValid(consent)} className="w-full gap-2" variant="hero" size="lg">
             <Gift className="h-4 w-4" />
             {loading ? "Oluşturuluyor..." : "🎉 Paketi Oluştur ve Teklif Al"}
           </Button>
