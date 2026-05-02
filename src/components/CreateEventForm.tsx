@@ -143,7 +143,13 @@ const CreateEventForm = ({ onClose, onCreated, organizerType = "community" }: Cr
       {/* Header */}
       <div className="flex items-center justify-between">
         <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
-          <Calendar className="h-5 w-5 text-primary" /> Yeni Etkinlik Oluştur
+          <Calendar className="h-5 w-5 text-primary" />
+          {organizerType === "corteqs" ? "Yeni CorteQS Etkinliği Oluştur" : "Yeni Etkinlik Oluştur"}
+          {organizerType === "corteqs" && (
+            <Badge className="bg-primary/15 text-primary border-primary/30 gap-1">
+              <Shield className="h-3 w-3" /> Resmi
+            </Badge>
+          )}
         </h2>
         {onClose && (
           <Button variant="ghost" size="sm" onClick={onClose}>
