@@ -2,7 +2,7 @@ import { useState } from "react";
 import {
   Calendar, MapPin, Globe, Clock, Image, FileText, Star,
   Search, Mail, Rocket, Users, Link as LinkIcon, DollarSign,
-  CheckCircle2, Sparkles, TrendingUp
+  CheckCircle2, Sparkles, TrendingUp, Instagram, Linkedin, Video, Send, Shield
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -17,6 +17,7 @@ import { useAuth } from "@/contexts/AuthContext";
 interface CreateEventFormProps {
   onClose?: () => void;
   onCreated?: () => void;
+  organizerType?: "community" | "corteqs";
 }
 
 const emptyForm = {
@@ -43,7 +44,7 @@ const audienceSegments = [
   { name: "Avrupa Diaspora Profesyonelleri", members: 2100, match: 82 },
 ];
 
-const CreateEventForm = ({ onClose, onCreated }: CreateEventFormProps) => {
+const CreateEventForm = ({ onClose, onCreated, organizerType = "community" }: CreateEventFormProps) => {
   const { toast } = useToast();
   const { user } = useAuth();
   const [form, setForm] = useState(emptyForm);
@@ -51,9 +52,44 @@ const CreateEventForm = ({ onClose, onCreated }: CreateEventFormProps) => {
   const [featuredCountry, setFeaturedCountry] = useState(false);
   const [emailNotify, setEmailNotify] = useState(false);
   const [submitting, setSubmitting] = useState(false);
+  const [socialCaption, setSocialCaption] = useState("");
 
   const totalCost =
     (featuredHome ? 29 : 0) + (featuredCountry ? 19 : 0) + (emailNotify ? 15 : 0);
+
+  // Mock connection state — to be wired to user's connected social accounts
+  const connectedAccounts: Record<string, boolean> = {
+    instagram_post: false,
+    instagram_story: false,
+    facebook: false,
+    linkedin: false,
+    x: false,
+    tiktok: false,
+  };
+
+  const socialPreviews = [
+    { key: "instagram_post", label: "Instagram Post", icon: Instagram, ratio: "aspect-square", w: "w-40", color: "text-pink-500" },
+    { key: "instagram_story", label: "Instagram Story", icon: Instagram, ratio: "aspect-[9/16]", w: "w-28", color: "text-pink-500" },
+    { key: "facebook", label: "Facebook", icon: Globe, ratio: "aspect-[1.91/1]", w: "w-56", color: "text-blue-600" },
+    { key: "linkedin", label: "LinkedIn", icon: Linkedin, ratio: "aspect-[1.91/1]", w: "w-56", color: "text-blue-700" },
+    { key: "x", label: "X / Twitter", icon: Globe, ratio: "aspect-[16/9]", w: "w-52", color: "text-foreground" },
+    { key: "tiktok", label: "TikTok", icon: Video, ratio: "aspect-[9/16]", w: "w-28", color: "text-foreground" },
+  ];
+
+  const handleSocialPost = (platformKey: string, label: string) => {
+    if (!connectedAccounts[platformKey]) {
+      toast({
+        title: "Hesap bağlı değil",
+        description: `${label} hesabınızı bağlamak için profil > sosyal hesaplar bölümünü kullanın.`,
+        variant: "destructive",
+      });
+      return;
+    }
+    toast({
+      title: `${label}'ye gönderildi 🚀`,
+      description: "Etkinlik görseliniz ve metniniz başarıyla paylaşıldı.",
+    });
+  };
 
   const handlePublish = async () => {
     if (!user) {
@@ -82,10 +118,11 @@ const CreateEventForm = ({ onClose, onCreated }: CreateEventFormProps) => {
       max_attendees: form.maxAttendees || null,
       cover_image: form.image || null,
       tags: form.tags ? form.tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
-      organizer_name: user.user_metadata?.full_name || user.email || null,
-      featured: featuredHome,
+      organizer_name: organizerType === "corteqs" ? "CorteQS" : (user.user_metadata?.full_name || user.email || null),
+      organizer_type: organizerType,
+      featured: featuredHome || organizerType === "corteqs",
       status: "published",
-    });
+    } as never);
     setSubmitting(false);
     if (error) {
       toast({ title: "Hata", description: error.message, variant: "destructive" });
