@@ -130,23 +130,15 @@ const Events = () => {
               <p className="text-muted-foreground font-body mt-1">{filtered.length} etkinlik bulundu</p>
             </div>
             <div className="flex items-start gap-3 flex-wrap">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="gap-2 h-10">
-                    <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
-                  </Button>
-                </DialogTrigger>
+              <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+                <Button className="gap-2 h-10" onClick={() => requireAuth(() => setCreateOpen(true))}>
+                  <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                </Button>
                 <DialogContent className="max-w-lg max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>Yeni Etkinlik Oluştur</DialogTitle>
                   </DialogHeader>
-                  <div className="relative">
-                    <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden">
-                      <div className="-rotate-12 bg-gold text-primary-foreground font-extrabold text-lg md:text-2xl px-8 py-3 rounded-xl shadow-card-hover border-2 border-gold/60 tracking-wide text-center">
-                        🛠️ Etkinlik Yöneticisi<br />Hazırlanıyor
-                      </div>
-                    </div>
-                    <div className="space-y-4 mt-4 blur-sm select-none pointer-events-none max-h-[60vh] overflow-hidden">
+                  <div className="space-y-4 mt-4">
                     <div>
                       <Label>Etkinlik Adı</Label>
                       <Input placeholder="Örn: Networking Akşam Yemeği" />
@@ -180,10 +172,9 @@ const Events = () => {
                         <Input placeholder="Şehir veya mekan adı" />
                       </div>
                     </div>
-                    <Button className="w-full gap-2" >
+                    <Button className="w-full gap-2" onClick={() => { handleCreateEvent(); setCreateOpen(false); }}>
                       <Calendar className="h-4 w-4" /> Etkinliği Yayınla
                     </Button>
-                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
