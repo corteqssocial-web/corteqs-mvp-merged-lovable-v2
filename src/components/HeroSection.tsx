@@ -186,6 +186,7 @@ const HeroSection = () => {
         </div>
       </div>
       </section>
+      <InterestForm open={formOpen} onOpenChange={setFormOpen} category={formCategory} />
     </>
   );
 };
