@@ -16,12 +16,33 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
+import CreateEventForm from "@/components/CreateEventForm";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { useAuth } from "@/contexts/AuthContext";
 import { useNavigate } from "react-router-dom";
 import { events, countries } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
 import eventDashboardImg from "@/assets/event-dashboard.jpg";
+
+interface LiveEvent {
+  id: string;
+  title: string;
+  description: string;
+  category: string;
+  type: string;
+  event_date: string;
+  start_time: string | null;
+  end_time: string | null;
+  country: string | null;
+  city: string | null;
+  location: string | null;
+  price: number | null;
+  max_attendees: number | null;
+  cover_image: string | null;
+  organizer_name: string | null;
+  featured: boolean;
+}
 
 const categoryLabels: Record<string, string> = {
   networking: "Networking",
