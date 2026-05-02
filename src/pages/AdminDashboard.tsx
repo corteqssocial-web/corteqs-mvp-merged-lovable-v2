@@ -210,6 +210,9 @@ const AdminDashboard = () => {
               <TabsTrigger value="welcomepack" className="gap-1.5">
                 <Gift className="h-3.5 w-3.5" /> Hoşgeldin Paketi
               </TabsTrigger>
+              <TabsTrigger value="whatsapp" className="gap-1.5">
+                <MessageSquare className="h-3.5 w-3.5" /> WhatsApp Grupları
+              </TabsTrigger>
             </TabsList>
 
             <TabsContent value="revenue">
@@ -226,6 +229,10 @@ const AdminDashboard = () => {
 
             <TabsContent value="welcomepack">
               <WelcomePackTracker />
+            </TabsContent>
+
+            <TabsContent value="whatsapp">
+              <WhatsAppLandingsModeration />
             </TabsContent>
 
             <TabsContent value="overview">
