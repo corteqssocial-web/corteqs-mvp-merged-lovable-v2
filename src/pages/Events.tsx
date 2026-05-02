@@ -452,8 +452,8 @@ const Events = () => {
           ) : (
 
           /* All Events Grid */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((evt) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.slice(0, 3).map((evt) => (
               <Link
                 to={`/event/${evt.id}`}
                 key={evt.id}
