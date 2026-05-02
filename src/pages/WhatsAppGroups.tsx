@@ -328,89 +328,55 @@ const WhatsAppGroups = () => {
             </div>
           </div>
 
-          {/* Why a landing page — value props */}
-          <section className="mb-12">
-            <h2 className="text-xl md:text-2xl font-extrabold mb-1 text-center">
-              Neden <span className="text-gradient-primary">Landing Sayfası</span>?
+          {/* Approved (cloud) landings — populated as you add groups */}
+          <section className="mt-2">
+            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
+              <Sparkles className="h-5 w-5 text-turquoise" /> Yayında Olan Gruplar
             </h2>
-            <p className="text-sm text-muted-foreground font-body mb-5 max-w-2xl mx-auto text-center">
-              WhatsApp linkini ham paylaşmak yerine bir karşılama sayfasından geçir; doğru üyeyi çek, koşulları net göster.
-            </p>
-            <div className="grid grid-cols-2 md:grid-cols-4 gap-3 max-w-5xl mx-auto">
-              {[
-                { icon: Globe2, title: "Sosyal medyada paylaş", desc: "Tek link, profesyonel ön izleme.", color: "text-turquoise bg-turquoise/10 border-turquoise/20" },
-                { icon: ShieldCheck, title: "Koşullarını göster", desc: "Üyelik kuralları baştan net.", color: "text-success bg-success/10 border-success/20" },
-                { icon: Megaphone, title: "Doğru üye çek", desc: "Spam ve alakasız katılımı azalt.", color: "text-gold bg-gold/10 border-gold/20" },
-                { icon: Layout, title: "İki stil seç", desc: "Görsel + CTA veya sade yazı.", color: "text-primary bg-primary/10 border-primary/20" },
-              ].map((f) => (
-                <div key={f.title} className="rounded-xl border border-border bg-card p-3">
-                  <div className={`w-7 h-7 rounded-md flex items-center justify-center mb-2 border ${f.color}`}>
-                    <f.icon className="h-3.5 w-3.5" />
-                  </div>
-                  <h3 className="font-semibold text-xs mb-0.5 leading-tight">{f.title}</h3>
-                  <p className="text-[11px] text-muted-foreground font-body leading-snug">{f.desc}</p>
-                </div>
-              ))}
-            </div>
-          </section>
 
-          {/* Bottom CTA */}
-          <section className="rounded-3xl bg-gradient-to-r from-[#25D366]/15 via-turquoise/10 to-primary/15 border border-border p-6 md:p-10 text-center">
-            <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
-              Grubunu Hemen Yayınla
-            </h3>
-            <p className="text-muted-foreground font-body mb-5 max-w-2xl mx-auto">
-              Listeleme + landing sayfası tamamen ücretsiz. Bir dakikada hazır.
-            </p>
-            <Button size="lg" className="gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white" onClick={() => setOpenDialog(true)}>
-              <PlusCircle className="h-5 w-5" /> Grubunu Listele
-              <ArrowRight className="h-4 w-4" />
-            </Button>
-          </section>
-
-          {/* All groups — collapsed list under tabs (kept for completeness) */}
-          <section className="mt-12">
-            <h2 className="text-lg font-bold mb-4">Tüm Gruplar</h2>
-            <Tabs defaultValue="alumni">
-              <TabsList className="bg-card border border-border w-full justify-start h-auto gap-1 p-1 mb-4 flex-wrap">
-                {(Object.keys(categoryMeta) as Array<keyof typeof categoryMeta>).map((cat) => {
-                  const M = categoryMeta[cat];
-                  const count = whatsappGroups.filter((g) => g.category === cat).length;
+            {loadingLandings ? (
+              <p className="text-sm text-muted-foreground">Yükleniyor...</p>
+            ) : landings.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-8 text-center">
+                <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">
+                  Henüz yayında grup yok. İlk grubu sen ekle!
+                </p>
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {landings.map((g) => {
+                  const meta = categoryMeta[g.category];
+                  const Icon = meta.icon;
                   return (
-                    <TabsTrigger key={cat} value={cat} className="gap-1.5">
-                      <M.icon className="h-4 w-4" /> {M.label} ({count})
-                    </TabsTrigger>
+                    <div key={g.id} className="rounded-xl border border-border bg-card p-4 flex flex-col">
+                      <div className="flex items-center gap-2 mb-2">
+                        <div className={`w-8 h-8 rounded-lg border ${meta.color} flex items-center justify-center`}>
+                          <Icon className="h-4 w-4" />
+                        </div>
+                        <h4 className="font-semibold text-sm leading-tight">{g.groupName}</h4>
+                      </div>
+                      <p className="text-xs text-muted-foreground mb-2">📍 {g.city}, {g.country}</p>
+                      {g.tagline && (
+                        <p className="text-xs text-muted-foreground font-body mb-3 line-clamp-2">{g.tagline}</p>
+                      )}
+                      <div className="mt-auto flex gap-2">
+                        <Link to={`/whatsapp-groups/${g.id}`} className="flex-1">
+                          <Button size="sm" variant="outline" className="w-full gap-1 text-xs">
+                            <Layout className="h-3 w-3" /> Landing
+                          </Button>
+                        </Link>
+                        <a href={g.whatsappLink} target="_blank" rel="noopener noreferrer" className="flex-1">
+                          <Button size="sm" className="w-full gap-1 text-xs bg-[#25D366] hover:bg-[#20bd5a] text-white">
+                            <MessageSquare className="h-3 w-3" /> Katıl
+                          </Button>
+                        </a>
+                      </div>
+                    </div>
                   );
                 })}
-              </TabsList>
-              {(Object.keys(categoryMeta) as Array<keyof typeof categoryMeta>).map((cat) => (
-                <TabsContent key={cat} value={cat}>
-                  <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                    {whatsappGroups.filter((g) => g.category === cat).map((g) => (
-                      <div key={g.id} className="rounded-xl border border-border bg-card p-4">
-                        <h4 className="font-semibold text-sm mb-1">{g.name}</h4>
-                        <p className="text-xs text-muted-foreground mb-2">📍 {g.city}, {g.country} · {g.members} üye</p>
-                        <p className="text-xs text-muted-foreground font-body mb-3 line-clamp-2">{g.description}</p>
-                        <div className="flex gap-2">
-                          {g.landingId ? (
-                            <Link to={`/whatsapp-groups/${g.landingId}`} className="flex-1">
-                              <Button size="sm" variant="outline" className="w-full gap-1 text-xs">
-                                <Layout className="h-3 w-3" /> Landing
-                              </Button>
-                            </Link>
-                          ) : null}
-                          <a href={g.link} target="_blank" rel="noopener noreferrer" className="flex-1">
-                            <Button size="sm" className="w-full gap-1 text-xs bg-[#25D366] hover:bg-[#20bd5a] text-white">
-                              <MessageSquare className="h-3 w-3" /> Katıl
-                            </Button>
-                          </a>
-                        </div>
-                      </div>
-                    ))}
-                  </div>
-                </TabsContent>
-              ))}
-            </Tabs>
+              </div>
+            )}
           </section>
         </div>
       </main>
