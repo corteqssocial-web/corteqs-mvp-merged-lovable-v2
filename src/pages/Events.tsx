@@ -154,9 +154,9 @@ const Events = () => {
 
           <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
             <div>
-              <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
-                <Calendar className="h-8 w-8 text-primary" /> Etkinlikler
-              </h1>
+              <h2 className="text-2xl md:text-3xl font-bold text-foreground flex items-center gap-3">
+                <Calendar className="h-7 w-7 text-primary" /> Etkinlikler
+              </h2>
               <p className="text-muted-foreground font-body mt-1">
                 {loadingEvents ? "Yükleniyor..." : `${filteredLive.length} canlı etkinlik`}
               </p>
