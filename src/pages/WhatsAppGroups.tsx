@@ -32,6 +32,8 @@ const categoryMeta = {
 const WhatsAppGroups = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
 
   // 4 örnek demo grup: 2 Alumni (farklı şehir), 1 Doktor, 1 Hobi
   const demoIds = ["odtu-almanya", "bogazici-bae", "doktor-londra", "kitap-dubai"];
