@@ -28,6 +28,7 @@ const Pricing = lazy(() => import("./pages/Pricing"));
 const Bloggers = lazy(() => import("./pages/Bloggers"));
 const BloggerDetail = lazy(() => import("./pages/BloggerDetail"));
 const BlogContest = lazy(() => import("./pages/BlogContest"));
+const VloggerContest = lazy(() => import("./pages/VloggerContest"));
 const RelocationEngine = lazy(() => import("./pages/RelocationEngine"));
 const Auth = lazy(() => import("./pages/Auth"));
 const Onboarding = lazy(() => import("./pages/Onboarding"));
@@ -123,6 +124,7 @@ const App = () => (
                   <Route path="/bloggers" element={<Bloggers />} />
                   <Route path="/blogger/:id" element={<BloggerDetail />} />
                   <Route path="/blog-contest" element={<BlogContest />} />
+                  <Route path="/vlogger-contest" element={<VloggerContest />} />
                   <Route path="/relocation" element={<RelocationEngine />} />
                   <Route path="/auth" element={<Auth />} />
                   <Route path="/onboarding" element={<Onboarding />} />
