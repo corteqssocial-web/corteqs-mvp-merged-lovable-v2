@@ -12,9 +12,12 @@ import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import { ScrollArea } from "@/components/ui/scroll-area";
 import {
+  Dialog, DialogContent, DialogHeader, DialogTitle
+} from "@/components/ui/dialog";
+import {
   Users, Briefcase, Building2, Flag, PenLine, Calendar, MapPin,
   TrendingUp, DollarSign, Eye, MessageSquare, Send, Shield,
-  BarChart3, Activity, Globe, Radio, FileText, Bell, Search, Wallet, Gift
+  BarChart3, Activity, Globe, Radio, FileText, Bell, Search, Wallet, Gift, PlusCircle
 } from "lucide-react";
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
@@ -26,6 +29,7 @@ import AmbassadorDashboard from "@/components/admin/AmbassadorDashboard";
 import VBloggerDashboard from "@/components/admin/VBloggerDashboard";
 import WelcomePackTracker from "@/components/admin/WelcomePackTracker";
 import WhatsAppLandingsModeration from "@/components/admin/WhatsAppLandingsModeration";
+import CreateEventForm from "@/components/CreateEventForm";
 
 // ─── Mock Data ───────────────────────────────────────────
 const monthlyUsers = [
@@ -158,6 +162,7 @@ const AdminDashboard = () => {
   const [searchTerm, setSearchTerm] = useState("");
   const [activeTab, setActiveTab] = useState("overview");
   const [revenueSortBy, setRevenueSortBy] = useState<"feature" | "userType" | "country" | "city">("feature");
+  const [createEventOpen, setCreateEventOpen] = useState(false);
 
   const filteredFeatures = platformFeatures.filter(f =>
     f.name.toLowerCase().includes(searchTerm.toLowerCase())
@@ -179,7 +184,7 @@ const AdminDashboard = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
           {/* Header */}
-          <div className="flex items-center justify-between mb-6">
+          <div className="flex items-center justify-between mb-6 flex-wrap gap-3">
             <div>
               <div className="flex items-center gap-2 mb-1">
                 <Shield className="h-6 w-6 text-primary" />
@@ -187,10 +192,29 @@ const AdminDashboard = () => {
               </div>
               <p className="text-muted-foreground">Platform yönetimi ve analitik merkezi</p>
             </div>
-            <Badge variant="outline" className="text-xs gap-1 border-primary/30 text-primary">
-              <Activity className="h-3 w-3" /> Canlı
-            </Badge>
+            <div className="flex items-center gap-3">
+              <Button onClick={() => setCreateEventOpen(true)} className="gap-2">
+                <PlusCircle className="h-4 w-4" /> CorteQS Etkinliği Oluştur
+              </Button>
+              <Badge variant="outline" className="text-xs gap-1 border-primary/30 text-primary">
+                <Activity className="h-3 w-3" /> Canlı
+              </Badge>
+            </div>
           </div>
+
+          {/* Create Event Dialog */}
+          <Dialog open={createEventOpen} onOpenChange={setCreateEventOpen}>
+            <DialogContent className="max-w-3xl max-h-[90vh] overflow-y-auto">
+              <DialogHeader>
+                <DialogTitle>Yeni CorteQS Etkinliği</DialogTitle>
+              </DialogHeader>
+              <CreateEventForm
+                organizerType="corteqs"
+                onClose={() => setCreateEventOpen(false)}
+                onCreated={() => setCreateEventOpen(false)}
+              />
+            </DialogContent>
+          </Dialog>
 
           {/* Main Tabs */}
           <Tabs value={activeTab} onValueChange={setActiveTab} className="mb-8">

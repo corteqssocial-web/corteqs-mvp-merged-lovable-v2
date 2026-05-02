@@ -111,6 +111,7 @@ export type Database = {
           max_attendees: number | null
           online_url: string | null
           organizer_name: string | null
+          organizer_type: string
           price: number | null
           start_time: string | null
           status: string
@@ -135,6 +136,7 @@ export type Database = {
           max_attendees?: number | null
           online_url?: string | null
           organizer_name?: string | null
+          organizer_type?: string
           price?: number | null
           start_time?: string | null
           status?: string
@@ -159,6 +161,7 @@ export type Database = {
           max_attendees?: number | null
           online_url?: string | null
           organizer_name?: string | null
+          organizer_type?: string
           price?: number | null
           start_time?: string | null
           status?: string

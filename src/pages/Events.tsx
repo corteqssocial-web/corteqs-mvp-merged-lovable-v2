@@ -41,6 +41,7 @@ interface LiveEvent {
   max_attendees: number | null;
   cover_image: string | null;
   organizer_name: string | null;
+  organizer_type?: string | null;
   featured: boolean;
 }
 
@@ -87,7 +88,7 @@ const Events = () => {
     setLoadingEvents(true);
     const { data, error } = await supabase
       .from("events")
-      .select("id,title,description,category,type,event_date,start_time,end_time,country,city,location,price,max_attendees,cover_image,organizer_name,featured")
+      .select("id,title,description,category,type,event_date,start_time,end_time,country,city,location,price,max_attendees,cover_image,organizer_name,organizer_type,featured")
       .eq("status", "published")
       .order("event_date", { ascending: true });
     if (!error && data) setLiveEvents(data as LiveEvent[]);
@@ -198,6 +199,66 @@ const Events = () => {
               ))}
             </div>
           </div>
+
+          {/* 🌟 CorteQS Etkinlikleri — admin tarafından oluşturulduğunda görünür */}
+          {(() => {
+            const corteqsEvents = filteredLive.filter((e) => e.organizer_type === "corteqs");
+            if (corteqsEvents.length === 0) return null;
+            return (
+              <div className="mb-12">
+                <div className="flex items-center gap-2 mb-4">
+                  <Badge className="bg-primary/15 text-primary border-primary/30 gap-1.5 px-3 py-1">
+                    <Star className="h-3.5 w-3.5 fill-primary" /> Resmi
+                  </Badge>
+                  <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                    CorteQS Etkinlikleri
+                  </h2>
+                </div>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {corteqsEvents.map((evt) => (
+                    <Link
+                      key={evt.id}
+                      to={`/events/${evt.id}`}
+                      className="group rounded-2xl overflow-hidden border-2 border-primary/40 bg-card shadow-card hover:shadow-card-hover transition-all"
+                    >
+                      <div className="relative h-36 bg-gradient-to-br from-primary/20 via-turquoise/15 to-gold/20">
+                        {evt.cover_image && (
+                          <img src={evt.cover_image} alt={evt.title} className="w-full h-full object-cover" />
+                        )}
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 to-transparent" />
+                        <div className="absolute top-3 left-3 flex gap-2">
+                          <Badge className="bg-primary text-primary-foreground border-0 font-bold gap-1">
+                            <Star className="h-3 w-3 fill-current" /> CorteQS
+                          </Badge>
+                          {categoryLabels[evt.category] && (
+                            <Badge className={`border-0 ${categoryColors[evt.category]}`}>
+                              {categoryLabels[evt.category]}
+                            </Badge>
+                          )}
+                        </div>
+                        <div className="absolute bottom-3 left-3 right-3 text-white">
+                          <h3 className="text-lg font-bold mb-1 line-clamp-1">{evt.title}</h3>
+                          <div className="flex items-center gap-3 text-xs opacity-90">
+                            <span className="flex items-center gap-1">
+                              <Calendar className="h-3 w-3" /> {evt.event_date}
+                            </span>
+                            {evt.city && (
+                              <span className="flex items-center gap-1">
+                                <MapPin className="h-3 w-3" /> {evt.city}
+                              </span>
+                            )}
+                          </div>
+                        </div>
+                      </div>
+                      <div className="p-4">
+                        <p className="text-sm text-muted-foreground font-body line-clamp-2">{evt.description}</p>
+                      </div>
+                    </Link>
+                  ))}
+                </div>
+              </div>
+            );
+          })()}
 
           {/* Featured Events */}
           <div className="mb-12">
