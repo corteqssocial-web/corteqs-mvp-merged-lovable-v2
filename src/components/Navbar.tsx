@@ -93,18 +93,18 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="gap-1.5 px-2.5 h-8 text-xs border-border">
                     <MapPin className="h-3.5 w-3.5 text-primary" />
-                    <span className="hidden sm:inline">{selectedCountry === "all" ? "Tüm Ülkeler" : selectedCountry}</span>
+                    <span className="hidden sm:inline">{selectedCountry === "all" ? t.nav.allCountries : selectedCountry}</span>
                     <ChevronDown className="h-3 w-3 text-muted-foreground" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-56 max-h-[70vh] overflow-y-auto">
-                  <DropdownMenuLabel className="text-xs text-muted-foreground">Ülke Seçin</DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-xs text-muted-foreground">{t.nav.selectCountry}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className={`cursor-pointer text-sm ${selectedCountry === "all" ? "bg-accent/50 font-semibold" : ""}`}
                     onClick={() => setSelectedCountry("all")}
                   >
-                    🌍 Tüm Ülkeler
+                    🌍 {t.nav.allCountries}
                   </DropdownMenuItem>
                   {countryList.map((c) => (
                     <DropdownMenuItem
