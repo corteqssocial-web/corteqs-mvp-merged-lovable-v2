@@ -147,7 +147,7 @@ export const getLanding = async (
     .eq("status", "approved")
     .maybeSingle();
   if (!error && data) return rowToLanding(data as Row);
-  return DEMOS.find((d) => d.id === slug);
+  return undefined;
 };
 
 /** List approved landings (public). */
