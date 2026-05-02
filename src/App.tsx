@@ -41,7 +41,13 @@ const HospitalAppointment = lazy(() => import("./pages/HospitalAppointment"));
 const Founders1000 = lazy(() => import("./pages/Founders1000"));
 const Career = lazy(() => import("./pages/Career"));
 const Dashboards = lazy(() => import("./pages/Dashboards"));
+const PrivacyPolicy = lazy(() => import("./pages/legal/PrivacyPolicy"));
+const TermsOfService = lazy(() => import("./pages/legal/TermsOfService"));
+const KVKK = lazy(() => import("./pages/legal/KVKK"));
+const CookiePolicy = lazy(() => import("./pages/legal/CookiePolicy"));
 const NotFound = lazy(() => import("./pages/NotFound"));
+
+import CookieConsentBanner from "@/components/CookieConsentBanner";
 
 const queryClient = new QueryClient();
 
@@ -139,9 +145,14 @@ const App = () => (
                   <Route path="/kariyer" element={<Career />} />
                   <Route path="/career" element={<Career />} />
                   <Route path="/dashboards" element={<Dashboards />} />
+                  <Route path="/legal/privacy" element={<PrivacyPolicy />} />
+                  <Route path="/legal/terms" element={<TermsOfService />} />
+                  <Route path="/legal/kvkk" element={<KVKK />} />
+                  <Route path="/legal/cookies" element={<CookiePolicy />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>
+              <CookieConsentBanner />
             </BrowserRouter>
           </DiasporaProvider>
         </AuthProvider>

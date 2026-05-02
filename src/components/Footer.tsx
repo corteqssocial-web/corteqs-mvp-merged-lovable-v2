@@ -61,9 +61,10 @@ const Footer = () => {
           <div>
             <h4 className="font-bold mb-4 text-sm uppercase tracking-wider">Yasal</h4>
             <ul className="space-y-2 text-sm text-secondary-foreground/60 font-body">
-              <li><a href="#" className="hover:text-primary transition-colors">Gizlilik Politikası</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">Kullanım Şartları</a></li>
-              <li><a href="#" className="hover:text-primary transition-colors">KVKK</a></li>
+              <li><Link to="/legal/privacy" className="hover:text-primary transition-colors">Gizlilik Politikası</Link></li>
+              <li><Link to="/legal/terms" className="hover:text-primary transition-colors">Kullanım Şartları</Link></li>
+              <li><Link to="/legal/kvkk" className="hover:text-primary transition-colors">KVKK / GDPR / CCPA</Link></li>
+              <li><Link to="/legal/cookies" className="hover:text-primary transition-colors">Çerez Politikası</Link></li>
             </ul>
           </div>
         </div>
