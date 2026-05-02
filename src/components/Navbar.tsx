@@ -242,7 +242,7 @@ const Navbar = () => {
                       className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground py-1.5 w-full"
                       onClick={() => { handleSignOut(); setIsOpen(false); }}
                     >
-                      <LogOut className="h-4 w-4" /> Çıkış Yap
+                      <LogOut className="h-4 w-4" /> {t.nav.logout}
                     </button>
                   </>
                 ) : (
