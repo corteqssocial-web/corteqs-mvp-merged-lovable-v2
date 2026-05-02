@@ -14,6 +14,7 @@ import {
 } from "@/components/ui/select";
 import { Upload, X, FileText, Send, Clock, MapPin, DollarSign, Briefcase } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
+import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
 const CATEGORIES = [
   { value: "yasam-relokasyon", label: "Yaşam ve Relokasyon", subcategories: ["Taşınma Danışmanlığı", "Entegrasyon", "Dil Desteği", "Konut Arama"] },
@@ -52,6 +53,7 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
     preferredTime: "",
     urgency: "normal",
   });
+  const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
   const selectedCategory = CATEGORIES.find(c => c.value === category);
 
@@ -70,6 +72,10 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
     e.preventDefault();
     if (!category || !form.title || !form.description) {
       toast({ title: "Eksik bilgi", description: "Kategori, başlık ve açıklama zorunludur.", variant: "destructive" });
+      return;
+    }
+    if (!isConsentValid(consent)) {
+      toast({ title: "Onay gerekli", description: "KVKK / GDPR onaylarını işaretleyin.", variant: "destructive" });
       return;
     }
 
@@ -258,9 +264,11 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
         )}
       </div>
 
+      <ConsentCheckboxes compact value={consent} onChange={setConsent} />
+
       {/* Actions */}
       <div className="flex gap-3 pt-2">
-        <Button type="submit" disabled={loading} className="gap-2 flex-1 md:flex-none">
+        <Button type="submit" disabled={loading || !isConsentValid(consent)} className="gap-2 flex-1 md:flex-none">
           <Send className="h-4 w-4" /> {loading ? "Gönderiliyor..." : "Talebi Gönder"}
         </Button>
         {onCancel && (
