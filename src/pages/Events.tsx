@@ -468,7 +468,7 @@ const Events = () => {
                     <Badge className="absolute top-3 right-3 bg-gold/90 text-white border-0 text-xs">⭐</Badge>
                   )}
                 </div>
-                 <div className="p-5">
+                 <div className="p-3.5">
                    <h3 className="font-bold text-foreground mb-2 line-clamp-2">{evt.title}</h3>
                    <div className="space-y-1.5 mb-3 text-sm text-muted-foreground font-body">
                      <p className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" /> {evt.date} · {evt.time}</p>
