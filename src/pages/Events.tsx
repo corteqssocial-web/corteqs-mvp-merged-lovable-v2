@@ -293,7 +293,7 @@ const Events = () => {
                   <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-turquoise" /> Şehir ve ülke bazlı hedefli duyuru</li>
                 </ul>
                 <div className="flex flex-wrap gap-3">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
                     <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
                   </Button>
                   <Link to="/profile">
