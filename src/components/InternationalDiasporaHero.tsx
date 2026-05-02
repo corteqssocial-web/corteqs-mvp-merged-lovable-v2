@@ -501,8 +501,9 @@ const InternationalDiasporaHero = () => {
             </>
           )}
         </div>
-      </div>
-    </section>
+        </div>
+      </section>
+    </>
   );
 };
 
