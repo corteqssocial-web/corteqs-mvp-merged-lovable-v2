@@ -85,8 +85,8 @@ const Navbar = () => {
                 >
                   <span className="text-lg">🌐</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-semibold">{t.nav.registerDiaspora}</span>
-                    <span className="text-xs text-muted-foreground">{t.nav.registerDiasporaDesc}</span>
+                    <span className="text-sm font-semibold">Register Diaspora</span>
+                    <span className="text-xs text-muted-foreground">Request your community</span>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>

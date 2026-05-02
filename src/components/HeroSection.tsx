@@ -85,8 +85,8 @@ const HeroSection = () => {
             </Link>
           </div>
 
-          {/* Blog Contest Teaser */}
-          <Link to="/blog-contest" className="block mt-8 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
+          {/* Blog Contest Teaser — limited width so it stays clear of the landmarks image on the right */}
+          <Link to="/blog-contest" className="block mt-8 animate-fade-in-up max-w-xl lg:max-w-lg" style={{ animationDelay: '0.35s' }}>
             <div className="bg-gold/10 border border-gold/30 rounded-2xl p-4 flex items-center gap-4 hover:bg-gold/15 transition-colors cursor-pointer group">
               <div className="bg-gold/20 p-2.5 rounded-full shrink-0">
                 <Trophy className="h-6 w-6 text-gold" />
@@ -100,7 +100,7 @@ const HeroSection = () => {
           </Link>
 
           {/* City Ambassador Teaser */}
-          <Link to="/city-ambassadors" className="block mt-3 animate-fade-in-up" style={{ animationDelay: '0.38s' }}>
+          <Link to="/city-ambassadors" className="block mt-3 animate-fade-in-up max-w-xl lg:max-w-lg" style={{ animationDelay: '0.38s' }}>
             <div className="bg-turquoise/10 border border-turquoise/30 rounded-2xl p-4 flex items-center gap-4 hover:bg-turquoise/15 transition-colors cursor-pointer group">
               <div className="bg-turquoise/20 p-2.5 rounded-full shrink-0">
                 <MapPin className="h-6 w-6 text-turquoise" />
