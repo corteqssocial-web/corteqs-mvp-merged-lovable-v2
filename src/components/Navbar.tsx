@@ -21,6 +21,19 @@ const Navbar = () => {
   const navigate = useNavigate();
   const location = useLocation();
   const isHome = location.pathname === "/";
+  // Routes that have their own dedicated Country+City selector (CountryCitySelector)
+  // — hide the duplicate navbar selector on these pages.
+  const routesWithOwnSelector = [
+    "/consultants",
+    "/businesses",
+    "/associations",
+    "/events",
+    "/city-news",
+    "/whatsapp-groups",
+    "/map",
+  ];
+  const hasOwnSelector = routesWithOwnSelector.some((p) => location.pathname.startsWith(p));
+  const showNavbarCountry = !isHome && !hasOwnSelector;
 
   const handleSignOut = async () => {
     await signOut();
@@ -64,7 +77,7 @@ const Navbar = () => {
             </DropdownMenu>
 
             {/* Country Selector — hidden on home page */}
-            {!isHome && (
+            {showNavbarCountry && (
               <DropdownMenu>
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="gap-1.5 px-2.5 h-8 text-xs border-border">
@@ -182,7 +195,7 @@ const Navbar = () => {
                 ))}
               </div>
               {/* Mobile Country Selector — hidden on home */}
-              {!isHome && (
+              {showNavbarCountry && (
                 <select
                   value={selectedCountry}
                   onChange={(e) => setSelectedCountry(e.target.value)}
