@@ -1,22 +1,21 @@
 import { useState } from "react";
-import { Trophy, PenLine, Calendar, BarChart3, Heart, CheckCircle2, ArrowRight, Star, Clock, Award } from "lucide-react";
+import { Trophy, Video, Calendar, BarChart3, Heart, CheckCircle2, ArrowRight, Star, Clock, Award, Film } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
-import bloggerHero from "@/assets/blogger-contest-hero.jpg";
+import vloggerHero from "@/assets/vlogger-contest-hero.jpg";
 import mascot from "@/assets/corteqs-mascot.png";
 
 const contestRules = [
-  "Yarışmaya tüm CorteQS platformuna kayıtlı bloggerlar katılabilir.",
-  "Blog yazıları Türkçe veya İngilizce yazılabilir.",
-  "Yazılar ülke, şehir, kültür veya gusto temalı olmalıdır.",
-  "Her katılımcı en fazla 5 yazı ile yarışmaya katılabilir.",
-  "Yazılar 1 Ocak 2026 - 31 Aralık 2026 tarihleri arasında yayınlanmış olmalıdır.",
-  "Plagiarism toleransı sıfırdır. Orijinal içerik zorunludur.",
-  "Sonuçlar 31 Aralık 2026'da analitik veriler + beğeni performansına göre açıklanacaktır.",
+  "Yarışmaya tüm CorteQS platformuna kayıtlı vloggerlar katılabilir.",
+  "Videolar Türkçe veya İngilizce (altyazılı) olabilir.",
+  "Videolar ülke, şehir, kültür, gusto veya diaspora hikâyeleri temalı olmalıdır.",
+  "Her katılımcı en fazla 5 video ile yarışmaya katılabilir.",
+  "Videolar 1 Ocak 2026 - 15 Aralık 2026 tarihleri arasında yayınlanmış olmalıdır.",
+  "Telif hakkı ihlali toleransı sıfırdır. Orijinal içerik zorunludur.",
+  "Sonuçlar 31 Aralık 2026'da izlenme + etkileşim performansına göre açıklanacaktır.",
 ];
 
 const prizes = [
@@ -25,12 +24,12 @@ const prizes = [
   { place: "3.", prize: "$250", icon: Star, color: "text-primary" },
 ];
 
-const BlogContest = () => {
+const VloggerContest = () => {
   const { toast } = useToast();
   const [formData, setFormData] = useState({
     name: "",
     email: "",
-    blogUrl: "",
+    channelUrl: "",
     country: "",
     city: "",
   });
@@ -38,10 +37,10 @@ const BlogContest = () => {
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
     toast({
-      title: "Başvuru Alındı! 🎉",
-      description: "Blog yazısı yarışmasına başvurunuz başarıyla alındı. Detaylar e-posta ile gönderilecektir.",
+      title: "Başvuru Alındı! 🎬",
+      description: "Vlogger yarışmasına başvurunuz başarıyla alındı. Detaylar e-posta ile gönderilecektir.",
     });
-    setFormData({ name: "", email: "", blogUrl: "", country: "", city: "" });
+    setFormData({ name: "", email: "", channelUrl: "", country: "", city: "" });
   };
 
   return (
@@ -50,25 +49,25 @@ const BlogContest = () => {
       <main className="pt-24 pb-16">
         {/* Hero */}
         <section className="relative overflow-hidden py-16 md:py-24">
-          <div className="absolute inset-0 bg-gradient-to-br from-gold/10 via-primary/5 to-turquoise/10" />
-          <div className="absolute top-10 right-20 w-80 h-80 bg-gold/15 rounded-full blur-3xl" />
-          <div className="absolute bottom-10 left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
+          <div className="absolute inset-0 bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10" />
+          <div className="absolute top-10 right-20 w-80 h-80 bg-primary/15 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-20 w-96 h-96 bg-turquoise/10 rounded-full blur-3xl" />
 
           <div className="container mx-auto px-4 relative z-10">
             <div className="grid lg:grid-cols-2 gap-10 items-center">
               <div>
-                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/15 border border-gold/30 mb-6">
-                  <Trophy className="h-4 w-4 text-gold" />
-                  <span className="text-sm font-semibold text-gold">2026 Blogger Yarışması</span>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-primary/15 border border-primary/30 mb-6">
+                  <Video className="h-4 w-4 text-primary" />
+                  <span className="text-sm font-semibold text-primary">2026 Vlogger Yarışması</span>
                 </div>
 
                 <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6">
                   En İyi Diaspora<br />
-                  <span className="text-gradient-primary">Blog Yazısı Yarışması</span>
+                  <span className="text-gradient-primary">Vlog & Video Yarışması</span>
                 </h1>
 
                 <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 font-body">
-                  Diasporadaki yaşamını, kültürünü ve deneyimlerini anlatan en iyi blog yazısını yaz,
+                  Hikâyeni ya da Global Türklerin hikâyesini video ile anlat. Dünyaya duyur,
                   <span className="text-gold font-bold"> $1.000 büyük ödülü</span> kazan!
                 </p>
 
@@ -84,15 +83,15 @@ const BlogContest = () => {
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
                   <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Son Tarih: 31 Aralık 2026</span>
-                  <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-turquoise" /> Analitik + Beğeni Bazlı</span>
-                  <span className="flex items-center gap-1.5"><PenLine className="h-4 w-4 text-gold" /> Orijinal İçerik</span>
+                  <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-turquoise" /> İzlenme + Etkileşim Bazlı</span>
+                  <span className="flex items-center gap-1.5"><Film className="h-4 w-4 text-gold" /> Orijinal Video</span>
                 </div>
               </div>
 
               <div className="relative">
                 <img
-                  src={bloggerHero}
-                  alt="Diaspora blogger writing stories"
+                  src={vloggerHero}
+                  alt="Diaspora vlogger filming stories"
                   width={1280}
                   height={960}
                   className="rounded-3xl shadow-2xl w-full object-cover"
@@ -114,10 +113,10 @@ const BlogContest = () => {
             <h2 className="text-3xl font-bold text-foreground text-center mb-12">Nasıl Çalışır?</h2>
             <div className="grid grid-cols-1 md:grid-cols-4 gap-8">
               {[
-                { step: "1", title: "Kayıt Ol", desc: "CorteQS'e blogger olarak kayıt olun ve yarışma başvurusunu yapın.", icon: PenLine },
-                { step: "2", title: "Blog Yaz", desc: "Diaspora yaşamı, kültür, gusto veya şehir rehberi temalı yazılarınızı paylaşın.", icon: PenLine },
-                { step: "3", title: "Paylaş & Etkileşim", desc: "Yazılarınızı paylaşın, okuyucu kitlenizi büyütün ve beğeni toplayın.", icon: Heart },
-                { step: "4", title: "Kazan!", desc: "31 Aralık'ta en iyi analitik + beğeni performansını gösteren yazı 1. olacak.", icon: Trophy },
+                { step: "1", title: "Kayıt Ol", desc: "CorteQS'e vlogger olarak kayıt olun ve yarışma başvurusunu yapın.", icon: Video },
+                { step: "2", title: "Video Çek", desc: "Diaspora yaşamı, kültür, gusto veya şehir rehberi temalı videolarınızı paylaşın.", icon: Film },
+                { step: "3", title: "Paylaş & Etkileşim", desc: "Videolarınızı paylaşın, izleyici kitlenizi büyütün ve beğeni toplayın.", icon: Heart },
+                { step: "4", title: "Kazan!", desc: "31 Aralık'ta en iyi izlenme + etkileşim performansını gösteren video 1. olacak.", icon: Trophy },
               ].map((item) => (
                 <div key={item.step} className="text-center">
                   <div className="w-16 h-16 rounded-full bg-primary/10 flex items-center justify-center mx-auto mb-4">
@@ -150,14 +149,14 @@ const BlogContest = () => {
                   ))}
                 </div>
 
-                <div className="mt-8 bg-gold/10 border border-gold/20 rounded-2xl p-6">
+                <div className="mt-8 bg-primary/10 border border-primary/20 rounded-2xl p-6">
                   <h3 className="font-bold text-foreground mb-3 flex items-center gap-2">
-                    <BarChart3 className="h-5 w-5 text-gold" /> Değerlendirme Kriterleri
+                    <BarChart3 className="h-5 w-5 text-primary" /> Değerlendirme Kriterleri
                   </h3>
                   <div className="space-y-2 text-sm text-muted-foreground font-body">
-                    <p>• <strong>Analitik Performans (50%)</strong>: Sayfa görüntüleme, okuma süresi, paylaşım sayısı</p>
-                    <p>• <strong>Beğeni Performansı (30%)</strong>: Toplam beğeni sayısı ve etkileşim oranı</p>
-                    <p>• <strong>İçerik Kalitesi (20%)</strong>: Jüri değerlendirmesi, orijinallik ve anlatım gücü</p>
+                    <p>• <strong>İzlenme Performansı (50%)</strong>: Toplam izlenme, izleme süresi, paylaşım sayısı</p>
+                    <p>• <strong>Etkileşim Performansı (30%)</strong>: Beğeni, yorum ve etkileşim oranı</p>
+                    <p>• <strong>İçerik Kalitesi (20%)</strong>: Jüri değerlendirmesi, orijinallik, prodüksiyon ve anlatım gücü</p>
                   </div>
                 </div>
 
@@ -167,7 +166,7 @@ const BlogContest = () => {
                   </h3>
                   <div className="space-y-2 text-sm text-muted-foreground font-body">
                     <p>📅 Başvuru Başlangıcı: <strong>1 Ocak 2026</strong></p>
-                    <p>📅 Son Yazı Yayınlama: <strong>15 Aralık 2026</strong></p>
+                    <p>📅 Son Video Yayınlama: <strong>15 Aralık 2026</strong></p>
                     <p>🏆 Sonuç Açıklaması: <strong>31 Aralık 2026</strong></p>
                   </div>
                 </div>
@@ -197,12 +196,12 @@ const BlogContest = () => {
                     />
                   </div>
                   <div>
-                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Blog / Website URL</label>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Kanal / Video URL (YouTube, Instagram, TikTok)</label>
                     <Input
                       type="url"
-                      value={formData.blogUrl}
-                      onChange={(e) => setFormData({ ...formData, blogUrl: e.target.value })}
-                      placeholder="https://myblog.com"
+                      value={formData.channelUrl}
+                      onChange={(e) => setFormData({ ...formData, channelUrl: e.target.value })}
+                      placeholder="https://youtube.com/@kanalim"
                       required
                     />
                   </div>
@@ -230,7 +229,7 @@ const BlogContest = () => {
                   <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground">
                     <p className="font-semibold text-foreground mb-1">📋 Başvuru ile kabul edilen şartlar:</p>
                     <p>• Yarışma kurallarını okudum ve kabul ediyorum</p>
-                    <p>• Blog yazılarımın CorteQS platformunda yayınlanmasını onaylıyorum</p>
+                    <p>• Videolarımın CorteQS platformunda paylaşılmasını onaylıyorum</p>
                     <p>• İçeriklerimin orijinal olduğunu beyan ederim</p>
                   </div>
 
@@ -241,10 +240,10 @@ const BlogContest = () => {
 
                 <div className="mt-6 bg-turquoise/10 border border-turquoise/20 rounded-2xl p-6 text-center">
                   <p className="text-sm text-muted-foreground font-body mb-2">
-                    Zaten bir blogunuz var mı? Yazılarınızı CorteQS'e taşıyın!
+                    Zaten bir kanalınız var mı? Videolarınızı CorteQS'te öne çıkarın!
                   </p>
                   <Button variant="outline" className="gap-2">
-                    <PenLine className="h-4 w-4" /> Blog İçe Aktarma
+                    <Video className="h-4 w-4" /> Video İçe Aktarma
                   </Button>
                 </div>
               </div>
@@ -257,4 +256,4 @@ const BlogContest = () => {
   );
 };
 
-export default BlogContest;
+export default VloggerContest;
