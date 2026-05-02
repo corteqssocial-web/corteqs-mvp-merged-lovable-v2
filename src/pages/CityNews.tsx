@@ -7,7 +7,7 @@ import { Input } from "@/components/ui/input";
 import { cityMeta, categoryConfig, getFilteredNews, searchAllNews, getDiasporaMedia, type NewsCategory, type DiasporaMediaItem } from "@/data/cityNewsData";
 import CityWeatherWidget from "@/components/city-news/CityWeatherWidget";
 import NewsCard from "@/components/city-news/NewsCard";
-import CityDropdown from "@/components/CityDropdown";
+import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 
 const mediaTypeMeta = {
@@ -123,7 +123,7 @@ const CityNews = () => {
             })}
           </div>
           <div className="sm:ml-auto">
-            <CityDropdown country={country} city={city} onCityChange={setCity} />
+            <CountryCitySelector city={city} onCityChange={setCity} />
           </div>
         </div>
 

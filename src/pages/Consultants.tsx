@@ -6,7 +6,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CityDropdown from "@/components/CityDropdown";
+import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { consultants, cityAmbassadors } from "@/data/mock";
 import { countryCities } from "@/data/countryCities";
@@ -273,7 +273,7 @@ const Consultants = () => {
             </div>
             {/* City dropdown - top right, aligned with title */}
             <div className="shrink-0">
-              <CityDropdown country={country} city={city} onCityChange={setCity} />
+              <CountryCitySelector city={city} onCityChange={setCity} />
             </div>
           </div>
 
