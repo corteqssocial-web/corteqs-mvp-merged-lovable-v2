@@ -203,11 +203,31 @@ const Events = () => {
           </div>
 
           {/* Featured Events */}
-          {categoryFilter === "all" && country === "all" && search === "" && (
-            <div className="mb-12">
-              <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+          <div className="mb-12">
+            <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <Star className="h-5 w-5 text-gold fill-gold" /> Öne Çıkan Etkinlikler
               </h2>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={viewMode === "grid" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("grid")}
+                  className="text-xs"
+                >
+                  Kart Görünümü
+                </Button>
+                <Button
+                  variant={viewMode === "calendar" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("calendar")}
+                  className="text-xs gap-1"
+                >
+                  <Calendar className="h-3.5 w-3.5" /> Takvim
+                </Button>
+              </div>
+            </div>
+            {categoryFilter === "all" && country === "all" && search === "" && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {featured.slice(0, 3).map((evt) => (
                   <Link
@@ -251,8 +271,8 @@ const Events = () => {
                   </Link>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Topluluğun İçin Etkinlik Düzenle */}
           <section className="mb-12 rounded-3xl border border-border bg-card overflow-hidden shadow-card">
