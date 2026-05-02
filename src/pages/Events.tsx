@@ -49,6 +49,8 @@ const typeLabels: Record<string, string> = {
 
 const Events = () => {
   const { selectedCountry: country } = useDiaspora();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [city, setCity] = useState("all");
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
@@ -57,13 +59,19 @@ const Events = () => {
 
   useEffect(() => { setCity("all"); }, [country]);
 
-  // Group events by date for calendar view
+  const requireAuth = (cb: () => void) => {
+    if (!user) {
+      toast({ title: "Giriş gerekli", description: "Etkinlik oluşturmak için lütfen giriş yapın." });
+      navigate("/auth?redirect=/events");
+      return;
+    }
+    cb();
+  };
+
+  // Real events only — mock live/all-events lists are emptied; featured remains as showcase.
+  const liveEvents: typeof events = [];
+  const allEvents: typeof events = [];
   const eventsByDate: Record<string, typeof events> = {};
-  events.forEach((e) => {
-    const dateKey = e.date;
-    if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
-    eventsByDate[dateKey].push(e);
-  });
 
   const featured = events.filter((e) => e.featured);
 
