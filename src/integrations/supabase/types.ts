@@ -95,6 +95,81 @@ export type Database = {
         }
         Relationships: []
       }
+      events: {
+        Row: {
+          category: string
+          city: string | null
+          country: string | null
+          cover_image: string | null
+          created_at: string
+          description: string
+          end_time: string | null
+          event_date: string
+          featured: boolean
+          id: string
+          location: string | null
+          max_attendees: number | null
+          online_url: string | null
+          organizer_name: string | null
+          price: number | null
+          start_time: string | null
+          status: string
+          tags: string[] | null
+          title: string
+          type: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          category: string
+          city?: string | null
+          country?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description: string
+          end_time?: string | null
+          event_date: string
+          featured?: boolean
+          id?: string
+          location?: string | null
+          max_attendees?: number | null
+          online_url?: string | null
+          organizer_name?: string | null
+          price?: number | null
+          start_time?: string | null
+          status?: string
+          tags?: string[] | null
+          title: string
+          type?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          category?: string
+          city?: string | null
+          country?: string | null
+          cover_image?: string | null
+          created_at?: string
+          description?: string
+          end_time?: string | null
+          event_date?: string
+          featured?: boolean
+          id?: string
+          location?: string | null
+          max_attendees?: number | null
+          online_url?: string | null
+          organizer_name?: string | null
+          price?: number | null
+          start_time?: string | null
+          status?: string
+          tags?: string[] | null
+          title?: string
+          type?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
       interest_registrations: {
         Row: {
           attachment_urls: string[] | null

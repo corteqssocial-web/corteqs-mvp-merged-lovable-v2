@@ -11,28 +11,30 @@ import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import { Textarea } from "@/components/ui/textarea";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 interface CreateEventFormProps {
   onClose?: () => void;
+  onCreated?: () => void;
 }
 
-const mockForm = {
-  title: "Türk Diaspora Tech Summit 2026",
-  description:
-    "Avrupa genelindeki Türk teknoloji profesyonellerini bir araya getiren bu zirve; yapay zeka, fintech ve girişimcilik konularında panel tartışmaları, atölye çalışmaları ve networking fırsatları sunuyor. Keynote konuşmacılar arasında Berlin, Amsterdam ve Londra'dan başarılı Türk girişimciler yer alacak.",
-  date: "2026-04-15",
-  startTime: "10:00",
-  endTime: "18:00",
+const emptyForm = {
+  title: "",
+  description: "",
+  date: "",
+  startTime: "",
+  endTime: "",
   category: "networking",
-  type: "hybrid",
-  location: "Betahaus Berlin, Prinzessinnenstr. 19-20",
-  city: "Berlin",
-  country: "Almanya",
-  onlineUrl: "https://zoom.us/j/123456789",
-  price: 25,
-  maxAttendees: 150,
-  tags: "tech, networking, diaspora, startup",
-  image: "https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=800&q=80",
+  type: "yüz yüze",
+  location: "",
+  city: "",
+  country: "",
+  onlineUrl: "",
+  price: 0,
+  maxAttendees: 100,
+  tags: "",
+  image: "",
 };
 
 const audienceSegments = [
@@ -41,21 +43,61 @@ const audienceSegments = [
   { name: "Avrupa Diaspora Profesyonelleri", members: 2100, match: 82 },
 ];
 
-const CreateEventForm = ({ onClose }: CreateEventFormProps) => {
+const CreateEventForm = ({ onClose, onCreated }: CreateEventFormProps) => {
   const { toast } = useToast();
-  const [form, setForm] = useState(mockForm);
-  const [featuredHome, setFeaturedHome] = useState(true);
-  const [featuredCountry, setFeaturedCountry] = useState(true);
-  const [emailNotify, setEmailNotify] = useState(true);
+  const { user } = useAuth();
+  const [form, setForm] = useState(emptyForm);
+  const [featuredHome, setFeaturedHome] = useState(false);
+  const [featuredCountry, setFeaturedCountry] = useState(false);
+  const [emailNotify, setEmailNotify] = useState(false);
+  const [submitting, setSubmitting] = useState(false);
 
   const totalCost =
     (featuredHome ? 29 : 0) + (featuredCountry ? 19 : 0) + (emailNotify ? 15 : 0);
 
-  const handlePublish = () => {
-    toast({
-      title: "Etkinlik oluşturuldu! 🎉",
-      description: `"${form.title}" başarıyla yayınlandı. Tanıtım seçenekleri aktif.`,
+  const handlePublish = async () => {
+    if (!user) {
+      toast({ title: "Giriş gerekli", description: "Etkinlik oluşturmak için giriş yapın.", variant: "destructive" });
+      return;
+    }
+    if (!form.title.trim() || !form.description.trim() || !form.date || !form.category) {
+      toast({ title: "Eksik bilgi", description: "Başlık, açıklama, tarih ve kategori zorunludur.", variant: "destructive" });
+      return;
+    }
+    setSubmitting(true);
+    const { error } = await supabase.from("events").insert({
+      user_id: user.id,
+      title: form.title.trim(),
+      description: form.description.trim(),
+      category: form.category,
+      type: form.type,
+      event_date: form.date,
+      start_time: form.startTime || null,
+      end_time: form.endTime || null,
+      country: form.country || null,
+      city: form.city || null,
+      location: form.location || null,
+      online_url: form.onlineUrl || null,
+      price: form.price || 0,
+      max_attendees: form.maxAttendees || null,
+      cover_image: form.image || null,
+      tags: form.tags ? form.tags.split(",").map((t) => t.trim()).filter(Boolean) : [],
+      organizer_name: user.user_metadata?.full_name || user.email || null,
+      featured: featuredHome,
+      status: "published",
     });
+    setSubmitting(false);
+    if (error) {
+      toast({ title: "Hata", description: error.message, variant: "destructive" });
+      return;
+    }
+    toast({
+      title: "Etkinlik yayınlandı! 🎉",
+      description: totalCost > 0
+        ? `"${form.title}" yayınlandı. Ödeme entegrasyonu yakında — tanıtım seçenekleri pasif başlatıldı.`
+        : `"${form.title}" başarıyla yayınlandı.`,
+    });
+    onCreated?.();
     onClose?.();
   };
 
@@ -437,12 +479,15 @@ const CreateEventForm = ({ onClose }: CreateEventFormProps) => {
           </div>
         </div>
 
+        {totalCost > 0 && (
+          <p className="text-xs text-muted-foreground text-center mb-3">
+            💳 Ödeme entegrasyonu yakında — şimdilik etkinlik ücretsiz yayınlanacak, tanıtım seçenekleri ileride aktive edilebilir.
+          </p>
+        )}
         <div className="flex gap-3">
-          <Button className="flex-1 gap-2" size="lg" onClick={handlePublish}>
+          <Button className="flex-1 gap-2" size="lg" onClick={handlePublish} disabled={submitting}>
             <CheckCircle2 className="h-5 w-5" />
-            {totalCost > 0
-              ? `Etkinliği Yayınla & Ödeme Yap (€${totalCost})`
-              : "Etkinliği Yayınla"}
+            {submitting ? "Yayınlanıyor..." : "Etkinliği Yayınla"}
           </Button>
           {onClose && (
             <Button variant="outline" size="lg" onClick={onClose}>
