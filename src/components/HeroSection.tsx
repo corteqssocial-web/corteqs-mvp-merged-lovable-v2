@@ -1,13 +1,22 @@
-import { ArrowRight, Globe, MapPin, Users, Trophy, MessageCircle, Sparkles, Video, PenSquare, UserPlus } from "lucide-react";
+import { ArrowRight, Globe, MapPin, Users, Trophy, MessageCircle, Sparkles, Video, PenSquare, UserPlus, Hourglass, Handshake, Briefcase, Megaphone } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import landmarksImage from "@/assets/landmarks-collage.png";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import HeroCityCounters from "@/components/HeroCityCounters";
+import InterestForm, { type InterestCategory } from "@/components/InterestForm";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
   const h = t.hero;
+  const [formOpen, setFormOpen] = useState(false);
+  const [formCategory, setFormCategory] = useState<InterestCategory>("genel");
+
+  const openForm = (cat: InterestCategory) => {
+    setFormCategory(cat);
+    setFormOpen(true);
+  };
 
   return (
     <>
