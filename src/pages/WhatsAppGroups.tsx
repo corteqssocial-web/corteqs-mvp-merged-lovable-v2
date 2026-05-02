@@ -19,7 +19,8 @@ import Footer from "@/components/Footer";
 
 import { whatsappGroups } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
-import { saveLanding, slugify, type LandingMode } from "@/lib/whatsappLandings";
+import { submitLanding, type LandingMode } from "@/lib/whatsappLandings";
+import { useAuth } from "@/contexts/AuthContext";
 
 const categoryMeta = {
   alumni: { icon: GraduationCap, label: "Alumni", color: "text-primary bg-primary/10 border-primary/20" },
