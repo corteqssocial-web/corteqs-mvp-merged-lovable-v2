@@ -1,4 +1,4 @@
-import { Home, Plane, Briefcase, Scale, TrendingUp, Heart, Star, Baby, Brain, GraduationCap, Package, Camera } from "lucide-react";
+import { Home, Plane, Briefcase, Scale, TrendingUp, Heart, Star, Baby, Brain, GraduationCap, Package, Camera, Rocket } from "lucide-react";
 import { HoverCard, HoverCardContent, HoverCardTrigger } from "@/components/ui/hover-card";
 import { Link } from "react-router-dom";
 
@@ -31,6 +31,19 @@ const categories = [
       "Lisans, vergi, muhasebe",
       "İş geliştirme, yerel network",
       "Banka hesap açılışları",
+    ],
+  },
+  {
+    icon: Rocket,
+    title: "Girişim Ekolojisi & Mentörler",
+    desc: "Start-up, VC ve fractional uzmanlar",
+    subs: [
+      "Start-up kurucu mentörleri",
+      "VC & Angel yatırımcı bağlantıları",
+      "Fractional CTO / CMO / CFO",
+      "Inkübasyon & hızlandırıcı yönlendirmesi",
+      "Pitch deck & fundraising danışmanlığı",
+      "Go-to-market & ürün stratejisi",
     ],
   },
   {
