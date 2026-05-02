@@ -131,7 +131,7 @@ const Events = () => {
               <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎟️ Diaspora Etkinlik Merkezi</Badge>
               <h1 className="text-3xl md:text-4xl font-bold text-foreground leading-tight mb-3">
                 Yakında <span className="text-gradient-primary">Ülke · Şehir · Konu Bazlı</span> Tüm Diaspora Etkinlikleri Elinizin Altında
-              </h2>
+              </h1>
               <p className="text-base md:text-lg text-muted-foreground font-body mb-2">
                 İnternette gruplarda etkinlikleri kaçırma dönemi bitti.
               </p>
