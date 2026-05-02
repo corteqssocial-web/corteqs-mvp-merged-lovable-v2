@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CountryCitySelector from "@/components/CountryCitySelector";
 import { Link } from "react-router-dom";
 import { countryCities } from "@/data/countryCities";
 import { useDiaspora } from "@/contexts/DiasporaContext";
@@ -116,7 +117,6 @@ const MapSearch = () => {
   const [selectedCity, setSelectedCity] = useState<string>("all");
   const [entityType, setEntityType] = useState("all");
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
-  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
 
   // Cities for the active (global) country
   const countryCityList = useMemo(
@@ -124,16 +124,15 @@ const MapSearch = () => {
     [effectiveCountry]
   );
 
-  // Reset city when country changes via navbar
+  // Reset city to "all" when country changes via navbar
   useEffect(() => {
-    const firstCity = cities.find(c => c.country === effectiveCountry);
-    setSelectedCity(firstCity ? firstCity.key : "all");
+    setSelectedCity("all");
   }, [effectiveCountry]);
 
-  // Active cities (either single selected, or all in country)
+  // Active cities (either single selected by label, or all in country)
   const activeCities = useMemo(() => {
     if (selectedCity === "all") return countryCityList;
-    const found = countryCityList.find(c => c.key === selectedCity);
+    const found = countryCityList.find(c => c.label === selectedCity || c.key === selectedCity);
     return found ? [found] : countryCityList;
   }, [selectedCity, countryCityList]);
 
