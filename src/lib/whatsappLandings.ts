@@ -150,17 +150,14 @@ export const getLanding = async (
   return DEMOS.find((d) => d.id === slug);
 };
 
-/** List approved landings (public). Includes demos. */
+/** List approved landings (public). */
 export const listLandings = async (): Promise<WhatsAppLanding[]> => {
   const { data, error } = await supabase
     .from("whatsapp_landings")
     .select("*")
     .eq("status", "approved")
     .order("created_at", { ascending: false });
-  const remote = !error && data ? (data as Row[]).map(rowToLanding) : [];
-  // Merge — demo ids take fallback only if no remote shadow
-  const ids = new Set(remote.map((r) => r.id));
-  return [...remote, ...DEMOS.filter((d) => !ids.has(d.id))];
+  return !error && data ? (data as Row[]).map(rowToLanding) : [];
 };
 
 /** Submit a new landing. Returns slug or throws. */
