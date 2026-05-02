@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   MessageSquare, Users, GraduationCap, Heart, PlusCircle, Sparkles, Stethoscope,
   Globe2, Megaphone, ShieldCheck, Layout, FileText, ExternalLink, ArrowRight,
+  TrendingUp, Rocket, BookOpen, HandHeart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -24,9 +25,13 @@ import { useAuth } from "@/contexts/AuthContext";
 
 const categoryMeta = {
   alumni: { icon: GraduationCap, label: "Alumni", color: "text-primary bg-primary/10 border-primary/20" },
+  doktor: { icon: Stethoscope, label: "Doktor", color: "text-success bg-success/10 border-success/20" },
   hobi: { icon: Heart, label: "Hobi", color: "text-turquoise bg-turquoise/10 border-turquoise/20" },
   is: { icon: Users, label: "İş", color: "text-gold bg-gold/10 border-gold/20" },
-  doktor: { icon: Stethoscope, label: "Doktor", color: "text-success bg-success/10 border-success/20" },
+  yatirim: { icon: TrendingUp, label: "Yatırım", color: "text-emerald-600 bg-emerald-500/10 border-emerald-500/20" },
+  girisim: { icon: Rocket, label: "Girişim", color: "text-orange-600 bg-orange-500/10 border-orange-500/20" },
+  akademik: { icon: BookOpen, label: "Akademik", color: "text-indigo-600 bg-indigo-500/10 border-indigo-500/20" },
+  dayanisma: { icon: HandHeart, label: "Dayanışma", color: "text-rose-600 bg-rose-500/10 border-rose-500/20" },
 } as const;
 
 const WhatsAppGroups = () => {
@@ -172,6 +177,10 @@ const WhatsAppGroups = () => {
                             <SelectItem value="doktor">Doktor / Sağlık</SelectItem>
                             <SelectItem value="hobi">Hobi</SelectItem>
                             <SelectItem value="is">İş Grubu</SelectItem>
+                            <SelectItem value="yatirim">Yatırım</SelectItem>
+                            <SelectItem value="girisim">Girişim</SelectItem>
+                            <SelectItem value="akademik">Akademik</SelectItem>
+                            <SelectItem value="dayanisma">Dayanışma</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
@@ -284,51 +293,35 @@ const WhatsAppGroups = () => {
             </Dialog>
           </div>
 
-          <h2 className="text-xl font-bold mb-4 flex items-center justify-center gap-2 text-center">
-            <Sparkles className="h-5 w-5 text-turquoise" /> Öne Çıkan Gruplar
-          </h2>
-
-          {/* 4 demo cards centered */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5 mb-12 max-w-6xl mx-auto">
-            {demoGroups.map((g) => {
-              const meta = categoryMeta[g.category];
-              const Icon = meta.icon;
-              return (
-                <div
-                  key={g.id}
-                  className="relative bg-card rounded-2xl border border-border p-5 shadow-card hover:shadow-card-hover transition-all hover:-translate-y-0.5 flex flex-col"
-                >
-                  <div className={`w-11 h-11 rounded-xl border ${meta.color} flex items-center justify-center mb-3`}>
-                    <Icon className="h-5 w-5" />
+          {/* Blurred placeholder row — "Grubunuzu ekleyin" */}
+          <div className="relative mb-12 max-w-5xl mx-auto">
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-5 select-none pointer-events-none blur-sm opacity-70">
+              {(["alumni", "doktor", "hobi"] as const).map((cat) => {
+                const meta = categoryMeta[cat];
+                const Icon = meta.icon;
+                return (
+                  <div key={cat} className="bg-card rounded-2xl border border-border p-5 shadow-card flex flex-col">
+                    <div className={`w-11 h-11 rounded-xl border ${meta.color} flex items-center justify-center mb-3`}>
+                      <Icon className="h-5 w-5" />
+                    </div>
+                    <h3 className="font-bold text-foreground mb-1">{meta.label} Grubu</h3>
+                    <p className="text-xs text-muted-foreground mb-2">📍 Şehir, Ülke</p>
+                    <p className="text-sm text-muted-foreground mb-3">Grup açıklaması burada yer alacak.</p>
+                    <Button size="sm" className="w-full bg-[#25D366] text-white">Katıl</Button>
                   </div>
-                  <h3 className="font-bold text-foreground mb-1 leading-tight">{g.name}</h3>
-                  <p className="text-xs text-muted-foreground mb-2">📍 {g.city}, {g.country}</p>
-                  <p className="text-sm text-muted-foreground font-body mb-3 line-clamp-2">{g.description}</p>
-                  <div className="flex items-center gap-3 text-xs text-muted-foreground mb-4">
-                    <span className="flex items-center gap-1"><Users className="h-3 w-3" /> {g.members} üye</span>
-                    {g.university && (
-                      <span className={`px-2 py-0.5 rounded-full ${meta.color} text-[10px] font-medium border`}>{g.university}</span>
-                    )}
-                  </div>
-
-                  <div className="mt-auto flex flex-col gap-2">
-                    {g.landingId ? (
-                      <Link to={`/whatsapp-groups/${g.landingId}`}>
-                        <Button size="sm" className="w-full gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white">
-                          <MessageSquare className="h-3.5 w-3.5" /> Landing Sayfasını Aç
-                        </Button>
-                      </Link>
-                    ) : (
-                      <a href={g.link} target="_blank" rel="noopener noreferrer">
-                        <Button size="sm" className="w-full gap-1.5 bg-[#25D366] hover:bg-[#20bd5a] text-white">
-                          <ExternalLink className="h-3.5 w-3.5" /> WhatsApp'ta Aç
-                        </Button>
-                      </a>
-                    )}
-                  </div>
-                </div>
-              );
-            })}
+                );
+              })}
+            </div>
+            <div className="absolute inset-0 flex items-center justify-center">
+              <div className="bg-card/95 backdrop-blur border-2 border-dashed border-[#25D366]/50 rounded-2xl px-6 py-5 text-center shadow-lg max-w-md">
+                <PlusCircle className="h-8 w-8 text-[#25D366] mx-auto mb-2" />
+                <h3 className="font-bold text-lg mb-1">Grubunuzu ekleyin</h3>
+                <p className="text-sm text-muted-foreground mb-3">Alumni, Doktor, Hobi ve daha fazlası — kendi grubunu ücretsiz listele.</p>
+                <Button size="sm" className="gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white" onClick={() => setOpenDialog(true)}>
+                  <PlusCircle className="h-4 w-4" /> Grubunu Listele
+                </Button>
+              </div>
+            </div>
           </div>
 
           {/* Why a landing page — value props */}
