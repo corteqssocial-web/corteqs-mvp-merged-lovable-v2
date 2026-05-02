@@ -26,80 +26,149 @@ type Copy = {
   uploadHint: string;
   submit: string;
   success: string;
+  thanks: string;
+  groupedNote: string;
+  // form labels
+  fullName: string;
+  email: string;
+  phone: string;
+  phonePlaceholder: string;
+  country: string;
+  city: string;
+  organization: string;
+  links: string;
+  message: string;
+  documents: string;
+  selectedIntent: string;
+  required: string;
+  maxFiles: string;
+  fileTooLarge: string;
+  somethingWrong: string;
   langCode: DiasporaKey;
 };
 
 const COPY: Record<Exclude<DiasporaKey, "tr">, Copy> = {
   in: {
-    badge: "Indian Diaspora — Infrastructure Demand Live",
-    title: "We're seeing massive demand from the ",
-    highlight: "Indian global diaspora",
+    badge: "भारतीय डायस्पोरा — इन्फ्रास्ट्रक्चर मांग सक्रिय",
+    title: "हमें ज़बरदस्त मांग मिल रही है ",
+    highlight: "भारतीय वैश्विक डायस्पोरा से",
     subtitle:
-      "CorteQS is opening dedicated infrastructure for the Indian diaspora — investors, founders, professionals and students. Register early to get your slot.",
-    formTitle: "Indian Diaspora — Early Access Registration",
+      "CorteQS भारतीय डायस्पोरा के लिए समर्पित बुनियादी ढांचा खोल रहा है — निवेशक, संस्थापक, पेशेवर और छात्र। जल्दी रजिस्टर करें और अपनी जगह पाएं।",
+    formTitle: "भारतीय डायस्पोरा — अर्ली एक्सेस रजिस्ट्रेशन",
     formIntro:
-      "Drop your documents, deck or LinkedIn link. Tell us if you're here for investment & partnership or general access.",
-    cta1: "Investment & Partnership",
-    cta2: "General Registration",
-    interestLabel: "Why are you joining?",
+      "अपने दस्तावेज़, डेक या LinkedIn लिंक अपलोड करें। बताएं कि आप निवेश व साझेदारी के लिए हैं या सामान्य पहुँच के लिए।",
+    cta1: "निवेश व साझेदारी",
+    cta2: "सामान्य रजिस्ट्रेशन",
+    interestLabel: "आप क्यों जुड़ रहे हैं?",
     options: [
-      { value: "investment_partnership", label: "Investment & Partnership" },
-      { value: "founder_startup", label: "Founder / Startup" },
-      { value: "professional", label: "Professional / Job seeker" },
-      { value: "student", label: "Student" },
-      { value: "general", label: "General registration" },
+      { value: "investment_partnership", label: "निवेश व साझेदारी" },
+      { value: "founder_startup", label: "संस्थापक / स्टार्टअप" },
+      { value: "professional", label: "पेशेवर / नौकरी की तलाश" },
+      { value: "student", label: "छात्र" },
+      { value: "general", label: "सामान्य रजिस्ट्रेशन" },
     ],
-    uploadHint: "Upload deck / CV / one-pager (PDF, PPTX, DOCX — max 10MB)",
-    submit: "Complete Registration",
-    success: "Registration received. We'll be in touch shortly.",
+    uploadHint: "डेक / CV / वन-पेजर अपलोड करें (PDF, PPTX, DOCX — अधिकतम 10MB)",
+    submit: "रजिस्ट्रेशन पूरा करें",
+    success: "रजिस्ट्रेशन प्राप्त हुआ। हम जल्द ही आपसे संपर्क करेंगे।",
+    thanks: "धन्यवाद!",
+    groupedNote: "रजिस्ट्रेशन देश व डायस्पोरा अनुसार वर्गीकृत हैं",
+    fullName: "पूरा नाम *",
+    email: "ईमेल *",
+    phone: "फ़ोन (देश कोड के साथ)",
+    phonePlaceholder: "+91 ...",
+    country: "देश",
+    city: "शहर",
+    organization: "कंपनी / संगठन (वैकल्पिक)",
+    links: "लिंक (LinkedIn, वेबसाइट, डेक URL)",
+    message: "संदेश / आप क्या ढूंढ रहे हैं",
+    documents: "दस्तावेज़",
+    selectedIntent: "चयनित उद्देश्य:",
+    required: "नाम और ईमेल आवश्यक हैं",
+    maxFiles: "अधिकतम 5 फ़ाइलें",
+    fileTooLarge: "फ़ाइल बहुत बड़ी है",
+    somethingWrong: "कुछ गलत हो गया",
     langCode: "in",
   },
   cn: {
-    badge: "Chinese Diaspora — Infrastructure Demand Live",
-    title: "Strong inbound demand from the ",
-    highlight: "Chinese global diaspora",
+    badge: "华人海外社群 — 基础设施需求上线",
+    title: "我们看到了来自 ",
+    highlight: "全球华人海外社群的强劲需求",
     subtitle:
-      "CorteQS is launching dedicated infrastructure for Chinese diaspora investors, founders, professionals and families. Reserve your spot.",
-    formTitle: "Chinese Diaspora — Early Access Registration",
+      "CorteQS 正在为华人海外社群打造专属基础设施 — 投资者、创业者、专业人士与家庭。立即注册,预留名额。",
+    formTitle: "华人海外社群 — 早期访问注册",
     formIntro:
-      "Share your deck, CV or links. Let us know your goal: investment / partnership or general access.",
-    cta1: "Investment & Partnership",
-    cta2: "General Registration",
-    interestLabel: "Why are you joining?",
+      "上传您的资料、商业计划书或 CV。请告诉我们您是为投资合作还是一般注册而来。",
+    cta1: "投资与合作",
+    cta2: "一般注册",
+    interestLabel: "您为什么加入?",
     options: [
-      { value: "investment_partnership", label: "Investment & Partnership" },
-      { value: "founder_startup", label: "Founder / Startup" },
-      { value: "professional", label: "Professional / Job seeker" },
-      { value: "student", label: "Student" },
-      { value: "general", label: "General registration" },
+      { value: "investment_partnership", label: "投资与合作" },
+      { value: "founder_startup", label: "创始人 / 创业公司" },
+      { value: "professional", label: "专业人士 / 求职者" },
+      { value: "student", label: "学生" },
+      { value: "general", label: "一般注册" },
     ],
-    uploadHint: "Upload deck / CV / one-pager (PDF, PPTX, DOCX — max 10MB)",
-    submit: "Complete Registration",
-    success: "Registration received. We'll be in touch shortly.",
+    uploadHint: "上传商业计划书 / CV / 简介 (PDF, PPTX, DOCX — 最大 10MB)",
+    submit: "完成注册",
+    success: "已收到您的注册,我们会尽快与您联系。",
+    thanks: "谢谢!",
+    groupedNote: "注册按国家与社群分组",
+    fullName: "全名 *",
+    email: "邮箱 *",
+    phone: "电话(含国家代码)",
+    phonePlaceholder: "+86 ...",
+    country: "国家",
+    city: "城市",
+    organization: "公司 / 机构(可选)",
+    links: "链接 (LinkedIn、网站、计划书 URL)",
+    message: "留言 / 您在寻找什么",
+    documents: "文件",
+    selectedIntent: "已选意向:",
+    required: "姓名与邮箱为必填项",
+    maxFiles: "最多 5 个文件",
+    fileTooLarge: "文件过大",
+    somethingWrong: "出错了",
     langCode: "cn",
   },
   ph: {
-    badge: "Filipino Diaspora — Infrastructure Demand Live",
-    title: "Growing demand from the ",
+    badge: "Filipino Diaspora — Bukas na ang Demand sa Imprastruktura",
+    title: "Lumalaking demand mula sa ",
     highlight: "Filipino global diaspora",
     subtitle:
-      "CorteQS is preparing dedicated infrastructure for the Filipino diaspora — OFWs, founders, professionals and families. Get early access.",
+      "Naghahanda ang CorteQS ng dedikadong imprastruktura para sa Filipino diaspora — OFWs, founders, propesyonal at pamilya. Kumuha ng early access ngayon.",
     formTitle: "Filipino Diaspora — Early Access Registration",
     formIntro:
-      "Upload your documents or links. Tell us if it's for investment & partnership or general registration.",
-    cta1: "Investment & Partnership",
-    cta2: "General Registration",
-    interestLabel: "Why are you joining?",
+      "I-upload ang iyong mga dokumento o links. Sabihin sa amin kung para sa investment & partnership o general registration.",
+    cta1: "Investment at Partnership",
+    cta2: "General na Pagpaparehistro",
+    interestLabel: "Bakit ka sumasali?",
     options: [
-      { value: "investment_partnership", label: "Investment & Partnership" },
+      { value: "investment_partnership", label: "Investment at Partnership" },
       { value: "founder_startup", label: "Founder / Startup" },
-      { value: "professional", label: "Professional / Job seeker" },
-      { value: "student", label: "Student" },
-      { value: "general", label: "General registration" },
+      { value: "professional", label: "Propesyonal / Naghahanap ng trabaho" },
+      { value: "student", label: "Estudyante" },
+      { value: "general", label: "General na Pagpaparehistro" },
     ],
-    uploadHint: "Upload deck / CV / one-pager (PDF, PPTX, DOCX — max 10MB)",
-    submit: "Complete Registration",
-    success: "Registration received. We'll be in touch shortly.",
+    uploadHint: "Mag-upload ng deck / CV / one-pager (PDF, PPTX, DOCX — max 10MB)",
+    submit: "Tapusin ang Pagpaparehistro",
+    success: "Natanggap ang iyong pagpaparehistro. Makikipag-ugnayan kami sa lalong madaling panahon.",
+    thanks: "Salamat!",
+    groupedNote: "Ang mga rehistro ay nakaayos ayon sa bansa at diaspora",
+    fullName: "Buong pangalan *",
+    email: "Email *",
+    phone: "Telepono (may country code)",
+    phonePlaceholder: "+63 ...",
+    country: "Bansa",
+    city: "Lungsod",
+    organization: "Kumpanya / Organisasyon (opsyonal)",
+    links: "Mga link (LinkedIn, website, deck URL)",
+    message: "Mensahe / ano ang hinahanap mo",
+    documents: "Mga dokumento",
+    selectedIntent: "Napiling layunin:",
+    required: "Kailangan ang pangalan at email",
+    maxFiles: "Maximum 5 files",
+    fileTooLarge: "Masyadong malaki ang file",
+    somethingWrong: "May nangyaring mali",
     langCode: "ph",
   },
 };
@@ -122,12 +191,12 @@ const InternationalDiasporaHero = () => {
   const handleFiles = (e: React.ChangeEvent<HTMLInputElement>) => {
     const list = Array.from(e.target.files || []);
     if (files.length + list.length > 5) {
-      toast({ title: "Max 5 files", variant: "destructive" });
+      toast({ title: c.maxFiles, variant: "destructive" });
       return;
     }
     const big = list.find((f) => f.size > 10 * 1024 * 1024);
     if (big) {
-      toast({ title: "File too large", description: `${big.name} > 10MB`, variant: "destructive" });
+      toast({ title: c.fileTooLarge, description: `${big.name} > 10MB`, variant: "destructive" });
       return;
     }
     setFiles((p) => [...p, ...list]);
@@ -148,7 +217,7 @@ const InternationalDiasporaHero = () => {
   const submit = async (e: React.FormEvent) => {
     e.preventDefault();
     if (!form.name || !form.email) {
-      toast({ title: "Name & email required", variant: "destructive" });
+      toast({ title: c.required, variant: "destructive" });
       return;
     }
     setSubmitting(true);
@@ -172,9 +241,9 @@ const InternationalDiasporaHero = () => {
       });
       if (error) throw error;
       setDone(true);
-      toast({ title: "Thanks!", description: c.success });
+      toast({ title: c.thanks, description: c.success });
     } catch (err: any) {
-      toast({ title: "Something went wrong", description: err.message, variant: "destructive" });
+      toast({ title: c.somethingWrong, description: err.message, variant: "destructive" });
     } finally {
       setSubmitting(false);
     }
@@ -193,7 +262,7 @@ const InternationalDiasporaHero = () => {
             <Sparkles className="h-4 w-4 text-amber-500" />
             <span className="text-sm font-semibold text-amber-600">{c.badge}</span>
           </div>
-          <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold leading-tight mb-5">
+          <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
             {c.title}
             <span className="text-gradient-primary">{c.highlight}</span>
           </h1>
@@ -219,7 +288,7 @@ const InternationalDiasporaHero = () => {
           </div>
           <div className="flex items-center gap-2 mt-8 text-sm text-muted-foreground">
             <Globe className="h-4 w-4 text-turquoise" />
-            <span>Registrations grouped by country & diaspora</span>
+            <span>{c.groupedNote}</span>
           </div>
         </div>
 
@@ -228,7 +297,7 @@ const InternationalDiasporaHero = () => {
           {done ? (
             <div className="flex flex-col items-center text-center py-10 gap-3">
               <CheckCircle2 className="h-14 w-14 text-turquoise" />
-              <h3 className="text-xl font-bold">Thank you!</h3>
+              <h3 className="text-xl font-bold">{c.thanks}</h3>
               <p className="text-sm text-muted-foreground max-w-sm">{c.success}</p>
             </div>
           ) : (
@@ -246,43 +315,43 @@ const InternationalDiasporaHero = () => {
                   </Select>
                 </div>
                 <div>
-                  <Label>Full name *</Label>
+                  <Label>{c.fullName}</Label>
                   <Input value={form.name} onChange={(e) => setForm({ ...form, name: e.target.value })} required />
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label>Email *</Label>
+                    <Label>{c.email}</Label>
                     <Input type="email" value={form.email} onChange={(e) => setForm({ ...form, email: e.target.value })} required />
                   </div>
                   <div>
-                    <Label>Phone (with country code)</Label>
-                    <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder="+91 ..." />
+                    <Label>{c.phone}</Label>
+                    <Input value={form.phone} onChange={(e) => setForm({ ...form, phone: e.target.value })} placeholder={c.phonePlaceholder} />
                   </div>
                 </div>
                 <div className="grid grid-cols-2 gap-3">
                   <div>
-                    <Label>Country</Label>
+                    <Label>{c.country}</Label>
                     <Input value={form.country} onChange={(e) => setForm({ ...form, country: e.target.value })} />
                   </div>
                   <div>
-                    <Label>City</Label>
+                    <Label>{c.city}</Label>
                     <Input value={form.city} onChange={(e) => setForm({ ...form, city: e.target.value })} />
                   </div>
                 </div>
                 <div>
-                  <Label>Company / Organization (optional)</Label>
+                  <Label>{c.organization}</Label>
                   <Input value={form.organization} onChange={(e) => setForm({ ...form, organization: e.target.value })} />
                 </div>
                 <div>
-                  <Label>Links (LinkedIn, website, deck URL)</Label>
+                  <Label>{c.links}</Label>
                   <Input value={form.links} onChange={(e) => setForm({ ...form, links: e.target.value })} placeholder="https://..." />
                 </div>
                 <div>
-                  <Label>Message / what you're looking for</Label>
+                  <Label>{c.message}</Label>
                   <Textarea rows={3} value={form.message} onChange={(e) => setForm({ ...form, message: e.target.value })} />
                 </div>
                 <div>
-                  <Label>Documents</Label>
+                  <Label>{c.documents}</Label>
                   <label className="mt-1 flex items-center justify-center gap-2 px-4 py-3 border-2 border-dashed border-border rounded-lg cursor-pointer hover:border-turquoise/60 hover:bg-turquoise/5 transition-colors">
                     <Upload className="h-4 w-4 text-turquoise" />
                     <span className="text-xs text-muted-foreground">{c.uploadHint}</span>
@@ -302,7 +371,7 @@ const InternationalDiasporaHero = () => {
                   )}
                 </div>
                 <div className="text-xs text-muted-foreground bg-amber-50 border border-amber-200 rounded-lg px-3 py-2">
-                  Selected intent: <span className="font-semibold">{intent === "investment_partnership" ? c.cta1 : c.cta2}</span>
+                  {c.selectedIntent} <span className="font-semibold">{intent === "investment_partnership" ? c.cta1 : c.cta2}</span>
                 </div>
                 <Button type="submit" disabled={submitting} className="w-full" size="lg">
                   {submitting ? <Loader2 className="h-4 w-4 mr-2 animate-spin" /> : <Rocket className="h-4 w-4 mr-2" />}
