@@ -347,38 +347,6 @@ const Events = () => {
                   </div>
                 </div>
               </div>
-
-                {/* Live Event 3 - Ücretsiz */}
-                <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    <Radio className="h-3 w-3 animate-pulse" /> CANLI
-                  </div>
-                  <div className="relative h-36">
-                    <img src="https://images.unsplash.com/photo-1475721027785-f74eccf877e2?w=500&h=280&fit=crop" alt="Panel" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
-                      <Badge className="bg-gold/90 text-primary-foreground border-0 text-xs">İş & Kariyer</Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-foreground mb-1">Yatırımcı Buluşması — Q&A</h3>
-                    <p className="text-xs text-muted-foreground font-body mb-3">Dubai'deki yatırım fırsatları hakkında canlı soru-cevap oturumu.</p>
-                    <div className="space-y-1.5 text-sm text-muted-foreground font-body mb-4">
-                      <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 20:00 – 21:00 GST <span className="text-xs bg-destructive/10 text-destructive rounded px-1.5 ml-1">18 dk kaldı</span></p>
-                      <p className="flex items-center gap-1.5"><Video className="h-3.5 w-3.5" /> YouTube Live · Online</p>
-                      <p className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> 215 izleyici</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline" className="text-success border-success/30 gap-1">
-                        <Unlock className="h-3 w-3" /> Ücretsiz
-                      </Badge>
-                      <Button size="sm" className="gap-1.5">
-                        <Video className="h-3.5 w-3.5" /> İzle
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
             </div>
           )}
 
