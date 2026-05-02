@@ -19,7 +19,8 @@ import Footer from "@/components/Footer";
 
 import { whatsappGroups } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
-import { saveLanding, slugify, type LandingMode } from "@/lib/whatsappLandings";
+import { submitLanding, type LandingMode } from "@/lib/whatsappLandings";
+import { useAuth } from "@/contexts/AuthContext";
 
 const categoryMeta = {
   alumni: { icon: GraduationCap, label: "Alumni", color: "text-primary bg-primary/10 border-primary/20" },
@@ -31,6 +32,8 @@ const categoryMeta = {
 const WhatsAppGroups = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user } = useAuth();
+  const [submitting, setSubmitting] = useState(false);
 
   // 4 örnek demo grup: 2 Alumni (farklı şehir), 1 Doktor, 1 Hobi
   const demoIds = ["odtu-almanya", "bogazici-bae", "doktor-londra", "kitap-dubai"];
@@ -63,40 +66,48 @@ const WhatsAppGroups = () => {
     setAdminName(""); setAdminContact(""); setMode("visual"); setCreateLanding(true);
   };
 
-  const handleSubmit = () => {
+  const handleSubmit = async () => {
     if (!groupName || !country || !city || !whatsappLink) {
       toast({ title: "Eksik alan", description: "Grup adı, ülke, şehir ve WhatsApp linki zorunludur.", variant: "destructive" });
       return;
     }
+    if (!user) {
+      toast({ title: "Giriş gerekli", description: "Grup eklemek için önce giriş yap.", variant: "destructive" });
+      navigate("/auth");
+      return;
+    }
 
-    if (createLanding) {
-      const id = slugify(`${groupName}-${city}`) || `landing-${Date.now()}`;
-      saveLanding({
-        id,
+    setSubmitting(true);
+    try {
+      await submitLanding({
         groupName,
         category,
         country,
         city,
         mode,
-        heroImage: mode === "visual" ? (heroImage || undefined) : undefined,
+        heroImage: mode === "visual" ? heroImage : undefined,
         tagline: tagline || description.slice(0, 100),
         callToActionText: callToActionText || description,
         conditions,
         whatsappLink,
-        adminName: adminName || undefined,
-        adminContact: adminContact || undefined,
-        createdAt: new Date().toISOString(),
+        adminName,
+        adminContact,
+        description,
       });
-      toast({ title: "Landing sayfan hazır!", description: "Linki paylaşmaya başlayabilirsin." });
+      toast({
+        title: "Başvurun alındı! 🎉",
+        description: createLanding
+          ? "Landing sayfan admin onayından sonra herkese görünür olacak."
+          : "Grubun admin onayından sonra listede yayınlanacak.",
+      });
       setOpenDialog(false);
       resetForm();
-      navigate(`/whatsapp-groups/${id}`);
-      return;
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Bilinmeyen hata";
+      toast({ title: "Gönderilemedi", description: msg, variant: "destructive" });
+    } finally {
+      setSubmitting(false);
     }
-
-    toast({ title: "Grup başvurun alındı!", description: "İnceleme sonrası listede yayınlanacak." });
-    setOpenDialog(false);
-    resetForm();
   };
 
   return (
@@ -256,9 +267,17 @@ const WhatsAppGroups = () => {
                     )}
                   </div>
 
-                  <Button className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white" onClick={handleSubmit}>
+                  <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-xs text-amber-900">
+                    🛡️ Başvurun admin onayından sonra herkese görünür olacak. (Spam ve sahte grupları önlemek için.)
+                  </div>
+
+                  <Button
+                    className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white"
+                    onClick={handleSubmit}
+                    disabled={submitting}
+                  >
                     <MessageSquare className="h-4 w-4" />
-                    {createLanding ? "Landing Sayfası Oluştur ve Yayınla" : "Grubu Gönder"}
+                    {submitting ? "Gönderiliyor..." : (createLanding ? "Landing Sayfası Oluştur ve Onaya Gönder" : "Grubu Onaya Gönder")}
                   </Button>
                 </div>
               </DialogContent>

@@ -1,35 +1,33 @@
-// Lightweight client-side store for WhatsApp Group landing pages.
-// Real persistence can later be moved to Supabase; for now we keep this
-// in localStorage so admins can ship a landing without a backend round-trip.
+// Supabase-backed store for WhatsApp Group landing pages.
+// Submissions go to whatsapp_landings table with status='pending';
+// admins approve to make them public. Demo entries kept as fallback
+// so example cards keep rendering even before any approval.
+
+import { supabase } from "@/integrations/supabase/client";
 
 export type LandingMode = "visual" | "text";
+export type LandingCategory = "alumni" | "hobi" | "is" | "doktor";
+export type LandingStatus = "pending" | "approved" | "rejected";
 
 export interface WhatsAppLanding {
   id: string;
   groupName: string;
-  category: "alumni" | "hobi" | "is" | "doktor";
+  category: LandingCategory;
   country: string;
   city: string;
   mode: LandingMode;
-  /** Hero image URL for visual mode */
   heroImage?: string;
-  /** Short tagline / pitch */
   tagline: string;
-  /** Long-form invitation copy */
   callToActionText: string;
-  /** Group conditions / rules (one per line) */
   conditions: string;
-  /** Direct WhatsApp join link */
   whatsappLink: string;
-  /** Optional admin contact */
   adminName?: string;
   adminContact?: string;
+  status?: LandingStatus;
   createdAt: string;
 }
 
-const KEY = "corteqs.whatsapp.landings.v1";
-
-const DEFAULTS: WhatsAppLanding[] = [
+const DEMOS: WhatsAppLanding[] = [
   {
     id: "odtu-almanya",
     groupName: "ODTÜ Mezunları Almanya",
@@ -47,6 +45,7 @@ const DEFAULTS: WhatsAppLanding[] = [
     whatsappLink: "https://chat.whatsapp.com/odtu-almanya",
     adminName: "Burak Yılmaz",
     adminContact: "+49 170 000 0000",
+    status: "approved",
     createdAt: new Date().toISOString(),
   },
   {
@@ -64,6 +63,7 @@ const DEFAULTS: WhatsAppLanding[] = [
     whatsappLink: "https://chat.whatsapp.com/doktor-london",
     adminName: "Dr. Leyla Aydın",
     adminContact: "admin@drleylaaydin.co.uk",
+    status: "approved",
     createdAt: new Date().toISOString(),
   },
   {
@@ -83,35 +83,47 @@ const DEFAULTS: WhatsAppLanding[] = [
     whatsappLink: "https://chat.whatsapp.com/kitap-dubai",
     adminName: "Selma Kaya",
     adminContact: "+971 50 000 0000",
+    status: "approved",
     createdAt: new Date().toISOString(),
   },
 ];
 
-const readAll = (): WhatsAppLanding[] => {
-  try {
-    const raw = localStorage.getItem(KEY);
-    if (!raw) return DEFAULTS;
-    const parsed = JSON.parse(raw) as WhatsAppLanding[];
-    // merge defaults that aren't overridden
-    const ids = new Set(parsed.map((p) => p.id));
-    return [...parsed, ...DEFAULTS.filter((d) => !ids.has(d.id))];
-  } catch {
-    return DEFAULTS;
-  }
+type Row = {
+  id: string;
+  slug: string;
+  group_name: string;
+  category: LandingCategory;
+  country: string;
+  city: string;
+  mode: LandingMode;
+  hero_image: string | null;
+  tagline: string | null;
+  call_to_action_text: string | null;
+  conditions: string | null;
+  whatsapp_link: string;
+  admin_name: string | null;
+  admin_contact: string | null;
+  status: LandingStatus;
+  created_at: string;
 };
 
-export const getLanding = (id: string): WhatsAppLanding | undefined =>
-  readAll().find((l) => l.id === id);
-
-export const listLandings = (): WhatsAppLanding[] => readAll();
-
-export const saveLanding = (landing: WhatsAppLanding) => {
-  const all = readAll().filter((l) => l.id !== landing.id);
-  all.push(landing);
-  // Persist only user-created ones (defaults stay as fallback)
-  const userOnly = all.filter((l) => !DEFAULTS.find((d) => d.id === l.id) || true);
-  localStorage.setItem(KEY, JSON.stringify(userOnly));
-};
+const rowToLanding = (r: Row): WhatsAppLanding => ({
+  id: r.slug,
+  groupName: r.group_name,
+  category: r.category,
+  country: r.country,
+  city: r.city,
+  mode: r.mode,
+  heroImage: r.hero_image ?? undefined,
+  tagline: r.tagline ?? "",
+  callToActionText: r.call_to_action_text ?? "",
+  conditions: r.conditions ?? "",
+  whatsappLink: r.whatsapp_link,
+  adminName: r.admin_name ?? undefined,
+  adminContact: r.admin_contact ?? undefined,
+  status: r.status,
+  createdAt: r.created_at,
+});
 
 export const slugify = (s: string) =>
   s
@@ -121,3 +133,145 @@ export const slugify = (s: string) =>
     .replace(/[^a-z0-9]+/g, "-")
     .replace(/(^-|-$)/g, "")
     .slice(0, 60);
+
+/** Fetch single landing by slug. Falls back to local demos. */
+export const getLanding = async (
+  slug: string,
+): Promise<WhatsAppLanding | undefined> => {
+  const { data, error } = await supabase
+    .from("whatsapp_landings")
+    .select("*")
+    .eq("slug", slug)
+    .eq("status", "approved")
+    .maybeSingle();
+  if (!error && data) return rowToLanding(data as Row);
+  return DEMOS.find((d) => d.id === slug);
+};
+
+/** List approved landings (public). Includes demos. */
+export const listLandings = async (): Promise<WhatsAppLanding[]> => {
+  const { data, error } = await supabase
+    .from("whatsapp_landings")
+    .select("*")
+    .eq("status", "approved")
+    .order("created_at", { ascending: false });
+  const remote = !error && data ? (data as Row[]).map(rowToLanding) : [];
+  // Merge — demo ids take fallback only if no remote shadow
+  const ids = new Set(remote.map((r) => r.id));
+  return [...remote, ...DEMOS.filter((d) => !ids.has(d.id))];
+};
+
+/** Submit a new landing. Returns slug or throws. */
+export interface SaveLandingInput {
+  groupName: string;
+  category: LandingCategory;
+  country: string;
+  city: string;
+  mode: LandingMode;
+  heroImage?: string;
+  tagline?: string;
+  callToActionText?: string;
+  conditions?: string;
+  whatsappLink: string;
+  adminName?: string;
+  adminContact?: string;
+  description?: string;
+}
+
+export const submitLanding = async (
+  input: SaveLandingInput,
+): Promise<{ slug: string; id: string }> => {
+  const { data: userRes } = await supabase.auth.getUser();
+  const user = userRes.user;
+  if (!user) throw new Error("Giriş yapmalısın.");
+
+  const baseSlug =
+    slugify(`${input.groupName}-${input.city}`) || `landing-${Date.now()}`;
+  // ensure uniqueness
+  let slug = baseSlug;
+  for (let i = 0; i < 5; i++) {
+    const { data: existing } = await supabase
+      .from("whatsapp_landings")
+      .select("id")
+      .eq("slug", slug)
+      .maybeSingle();
+    if (!existing) break;
+    slug = `${baseSlug}-${Math.random().toString(36).slice(2, 6)}`;
+  }
+
+  const { data, error } = await supabase
+    .from("whatsapp_landings")
+    .insert({
+      user_id: user.id,
+      slug,
+      group_name: input.groupName,
+      category: input.category,
+      country: input.country,
+      city: input.city,
+      mode: input.mode,
+      hero_image: input.heroImage || null,
+      tagline: input.tagline || null,
+      call_to_action_text: input.callToActionText || null,
+      conditions: input.conditions || null,
+      whatsapp_link: input.whatsappLink,
+      admin_name: input.adminName || null,
+      admin_contact: input.adminContact || null,
+      description: input.description || null,
+    })
+    .select("id, slug")
+    .single();
+
+  if (error) throw error;
+  return { slug: data.slug, id: data.id };
+};
+
+/** Admin: list submissions with optional status filter. */
+export const listAllSubmissions = async (
+  status?: LandingStatus,
+): Promise<(WhatsAppLanding & { dbId: string })[]> => {
+  let q = supabase
+    .from("whatsapp_landings")
+    .select("*")
+    .order("created_at", { ascending: false });
+  if (status) q = q.eq("status", status);
+  const { data, error } = await q;
+  if (error || !data) return [];
+  return (data as Row[]).map((r) => ({ ...rowToLanding(r), dbId: r.id }));
+};
+
+/** Admin: approve / reject. */
+export const setLandingStatus = async (
+  dbId: string,
+  status: LandingStatus,
+  rejection_reason?: string,
+) => {
+  const { error } = await supabase
+    .from("whatsapp_landings")
+    .update({ status, rejection_reason: rejection_reason ?? null })
+    .eq("id", dbId);
+  if (error) throw error;
+};
+
+/** Admin: delete. */
+export const deleteLanding = async (dbId: string) => {
+  const { error } = await supabase.from("whatsapp_landings").delete().eq("id", dbId);
+  if (error) throw error;
+};
+
+/** Backwards-compat shim — older callers expected sync save. */
+export const saveLanding = (l: WhatsAppLanding) => {
+  void submitLanding({
+    groupName: l.groupName,
+    category: l.category,
+    country: l.country,
+    city: l.city,
+    mode: l.mode,
+    heroImage: l.heroImage,
+    tagline: l.tagline,
+    callToActionText: l.callToActionText,
+    conditions: l.conditions,
+    whatsappLink: l.whatsappLink,
+    adminName: l.adminName,
+    adminContact: l.adminContact,
+  }).catch(() => undefined);
+};

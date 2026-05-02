@@ -24,10 +24,27 @@ const WhatsAppGroupLanding = () => {
   const [landing, setLanding] = useState<WhatsAppLanding | undefined>(undefined);
   const [copied, setCopied] = useState(false);
 
+  const [loading, setLoading] = useState(true);
+
   useEffect(() => {
     if (!id) return;
-    setLanding(getLanding(id));
+    let cancelled = false;
+    setLoading(true);
+    getLanding(id)
+      .then((l) => { if (!cancelled) setLanding(l); })
+      .finally(() => { if (!cancelled) setLoading(false); });
+    return () => { cancelled = true; };
   }, [id]);
+
+  if (loading) {
+    return (
+      <div className="min-h-screen bg-background">
+        <Navbar />
+        <main className="pt-24 pb-16 text-center text-muted-foreground">Yükleniyor...</main>
+        <Footer />
+      </div>
+    );
+  }
 
   if (!landing) {
     return (

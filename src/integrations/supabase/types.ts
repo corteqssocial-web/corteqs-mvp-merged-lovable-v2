@@ -456,6 +456,75 @@ export type Database = {
           },
         ]
       }
+      whatsapp_landings: {
+        Row: {
+          admin_contact: string | null
+          admin_name: string | null
+          call_to_action_text: string | null
+          category: string
+          city: string
+          conditions: string | null
+          country: string
+          created_at: string
+          description: string | null
+          group_name: string
+          hero_image: string | null
+          id: string
+          mode: string
+          rejection_reason: string | null
+          slug: string
+          status: string
+          tagline: string | null
+          updated_at: string
+          user_id: string
+          whatsapp_link: string
+        }
+        Insert: {
+          admin_contact?: string | null
+          admin_name?: string | null
+          call_to_action_text?: string | null
+          category: string
+          city: string
+          conditions?: string | null
+          country: string
+          created_at?: string
+          description?: string | null
+          group_name: string
+          hero_image?: string | null
+          id?: string
+          mode?: string
+          rejection_reason?: string | null
+          slug: string
+          status?: string
+          tagline?: string | null
+          updated_at?: string
+          user_id: string
+          whatsapp_link: string
+        }
+        Update: {
+          admin_contact?: string | null
+          admin_name?: string | null
+          call_to_action_text?: string | null
+          category?: string
+          city?: string
+          conditions?: string | null
+          country?: string
+          created_at?: string
+          description?: string | null
+          group_name?: string
+          hero_image?: string | null
+          id?: string
+          mode?: string
+          rejection_reason?: string | null
+          slug?: string
+          status?: string
+          tagline?: string | null
+          updated_at?: string
+          user_id?: string
+          whatsapp_link?: string
+        }
+        Relationships: []
+      }
     }
     Views: {
       [_ in never]: never
