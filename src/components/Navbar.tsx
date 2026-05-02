@@ -64,7 +64,7 @@ const Navbar = () => {
                   <DropdownMenuItem
                     key={opt.key}
                     className={`gap-2 cursor-pointer ${diaspora === opt.key ? "bg-accent/50 font-semibold" : ""}`}
-                    onClick={() => setDiaspora(opt.key)}
+                    onClick={() => { setDiaspora(opt.key); navigate("/"); }}
                   >
                     <span className="text-lg">{opt.flag}</span>
                     <div className="flex flex-col">
@@ -202,7 +202,7 @@ const Navbar = () => {
                 {diasporaOptions.map((opt) => (
                   <button
                     key={opt.key}
-                    onClick={() => setDiaspora(opt.key)}
+                    onClick={() => { setDiaspora(opt.key); navigate("/"); setIsOpen(false); }}
                     className={`text-xl p-1.5 rounded-lg transition-all ${diaspora === opt.key ? "bg-primary/15 ring-2 ring-primary/30 scale-110" : "hover:bg-muted"}`}
                   >
                     {opt.flag}
