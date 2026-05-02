@@ -41,6 +41,7 @@ interface LiveEvent {
   max_attendees: number | null;
   cover_image: string | null;
   organizer_name: string | null;
+  organizer_type?: string | null;
   featured: boolean;
 }
 
@@ -87,7 +88,7 @@ const Events = () => {
     setLoadingEvents(true);
     const { data, error } = await supabase
       .from("events")
-      .select("id,title,description,category,type,event_date,start_time,end_time,country,city,location,price,max_attendees,cover_image,organizer_name,featured")
+      .select("id,title,description,category,type,event_date,start_time,end_time,country,city,location,price,max_attendees,cover_image,organizer_name,organizer_type,featured")
       .eq("status", "published")
       .order("event_date", { ascending: true });
     if (!error && data) setLiveEvents(data as LiveEvent[]);
