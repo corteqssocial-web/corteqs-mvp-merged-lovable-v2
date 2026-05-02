@@ -173,6 +173,7 @@ const Events = () => {
                     <Button className="w-full gap-2" >
                       <Calendar className="h-4 w-4" /> Etkinliği Yayınla
                     </Button>
+                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
