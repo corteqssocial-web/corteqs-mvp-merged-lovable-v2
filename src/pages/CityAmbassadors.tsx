@@ -14,6 +14,7 @@ import {
   ArrowRight, Star, CheckCircle, Rocket, DollarSign,
   Network, Award, Handshake, Target, Clock, Send
 } from "lucide-react";
+import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
 const priorityCities: Record<string, string[]> = {
   "🇩🇪 Almanya": ["Berlin", "Köln", "Frankfurt"],
@@ -55,6 +56,7 @@ const CityAmbassadors = () => {
     reach_count: "", reach_description: "", organized_events: "",
     known_professionals: "", first_week_plan: "", weekly_hours: "", motivation: "",
   });
+  const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
   const handleChange = (e: React.ChangeEvent<HTMLInputElement | HTMLTextAreaElement>) => {
     setForm(prev => ({ ...prev, [e.target.name]: e.target.value }));
@@ -69,6 +71,10 @@ const CityAmbassadors = () => {
     }
     if (!form.full_name || !form.email || !form.phone || !form.city || !form.country) {
       toast({ title: "Eksik bilgi", description: "Lütfen zorunlu alanları doldurun.", variant: "destructive" });
+      return;
+    }
+    if (!isConsentValid(consent)) {
+      toast({ title: "Onay gerekli", description: "KVKK / GDPR / CCPA onaylarını işaretleyin.", variant: "destructive" });
       return;
     }
     setLoading(true);
@@ -337,7 +343,9 @@ const CityAmbassadors = () => {
                     </div>
                   </div>
 
-                  <Button type="submit" size="lg" className="w-full bg-gold hover:bg-gold/90 text-primary-foreground gap-2" disabled={loading}>
+                  <ConsentCheckboxes value={consent} onChange={setConsent} />
+
+                  <Button type="submit" size="lg" className="w-full bg-gold hover:bg-gold/90 text-primary-foreground gap-2" disabled={loading || !isConsentValid(consent)}>
                     {loading ? <Clock className="h-4 w-4 animate-spin" /> : <Send className="h-4 w-4" />}
                     {loading ? "Gönderiliyor..." : "Elçilik Yolculuğuma Başla"}
                   </Button>
