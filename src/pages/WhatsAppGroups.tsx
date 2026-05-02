@@ -16,6 +16,8 @@ import { Checkbox } from "@/components/ui/checkbox";
 import { RadioGroup, RadioGroupItem } from "@/components/ui/radio-group";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CountryCitySelector from "@/components/CountryCitySelector";
+import { useDiaspora } from "@/contexts/DiasporaContext";
 
 import { useToast } from "@/hooks/use-toast";
 import { submitLanding, listLandings, type LandingMode, type WhatsAppLanding } from "@/lib/whatsappLandings";
@@ -37,7 +39,11 @@ const WhatsAppGroups = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
   const { user } = useAuth();
+  const { selectedCountry } = useDiaspora();
+  const [filterCity, setFilterCity] = useState("all");
   const [submitting, setSubmitting] = useState(false);
+
+  useEffect(() => { setFilterCity("all"); }, [selectedCountry]);
 
   // 4 örnek demo grup: 2 Alumni (farklı şehir), 1 Doktor, 1 Hobi
   const [landings, setLandings] = useState<WhatsAppLanding[]>([]);
@@ -130,6 +136,19 @@ const WhatsAppGroups = () => {
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
+
+          {/* Header row: title + Country/City selector */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
+                <MessageSquare className="h-8 w-8 text-[#25D366]" /> WhatsApp Grupları
+              </h1>
+              <p className="text-muted-foreground font-body mt-1">
+                Diasporanın WhatsApp gruplarını ülke ve şehir bazında filtrele.
+              </p>
+            </div>
+            <CountryCitySelector city={filterCity} onCityChange={setFilterCity} />
+          </div>
 
           {/* Hero */}
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-[#25D366]/10 via-turquoise/5 to-primary/10 p-6 md:p-10 mb-8 text-center">
@@ -342,18 +361,30 @@ const WhatsAppGroups = () => {
               <Sparkles className="h-5 w-5 text-turquoise" /> Yayında Olan Gruplar
             </h2>
 
-            {loadingLandings ? (
-              <p className="text-sm text-muted-foreground">Yükleniyor...</p>
-            ) : landings.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-8 text-center">
-                <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">
-                  Henüz yayında grup yok. İlk grubu sen ekle!
-                </p>
-              </div>
-            ) : (
+            {(() => {
+              const filteredLandings = landings.filter((g) => {
+                const matchesCountry = selectedCountry === "all" || g.country === selectedCountry;
+                const matchesCity = filterCity === "all" || g.city === filterCity;
+                return matchesCountry && matchesCity;
+              });
+              if (loadingLandings) {
+                return <p className="text-sm text-muted-foreground">Yükleniyor...</p>;
+              }
+              if (filteredLandings.length === 0) {
+                return (
+                  <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-8 text-center">
+                    <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">
+                      {landings.length === 0
+                        ? "Henüz yayında grup yok. İlk grubu sen ekle!"
+                        : "Bu ülke/şehir için henüz grup yok."}
+                    </p>
+                  </div>
+                );
+              }
+              return (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {landings.map((g) => {
+                {filteredLandings.map((g) => {
                   const meta = categoryMeta[g.category];
                   const Icon = meta.icon;
                   return (
@@ -384,7 +415,8 @@ const WhatsAppGroups = () => {
                   );
                 })}
               </div>
-            )}
+              );
+            })()}
           </section>
         </div>
       </main>

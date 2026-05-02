@@ -4,6 +4,7 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
+import CountryCitySelector from "@/components/CountryCitySelector";
 import { Link } from "react-router-dom";
 import { countryCities } from "@/data/countryCities";
 import { useDiaspora } from "@/contexts/DiasporaContext";
@@ -116,7 +117,6 @@ const MapSearch = () => {
   const [selectedCity, setSelectedCity] = useState<string>("all");
   const [entityType, setEntityType] = useState("all");
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
-  const [cityDropdownOpen, setCityDropdownOpen] = useState(false);
 
   // Cities for the active (global) country
   const countryCityList = useMemo(
@@ -124,16 +124,15 @@ const MapSearch = () => {
     [effectiveCountry]
   );
 
-  // Reset city when country changes via navbar
+  // Reset city to "all" when country changes via navbar
   useEffect(() => {
-    const firstCity = cities.find(c => c.country === effectiveCountry);
-    setSelectedCity(firstCity ? firstCity.key : "all");
+    setSelectedCity("all");
   }, [effectiveCountry]);
 
-  // Active cities (either single selected, or all in country)
+  // Active cities (either single selected by label, or all in country)
   const activeCities = useMemo(() => {
     if (selectedCity === "all") return countryCityList;
-    const found = countryCityList.find(c => c.key === selectedCity);
+    const found = countryCityList.find(c => c.label === selectedCity || c.key === selectedCity);
     return found ? [found] : countryCityList;
   }, [selectedCity, countryCityList]);
 
@@ -176,76 +175,32 @@ const MapSearch = () => {
       <Navbar />
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
-          <div className="mb-6">
-            <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
-              <MapPin className="h-8 w-8 text-primary" /> Harita Arama
-            </h1>
-            <p className="text-muted-foreground font-body mt-1">
-              Üst menüden ülke seçin, ardından şehir filtresiyle Türk işletme ve kuruluşlarını harita üzerinde keşfedin
-            </p>
+          {/* Header row: title + Country/City selector */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
+                <MapPin className="h-8 w-8 text-primary" /> Harita Arama
+              </h1>
+              <p className="text-muted-foreground font-body mt-1">
+                Ülke ve şehir seçerek Türk işletme ve kuruluşlarını harita üzerinde keşfedin.
+              </p>
+            </div>
+            <CountryCitySelector city={selectedCity} onCityChange={setSelectedCity} />
           </div>
 
-          {/* Filters */}
-          <div className="flex flex-col sm:flex-row flex-wrap gap-3 mb-6 items-start">
-            {/* Active country chip — controlled by global navbar selector */}
-            <div className="flex items-center gap-2 px-4 py-2 rounded-md bg-primary/5 border border-primary/20 text-sm h-10">
-              <Globe className="h-4 w-4 text-primary" />
-              <span className="text-muted-foreground">Ülke:</span>
-              <span className="font-semibold text-foreground">{effectiveCountry}</span>
-              <span className="text-[10px] text-muted-foreground/70 ml-1 hidden md:inline">(üst menüden değiştir)</span>
-            </div>
-
-            {/* City dropdown — depends on global country */}
-            <div className="relative">
+          {/* Type filter */}
+          <div className="flex flex-wrap gap-2 mb-6">
+            {entityTypes.map(t => (
               <Button
-                variant="outline"
-                className="gap-2 min-w-[200px] justify-between"
-                onClick={() => setCityDropdownOpen(!cityDropdownOpen)}
+                key={t.key}
+                variant={entityType === t.key ? "default" : "outline"}
+                size="sm"
+                onClick={() => setEntityType(t.key)}
+                className="text-xs"
               >
-                <div className="flex items-center gap-2">
-                  <Navigation className="h-4 w-4 text-primary" />
-                  {cityDisplayLabel}
-                </div>
-                <ChevronDown className="h-4 w-4" />
+                {t.label}
               </Button>
-              {cityDropdownOpen && (
-                <div className="absolute top-full left-0 mt-1 bg-card border border-border rounded-xl shadow-elevated z-30 w-full min-w-[200px] max-h-72 overflow-y-auto">
-                  <button
-                    onClick={() => { setSelectedCity("all"); setCityDropdownOpen(false); }}
-                    className={`w-full text-left px-4 py-2.5 text-sm hover:bg-muted transition-colors rounded-t-xl ${selectedCity === "all" ? "bg-primary/5 text-primary font-semibold" : "text-foreground"}`}
-                  >
-                    🌍 Tüm Şehirler - {effectiveCountry}
-                  </button>
-                  {countryCityList.map(c => (
-                    <button
-                      key={c.key}
-                      onClick={() => { setSelectedCity(c.key); setCityDropdownOpen(false); }}
-                      className={`w-full text-left px-4 py-2.5 text-sm hover:bg-muted transition-colors last:rounded-b-xl ${selectedCity === c.key ? "bg-primary/5 text-primary font-semibold" : "text-foreground"}`}
-                    >
-                      {c.label}
-                    </button>
-                  ))}
-                  {countryCityList.length === 0 && (
-                    <div className="px-4 py-2.5 text-sm text-muted-foreground">Bu ülke için şehir bulunamadı</div>
-                  )}
-                </div>
-              )}
-            </div>
-
-            {/* Type filter */}
-            <div className="flex flex-wrap gap-2">
-              {entityTypes.map(t => (
-                <Button
-                  key={t.key}
-                  variant={entityType === t.key ? "default" : "outline"}
-                  size="sm"
-                  onClick={() => setEntityType(t.key)}
-                  className="text-xs"
-                >
-                  {t.label}
-                </Button>
-              ))}
-            </div>
+            ))}
           </div>
 
           {/* Map + Results */}
