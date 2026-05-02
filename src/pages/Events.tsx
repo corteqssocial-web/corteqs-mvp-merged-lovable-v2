@@ -318,7 +318,7 @@ const Events = () => {
             </div>
           </section>
 
-          {/* 🔴 Şu an Canlı */}
+          {/* 🔴 Şu an Canlı (gerçek etkinlikler için yer tutucu) */}
           {categoryFilter === "all" && (
             <div className="mb-12">
               <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
@@ -328,141 +328,139 @@ const Events = () => {
                 </span>
                 Şu an Canlı
               </h2>
-              {liveEvents.length === 0 && (
-                <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
-                  <Radio className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
-                  <p className="text-foreground font-semibold mb-1">Şu an canlı etkinlik yok</p>
-                  <p className="text-sm text-muted-foreground font-body mb-4">
-                    Canlı etkinlikler dashboard üzerinden başlatıldığında burada görünür.
-                  </p>
-                  <Button size="sm" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
-                    <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
-                  </Button>
-                </div>
-              )}
-            </div>
-          )}
-
-          {viewMode === "calendar" ? (
-            /* Calendar View */
-            <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
-              <h2 className="text-lg font-bold text-foreground mb-6 flex items-center gap-2">
-                <Calendar className="h-5 w-5 text-primary" /> Etkinlik Takvimi
-              </h2>
-              <div className="space-y-6">
-                {Object.entries(eventsByDate)
-                  .sort(([a], [b]) => a.localeCompare(b))
-                  .map(([date, dateEvents]) => {
-                    const relevantEvents = dateEvents.filter((e) => {
-                      const matchesCountry = country === "all" || e.country === country;
-                      const matchesCategory = categoryFilter === "all" || e.category === categoryFilter;
-                      return matchesCountry && matchesCategory;
-                    });
-                    if (relevantEvents.length === 0) return null;
-                    return (
-                      <div key={date}>
-                        <div className="flex items-center gap-3 mb-3">
-                          <div className="w-16 text-center shrink-0">
-                            <div className="text-2xl font-bold text-primary">{date.split(" ")[0]}</div>
-                            <div className="text-xs text-muted-foreground">{date.split(" ").slice(1).join(" ")}</div>
-                          </div>
-                          <div className="flex-1 h-px bg-border" />
-                        </div>
-                        <div className="ml-20 space-y-3">
-                          {relevantEvents.map((evt) => (
-                            <Link
-                              to={`/event/${evt.id}`}
-                              key={evt.id}
-                              className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
-                            >
-                              <div className="shrink-0">
-                                <Badge className={`border-0 text-xs ${categoryColors[evt.category]}`}>{categoryLabels[evt.category]}</Badge>
-                              </div>
-                              <div className="flex-1 min-w-0">
-                                <h3 className="font-semibold text-foreground truncate">{evt.title}</h3>
-                                <p className="text-sm text-muted-foreground font-body flex items-center gap-2">
-                                  <Clock className="h-3 w-3" /> {evt.time} - {evt.endTime} · {evt.location}, {evt.city}
-                                </p>
-                              </div>
-                              <div className="flex items-center gap-2 shrink-0">
-                                {evt.price === 0 ? (
-                                  <Badge variant="outline" className="text-success border-success/30 text-xs">Ücretsiz</Badge>
-                                ) : (
-                                  <Badge variant="outline" className="text-xs">€{evt.price}</Badge>
-                                )}
-                                <Users className="h-3.5 w-3.5 text-muted-foreground" />
-                                <span className="text-xs text-muted-foreground">{evt.attendees}</span>
-                              </div>
-                            </Link>
-                          ))}
-                        </div>
-                      </div>
-                    );
-                  })}
+              <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
+                <Radio className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+                <p className="text-foreground font-semibold mb-1">Şu an canlı yayında etkinlik yok</p>
+                <p className="text-sm text-muted-foreground font-body mb-4">
+                  Canlı etkinlikler dashboard üzerinden başlatıldığında burada görünür.
+                </p>
+                <Button size="sm" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
+                  <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                </Button>
               </div>
             </div>
-          ) : (
+          )}
 
-          /* All Events Grid */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-            {filtered.slice(0, 3).map((evt) => (
-              <Link
-                to={`/event/${evt.id}`}
-                key={evt.id}
-                className="group bg-card rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 block"
-              >
-                <div className="relative h-28">
-                  <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
-                  <div className="absolute top-3 left-3 flex gap-2">
-                    <Badge className={`border-0 text-xs ${categoryColors[evt.category]}`}>{categoryLabels[evt.category]}</Badge>
+          {/* Tüm Etkinlikler — gerçek verilerden */}
+          <div className="mb-8">
+            <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+              <Calendar className="h-5 w-5 text-primary" /> Tüm Etkinlikler
+            </h2>
+
+            {loadingEvents ? (
+              <div className="text-center py-12 text-muted-foreground font-body">Etkinlikler yükleniyor...</div>
+            ) : filteredLive.length === 0 ? (
+              <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-10 text-center">
+                <Calendar className="h-10 w-10 text-muted-foreground mx-auto mb-3" />
+                <p className="text-foreground font-semibold mb-1">Henüz yayınlanmış etkinlik yok</p>
+                <p className="text-sm text-muted-foreground font-body mb-4">
+                  Bu filtrelerde gerçek bir etkinlik bulunamadı. Sen de dashboard'undan ilk etkinliği oluşturabilirsin.
+                </p>
+                <Button size="sm" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
+                  <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                </Button>
+              </div>
+            ) : viewMode === "calendar" ? (
+              <div className="bg-card rounded-2xl border border-border p-6 shadow-card space-y-4">
+                {filteredLive.map((evt) => (
+                  <div key={evt.id} className="flex items-center gap-4 p-4 rounded-xl bg-muted/40">
+                    <div className="w-16 text-center shrink-0">
+                      <div className="text-2xl font-bold text-primary">
+                        {new Date(evt.event_date).getDate()}
+                      </div>
+                      <div className="text-xs text-muted-foreground">
+                        {new Date(evt.event_date).toLocaleDateString("tr-TR", { month: "short" })}
+                      </div>
+                    </div>
+                    <div className="flex-1 min-w-0">
+                      <h3 className="font-semibold text-foreground truncate">{evt.title}</h3>
+                      <p className="text-sm text-muted-foreground font-body flex items-center gap-2">
+                        <Clock className="h-3 w-3" /> {evt.start_time?.slice(0, 5) || "—"}
+                        {evt.location && ` · ${evt.location}`}
+                        {evt.city && `, ${evt.city}`}
+                      </p>
+                    </div>
+                    <Badge className={`border-0 text-xs ${categoryColors[evt.category] || ""}`}>
+                      {categoryLabels[evt.category] || evt.category}
+                    </Badge>
+                    {(evt.price ?? 0) === 0 ? (
+                      <Badge variant="outline" className="text-success border-success/30 text-xs">Ücretsiz</Badge>
+                    ) : (
+                      <Badge variant="outline" className="text-xs">€{evt.price}</Badge>
+                    )}
                   </div>
-                  {evt.featured && (
-                    <Badge className="absolute top-3 right-3 bg-gold/90 text-white border-0 text-xs">⭐</Badge>
-                  )}
-                </div>
-                 <div className="p-3.5">
-                   <h3 className="font-bold text-foreground mb-2 line-clamp-2">{evt.title}</h3>
-                   <div className="space-y-1.5 mb-3 text-sm text-muted-foreground font-body">
-                     <p className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" /> {evt.date} · {evt.time}</p>
-                     <p className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" /> {evt.location} · {evt.city}</p>
-                   </div>
-                   {evt.type !== "online" && (
-                     <MapShareButtons
-                       name={evt.title}
-                       city={evt.city}
-                       country={evt.country}
-                       address={evt.location}
-                       className="mb-3"
-                     />
-                   )}
-                   <div className="flex items-center justify-between">
-                     <div className="flex items-center gap-1.5 text-xs text-muted-foreground">
-                       <Users className="h-3.5 w-3.5" /> {evt.attendees}/{evt.maxAttendees}
-                     </div>
-                     <div className="flex items-center gap-2">
-                       <span className="text-xs text-muted-foreground">{typeLabels[evt.type]}</span>
-                       {evt.price === 0 ? (
-                         <Badge variant="outline" className="text-success border-success/30 text-xs">Ücretsiz</Badge>
-                       ) : (
-                         <Badge variant="outline" className="text-xs">€{evt.price}</Badge>
-                       )}
-                     </div>
-                   </div>
-                  <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/50">
-                    <div className="w-7 h-7 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground text-xs font-bold">{evt.organizerAvatar}</div>
-                    <span className="text-xs text-muted-foreground font-body">{evt.organizer}</span>
+                ))}
+              </div>
+            ) : (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {filteredLive.map((evt) => (
+                  <div
+                    key={evt.id}
+                    className="group bg-card rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1"
+                  >
+                    <div className="relative h-28 bg-muted">
+                      {evt.cover_image ? (
+                        <img src={evt.cover_image} alt={evt.title} className="w-full h-full object-cover" />
+                      ) : (
+                        <div className="w-full h-full flex items-center justify-center text-muted-foreground">
+                          <Calendar className="h-8 w-8" />
+                        </div>
+                      )}
+                      <div className="absolute top-3 left-3 flex gap-2">
+                        <Badge className={`border-0 text-xs ${categoryColors[evt.category] || ""}`}>
+                          {categoryLabels[evt.category] || evt.category}
+                        </Badge>
+                      </div>
+                      {evt.featured && (
+                        <Badge className="absolute top-3 right-3 bg-gold/90 text-white border-0 text-xs">⭐</Badge>
+                      )}
+                    </div>
+                    <div className="p-3.5">
+                      <h3 className="font-bold text-foreground mb-2 line-clamp-2">{evt.title}</h3>
+                      <div className="space-y-1.5 mb-3 text-sm text-muted-foreground font-body">
+                        <p className="flex items-center gap-1.5">
+                          <Calendar className="h-3.5 w-3.5" />
+                          {new Date(evt.event_date).toLocaleDateString("tr-TR")}
+                          {evt.start_time && ` · ${evt.start_time.slice(0, 5)}`}
+                        </p>
+                        {(evt.location || evt.city) && (
+                          <p className="flex items-center gap-1.5">
+                            <MapPin className="h-3.5 w-3.5" />
+                            {evt.location || ""} {evt.city ? `· ${evt.city}` : ""}
+                          </p>
+                        )}
+                      </div>
+                      {evt.type !== "online" && evt.city && evt.country && (
+                        <MapShareButtons
+                          name={evt.title}
+                          city={evt.city}
+                          country={evt.country}
+                          address={evt.location || ""}
+                          className="mb-3"
+                        />
+                      )}
+                      <div className="flex items-center justify-between">
+                        <span className="text-xs text-muted-foreground">{typeLabels[evt.type] || evt.type}</span>
+                        {(evt.price ?? 0) === 0 ? (
+                          <Badge variant="outline" className="text-success border-success/30 text-xs">Ücretsiz</Badge>
+                        ) : (
+                          <Badge variant="outline" className="text-xs">€{evt.price}</Badge>
+                        )}
+                      </div>
+                      {evt.organizer_name && (
+                        <div className="flex items-center gap-2 mt-3 pt-3 border-t border-border/50">
+                          <div className="w-7 h-7 rounded-full bg-gradient-primary flex items-center justify-center text-primary-foreground text-xs font-bold">
+                            {evt.organizer_name[0]?.toUpperCase()}
+                          </div>
+                          <span className="text-xs text-muted-foreground font-body">{evt.organizer_name}</span>
+                        </div>
+                      )}
+                    </div>
                   </div>
-                </div>
-              </Link>
-            ))}
+                ))}
+              </div>
+            )}
           </div>
-          )}
-
-          {filtered.length === 0 && (
-            <div className="text-center py-20 text-muted-foreground font-body">
-              Bu filtrelerde etkinlik bulunamadı.
-            </div>
-          )}
         </div>
       </main>
       <Footer />
