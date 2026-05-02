@@ -124,7 +124,6 @@ const Navbar = () => {
             <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">{t.nav.consultants}</Link>
             <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.businesses}</Link>
             <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.organizations}</Link>
-            <Link to="/events" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.events}</Link>
             <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">V/Blogger</Link>
 
             {/* Daha Fazla Dropdown */}
