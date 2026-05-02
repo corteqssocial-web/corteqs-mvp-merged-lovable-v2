@@ -216,7 +216,7 @@ const Navbar = () => {
                   onChange={(e) => setSelectedCountry(e.target.value)}
                   className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
                 >
-                  <option value="all">🌍 Tüm Ülkeler</option>
+                  <option value="all">🌍 {t.nav.allCountries}</option>
                   {countryList.map((c) => (
                     <option key={c} value={c}>{c}</option>
                   ))}
