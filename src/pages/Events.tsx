@@ -55,6 +55,7 @@ const Events = () => {
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "calendar">("grid");
+  const [createOpen, setCreateOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => { setCity("all"); }, [country]);
