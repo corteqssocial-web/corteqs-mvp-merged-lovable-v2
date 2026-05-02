@@ -51,14 +51,11 @@ const HeroSection = () => {
 
           {/* Primary 5 CTA buttons */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
-            <Link to="/auth" className="relative">
-              <Button size="lg" className="w-full text-sm px-4 py-6 bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-2">
+            <Link to="/auth">
+              <Button size="lg" className="w-full text-sm px-3 py-6 bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-1.5">
                 <UserPlus className="h-4 w-4" />
-                Ücretsiz Kayıt
-              </Button>
-              <span className="absolute -bottom-5 left-0 right-0 text-center text-[10px] font-semibold text-turquoise">
                 🪪 Diaspora Pasaportu
-              </span>
+              </Button>
             </Link>
             <Link to="/whatsapp-groups">
               <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
@@ -78,7 +75,7 @@ const HeroSection = () => {
                 Blogger Yarışması
               </Button>
             </Link>
-            <Link to="/blog-contest">
+            <Link to="/vlogger-contest">
               <Button size="lg" variant="outline" className="w-full text-sm px-4 py-6 border-foreground/20 hover:bg-foreground/5 gap-2">
                 <Video className="h-4 w-4 text-primary" />
                 Vlogger Yarışması
