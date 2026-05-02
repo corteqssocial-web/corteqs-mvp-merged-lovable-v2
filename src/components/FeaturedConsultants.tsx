@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Star, Bot, Video, UserPlus, UserCheck, Info, Clock, Flag } from "lucide-react";
+import { Star, Bot, Video, UserPlus, UserCheck, Info, Clock, Flag, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
@@ -96,21 +96,22 @@ const FeaturedConsultants = () => {
                   <span className="text-xs text-muted-foreground">({c.reviews})</span>
                 </div>
 
-                <div className="flex gap-2">
+                <p className="text-[10px] text-success font-semibold mb-2">🎁 İlk 10 dk ücretsiz</p>
+                <div className="flex gap-1.5">
                   <Link to={linkTo} className="flex-1" onClick={(e) => e.stopPropagation()}>
                     <TooltipProvider>
                       <Tooltip>
                         <TooltipTrigger asChild>
-                          <Button variant="default" size="sm" className="w-full gap-1 text-xs relative">
-                            <span className="absolute -top-2 -right-2 bg-green-500 text-white text-[8px] px-1.5 py-0.5 rounded-full">
+                          <Button variant="default" size="sm" className="w-full gap-1 text-[11px] px-1.5 relative">
+                            <span className="absolute -top-2 -right-1 bg-green-500 text-white text-[8px] px-1 py-0.5 rounded-full">
                               Şu an
                             </span>
                             <Video className="h-3 w-3" />
-                            Canlı
+                            Canlı €2/dk
                           </Button>
                         </TooltipTrigger>
                         <TooltipContent>
-                          <p className="flex items-center gap-1"><Clock className="h-3 w-3" /> Şu an müsait</p>
+                          <p className="flex items-center gap-1"><Clock className="h-3 w-3" /> Şu an müsait · İlk 10dk ücretsiz</p>
                         </TooltipContent>
                       </Tooltip>
                     </TooltipProvider>
@@ -118,18 +119,33 @@ const FeaturedConsultants = () => {
                   <TooltipProvider>
                     <Tooltip>
                       <TooltipTrigger asChild>
-                        <Button variant="outline" size="sm" className="flex-1 gap-1 text-xs relative" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
+                        <Button variant="outline" size="sm" className="flex-1 gap-1 text-[11px] px-1.5 relative" onClick={(e) => { e.preventDefault(); e.stopPropagation(); }}>
                           <span className="absolute -top-1.5 -right-1.5 bg-primary text-primary-foreground rounded-full p-0.5">
                             <Info className="h-2.5 w-2.5" />
                           </span>
                           <Bot className="h-3 w-3" />
-                          AI Twin
+                          AI €1/dk
                         </Button>
                       </TooltipTrigger>
                       <TooltipContent side="bottom" className="max-w-[200px] text-center">
                         <p className="font-semibold text-xs mb-1">🤖 24 Saat Danışman Klonu</p>
-                        <p className="text-[10px] text-muted-foreground">Yapay zeka ile 7/24 görüşme!</p>
+                        <p className="text-[10px] text-muted-foreground">RAG tabanlı AI Twin · 7/24 görüşme</p>
                       </TooltipContent>
+                    </Tooltip>
+                  </TooltipProvider>
+                  <TooltipProvider>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button
+                          variant="outline"
+                          size="sm"
+                          className="gap-1 text-[11px] px-2 border-success/40 text-success hover:bg-success/10"
+                          onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open("https://wa.me/", "_blank"); }}
+                        >
+                          <MessageCircle className="h-3 w-3" />
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent side="bottom"><p className="text-xs">WhatsApp ile mesaj gönder</p></TooltipContent>
                     </Tooltip>
                   </TooltipProvider>
                 </div>

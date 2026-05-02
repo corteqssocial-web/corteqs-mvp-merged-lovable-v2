@@ -41,6 +41,7 @@ const HospitalAppointment = lazy(() => import("./pages/HospitalAppointment"));
 const Founders1000 = lazy(() => import("./pages/Founders1000"));
 const Career = lazy(() => import("./pages/Career"));
 const Dashboards = lazy(() => import("./pages/Dashboards"));
+const AITwin = lazy(() => import("./pages/AITwin"));
 const PrivacyPolicy = lazy(() => import("./pages/legal/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/legal/TermsOfService"));
 const KVKK = lazy(() => import("./pages/legal/KVKK"));
@@ -146,6 +147,7 @@ const App = () => (
                   <Route path="/kariyer" element={<Career />} />
                   <Route path="/career" element={<Career />} />
                   <Route path="/dashboards" element={<Dashboards />} />
+                  <Route path="/ai-twin" element={<AITwin />} />
                   <Route path="/legal/privacy" element={<PrivacyPolicy />} />
                   <Route path="/legal/terms" element={<TermsOfService />} />
                   <Route path="/legal/kvkk" element={<KVKK />} />
