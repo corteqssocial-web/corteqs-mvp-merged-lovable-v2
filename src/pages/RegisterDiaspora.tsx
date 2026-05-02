@@ -135,32 +135,37 @@ const RegisterDiaspora = () => {
     <div className="min-h-screen bg-background">
       <Navbar />
 
-      {/* HERO — mirrors the Turkish hero, in English */}
+      {/* OPENING BANNER — multicultural hero, no national flags */}
       <section className="relative pt-16 min-h-[70vh] flex items-center bg-gradient-hero overflow-hidden">
         <div className="absolute inset-0 overflow-hidden">
           <div className="absolute top-10 right-20 w-80 h-80 bg-turquoise/20 rounded-full blur-3xl" />
           <div className="absolute bottom-10 left-20 w-96 h-96 bg-primary/15 rounded-full blur-3xl" />
         </div>
 
-        <div className="container mx-auto px-4 pt-20 relative z-10">
-          <div className="max-w-3xl">
+        <div className="container mx-auto px-4 pt-20 pb-12 relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+          <div>
             <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/15 border border-amber-400/30 mb-6 shadow-md">
               <Sparkles className="h-4 w-4 text-amber-500" />
               <span className="text-sm font-semibold text-amber-600">Register Your Diaspora — Pre-launch</span>
             </div>
 
-            <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-tight mb-6">
-              Wherever you go, an{" "}
-              <span className="text-gradient-primary">organized diaspora network</span>{" "}
-              is waiting for you
+            <h1 className="text-4xl md:text-5xl lg:text-6xl font-extrabold text-foreground leading-tight mb-4">
+              Your diaspora's{" "}
+              <span className="text-gradient-primary">consultants, businesses & associations</span>{" "}
+              — under one roof
             </h1>
 
-            <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-8 font-body">
-              CorteQS is the diaspora infrastructure platform — already live for the Turkish diaspora.
-              Tell us which community should be next and we'll bring the same toolkit to your people.
+            <p className="text-base md:text-lg font-semibold text-foreground mb-3">
+              One diaspora. One platform. One social & economic solidarity engine.
             </p>
 
-            <div className="flex flex-wrap items-center gap-3 mb-8">
+            <p className="text-sm md:text-base text-muted-foreground max-w-xl mb-6 font-body">
+              CorteQS gathers every consultant, business, association, school, event and WhatsApp
+              community of your diaspora in one verified place — so your people can find help, find clients,
+              find partners, and look out for each other, anywhere in the world.
+            </p>
+
+            <div className="flex flex-wrap items-center gap-3 mb-6">
               <Button
                 size="lg"
                 onClick={() => document.getElementById("register-form")?.scrollIntoView({ behavior: "smooth" })}
@@ -170,59 +175,86 @@ const RegisterDiaspora = () => {
               </Button>
               <Link to="/">
                 <Button size="lg" variant="outline" className="gap-2">
-                  <Languages className="h-4 w-4" /> See it live (Turkish diaspora)
+                  <Languages className="h-4 w-4" /> See it live
                 </Button>
               </Link>
             </div>
 
-            <div className="flex items-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-2"><MapPin className="h-4 w-4 text-turquoise" /> 45+ Countries</span>
-              <span className="flex items-center gap-2"><Users className="h-4 w-4 text-primary" /> 500+ Consultants</span>
-              <span className="flex items-center gap-2"><Building2 className="h-4 w-4 text-turquoise" /> 200+ Organizations</span>
+            <div className="flex flex-wrap items-center gap-x-6 gap-y-2 text-xs text-muted-foreground">
+              <span className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5 text-turquoise" /> 45+ Countries</span>
+              <span className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5 text-primary" /> 500+ Consultants</span>
+              <span className="flex items-center gap-1.5"><Building2 className="h-3.5 w-3.5 text-turquoise" /> 200+ Organizations</span>
             </div>
+          </div>
+
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-turquoise/20 via-amber-300/10 to-primary/20 rounded-3xl blur-2xl" />
+            <img
+              src={multiculturalHero}
+              alt="Global multicultural diaspora community"
+              width={1536}
+              height={1024}
+              className="relative rounded-3xl shadow-2xl border border-border w-full h-auto object-cover"
+            />
           </div>
         </div>
       </section>
 
-      {/* CATEGORY GRID — display only, no clicks */}
-      <section className="py-16 bg-muted/20">
+      {/* SECTION — Solidarity engine (consultants + businesses + associations under one roof) */}
+      <section className="py-14 bg-card border-y border-border">
         <div className="container mx-auto px-4">
-          <div className="text-center mb-10">
+          <div className="text-center max-w-3xl mx-auto mb-10">
+            <div className="inline-flex items-center gap-2 px-3 py-1 rounded-full bg-amber-400/15 border border-amber-400/30 mb-4">
+              <HeartHandshake className="h-4 w-4 text-amber-600" />
+              <span className="text-xs font-semibold text-amber-700">Social + Economic Solidarity Engine</span>
+            </div>
             <h2 className="text-3xl md:text-4xl font-extrabold text-foreground mb-3">
-              Everything your diaspora needs, in one platform
+              Everything your diaspora needs — together, not scattered
             </h2>
-            <p className="text-muted-foreground font-body max-w-2xl mx-auto">
-              Preview of the modules already built for the Turkish diaspora — these will be available
-              in your community's language once registrations reach critical mass.
+            <p className="text-muted-foreground font-body">
+              Stop hunting through dozens of WhatsApp groups, Facebook pages and word-of-mouth lists.
+              CorteQS unifies your community's professionals, businesses and organisations into one
+              network that creates trust, referrals and real economic momentum.
             </p>
           </div>
 
-          <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
-            {ENGLISH_CATEGORIES.map((c) => (
-              <div
-                key={c.title}
-                className="bg-card border border-border rounded-xl p-4 shadow-card opacity-90 cursor-default select-none"
-                aria-disabled="true"
-              >
-                <div className="w-10 h-10 rounded-lg bg-primary/10 flex items-center justify-center mb-3">
-                  <c.icon className="h-5 w-5 text-primary" />
-                </div>
-                <h3 className="font-bold text-sm text-foreground">{c.title}</h3>
-                <p className="text-xs text-muted-foreground mt-1 font-body">{c.desc}</p>
+          <div className="grid grid-cols-1 md:grid-cols-3 gap-4 max-w-5xl mx-auto">
+            <div className="rounded-2xl border border-border p-5 bg-background">
+              <div className="w-10 h-10 rounded-lg bg-turquoise/15 flex items-center justify-center mb-3">
+                <Users className="h-5 w-5 text-turquoise" />
               </div>
-            ))}
+              <h3 className="font-bold text-foreground mb-1">Consultants & Mentors</h3>
+              <p className="text-xs text-muted-foreground font-body">
+                Visa, legal, tax, real-estate, healthcare, education — every advisor your people need, verified.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border p-5 bg-background">
+              <div className="w-10 h-10 rounded-lg bg-primary/15 flex items-center justify-center mb-3">
+                <Briefcase className="h-5 w-5 text-primary" />
+              </div>
+              <h3 className="font-bold text-foreground mb-1">Diaspora Businesses</h3>
+              <p className="text-xs text-muted-foreground font-body">
+                Restaurants, markets, services and B2B vendors — discoverable, reviewable, supportable.
+              </p>
+            </div>
+            <div className="rounded-2xl border border-border p-5 bg-background">
+              <div className="w-10 h-10 rounded-lg bg-amber-400/20 flex items-center justify-center mb-3">
+                <Building2 className="h-5 w-5 text-amber-600" />
+              </div>
+              <h3 className="font-bold text-foreground mb-1">Associations & Schools</h3>
+              <p className="text-xs text-muted-foreground font-body">
+                Cultural centres, NGOs, weekend schools, alumni groups, media — all in one civic map.
+              </p>
+            </div>
           </div>
 
           <div className="mt-10 text-center">
-            <p className="text-sm text-muted-foreground mb-4">
-              Want to see <strong>your diaspora</strong> here?
-            </p>
             <Button
               size="lg"
               onClick={() => document.getElementById("register-form")?.scrollIntoView({ behavior: "smooth" })}
               className="bg-amber-500 hover:bg-amber-600 text-white gap-2"
             >
-              <Sparkles className="h-5 w-5" /> Fill the registration form
+              <Sparkles className="h-5 w-5" /> Bring this to my diaspora
             </Button>
           </div>
         </div>
