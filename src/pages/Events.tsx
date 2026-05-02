@@ -326,92 +326,20 @@ const Events = () => {
                 </span>
                 Şu an Canlı
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-                {/* Live Event 1 - Ücretsiz */}
-                <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    <Radio className="h-3 w-3 animate-pulse" /> CANLI
-                  </div>
-                  <div className="relative h-[72px]">
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=140&fit=crop" alt="Webinar" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-2 left-3">
-                      <Badge className="bg-turquoise/90 text-primary-foreground border-0 text-xs">Networking</Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-foreground mb-1">Diaspora Networking Webinarı</h3>
-                    <p className="text-xs text-muted-foreground font-body mb-3">Avrupa'daki Türk girişimcilerin deneyim paylaşımı ve iş birliği fırsatları.</p>
-                    <div className="space-y-1.5 text-sm text-muted-foreground font-body mb-4">
-                      <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 19:00 – 20:30 CET <span className="text-xs bg-destructive/10 text-destructive rounded px-1.5 ml-1">42 dk kaldı</span></p>
-                      <p className="flex items-center gap-1.5"><Video className="h-3.5 w-3.5" /> Zoom · Online</p>
-                      <p className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> 87 / 150 katılımcı</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline" className="text-success border-success/30 gap-1">
-                        <Unlock className="h-3 w-3" /> Ücretsiz
-                      </Badge>
-                      <Button size="sm" className="gap-1.5">
-                        <Video className="h-3.5 w-3.5" /> Hemen Katıl
-                      </Button>
-                    </div>
-                  </div>
+              {liveEvents.length === 0 && (
+                <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
+                  <Radio className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-foreground font-semibold mb-1">Şu an canlı etkinlik yok</p>
+                  <p className="text-sm text-muted-foreground font-body mb-4">
+                    Canlı etkinlikler dashboard üzerinden başlatıldığında burada görünür.
+                  </p>
+                  <Button size="sm" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
+                    <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                  </Button>
                 </div>
-
-                {/* Live Event 2 - Ücretli */}
-                <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    <Radio className="h-3 w-3 animate-pulse" /> CANLI
-                  </div>
-                  <div className="relative h-[72px]">
-                    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=500&h=140&fit=crop" alt="Workshop" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-2 left-3">
-                      <Badge className="bg-primary/90 text-primary-foreground border-0 text-xs">Eğitim</Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-foreground mb-1">Almanya'da Şirket Kuruluşu Workshop</h3>
-                    <p className="text-xs text-muted-foreground font-body mb-3">GmbH kuruluş adımları, vergi avantajları ve pratik ipuçları.</p>
-                    <div className="space-y-1.5 text-sm text-muted-foreground font-body mb-4">
-                      <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 18:30 – 20:00 CET <span className="text-xs bg-destructive/10 text-destructive rounded px-1.5 ml-1">1s 12dk kaldı</span></p>
-                      <p className="flex items-center gap-1.5"><Video className="h-3.5 w-3.5" /> Google Meet · Online</p>
-                      <p className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> 34 / 50 katılımcı</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline" className="text-gold border-gold/30 gap-1">
-                        <Lock className="h-3 w-3" /> €15
-                      </Badge>
-                      <Button size="sm" className="gap-1.5 bg-gold hover:bg-gold/90 text-primary-foreground">
-                        <Ticket className="h-3.5 w-3.5" /> Bilet Al & Katıl
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           )}
-
-
-          {/* View toggle */}
-          <div className="flex items-center gap-2 mb-6">
-            <Button
-              variant={viewMode === "grid" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode("grid")}
-              className="text-xs"
-            >
-              Kart Görünümü
-            </Button>
-            <Button
-              variant={viewMode === "calendar" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode("calendar")}
-              className="text-xs gap-1"
-            >
-              <Calendar className="h-3.5 w-3.5" /> Takvim
-            </Button>
-          </div>
 
           {viewMode === "calendar" ? (
             /* Calendar View */
