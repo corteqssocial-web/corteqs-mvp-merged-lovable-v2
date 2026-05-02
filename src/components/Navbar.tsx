@@ -181,17 +181,19 @@ const Navbar = () => {
                   </button>
                 ))}
               </div>
-              {/* Mobile Country Selector */}
-              <select
-                value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
-              >
-                <option value="all">🌍 Tüm Ülkeler</option>
-                {countryList.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
+              {/* Mobile Country Selector — hidden on home */}
+              {!isHome && (
+                <select
+                  value={selectedCountry}
+                  onChange={(e) => setSelectedCountry(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
+                >
+                  <option value="all">🌍 Tüm Ülkeler</option>
+                  {countryList.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              )}
               <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.consultants}</Link>
               <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.organizations}</Link>
               <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.businesses}</Link>
