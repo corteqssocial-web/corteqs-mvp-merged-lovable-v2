@@ -52,9 +52,9 @@ const HeroSection = () => {
           {/* Primary 5 CTA buttons */}
           <div className="grid grid-cols-2 sm:grid-cols-3 lg:grid-cols-5 gap-3 animate-fade-in-up" style={{ animationDelay: '0.3s' }}>
             <Link to="/auth">
-              <Button size="lg" className="w-full text-xs sm:text-sm px-2 py-6 bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-1.5 leading-tight">
-                <UserPlus className="h-4 w-4" />
-                Kaydol — Diaspora Pasaportun Çıksın 🪪
+              <Button size="lg" className="w-full text-xs sm:text-sm px-2 py-4 h-auto min-h-[3.5rem] bg-turquoise hover:bg-turquoise-light text-primary-foreground shadow-lg gap-1.5 leading-tight whitespace-normal text-center">
+                <UserPlus className="h-4 w-4 shrink-0" />
+                <span className="whitespace-normal">Kaydol — Diaspora<br className="sm:hidden" /> Pasaportun Çıksın 🪪</span>
               </Button>
             </Link>
             <Link to="/whatsapp-groups">
