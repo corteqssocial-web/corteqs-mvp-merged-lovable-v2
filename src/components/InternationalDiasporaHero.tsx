@@ -17,7 +17,15 @@ type Copy = {
   badge: string;
   title: string;
   highlight: string;
+  tagline: string;
   subtitle: string;
+  // Two value sections
+  oneRoofTitle: string;
+  oneRoofBody: string;
+  oneRoofPills: string[];
+  solidarityTitle: string;
+  solidarityBody: string;
+  solidarityPills: string[];
   formTitle: string;
   formIntro: string;
   cta1: string;
