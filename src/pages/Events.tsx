@@ -75,7 +75,7 @@ const Events = () => {
 
   const featured = events.filter((e) => e.featured);
 
-  const filtered = events.filter((e) => {
+  const filtered = allEvents.filter((e) => {
     const matchesCountry = country === "all" || e.country === country;
     const matchesCity = city === "all" || e.city === city;
     const matchesSearch = search === "" ||
