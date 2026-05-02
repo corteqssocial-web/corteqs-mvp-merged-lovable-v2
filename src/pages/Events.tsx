@@ -370,24 +370,6 @@ const Events = () => {
             </div>
           )}
 
-          {/* Search & Filters */}
-          <div className="flex flex-col sm:flex-row gap-3 mb-6">
-            <div className="relative flex-1">
-              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
-              <Input
-                placeholder="Etkinlik ara..."
-                value={search}
-                onChange={(e) => setSearch(e.target.value)}
-                className="pl-10"
-              />
-            </div>
-            <div className="flex flex-wrap gap-2">
-              <Button variant={categoryFilter === "all" ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter("all")} className="text-xs">Tümü</Button>
-              {Object.entries(categoryLabels).map(([k, v]) => (
-                <Button key={k} variant={categoryFilter === k ? "default" : "outline"} size="sm" onClick={() => setCategoryFilter(k)} className="text-xs">{v}</Button>
-              ))}
-            </div>
-          </div>
 
           {/* View toggle */}
           <div className="flex items-center gap-2 mb-6">
