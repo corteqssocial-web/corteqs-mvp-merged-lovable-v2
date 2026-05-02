@@ -33,7 +33,12 @@ const Navbar = () => {
     "/map",
   ];
   const hasOwnSelector = routesWithOwnSelector.some((p) => location.pathname.startsWith(p));
-  const showNavbarCountry = !isHome && !hasOwnSelector;
+  // Country selector only makes sense for the Turkish diaspora (the only one
+  // with full country/city data live). For other diasporas — and the register-
+  // diaspora landing — hide it entirely so it isn't confused with the diaspora picker.
+  const isInternational = diaspora !== "tr";
+  const isRegisterDiaspora = location.pathname.startsWith("/register-diaspora");
+  const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isRegisterDiaspora;
 
   const handleSignOut = async () => {
     await signOut();
