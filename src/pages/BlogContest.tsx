@@ -54,36 +54,56 @@ const BlogContest = () => {
           <div className="absolute top-10 right-20 w-80 h-80 bg-gold/15 rounded-full blur-3xl" />
           <div className="absolute bottom-10 left-20 w-96 h-96 bg-primary/10 rounded-full blur-3xl" />
 
-          <div className="container mx-auto px-4 relative z-10 text-center">
-            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/15 border border-gold/30 mb-6">
-              <Trophy className="h-4 w-4 text-gold" />
-              <span className="text-sm font-semibold text-gold">2026 Blog Yarışması</span>
-            </div>
-
-            <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6">
-              En İyi Diaspora<br />
-              <span className="text-gradient-primary">Blog Yazısı Yarışması</span>
-            </h1>
-
-            <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mx-auto mb-8 font-body">
-              Diasporadaki yaşamını, kültürünü ve deneyimlerini anlatan en iyi blog yazısını yaz,
-              <span className="text-gold font-bold"> $1.000 büyük ödülü</span> kazan!
-            </p>
-
-            <div className="flex flex-wrap justify-center gap-6 mb-10">
-              {prizes.map((p) => (
-                <div key={p.place} className="bg-card border border-border rounded-2xl p-6 shadow-card min-w-[140px]">
-                  <p.icon className={`h-8 w-8 mx-auto mb-2 ${p.color}`} />
-                  <p className="text-2xl font-bold text-foreground">{p.prize}</p>
-                  <p className="text-sm text-muted-foreground">{p.place} Ödül</p>
+          <div className="container mx-auto px-4 relative z-10">
+            <div className="grid lg:grid-cols-2 gap-10 items-center">
+              <div>
+                <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-gold/15 border border-gold/30 mb-6">
+                  <Trophy className="h-4 w-4 text-gold" />
+                  <span className="text-sm font-semibold text-gold">2026 Blogger Yarışması</span>
                 </div>
-              ))}
-            </div>
 
-            <div className="flex items-center justify-center gap-6 text-sm text-muted-foreground">
-              <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Son Tarih: 31 Aralık 2026</span>
-              <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-turquoise" /> Analitik + Beğeni Bazlı</span>
-              <span className="flex items-center gap-1.5"><PenLine className="h-4 w-4 text-gold" /> Orijinal İçerik</span>
+                <h1 className="text-4xl md:text-6xl font-extrabold text-foreground leading-tight mb-6">
+                  En İyi Diaspora<br />
+                  <span className="text-gradient-primary">Blog Yazısı Yarışması</span>
+                </h1>
+
+                <p className="text-lg md:text-xl text-muted-foreground max-w-2xl mb-8 font-body">
+                  Diasporadaki yaşamını, kültürünü ve deneyimlerini anlatan en iyi blog yazısını yaz,
+                  <span className="text-gold font-bold"> $1.000 büyük ödülü</span> kazan!
+                </p>
+
+                <div className="flex flex-wrap gap-4 mb-8">
+                  {prizes.map((p) => (
+                    <div key={p.place} className="bg-card border border-border rounded-2xl p-4 shadow-card min-w-[120px]">
+                      <p.icon className={`h-7 w-7 mb-1.5 ${p.color}`} />
+                      <p className="text-xl font-bold text-foreground">{p.prize}</p>
+                      <p className="text-xs text-muted-foreground">{p.place} Ödül</p>
+                    </div>
+                  ))}
+                </div>
+
+                <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
+                  <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Son Tarih: 31 Aralık 2026</span>
+                  <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-turquoise" /> Analitik + Beğeni Bazlı</span>
+                  <span className="flex items-center gap-1.5"><PenLine className="h-4 w-4 text-gold" /> Orijinal İçerik</span>
+                </div>
+              </div>
+
+              <div className="relative">
+                <img
+                  src={bloggerHero}
+                  alt="Diaspora blogger writing stories"
+                  width={1280}
+                  height={960}
+                  className="rounded-3xl shadow-2xl w-full object-cover"
+                />
+                <img
+                  src={mascot}
+                  alt="CorteQS mascot"
+                  loading="lazy"
+                  className="absolute -bottom-6 -left-6 w-20 h-20 md:w-24 md:h-24 drop-shadow-xl"
+                />
+              </div>
             </div>
           </div>
         </section>
