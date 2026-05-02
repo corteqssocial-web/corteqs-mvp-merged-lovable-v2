@@ -19,6 +19,8 @@ const Navbar = () => {
   const { diaspora, setDiaspora, t, currentOption, selectedCountry, setSelectedCountry } = useDiaspora();
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   const handleSignOut = async () => {
     await signOut();
