@@ -64,7 +64,7 @@ const Navbar = () => {
                   <DropdownMenuItem
                     key={opt.key}
                     className={`gap-2 cursor-pointer ${diaspora === opt.key ? "bg-accent/50 font-semibold" : ""}`}
-                    onClick={() => setDiaspora(opt.key)}
+                    onClick={() => { setDiaspora(opt.key); navigate("/"); }}
                   >
                     <span className="text-lg">{opt.flag}</span>
                     <div className="flex flex-col">
