@@ -225,49 +225,54 @@ const Events = () => {
               </div>
             </div>
             {categoryFilter === "all" && country === "all" && search === "" && (
-              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {featured.slice(0, 3).map((evt) => (
-                  <Link
-                    to={`/event/${evt.id}`}
-                    key={evt.id}
-                    className="group relative rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 block"
-                  >
-                    <div className="relative h-32 md:h-36">
-                      <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
-                      <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
-                      <div className="absolute top-3 left-3 flex gap-2">
-                        <Badge className="bg-gold/90 text-white border-0">⭐ Featured</Badge>
-                        <Badge className={`border-0 ${categoryColors[evt.category]}`}>{categoryLabels[evt.category]}</Badge>
+              <>
+                <p className="text-xs text-muted-foreground mb-3 italic">
+                  Aşağıdaki kartlar tanıtım amaçlı demo örnekleridir. Gerçek etkinlikler dashboard'lardan oluşturulduğunda canlı listede yer alır.
+                </p>
+                <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                  {featured.map((evt) => (
+                    <div
+                      key={evt.id}
+                      className="group relative rounded-2xl overflow-hidden border border-border shadow-card opacity-90 cursor-default"
+                      aria-label="Demo etkinlik kartı"
+                    >
+                      <div className="relative h-32 md:h-36">
+                        <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
+                        <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
+                        <div className="absolute top-3 left-3 flex gap-2">
+                          <Badge className="bg-destructive text-destructive-foreground border-0 font-bold">DEMO</Badge>
+                          <Badge className={`border-0 ${categoryColors[evt.category]}`}>{categoryLabels[evt.category]}</Badge>
+                        </div>
+                        <div className="absolute bottom-3 left-3 right-3">
+                          <h3 className="text-lg font-bold text-white mb-1">{evt.title}</h3>
+                          <div className="flex items-center gap-3 text-white/80 text-sm">
+                            <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {evt.date}</span>
+                            <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {evt.time}</span>
+                            <span>{typeLabels[evt.type]}</span>
+                          </div>
+                        </div>
                       </div>
-                      <div className="absolute bottom-3 left-3 right-3">
-                        <h3 className="text-lg font-bold text-white mb-1">{evt.title}</h3>
-                        <div className="flex items-center gap-3 text-white/80 text-sm">
-                          <span className="flex items-center gap-1"><Calendar className="h-3 w-3" /> {evt.date}</span>
-                          <span className="flex items-center gap-1"><Clock className="h-3 w-3" /> {evt.time}</span>
-                          <span>{typeLabels[evt.type]}</span>
+                      <div className="p-4 bg-card">
+                        <p className="text-sm text-muted-foreground font-body line-clamp-2 mb-3">{evt.description}</p>
+                        <div className="flex items-center justify-between">
+                          <div className="flex items-center gap-2 text-sm text-muted-foreground">
+                            <Users className="h-4 w-4" />
+                            <span>{evt.attendees}/{evt.maxAttendees} katılımcı</span>
+                          </div>
+                          <div className="flex items-center gap-2">
+                            {evt.price === 0 ? (
+                              <Badge variant="outline" className="text-success border-success/30">Ücretsiz</Badge>
+                            ) : (
+                              <Badge variant="outline">€{evt.price}</Badge>
+                            )}
+                            <Button size="sm" disabled variant="outline">Demo</Button>
+                          </div>
                         </div>
                       </div>
                     </div>
-                    <div className="p-4 bg-card">
-                      <p className="text-sm text-muted-foreground font-body line-clamp-2 mb-3">{evt.description}</p>
-                      <div className="flex items-center justify-between">
-                        <div className="flex items-center gap-2 text-sm text-muted-foreground">
-                          <Users className="h-4 w-4" />
-                          <span>{evt.attendees}/{evt.maxAttendees} katılımcı</span>
-                        </div>
-                        <div className="flex items-center gap-2">
-                          {evt.price === 0 ? (
-                            <Badge variant="outline" className="text-success border-success/30">Ücretsiz</Badge>
-                          ) : (
-                            <Badge variant="outline">€{evt.price}</Badge>
-                          )}
-                          <Button size="sm">Katıl</Button>
-                        </div>
-                      </div>
-                    </div>
-                  </Link>
-                ))}
-              </div>
+                  ))}
+                </div>
+              </>
             )}
           </div>
 
