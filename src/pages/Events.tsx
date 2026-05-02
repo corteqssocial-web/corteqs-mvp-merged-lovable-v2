@@ -284,16 +284,16 @@ const Events = () => {
                 </span>
                 Şu an Canlı
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
                 {/* Live Event 1 - Ücretsiz */}
                 <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
                   <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
                     <Radio className="h-3 w-3 animate-pulse" /> CANLI
                   </div>
-                  <div className="relative h-36">
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=280&fit=crop" alt="Webinar" className="w-full h-full object-cover" />
+                  <div className="relative h-[72px]">
+                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=140&fit=crop" alt="Webinar" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
+                    <div className="absolute bottom-2 left-3">
                       <Badge className="bg-turquoise/90 text-primary-foreground border-0 text-xs">Networking</Badge>
                     </div>
                   </div>
@@ -321,10 +321,10 @@ const Events = () => {
                   <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
                     <Radio className="h-3 w-3 animate-pulse" /> CANLI
                   </div>
-                  <div className="relative h-36">
-                    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=500&h=280&fit=crop" alt="Workshop" className="w-full h-full object-cover" />
+                  <div className="relative h-[72px]">
+                    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=500&h=140&fit=crop" alt="Workshop" className="w-full h-full object-cover" />
                     <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-3 left-3">
+                    <div className="absolute bottom-2 left-3">
                       <Badge className="bg-primary/90 text-primary-foreground border-0 text-xs">Eğitim</Badge>
                     </div>
                   </div>
@@ -346,6 +346,7 @@ const Events = () => {
                     </div>
                   </div>
                 </div>
+              </div>
 
                 {/* Live Event 3 - Ücretsiz */}
                 <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
