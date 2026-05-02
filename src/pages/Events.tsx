@@ -3,7 +3,7 @@ import { Link } from "react-router-dom";
 import {
   Calendar, MapPin, Users, Clock, Star, PlusCircle,
   Search, Ticket, Globe, Filter, ChevronLeft, ChevronRight,
-  Radio, Video, Lock, Unlock
+  Radio
 } from "lucide-react";
 import MapShareButtons from "@/components/MapShareButtons";
 import { Button } from "@/components/ui/button";
@@ -17,6 +17,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { events, countries } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import eventDashboardImg from "@/assets/event-dashboard.jpg";
@@ -47,25 +49,34 @@ const typeLabels: Record<string, string> = {
 
 const Events = () => {
   const { selectedCountry: country } = useDiaspora();
+  const { user } = useAuth();
+  const navigate = useNavigate();
   const [city, setCity] = useState("all");
   const [search, setSearch] = useState("");
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "calendar">("grid");
+  const [createOpen, setCreateOpen] = useState(false);
   const { toast } = useToast();
 
   useEffect(() => { setCity("all"); }, [country]);
 
-  // Group events by date for calendar view
+  const requireAuth = (cb: () => void) => {
+    if (!user) {
+      toast({ title: "Giriş gerekli", description: "Etkinlik oluşturmak için lütfen giriş yapın." });
+      navigate("/auth?redirect=/events");
+      return;
+    }
+    cb();
+  };
+
+  // Real events only — mock live/all-events lists are emptied; featured remains as showcase.
+  const liveEvents: typeof events = [];
+  const allEvents: typeof events = [];
   const eventsByDate: Record<string, typeof events> = {};
-  events.forEach((e) => {
-    const dateKey = e.date;
-    if (!eventsByDate[dateKey]) eventsByDate[dateKey] = [];
-    eventsByDate[dateKey].push(e);
-  });
 
   const featured = events.filter((e) => e.featured);
 
-  const filtered = events.filter((e) => {
+  const filtered = allEvents.filter((e) => {
     const matchesCountry = country === "all" || e.country === country;
     const matchesCity = city === "all" || e.city === city;
     const matchesSearch = search === "" ||
@@ -120,23 +131,15 @@ const Events = () => {
               <p className="text-muted-foreground font-body mt-1">{filtered.length} etkinlik bulundu</p>
             </div>
             <div className="flex items-start gap-3 flex-wrap">
-              <Dialog>
-                <DialogTrigger asChild>
-                  <Button className="gap-2 h-10">
-                    <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
-                  </Button>
-                </DialogTrigger>
+              <Dialog open={createOpen} onOpenChange={setCreateOpen}>
+                <Button className="gap-2 h-10" onClick={() => requireAuth(() => setCreateOpen(true))}>
+                  <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                </Button>
                 <DialogContent className="max-w-lg max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>Yeni Etkinlik Oluştur</DialogTitle>
                   </DialogHeader>
-                  <div className="relative">
-                    <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden">
-                      <div className="-rotate-12 bg-gold text-primary-foreground font-extrabold text-lg md:text-2xl px-8 py-3 rounded-xl shadow-card-hover border-2 border-gold/60 tracking-wide text-center">
-                        🛠️ Etkinlik Yöneticisi<br />Hazırlanıyor
-                      </div>
-                    </div>
-                    <div className="space-y-4 mt-4 blur-sm select-none pointer-events-none max-h-[60vh] overflow-hidden">
+                  <div className="space-y-4 mt-4">
                     <div>
                       <Label>Etkinlik Adı</Label>
                       <Input placeholder="Örn: Networking Akşam Yemeği" />
@@ -170,10 +173,9 @@ const Events = () => {
                         <Input placeholder="Şehir veya mekan adı" />
                       </div>
                     </div>
-                    <Button className="w-full gap-2" >
+                    <Button className="w-full gap-2" onClick={() => { handleCreateEvent(); setCreateOpen(false); }}>
                       <Calendar className="h-4 w-4" /> Etkinliği Yayınla
                     </Button>
-                    </div>
                   </div>
                 </DialogContent>
               </Dialog>
@@ -201,11 +203,31 @@ const Events = () => {
           </div>
 
           {/* Featured Events */}
-          {categoryFilter === "all" && country === "all" && search === "" && (
-            <div className="mb-12">
-              <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
+          <div className="mb-12">
+            <div className="flex items-center justify-between flex-wrap gap-3 mb-6">
+              <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <Star className="h-5 w-5 text-gold fill-gold" /> Öne Çıkan Etkinlikler
               </h2>
+              <div className="flex items-center gap-2">
+                <Button
+                  variant={viewMode === "grid" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("grid")}
+                  className="text-xs"
+                >
+                  Kart Görünümü
+                </Button>
+                <Button
+                  variant={viewMode === "calendar" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setViewMode("calendar")}
+                  className="text-xs gap-1"
+                >
+                  <Calendar className="h-3.5 w-3.5" /> Takvim
+                </Button>
+              </div>
+            </div>
+            {categoryFilter === "all" && country === "all" && search === "" && (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {featured.slice(0, 3).map((evt) => (
                   <Link
@@ -249,8 +271,8 @@ const Events = () => {
                   </Link>
                 ))}
               </div>
-            </div>
-          )}
+            )}
+          </div>
 
           {/* Topluluğun İçin Etkinlik Düzenle */}
           <section className="mb-12 rounded-3xl border border-border bg-card overflow-hidden shadow-card">
@@ -271,7 +293,7 @@ const Events = () => {
                   <li className="flex items-center gap-2"><span className="h-1.5 w-1.5 rounded-full bg-turquoise" /> Şehir ve ülke bazlı hedefli duyuru</li>
                 </ul>
                 <div className="flex flex-wrap gap-3">
-                  <Button size="lg" className="gap-2">
+                  <Button size="lg" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
                     <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
                   </Button>
                   <Link to="/profile">
@@ -304,92 +326,20 @@ const Events = () => {
                 </span>
                 Şu an Canlı
               </h2>
-              <div className="grid grid-cols-1 md:grid-cols-2 gap-5 max-w-4xl mx-auto">
-                {/* Live Event 1 - Ücretsiz */}
-                <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    <Radio className="h-3 w-3 animate-pulse" /> CANLI
-                  </div>
-                  <div className="relative h-[72px]">
-                    <img src="https://images.unsplash.com/photo-1540575467063-178a50c2df87?w=500&h=140&fit=crop" alt="Webinar" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-2 left-3">
-                      <Badge className="bg-turquoise/90 text-primary-foreground border-0 text-xs">Networking</Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-foreground mb-1">Diaspora Networking Webinarı</h3>
-                    <p className="text-xs text-muted-foreground font-body mb-3">Avrupa'daki Türk girişimcilerin deneyim paylaşımı ve iş birliği fırsatları.</p>
-                    <div className="space-y-1.5 text-sm text-muted-foreground font-body mb-4">
-                      <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 19:00 – 20:30 CET <span className="text-xs bg-destructive/10 text-destructive rounded px-1.5 ml-1">42 dk kaldı</span></p>
-                      <p className="flex items-center gap-1.5"><Video className="h-3.5 w-3.5" /> Zoom · Online</p>
-                      <p className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> 87 / 150 katılımcı</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline" className="text-success border-success/30 gap-1">
-                        <Unlock className="h-3 w-3" /> Ücretsiz
-                      </Badge>
-                      <Button size="sm" className="gap-1.5">
-                        <Video className="h-3.5 w-3.5" /> Hemen Katıl
-                      </Button>
-                    </div>
-                  </div>
+              {liveEvents.length === 0 && (
+                <div className="rounded-2xl border border-dashed border-border bg-muted/30 p-8 text-center">
+                  <Radio className="h-8 w-8 text-muted-foreground mx-auto mb-3" />
+                  <p className="text-foreground font-semibold mb-1">Şu an canlı etkinlik yok</p>
+                  <p className="text-sm text-muted-foreground font-body mb-4">
+                    Canlı etkinlikler dashboard üzerinden başlatıldığında burada görünür.
+                  </p>
+                  <Button size="sm" className="gap-2" onClick={() => requireAuth(() => setCreateOpen(true))}>
+                    <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
+                  </Button>
                 </div>
-
-                {/* Live Event 2 - Ücretli */}
-                <div className="bg-card rounded-2xl border-2 border-destructive/30 overflow-hidden shadow-card relative">
-                  <div className="absolute top-3 right-3 z-10 flex items-center gap-1.5 bg-destructive text-primary-foreground text-xs font-bold px-3 py-1 rounded-full">
-                    <Radio className="h-3 w-3 animate-pulse" /> CANLI
-                  </div>
-                  <div className="relative h-[72px]">
-                    <img src="https://images.unsplash.com/photo-1551836022-4c4c79ecde51?w=500&h=140&fit=crop" alt="Workshop" className="w-full h-full object-cover" />
-                    <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent" />
-                    <div className="absolute bottom-2 left-3">
-                      <Badge className="bg-primary/90 text-primary-foreground border-0 text-xs">Eğitim</Badge>
-                    </div>
-                  </div>
-                  <div className="p-5">
-                    <h3 className="font-bold text-foreground mb-1">Almanya'da Şirket Kuruluşu Workshop</h3>
-                    <p className="text-xs text-muted-foreground font-body mb-3">GmbH kuruluş adımları, vergi avantajları ve pratik ipuçları.</p>
-                    <div className="space-y-1.5 text-sm text-muted-foreground font-body mb-4">
-                      <p className="flex items-center gap-1.5"><Clock className="h-3.5 w-3.5" /> 18:30 – 20:00 CET <span className="text-xs bg-destructive/10 text-destructive rounded px-1.5 ml-1">1s 12dk kaldı</span></p>
-                      <p className="flex items-center gap-1.5"><Video className="h-3.5 w-3.5" /> Google Meet · Online</p>
-                      <p className="flex items-center gap-1.5"><Users className="h-3.5 w-3.5" /> 34 / 50 katılımcı</p>
-                    </div>
-                    <div className="flex items-center justify-between">
-                      <Badge variant="outline" className="text-gold border-gold/30 gap-1">
-                        <Lock className="h-3 w-3" /> €15
-                      </Badge>
-                      <Button size="sm" className="gap-1.5 bg-gold hover:bg-gold/90 text-primary-foreground">
-                        <Ticket className="h-3.5 w-3.5" /> Bilet Al & Katıl
-                      </Button>
-                    </div>
-                  </div>
-                </div>
-              </div>
+              )}
             </div>
           )}
-
-
-          {/* View toggle */}
-          <div className="flex items-center gap-2 mb-6">
-            <Button
-              variant={viewMode === "grid" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode("grid")}
-              className="text-xs"
-            >
-              Kart Görünümü
-            </Button>
-            <Button
-              variant={viewMode === "calendar" ? "default" : "outline"}
-              size="sm"
-              onClick={() => setViewMode("calendar")}
-              className="text-xs gap-1"
-            >
-              <Calendar className="h-3.5 w-3.5" /> Takvim
-            </Button>
-          </div>
 
           {viewMode === "calendar" ? (
             /* Calendar View */
