@@ -415,7 +415,8 @@ const WhatsAppGroups = () => {
                   );
                 })}
               </div>
-            )}
+              );
+            })()}
           </section>
         </div>
       </main>
