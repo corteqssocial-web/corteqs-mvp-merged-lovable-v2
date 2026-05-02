@@ -39,10 +39,16 @@ const WhatsAppGroups = () => {
   const [submitting, setSubmitting] = useState(false);
 
   // 4 örnek demo grup: 2 Alumni (farklı şehir), 1 Doktor, 1 Hobi
-  const demoIds = ["odtu-almanya", "bogazici-bae", "doktor-londra", "kitap-dubai"];
-  const demoGroups = demoIds
-    .map((id) => whatsappGroups.find((g) => g.id === id))
-    .filter(Boolean) as typeof whatsappGroups;
+  const [landings, setLandings] = useState<WhatsAppLanding[]>([]);
+  const [loadingLandings, setLoadingLandings] = useState(true);
+
+  useEffect(() => {
+    let cancelled = false;
+    listLandings()
+      .then((rows) => { if (!cancelled) setLandings(rows); })
+      .finally(() => { if (!cancelled) setLoadingLandings(false); });
+    return () => { cancelled = true; };
+  }, []);
 
   // ---- Post Group + Landing Page form state ----
   const [groupName, setGroupName] = useState("");
