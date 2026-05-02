@@ -7,7 +7,11 @@ import { useToast } from "@/hooks/use-toast";
 import DemoBadge from "@/components/DemoBadge";
 
 const AssociationsSection = () => {
-  const featured = associations.slice(0, 3);
+  const featured = [
+    associations[0],
+    associations[1],
+    associations.find((a) => a.id === "bae-turk-dernegi")!,
+  ];
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
 
