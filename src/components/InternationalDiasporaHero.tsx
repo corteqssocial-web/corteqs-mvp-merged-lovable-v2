@@ -62,7 +62,16 @@ const COPY: Record<Exclude<DiasporaKey, "tr">, Copy> = {
     title: "हमें ज़बरदस्त मांग मिल रही है ",
     highlight: "भारतीय वैश्विक डायस्पोरा से",
     subtitle:
-      "CorteQS भारतीय डायस्पोरा के लिए समर्पित बुनियादी ढांचा खोल रहा है — निवेशक, संस्थापक, पेशेवर और छात्र। जल्दी रजिस्टर करें और अपनी जगह पाएं।",
+      "एक छत के नीचे — आपके डायस्पोरा के सलाहकार, व्यवसाय और संगठन। एक सामाजिक और आर्थिक एकजुटता इंजन।",
+    tagline: "एक डायस्पोरा। एक मंच। एक एकजुटता इंजन।",
+    oneRoofTitle: "एक छत के नीचे आपका पूरा डायस्पोरा",
+    oneRoofBody:
+      "सलाहकार, व्यवसाय, संगठन, स्कूल, इवेंट्स और WhatsApp समुदाय — सब कुछ एक ही जगह, सत्यापित और खोजने योग्य।",
+    oneRoofPills: ["सलाहकार", "व्यवसाय", "संगठन", "इवेंट्स", "WhatsApp"],
+    solidarityTitle: "सामाजिक + आर्थिक एकजुटता इंजन",
+    solidarityBody:
+      "सहायता पाएं, ग्राहक खोजें, साझेदार खोजें, स्थानीय रूप से खर्च करें — डायस्पोरा को मजबूत करें और एक-दूसरे की मदद करें।",
+    solidarityPills: ["रेफरल", "B2B", "मेंटरशिप", "रिलोकेशन", "निवेश"],
     formTitle: "भारतीय डायस्पोरा — अर्ली एक्सेस रजिस्ट्रेशन",
     formIntro:
       "अपने दस्तावेज़, डेक या LinkedIn लिंक अपलोड करें। बताएं कि आप निवेश व साझेदारी के लिए हैं या सामान्य पहुँच के लिए।",
@@ -103,7 +112,16 @@ const COPY: Record<Exclude<DiasporaKey, "tr">, Copy> = {
     title: "我们看到了来自 ",
     highlight: "全球华人海外社群的强劲需求",
     subtitle:
-      "CorteQS 正在为华人海外社群打造专属基础设施 — 投资者、创业者、专业人士与家庭。立即注册,预留名额。",
+      "同一个屋檐下 — 您所在海外社群的顾问、企业与组织,一个社会与经济互助引擎。",
+    tagline: "一个社群。一个平台。一个互助引擎。",
+    oneRoofTitle: "海外社群的一切尽在一处",
+    oneRoofBody:
+      "顾问、企业、组织、学校、活动与微信/WhatsApp 社群 — 全部经过认证、可搜索、汇聚一处。",
+    oneRoofPills: ["顾问", "企业", "组织", "活动", "群组"],
+    solidarityTitle: "社会 + 经济互助引擎",
+    solidarityBody:
+      "获得帮助、寻找客户、寻找合伙人、本地消费 — 强化海外社群,互相支持。",
+    solidarityPills: ["推荐", "B2B", "导师", "搬迁", "投资"],
     formTitle: "华人海外社群 — 早期访问注册",
     formIntro:
       "上传您的资料、商业计划书或 CV。请告诉我们您是为投资合作还是一般注册而来。",
@@ -144,7 +162,16 @@ const COPY: Record<Exclude<DiasporaKey, "tr">, Copy> = {
     title: "Lumalaking demand mula sa ",
     highlight: "Filipino global diaspora",
     subtitle:
-      "Naghahanda ang CorteQS ng dedikadong imprastruktura para sa Filipino diaspora — OFWs, founders, propesyonal at pamilya. Kumuha ng early access ngayon.",
+      "Sa ilalim ng iisang bubong — mga consultant, negosyo at organisasyon ng iyong diaspora. Isang makina ng social at economic solidarity.",
+    tagline: "Isang diaspora. Isang plataporma. Isang solidarity engine.",
+    oneRoofTitle: "Buong diaspora mo, sa iisang bubong",
+    oneRoofBody:
+      "Mga consultant, negosyo, organisasyon, paaralan, event at WhatsApp community — verified, mahahanap, lahat sa isang lugar.",
+    oneRoofPills: ["Consultants", "Negosyo", "Organisasyon", "Events", "WhatsApp"],
+    solidarityTitle: "Social + Economic Solidarity Engine",
+    solidarityBody:
+      "Humingi ng tulong, maghanap ng kliyente, maghanap ng kasosyo, gumastos sa loob ng komunidad — palakasin ang diaspora at magtulungan.",
+    solidarityPills: ["Referral", "B2B", "Mentorship", "Relocation", "Investment"],
     formTitle: "Filipino Diaspora — Early Access Registration",
     formIntro:
       "I-upload ang iyong mga dokumento o links. Sabihin sa amin kung para sa investment & partnership o general registration.",
