@@ -10,6 +10,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
 import { useAuth } from "@/contexts/AuthContext";
+import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
 const COUNTRIES = [
   "Almanya", "Hollanda", "İngiltere", "Fransa", "ABD", "Kanada", "Avustralya",
@@ -73,6 +74,7 @@ const WelcomePackOrderForm = ({
     mentorType: "" as "" | "paid" | "volunteer",
     notes: "",
   });
+  const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
   const update = <K extends keyof WelcomePackFormState>(field: K, value: WelcomePackFormState[K]) => {
     setForm((prev) => ({ ...prev, [field]: value }));
@@ -85,6 +87,10 @@ const WelcomePackOrderForm = ({
     }
     if (!form.country || !form.arrivalDate) {
       toast({ title: "Ülke ve geliş tarihi zorunlu", variant: "destructive" });
+      return;
+    }
+    if (!isConsentValid(consent)) {
+      toast({ title: "Onay gerekli", description: "KVKK / GDPR onaylarını işaretleyin.", variant: "destructive" });
       return;
     }
 
@@ -243,7 +249,9 @@ const WelcomePackOrderForm = ({
             />
           </div>
 
-          <Button onClick={handleSubmit} disabled={loading} className="w-full gap-2" variant="hero" size="lg">
+          <ConsentCheckboxes compact value={consent} onChange={setConsent} />
+
+          <Button onClick={handleSubmit} disabled={loading || !isConsentValid(consent)} className="w-full gap-2" variant="hero" size="lg">
             <Gift className="h-4 w-4" />
             {loading ? "Oluşturuluyor..." : "🎉 Paketi Oluştur ve Teklif Al"}
           </Button>

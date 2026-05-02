@@ -20,6 +20,7 @@ import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 import { submitLanding, listLandings, type LandingMode, type WhatsAppLanding } from "@/lib/whatsappLandings";
 import { useAuth } from "@/contexts/AuthContext";
+import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
 const categoryMeta = {
   alumni: { icon: GraduationCap, label: "Alumni", color: "text-primary bg-primary/10 border-primary/20" },
@@ -68,6 +69,7 @@ const WhatsAppGroups = () => {
   const [adminContact, setAdminContact] = useState("");
 
   const [openDialog, setOpenDialog] = useState(false);
+  const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
   const resetForm = () => {
     setGroupName(""); setCountry(""); setCity(""); setWhatsappLink(""); setDescription("");
@@ -83,6 +85,10 @@ const WhatsAppGroups = () => {
     if (!user) {
       toast({ title: "Giriş gerekli", description: "Grup eklemek için önce giriş yap.", variant: "destructive" });
       navigate("/auth");
+      return;
+    }
+    if (!isConsentValid(consent)) {
+      toast({ title: "Onay gerekli", description: "KVKK / GDPR onaylarını işaretleyin.", variant: "destructive" });
       return;
     }
 
@@ -284,10 +290,12 @@ const WhatsAppGroups = () => {
                     🛡️ Başvurun admin onayından sonra herkese görünür olacak. (Spam ve sahte grupları önlemek için.)
                   </div>
 
+                  <ConsentCheckboxes compact value={consent} onChange={setConsent} />
+
                   <Button
                     className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white"
                     onClick={handleSubmit}
-                    disabled={submitting}
+                    disabled={submitting || !isConsentValid(consent)}
                   >
                     <MessageSquare className="h-4 w-4" />
                     {submitting ? "Gönderiliyor..." : (createLanding ? "Landing Sayfası Oluştur ve Onaya Gönder" : "Grubu Onaya Gönder")}
