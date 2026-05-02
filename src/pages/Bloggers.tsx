@@ -162,10 +162,10 @@ const Bloggers = () => {
           {/* CTA strip */}
           <section className="rounded-3xl bg-gradient-to-r from-primary/15 via-turquoise/10 to-gold/15 border border-border p-6 md:p-10 mb-12 text-center">
             <h3 className="text-2xl md:text-3xl font-extrabold mb-2">
-              CorteQS Diaspora Kütüphanesinde Yerinizi Alın
+              Diaspora Arşivlerine Girin — Kütüphanemizi Birlikte Oluşturalım
             </h3>
             <p className="text-muted-foreground font-body mb-3 max-w-2xl mx-auto">
-              Markaların kolayca ulaştığı, taleplerinin AI ile eşleştirildiği süper bir sistemin parçası olun.
+              Ürettiğiniz yazılar ve videolar diaspora kültürünün bir parçası olsun. Blogger / Vlogger kayıtlarımızdan ve panellerimizden ücret alınmaz.
             </p>
             <Badge className="bg-success/15 text-success border-0 mb-5">
               <Gift className="h-3.5 w-3.5 mr-1.5" /> Kayıt tamamen ücretsizdir
