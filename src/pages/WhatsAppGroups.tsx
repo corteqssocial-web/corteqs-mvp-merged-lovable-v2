@@ -267,9 +267,17 @@ const WhatsAppGroups = () => {
                     )}
                   </div>
 
-                  <Button className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white" onClick={handleSubmit}>
+                  <div className="rounded-lg bg-amber-50 border border-amber-200 p-3 text-xs text-amber-900">
+                    🛡️ Başvurun admin onayından sonra herkese görünür olacak. (Spam ve sahte grupları önlemek için.)
+                  </div>
+
+                  <Button
+                    className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white"
+                    onClick={handleSubmit}
+                    disabled={submitting}
+                  >
                     <MessageSquare className="h-4 w-4" />
-                    {createLanding ? "Landing Sayfası Oluştur ve Yayınla" : "Grubu Gönder"}
+                    {submitting ? "Gönderiliyor..." : (createLanding ? "Landing Sayfası Oluştur ve Onaya Gönder" : "Grubu Onaya Gönder")}
                   </Button>
                 </div>
               </DialogContent>
