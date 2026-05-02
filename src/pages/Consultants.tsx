@@ -387,12 +387,21 @@ const Consultants = () => {
                         </div>
 
                         <p className="text-[10px] text-success font-semibold mb-2">🎁 İlk 10 dk ücretsiz</p>
-                        <div className="flex gap-2" onClick={(e) => e.preventDefault()}>
-                          <Button variant="default" size="sm" className="flex-1 gap-1 text-xs">
-                            <Video className="h-3 w-3" /> Canlı · €2/dk
+                        <div className="flex gap-1.5" onClick={(e) => e.preventDefault()}>
+                          <Button variant="default" size="sm" className="flex-1 gap-1 text-[11px] px-1.5">
+                            <Video className="h-3 w-3" /> Canlı €2/dk
                           </Button>
-                          <Button variant="outline" size="sm" className="flex-1 gap-1 text-xs">
-                            <Bot className="h-3 w-3" /> AI Twin · €1/dk
+                          <Button variant="outline" size="sm" className="flex-1 gap-1 text-[11px] px-1.5">
+                            <Bot className="h-3 w-3" /> AI €1/dk
+                          </Button>
+                          <Button
+                            variant="outline"
+                            size="sm"
+                            className="gap-1 text-[11px] px-2 border-success/40 text-success hover:bg-success/10"
+                            onClick={(e) => { e.preventDefault(); e.stopPropagation(); window.open("https://wa.me/", "_blank"); }}
+                            title="WhatsApp"
+                          >
+                            <MessageCircle className="h-3 w-3" />
                           </Button>
                         </div>
                       </Link>
