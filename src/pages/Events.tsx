@@ -77,9 +77,24 @@ const Events = () => {
   const [categoryFilter, setCategoryFilter] = useState("all");
   const [viewMode, setViewMode] = useState<"grid" | "calendar">("grid");
   const [createOpen, setCreateOpen] = useState(false);
+  const [liveEvents, setLiveEvents] = useState<LiveEvent[]>([]);
+  const [loadingEvents, setLoadingEvents] = useState(true);
   const { toast } = useToast();
 
   useEffect(() => { setCity("all"); }, [country]);
+
+  const fetchEvents = async () => {
+    setLoadingEvents(true);
+    const { data, error } = await supabase
+      .from("events")
+      .select("id,title,description,category,type,event_date,start_time,end_time,country,city,location,price,max_attendees,cover_image,organizer_name,featured")
+      .eq("status", "published")
+      .order("event_date", { ascending: true });
+    if (!error && data) setLiveEvents(data as LiveEvent[]);
+    setLoadingEvents(false);
+  };
+
+  useEffect(() => { fetchEvents(); }, []);
 
   const requireAuth = (cb: () => void) => {
     if (!user) {
@@ -90,26 +105,19 @@ const Events = () => {
     cb();
   };
 
-  // Real events only — mock live/all-events lists are emptied; featured remains as showcase.
-  const liveEvents: typeof events = [];
-  const allEvents: typeof events = [];
-  const eventsByDate: Record<string, typeof events> = {};
+  // Demo featured cards (mock) — clearly labeled, non-clickable
+  const featured = events.filter((e) => e.featured).slice(0, 3);
 
-  const featured = events.filter((e) => e.featured);
-
-  const filtered = allEvents.filter((e) => {
+  // Live events from DB filtered by user selection
+  const filteredLive = liveEvents.filter((e) => {
     const matchesCountry = country === "all" || e.country === country;
     const matchesCity = city === "all" || e.city === city;
     const matchesSearch = search === "" ||
       e.title.toLowerCase().includes(search.toLowerCase()) ||
-      e.description.toLowerCase().includes(search.toLowerCase());
+      (e.description || "").toLowerCase().includes(search.toLowerCase());
     const matchesCategory = categoryFilter === "all" || e.category === categoryFilter;
     return matchesCountry && matchesCity && matchesSearch && matchesCategory;
   });
-
-  const handleCreateEvent = () => {
-    toast({ title: "Etkinliğiniz gönderildi!", description: "İnceleme sonrası platformda yayınlanacaktır." });
-  };
 
   return (
     <div className="min-h-screen bg-background">
