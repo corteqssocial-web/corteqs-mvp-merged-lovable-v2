@@ -87,18 +87,18 @@ const Events = () => {
 
           {/* Tagline Hero */}
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-10">
-            <div className="max-w-4xl">
+            <div className="max-w-4xl mx-auto text-center">
               <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎟️ Diaspora Etkinlik Merkezi</Badge>
               <h2 className="text-2xl md:text-4xl font-extrabold text-foreground leading-tight mb-3">
                 Yakında <span className="text-gradient-primary">Ülke · Şehir · Konu Bazlı</span> Tüm Diaspora Etkinlikleri Elinizin Altında
               </h2>
               <p className="text-base md:text-lg text-muted-foreground font-body mb-2">
-                İnternette gruplarda fırsatları kaçırma dönemi bitti.
+                İnternette gruplarda etkinlikleri kaçırma dönemi bitti.
               </p>
               <p className="text-lg md:text-xl font-semibold text-foreground mb-6">
-                👉 Yerini ayırt, biletini al.
+                👉 Yer ayırt — Bilet/Ödeme al — Canlı Katıl — Kendi Etkinliğini Yap
               </p>
-              <div className="flex flex-wrap gap-3">
+              <div className="flex flex-wrap gap-3 justify-center">
                 <Button size="lg" className="gap-2">
                   <Ticket className="h-4 w-4" /> Yerimi Ayırt
                 </Button>
@@ -106,7 +106,7 @@ const Events = () => {
                   <Search className="h-4 w-4" /> Etkinlik Keşfet
                 </Button>
               </div>
-              <p className="text-xs text-muted-foreground mt-4 max-w-2xl">
+              <p className="text-xs text-muted-foreground mt-4 max-w-2xl mx-auto">
                 Diasporanda herkesin etkinliklerini takip et, kendi etkinliğini burada listele — tek bir platformdan.
               </p>
             </div>
