@@ -58,7 +58,7 @@ const Navbar = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
-                <DropdownMenuLabel className="text-xs text-muted-foreground">Diaspora Seçin</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-xs text-muted-foreground">{t.nav.selectDiaspora}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {diasporaOptions.map((opt) => (
                   <DropdownMenuItem
@@ -80,8 +80,8 @@ const Navbar = () => {
                 >
                   <span className="text-lg">🌐</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-semibold">Register Diaspora</span>
-                    <span className="text-xs text-muted-foreground">Request your community</span>
+                    <span className="text-sm font-semibold">{t.nav.registerDiaspora}</span>
+                    <span className="text-xs text-muted-foreground">{t.nav.registerDiasporaDesc}</span>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
