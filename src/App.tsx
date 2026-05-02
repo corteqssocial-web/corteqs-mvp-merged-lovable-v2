@@ -45,6 +45,7 @@ const PrivacyPolicy = lazy(() => import("./pages/legal/PrivacyPolicy"));
 const TermsOfService = lazy(() => import("./pages/legal/TermsOfService"));
 const KVKK = lazy(() => import("./pages/legal/KVKK"));
 const CookiePolicy = lazy(() => import("./pages/legal/CookiePolicy"));
+const RegisterDiaspora = lazy(() => import("./pages/RegisterDiaspora"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 import CookieConsentBanner from "@/components/CookieConsentBanner";
@@ -149,6 +150,7 @@ const App = () => (
                   <Route path="/legal/terms" element={<TermsOfService />} />
                   <Route path="/legal/kvkk" element={<KVKK />} />
                   <Route path="/legal/cookies" element={<CookiePolicy />} />
+                  <Route path="/register-diaspora" element={<RegisterDiaspora />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>

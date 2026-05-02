@@ -1,13 +1,22 @@
-import { ArrowRight, Globe, MapPin, Users, Trophy, MessageCircle, Sparkles, Video, PenSquare, UserPlus } from "lucide-react";
+import { ArrowRight, Globe, MapPin, Users, Trophy, MessageCircle, Sparkles, Video, PenSquare, UserPlus, Hourglass, Handshake, Briefcase, Megaphone } from "lucide-react";
+import { useState } from "react";
 import { Button } from "@/components/ui/button";
 import { Link } from "react-router-dom";
 import landmarksImage from "@/assets/landmarks-collage.png";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import HeroCityCounters from "@/components/HeroCityCounters";
+import InterestForm, { type InterestCategory } from "@/components/InterestForm";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
   const h = t.hero;
+  const [formOpen, setFormOpen] = useState(false);
+  const [formCategory, setFormCategory] = useState<InterestCategory>("genel");
+
+  const openForm = (cat: InterestCategory) => {
+    setFormCategory(cat);
+    setFormOpen(true);
+  };
 
   return (
     <>
@@ -85,6 +94,51 @@ const HeroSection = () => {
             </Link>
           </div>
 
+          {/* Pre-launch banner — supply/demand registrations open */}
+          <div className="mt-6 rounded-2xl border-2 border-amber-400/40 bg-gradient-to-br from-amber-50 via-orange-50 to-amber-50 dark:from-amber-950/20 dark:via-orange-950/20 dark:to-amber-950/20 p-4 sm:p-5 animate-fade-in-up shadow-card" style={{ animationDelay: '0.34s' }}>
+            <div className="flex items-start gap-3 mb-3">
+              <div className="bg-amber-400/20 p-2 rounded-full shrink-0">
+                <Hourglass className="h-5 w-5 text-amber-600" />
+              </div>
+              <div className="flex-1 min-w-0">
+                <p className="font-bold text-foreground text-sm sm:text-base">
+                  🚀 Açılışa kadar arz & talep kayıtları devam ediyor!
+                </p>
+                <p className="text-xs text-muted-foreground font-body mt-1">
+                  CorteQS resmi açılışına kadar; <strong>işbirliği, reklam ve iş başvuruları</strong> için aşağıdaki formları doldurarak öncelikli kayıt yaptırabilirsiniz. İlk kayıtlara özel avantajlar size iletilecek.
+                </p>
+              </div>
+            </div>
+            <div className="grid grid-cols-1 sm:grid-cols-3 gap-2 mt-3">
+              <Button
+                size="sm"
+                onClick={() => openForm("genel")}
+                className="bg-amber-500 hover:bg-amber-600 text-white gap-2 h-auto py-2.5 text-xs sm:text-sm whitespace-normal text-center leading-tight"
+              >
+                <UserPlus className="h-4 w-4 shrink-0" />
+                <span>Arz / Talep Kaydı</span>
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => openForm("genel")}
+                variant="outline"
+                className="border-amber-400/60 hover:bg-amber-100/50 gap-2 h-auto py-2.5 text-xs sm:text-sm whitespace-normal text-center leading-tight"
+              >
+                <Megaphone className="h-4 w-4 text-amber-600 shrink-0" />
+                <span>İşbirliği & Reklam</span>
+              </Button>
+              <Button
+                size="sm"
+                onClick={() => openForm("kariyer")}
+                variant="outline"
+                className="border-amber-400/60 hover:bg-amber-100/50 gap-2 h-auto py-2.5 text-xs sm:text-sm whitespace-normal text-center leading-tight"
+              >
+                <Briefcase className="h-4 w-4 text-amber-600 shrink-0" />
+                <span>İş Başvurusu</span>
+              </Button>
+            </div>
+          </div>
+
           {/* Blog Contest Teaser */}
           <Link to="/blog-contest" className="block mt-8 animate-fade-in-up" style={{ animationDelay: '0.35s' }}>
             <div className="bg-gold/10 border border-gold/30 rounded-2xl p-4 flex items-center gap-4 hover:bg-gold/15 transition-colors cursor-pointer group">
@@ -132,6 +186,7 @@ const HeroSection = () => {
         </div>
       </div>
       </section>
+      <InterestForm open={formOpen} onOpenChange={setFormOpen} context={formCategory} source="hero_pre_launch" />
     </>
   );
 };
