@@ -3,6 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   MessageSquare, Users, GraduationCap, Heart, PlusCircle, Sparkles, Stethoscope,
   Globe2, Megaphone, ShieldCheck, Layout, FileText, ExternalLink, ArrowRight,
+  TrendingUp, Rocket, BookOpen, HandHeart,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
