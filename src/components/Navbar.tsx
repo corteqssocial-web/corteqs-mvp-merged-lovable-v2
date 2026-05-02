@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link, useLocation, useNavigate } from "react-router-dom";
 import { Menu, X, Globe, User, LogIn, LogOut, MapPin, PenLine, ChevronDown, Users, Briefcase, Building2, Shield, Flag, Newspaper, MoreHorizontal, MessageCircle, Calendar } from "lucide-react";
 import corteqsLogo from "@/assets/corteqs-logo.png";
 import { Button } from "@/components/ui/button";
@@ -19,6 +19,8 @@ const Navbar = () => {
   const { diaspora, setDiaspora, t, currentOption, selectedCountry, setSelectedCountry } = useDiaspora();
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
+  const location = useLocation();
+  const isHome = location.pathname === "/";
 
   const handleSignOut = async () => {
     await signOut();
@@ -61,35 +63,37 @@ const Navbar = () => {
               </DropdownMenuContent>
             </DropdownMenu>
 
-            {/* Country Selector */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="outline" size="sm" className="gap-1.5 px-2.5 h-8 text-xs border-border">
-                  <MapPin className="h-3.5 w-3.5 text-primary" />
-                  <span className="hidden sm:inline">{selectedCountry === "all" ? "Tüm Ülkeler" : selectedCountry}</span>
-                  <ChevronDown className="h-3 w-3 text-muted-foreground" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-48">
-                <DropdownMenuLabel className="text-xs text-muted-foreground">Ülke Seçin</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className={`cursor-pointer text-sm ${selectedCountry === "all" ? "bg-accent/50 font-semibold" : ""}`}
-                  onClick={() => setSelectedCountry("all")}
-                >
-                  🌍 Tüm Ülkeler
-                </DropdownMenuItem>
-                {countryList.map((c) => (
+            {/* Country Selector — hidden on home page */}
+            {!isHome && (
+              <DropdownMenu>
+                <DropdownMenuTrigger asChild>
+                  <Button variant="outline" size="sm" className="gap-1.5 px-2.5 h-8 text-xs border-border">
+                    <MapPin className="h-3.5 w-3.5 text-primary" />
+                    <span className="hidden sm:inline">{selectedCountry === "all" ? "Tüm Ülkeler" : selectedCountry}</span>
+                    <ChevronDown className="h-3 w-3 text-muted-foreground" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent align="start" className="w-56 max-h-[70vh] overflow-y-auto">
+                  <DropdownMenuLabel className="text-xs text-muted-foreground">Ülke Seçin</DropdownMenuLabel>
+                  <DropdownMenuSeparator />
                   <DropdownMenuItem
-                    key={c}
-                    className={`cursor-pointer text-sm ${selectedCountry === c ? "bg-accent/50 font-semibold" : ""}`}
-                    onClick={() => setSelectedCountry(c)}
+                    className={`cursor-pointer text-sm ${selectedCountry === "all" ? "bg-accent/50 font-semibold" : ""}`}
+                    onClick={() => setSelectedCountry("all")}
                   >
-                    {c}
+                    🌍 Tüm Ülkeler
                   </DropdownMenuItem>
-                ))}
-              </DropdownMenuContent>
-            </DropdownMenu>
+                  {countryList.map((c) => (
+                    <DropdownMenuItem
+                      key={c}
+                      className={`cursor-pointer text-sm ${selectedCountry === c ? "bg-accent/50 font-semibold" : ""}`}
+                      onClick={() => setSelectedCountry(c)}
+                    >
+                      {c}
+                    </DropdownMenuItem>
+                  ))}
+                </DropdownMenuContent>
+              </DropdownMenu>
+            )}
           </div>
 
           <div className="hidden md:flex items-center gap-6">
@@ -177,17 +181,19 @@ const Navbar = () => {
                   </button>
                 ))}
               </div>
-              {/* Mobile Country Selector */}
-              <select
-                value={selectedCountry}
-                onChange={(e) => setSelectedCountry(e.target.value)}
-                className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
-              >
-                <option value="all">🌍 Tüm Ülkeler</option>
-                {countryList.map((c) => (
-                  <option key={c} value={c}>{c}</option>
-                ))}
-              </select>
+              {/* Mobile Country Selector — hidden on home */}
+              {!isHome && (
+                <select
+                  value={selectedCountry}
+                  onChange={(e) => setSelectedCountry(e.target.value)}
+                  className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
+                >
+                  <option value="all">🌍 Tüm Ülkeler</option>
+                  {countryList.map((c) => (
+                    <option key={c} value={c}>{c}</option>
+                  ))}
+                </select>
+              )}
               <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.consultants}</Link>
               <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.organizations}</Link>
               <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.businesses}</Link>

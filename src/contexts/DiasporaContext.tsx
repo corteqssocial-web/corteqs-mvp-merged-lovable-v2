@@ -1,4 +1,5 @@
 import { createContext, useContext, useState, ReactNode } from "react";
+import { allCountries } from "@/data/countryCities";
 
 export type DiasporaKey = "tr" | "in" | "cn" | "ph";
 
@@ -16,9 +17,7 @@ export const diasporaOptions: DiasporaOption[] = [
   { key: "ph", flag: "🇵🇭", label: "Filipino Diaspora", nativeLabel: "Filipino" },
 ];
 
-export const countryList = [
-  "Almanya", "İngiltere", "Hollanda", "BAE", "ABD", "Fransa", "Avusturya", "İsviçre", "Kanada", "Avustralya", "Katar",
-];
+export const countryList = allCountries;
 
 export const diasporaTranslations: Record<DiasporaKey, {
   nav: { consultants: string; organizations: string; businesses: string; groups: string; events: string; map: string; profile: string; login: string; signup: string };

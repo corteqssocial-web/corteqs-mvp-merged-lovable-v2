@@ -5,7 +5,7 @@ import MapShareButtons from "@/components/MapShareButtons";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CityDropdown from "@/components/CityDropdown";
+import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { associations } from "@/data/mock";
 import DemoBadge from "@/components/DemoBadge";
@@ -84,7 +84,7 @@ const Associations = () => {
               </Button>
             ))}
             <div className="ml-auto">
-              <CityDropdown country={country} city={city} onCityChange={setCity} />
+              <CountryCitySelector city={city} onCityChange={setCity} />
             </div>
           </div>
 

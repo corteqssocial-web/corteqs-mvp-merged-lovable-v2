@@ -15,7 +15,7 @@ import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from 
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import CityDropdown from "@/components/CityDropdown";
+import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { events, countries } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
@@ -177,7 +177,7 @@ const Events = () => {
                   </div>
                 </DialogContent>
               </Dialog>
-              <CityDropdown country={country} city={city} onCityChange={setCity} />
+              <CountryCitySelector city={city} onCityChange={setCity} />
             </div>
           </div>
 
