@@ -213,7 +213,7 @@ const Events = () => {
                     key={evt.id}
                     className="group relative rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 block"
                   >
-                    <div className="relative h-48 md:h-56">
+                    <div className="relative h-32 md:h-36">
                       <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
