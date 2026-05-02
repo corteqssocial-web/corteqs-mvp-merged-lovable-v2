@@ -58,7 +58,7 @@ const Navbar = () => {
                 </Button>
               </DropdownMenuTrigger>
               <DropdownMenuContent align="start" className="w-56">
-                <DropdownMenuLabel className="text-xs text-muted-foreground">Diaspora Seçin</DropdownMenuLabel>
+                <DropdownMenuLabel className="text-xs text-muted-foreground">{t.nav.selectDiaspora}</DropdownMenuLabel>
                 <DropdownMenuSeparator />
                 {diasporaOptions.map((opt) => (
                   <DropdownMenuItem
@@ -80,8 +80,8 @@ const Navbar = () => {
                 >
                   <span className="text-lg">🌐</span>
                   <div className="flex flex-col">
-                    <span className="text-sm font-semibold">Register Diaspora</span>
-                    <span className="text-xs text-muted-foreground">Request your community</span>
+                    <span className="text-sm font-semibold">{t.nav.registerDiaspora}</span>
+                    <span className="text-xs text-muted-foreground">{t.nav.registerDiasporaDesc}</span>
                   </div>
                 </DropdownMenuItem>
               </DropdownMenuContent>
@@ -93,18 +93,18 @@ const Navbar = () => {
                 <DropdownMenuTrigger asChild>
                   <Button variant="outline" size="sm" className="gap-1.5 px-2.5 h-8 text-xs border-border">
                     <MapPin className="h-3.5 w-3.5 text-primary" />
-                    <span className="hidden sm:inline">{selectedCountry === "all" ? "Tüm Ülkeler" : selectedCountry}</span>
+                    <span className="hidden sm:inline">{selectedCountry === "all" ? t.nav.allCountries : selectedCountry}</span>
                     <ChevronDown className="h-3 w-3 text-muted-foreground" />
                   </Button>
                 </DropdownMenuTrigger>
                 <DropdownMenuContent align="start" className="w-56 max-h-[70vh] overflow-y-auto">
-                  <DropdownMenuLabel className="text-xs text-muted-foreground">Ülke Seçin</DropdownMenuLabel>
+                  <DropdownMenuLabel className="text-xs text-muted-foreground">{t.nav.selectCountry}</DropdownMenuLabel>
                   <DropdownMenuSeparator />
                   <DropdownMenuItem
                     className={`cursor-pointer text-sm ${selectedCountry === "all" ? "bg-accent/50 font-semibold" : ""}`}
                     onClick={() => setSelectedCountry("all")}
                   >
-                    🌍 Tüm Ülkeler
+                    🌍 {t.nav.allCountries}
                   </DropdownMenuItem>
                   {countryList.map((c) => (
                     <DropdownMenuItem
@@ -124,13 +124,13 @@ const Navbar = () => {
             <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">{t.nav.consultants}</Link>
             <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.businesses}</Link>
             <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.organizations}</Link>
-            <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">V/Blogger</Link>
+            <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.vblogger}</Link>
 
-            {/* Daha Fazla Dropdown */}
+            {/* More Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-1 text-sm font-medium text-muted-foreground hover:text-foreground px-2 h-auto">
-                  Daha Fazla
+                  {t.nav.more}
                   <ChevronDown className="h-3 w-3" />
                 </Button>
               </DropdownMenuTrigger>
@@ -147,7 +147,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/city-news" className="flex items-center gap-2 cursor-pointer">
-                    <Newspaper className="h-3.5 w-3.5 text-primary" />MEDYA
+                    <Newspaper className="h-3.5 w-3.5 text-primary" />{t.nav.media}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -165,11 +165,11 @@ const Navbar = () => {
                 <Link to="/profile">
                   <Button variant="ghost" size="sm" className="gap-1.5">
                     <User className="h-4 w-4" />
-                    Dashboard
+                    {t.nav.dashboard}
                   </Button>
                 </Link>
                 <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground" onClick={handleSignOut}>
-                  <LogOut className="h-4 w-4" /> Çıkış
+                  <LogOut className="h-4 w-4" /> {t.nav.logout}
                 </Button>
               </>
             ) : (
@@ -216,7 +216,7 @@ const Navbar = () => {
                   onChange={(e) => setSelectedCountry(e.target.value)}
                   className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
                 >
-                  <option value="all">🌍 Tüm Ülkeler</option>
+                  <option value="all">🌍 {t.nav.allCountries}</option>
                   {countryList.map((c) => (
                     <option key={c} value={c}>{c}</option>
                   ))}
@@ -225,10 +225,10 @@ const Navbar = () => {
               <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.consultants}</Link>
               <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.organizations}</Link>
               <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.businesses}</Link>
-              <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><PenLine className="h-3 w-3" />Vlogger / Blogger</Link>
+              <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><PenLine className="h-3 w-3" />{t.nav.vblogger}</Link>
               <Link to="/whatsapp-groups" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.groups}</Link>
               <Link to="/events" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.events}</Link>
-              <Link to="/city-news" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Newspaper className="h-3 w-3" />MEDYA</Link>
+              <Link to="/city-news" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Newspaper className="h-3 w-3" />{t.nav.media}</Link>
               
               <Link to="/map" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><MapPin className="h-3 w-3" />{t.nav.map}</Link>
               <div className="border-t border-border pt-3 mt-1">
@@ -242,7 +242,7 @@ const Navbar = () => {
                       className="flex items-center gap-2 text-sm text-muted-foreground hover:text-foreground py-1.5 w-full"
                       onClick={() => { handleSignOut(); setIsOpen(false); }}
                     >
-                      <LogOut className="h-4 w-4" /> Çıkış Yap
+                      <LogOut className="h-4 w-4" /> {t.nav.logout}
                     </button>
                   </>
                 ) : (
