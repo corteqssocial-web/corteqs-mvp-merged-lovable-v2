@@ -7,7 +7,7 @@ import { useToast } from "@/hooks/use-toast";
 import DemoBadge from "@/components/DemoBadge";
 
 const AssociationsSection = () => {
-  const featured = associations.slice(0, 2);
+  const featured = associations.slice(0, 3);
   const { toast } = useToast();
   const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
 
@@ -40,7 +40,7 @@ const AssociationsSection = () => {
           </p>
         </div>
 
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {featured.map((a) => {
             const isFollowed = followedIds.has(a.id);
             return (
