@@ -1,5 +1,5 @@
 import { useState } from "react";
-import { Globe, Sparkles, Rocket, Handshake, FileText } from "lucide-react";
+import { Globe, Sparkles, Rocket, Handshake, FileText, Users, Briefcase, Building2, HeartHandshake, TrendingUp } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -11,6 +11,7 @@ import { useDiaspora, type DiasporaKey } from "@/contexts/DiasporaContext";
 import { supabase } from "@/integrations/supabase/client";
 import { useToast } from "@/hooks/use-toast";
 import { Loader2, Upload, X, CheckCircle2 } from "lucide-react";
+import multiculturalHero from "@/assets/multicultural-diaspora-hero.jpg";
 
 type Copy = {
   badge: string;
