@@ -136,6 +136,11 @@ const Navbar = () => {
               </DropdownMenuTrigger>
               <DropdownMenuContent align="end" className="w-52">
                 <DropdownMenuItem asChild>
+                  <Link to="/events" className="flex items-center gap-2 cursor-pointer">
+                    <Calendar className="h-3.5 w-3.5 text-primary" />{t.nav.events}
+                  </Link>
+                </DropdownMenuItem>
+                <DropdownMenuItem asChild>
                   <Link to="/whatsapp-groups" className="flex items-center gap-2 cursor-pointer">
                     <MessageCircle className="h-3.5 w-3.5 text-primary" />{t.nav.groups}
                   </Link>
