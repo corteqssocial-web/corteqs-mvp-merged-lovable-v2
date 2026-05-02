@@ -29,6 +29,23 @@ interface SectorFilter {
 const sectorFilters: SectorFilter[] = [
   { key: "all", label: "Tümü" },
   {
+    key: "Yatırım",
+    label: "🚀 Yatırım & Girişim",
+    subs: [
+      { key: "startup", label: "Start-up", keywords: ["startup", "start-up", "girişim"] },
+      { key: "vc", label: "Venture Capital (VC)", keywords: ["vc", "venture capital", "risk sermayesi"] },
+      { key: "angel", label: "Melek Yatırımcı", keywords: ["angel", "melek yatırımcı", "angel investor"] },
+      { key: "incubation", label: "Inkübasyon Merkezleri", keywords: ["incubation", "inkübasyon", "kuluçka"] },
+      { key: "accelerator", label: "Hızlandırıcı (Accelerator)", keywords: ["accelerator", "hızlandırıcı"] },
+      { key: "private-equity", label: "Private Equity", keywords: ["private equity", "pe", "özel sermaye"] },
+      { key: "family-office", label: "Family Office", keywords: ["family office", "aile ofisi"] },
+      { key: "crowdfunding", label: "Kitle Fonlama", keywords: ["crowdfunding", "kitle fonlama"] },
+      { key: "fintech", label: "Fintech & Yatırım Platformu", keywords: ["fintech", "yatırım platformu"] },
+      { key: "m-and-a", label: "M&A / Strateji", keywords: ["m&a", "merger", "acquisition", "strateji"] },
+      { key: "coworking", label: "Co-working / Hub", keywords: ["coworking", "co-working", "hub"] },
+    ],
+  },
+  {
     key: "Gastronomi",
     label: "🍽️ Gastronomi",
     subs: [
