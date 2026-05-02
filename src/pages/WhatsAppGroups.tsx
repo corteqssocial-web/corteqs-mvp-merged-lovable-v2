@@ -361,18 +361,30 @@ const WhatsAppGroups = () => {
               <Sparkles className="h-5 w-5 text-turquoise" /> Yayında Olan Gruplar
             </h2>
 
-            {loadingLandings ? (
-              <p className="text-sm text-muted-foreground">Yükleniyor...</p>
-            ) : landings.length === 0 ? (
-              <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-8 text-center">
-                <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
-                <p className="text-sm text-muted-foreground">
-                  Henüz yayında grup yok. İlk grubu sen ekle!
-                </p>
-              </div>
-            ) : (
+            {(() => {
+              const filteredLandings = landings.filter((g) => {
+                const matchesCountry = selectedCountry === "all" || g.country === selectedCountry;
+                const matchesCity = filterCity === "all" || g.city === filterCity;
+                return matchesCountry && matchesCity;
+              });
+              if (loadingLandings) {
+                return <p className="text-sm text-muted-foreground">Yükleniyor...</p>;
+              }
+              if (filteredLandings.length === 0) {
+                return (
+                  <div className="rounded-2xl border border-dashed border-border bg-muted/20 p-8 text-center">
+                    <MessageSquare className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                    <p className="text-sm text-muted-foreground">
+                      {landings.length === 0
+                        ? "Henüz yayında grup yok. İlk grubu sen ekle!"
+                        : "Bu ülke/şehir için henüz grup yok."}
+                    </p>
+                  </div>
+                );
+              }
+              return (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
-                {landings.map((g) => {
+                {filteredLandings.map((g) => {
                   const meta = categoryMeta[g.category];
                   const Icon = meta.icon;
                   return (
