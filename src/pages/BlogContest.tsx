@@ -6,6 +6,8 @@ import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
+import bloggerHero from "@/assets/blogger-contest-hero.jpg";
+import mascot from "@/assets/corteqs-mascot.png";
 
 const contestRules = [
   "Yarışmaya tüm CorteQS platformuna kayıtlı bloggerlar katılabilir.",
