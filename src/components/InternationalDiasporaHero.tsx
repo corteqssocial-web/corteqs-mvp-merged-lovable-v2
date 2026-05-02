@@ -286,48 +286,132 @@ const InternationalDiasporaHero = () => {
   };
 
   return (
-    <section className="relative pt-16 min-h-[75vh] bg-gradient-hero overflow-hidden">
-      <div className="absolute inset-0">
-        <div className="absolute top-10 right-20 w-80 h-80 bg-turquoise/20 rounded-full blur-3xl" />
-        <div className="absolute bottom-10 left-20 w-96 h-96 bg-primary/15 rounded-full blur-3xl" />
-      </div>
-      <div className="container mx-auto px-4 pt-20 pb-16 relative z-10 grid lg:grid-cols-2 gap-10 items-start">
-        {/* Left — hero copy */}
-        <div>
-          <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/15 border border-amber-400/30 mb-6 shadow-md">
-            <Sparkles className="h-4 w-4 text-amber-500" />
-            <span className="text-sm font-semibold text-amber-600">{c.badge}</span>
+    <>
+      {/* OPENING BANNER — multicultural hero, no national flags */}
+      <section className="relative pt-16 min-h-[70vh] bg-gradient-hero overflow-hidden">
+        <div className="absolute inset-0">
+          <div className="absolute top-10 right-20 w-80 h-80 bg-turquoise/20 rounded-full blur-3xl" />
+          <div className="absolute bottom-10 left-20 w-96 h-96 bg-primary/15 rounded-full blur-3xl" />
+        </div>
+        <div className="container mx-auto px-4 pt-20 pb-12 relative z-10 grid lg:grid-cols-2 gap-10 items-center">
+          {/* Left — hero copy */}
+          <div>
+            <div className="inline-flex items-center gap-2 px-4 py-2 rounded-full bg-amber-400/15 border border-amber-400/30 mb-6 shadow-md">
+              <Sparkles className="h-4 w-4 text-amber-500" />
+              <span className="text-sm font-semibold text-amber-600">{c.badge}</span>
+            </div>
+            <h1 className="text-3xl md:text-5xl font-extrabold leading-tight mb-4">
+              {c.title}
+              <span className="text-gradient-primary">{c.highlight}</span>
+            </h1>
+            <p className="text-base md:text-lg font-semibold text-foreground mb-3">{c.tagline}</p>
+            <p className="text-sm md:text-base text-muted-foreground max-w-xl mb-6 font-body">
+              {c.subtitle}
+            </p>
+            <div className="flex flex-wrap gap-3">
+              <Button
+                size="lg"
+                onClick={() => { setIntent("investment_partnership"); document.getElementById("intl-form")?.scrollIntoView({ behavior: "smooth" }); }}
+                className="bg-amber-500 hover:bg-amber-600 text-white gap-2"
+              >
+                <Handshake className="h-4 w-4" /> {c.cta1}
+              </Button>
+              <Button
+                size="lg"
+                variant="outline"
+                onClick={() => { setIntent("general"); document.getElementById("intl-form")?.scrollIntoView({ behavior: "smooth" }); }}
+                className="gap-2"
+              >
+                <FileText className="h-4 w-4" /> {c.cta2}
+              </Button>
+            </div>
+            <div className="flex items-center gap-2 mt-6 text-xs text-muted-foreground">
+              <Globe className="h-4 w-4 text-turquoise" />
+              <span>{c.groupedNote}</span>
+            </div>
           </div>
-          <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-5">
-            {c.title}
-            <span className="text-gradient-primary">{c.highlight}</span>
-          </h1>
-          <p className="text-base md:text-lg text-muted-foreground max-w-xl mb-8 font-body">
-            {c.subtitle}
-          </p>
-          <div className="flex flex-wrap gap-3">
-            <Button
-              size="lg"
-              onClick={() => { setIntent("investment_partnership"); document.getElementById("intl-form")?.scrollIntoView({ behavior: "smooth" }); }}
-              className="bg-amber-500 hover:bg-amber-600 text-white gap-2"
-            >
-              <Handshake className="h-4 w-4" /> {c.cta1}
-            </Button>
-            <Button
-              size="lg"
-              variant="outline"
-              onClick={() => { setIntent("general"); document.getElementById("intl-form")?.scrollIntoView({ behavior: "smooth" }); }}
-              className="gap-2"
-            >
-              <FileText className="h-4 w-4" /> {c.cta2}
-            </Button>
-          </div>
-          <div className="flex items-center gap-2 mt-8 text-sm text-muted-foreground">
-            <Globe className="h-4 w-4 text-turquoise" />
-            <span>{c.groupedNote}</span>
+          {/* Right — multicultural hero image (no national flags) */}
+          <div className="relative">
+            <div className="absolute -inset-4 bg-gradient-to-tr from-turquoise/20 via-amber-300/10 to-primary/20 rounded-3xl blur-2xl" />
+            <img
+              src={multiculturalHero}
+              alt="Global multicultural diaspora community"
+              width={1536}
+              height={1024}
+              className="relative rounded-3xl shadow-2xl border border-border w-full h-auto object-cover"
+            />
           </div>
         </div>
+      </section>
 
+      {/* SECTION 1 — One Roof */}
+      <section className="py-12 bg-card">
+        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+          <div className="flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-turquoise/15 flex items-center justify-center shrink-0">
+              <Users className="h-6 w-6 text-turquoise" />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-extrabold mb-2">{c.oneRoofTitle}</h2>
+              <p className="text-muted-foreground font-body">{c.oneRoofBody}</p>
+              <div className="flex flex-wrap gap-2 mt-4">
+                {c.oneRoofPills.map((p) => (
+                  <span key={p} className="text-xs font-semibold bg-turquoise/10 text-turquoise border border-turquoise/30 px-2.5 py-1 rounded-full">{p}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+          <div className="grid grid-cols-3 gap-3 text-center">
+            {[
+              { icon: Users, label: c.oneRoofPills[0] },
+              { icon: Briefcase, label: c.oneRoofPills[1] },
+              { icon: Building2, label: c.oneRoofPills[2] },
+            ].map((it, i) => (
+              <div key={i} className="rounded-xl border border-border p-4 bg-background">
+                <it.icon className="h-6 w-6 text-primary mx-auto mb-2" />
+                <div className="text-xs font-semibold">{it.label}</div>
+              </div>
+            ))}
+          </div>
+        </div>
+      </section>
+
+      {/* SECTION 2 — Solidarity engine */}
+      <section className="py-12 bg-gradient-to-br from-amber-50/40 via-background to-turquoise/5 border-y border-border">
+        <div className="container mx-auto px-4 grid md:grid-cols-2 gap-8 items-center">
+          <div className="order-2 md:order-1 grid grid-cols-3 gap-3 text-center">
+            {[
+              { icon: HeartHandshake, label: c.solidarityPills[0] },
+              { icon: TrendingUp, label: c.solidarityPills[1] },
+              { icon: Globe, label: c.solidarityPills[2] },
+            ].map((it, i) => (
+              <div key={i} className="rounded-xl border border-border p-4 bg-card">
+                <it.icon className="h-6 w-6 text-amber-500 mx-auto mb-2" />
+                <div className="text-xs font-semibold">{it.label}</div>
+              </div>
+            ))}
+          </div>
+          <div className="order-1 md:order-2 flex items-start gap-4">
+            <div className="w-12 h-12 rounded-xl bg-amber-400/20 flex items-center justify-center shrink-0">
+              <HeartHandshake className="h-6 w-6 text-amber-600" />
+            </div>
+            <div>
+              <h2 className="text-2xl md:text-3xl font-extrabold mb-2">{c.solidarityTitle}</h2>
+              <p className="text-muted-foreground font-body">{c.solidarityBody}</p>
+              <div className="flex flex-wrap gap-2 mt-4">
+                {c.solidarityPills.map((p) => (
+                  <span key={p} className="text-xs font-semibold bg-amber-400/15 text-amber-700 border border-amber-400/40 px-2.5 py-1 rounded-full">{p}</span>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+      </section>
+
+      {/* REGISTRATION FORM */}
+      <section className="py-14">
+        <div className="container mx-auto px-4 max-w-2xl">
+          {/* form card */}
         {/* Right — form */}
         <div id="intl-form" className="rounded-2xl border border-border bg-card p-6 shadow-card">
           {done ? (
