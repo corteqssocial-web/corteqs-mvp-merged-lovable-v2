@@ -300,36 +300,164 @@ const ProfileAmbassador = () => {
           )}
         </TabsContent>
 
-        {/* ONBOARDING */}
+        {/* ONBOARDING — detailed referral & revenue report */}
         <TabsContent value="onboarding" className="mt-6">
-          <div className="flex items-center justify-between mb-4">
-            <h3 className="font-bold text-foreground flex items-center gap-2">
-              <Users className="h-5 w-5 text-primary" /> Onboard Edilen Kullanıcılar
-            </h3>
-            <Badge variant="outline">{kpis.usersOnboarded} / {kpis.usersTarget} hedef</Badge>
-          </div>
-          <Progress value={(kpis.usersOnboarded / kpis.usersTarget) * 100} className="h-2 mb-6" />
-          <div className="space-y-2">
-            {onboardedUsers.map((u, i) => (
-              <div key={i} className="flex items-center justify-between p-3 rounded-xl bg-card border border-border">
-                <div className="flex items-center gap-3">
-                  <div className="w-9 h-9 rounded-full bg-primary/10 flex items-center justify-center">
-                    <Users className="h-4 w-4 text-primary" />
-                  </div>
+          {(() => {
+            const ranges = [
+              { id: "7d", label: "Son 7 gün" },
+              { id: "30d", label: "Son 30 gün" },
+              { id: "90d", label: "Son 90 gün" },
+              { id: "all", label: "Tüm zamanlar" },
+            ];
+            const detailedOnboarded = [
+              { name: "Ahmet Y.", type: "Bireysel", date: "27 Mar", status: "active", revenue: 0, commission: 5 },
+              { name: "Selin K.", type: "Danışman", date: "25 Mar", status: "active", revenue: 480, commission: 48 },
+              { name: "Oğuz T. (Anatolia Restaurant)", type: "İşletme", date: "22 Mar", status: "active", revenue: 1850, commission: 92.5 },
+              { name: "Deniz A.", type: "Bireysel", date: "20 Mar", status: "pending", revenue: 0, commission: 0 },
+              { name: "Fatma B.", type: "V/Blogger", date: "18 Mar", status: "active", revenue: 220, commission: 22 },
+              { name: "Kerem S. (KS Consulting)", type: "İşletme", date: "15 Mar", status: "active", revenue: 3200, commission: 160 },
+              { name: "Murat T.", type: "Danışman", date: "12 Mar", status: "active", revenue: 360, commission: 36 },
+            ];
+            const totalRevenue = detailedOnboarded.reduce((s, u) => s + u.revenue, 0);
+            const totalCommission = detailedOnboarded.reduce((s, u) => s + u.commission, 0);
+            const businessRevenue = detailedOnboarded.filter(u => u.type === "İşletme").reduce((s, u) => s + u.revenue, 0);
+
+            return (
+              <div className="space-y-5">
+                {/* Header + date range filter */}
+                <div className="flex items-center justify-between flex-wrap gap-3">
                   <div>
-                    <p className="text-sm font-medium text-foreground">{u.name}</p>
-                    <p className="text-xs text-muted-foreground">{u.type}</p>
+                    <h3 className="font-bold text-foreground flex items-center gap-2">
+                      <Users className="h-5 w-5 text-primary" /> Onboarding & Referral Raporu
+                    </h3>
+                    <p className="text-xs text-muted-foreground mt-0.5">
+                      Onboard ettiğin kullanıcılar, ürettikleri ciro ve sana düşen referral ödemesi
+                    </p>
+                  </div>
+                  <div className="flex items-center gap-1.5 bg-muted/40 rounded-lg p-1">
+                    {ranges.map(r => (
+                      <button
+                        key={r.id}
+                        className={`px-3 py-1.5 rounded-md text-xs font-semibold transition-colors ${r.id === "30d" ? "bg-card text-foreground shadow-sm" : "text-muted-foreground hover:text-foreground"}`}
+                      >
+                        {r.label}
+                      </button>
+                    ))}
                   </div>
                 </div>
-                <div className="flex items-center gap-3">
-                  <span className="text-xs text-muted-foreground">{u.date}</span>
-                  {u.status === "active" && <CheckCircle className="h-4 w-4 text-success" />}
-                  {u.status === "pending" && <Clock className="h-4 w-4 text-gold" />}
-                  {u.status === "inactive" && <XCircle className="h-4 w-4 text-destructive" />}
+
+                {/* KPI mini cards */}
+                <div className="grid grid-cols-2 md:grid-cols-4 gap-3">
+                  <Card className="border-border">
+                    <CardContent className="p-4">
+                      <Users className="h-4 w-4 text-primary mb-1" />
+                      <p className="text-xl font-bold text-foreground">{detailedOnboarded.length}</p>
+                      <p className="text-[11px] text-muted-foreground">Onboard Edilen</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border">
+                    <CardContent className="p-4">
+                      <DollarSign className="h-4 w-4 text-turquoise mb-1" />
+                      <p className="text-xl font-bold text-foreground">€{totalRevenue.toLocaleString()}</p>
+                      <p className="text-[11px] text-muted-foreground">Toplam Ciro Üretildi</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border">
+                    <CardContent className="p-4">
+                      <Wallet className="h-4 w-4 text-success mb-1" />
+                      <p className="text-xl font-bold text-foreground">€{totalCommission.toLocaleString()}</p>
+                      <p className="text-[11px] text-muted-foreground">Sana Referral Ödeme</p>
+                    </CardContent>
+                  </Card>
+                  <Card className="border-border">
+                    <CardContent className="p-4">
+                      <TrendingUp className="h-4 w-4 text-gold mb-1" />
+                      <p className="text-xl font-bold text-foreground">€{businessRevenue.toLocaleString()}</p>
+                      <p className="text-[11px] text-muted-foreground">İşletme Cirosu</p>
+                    </CardContent>
+                  </Card>
                 </div>
+
+                {/* Hedef Progress */}
+                <div className="bg-muted/40 rounded-xl p-4">
+                  <div className="flex items-center justify-between mb-2">
+                    <span className="text-xs font-semibold text-foreground">Aylık Onboarding Hedefi</span>
+                    <Badge variant="outline">{kpis.usersOnboarded} / {kpis.usersTarget}</Badge>
+                  </div>
+                  <Progress value={(kpis.usersOnboarded / kpis.usersTarget) * 100} className="h-2" />
+                </div>
+
+                {/* Detailed table */}
+                <Card className="border-border">
+                  <CardContent className="p-0">
+                    <div className="px-4 py-3 border-b border-border flex items-center justify-between">
+                      <h4 className="font-semibold text-foreground text-sm">Detaylı Liste</h4>
+                      <button className="text-xs font-semibold text-primary hover:underline">CSV indir</button>
+                    </div>
+                    <div className="overflow-x-auto">
+                      <table className="w-full text-sm">
+                        <thead className="bg-muted/40">
+                          <tr className="text-left text-[11px] uppercase text-muted-foreground">
+                            <th className="px-4 py-2.5 font-semibold">Kullanıcı</th>
+                            <th className="px-4 py-2.5 font-semibold">Tür</th>
+                            <th className="px-4 py-2.5 font-semibold">Tarih</th>
+                            <th className="px-4 py-2.5 font-semibold text-right">Üretilen Ciro</th>
+                            <th className="px-4 py-2.5 font-semibold text-right">Senin Payın</th>
+                            <th className="px-4 py-2.5 font-semibold text-center">Durum</th>
+                          </tr>
+                        </thead>
+                        <tbody>
+                          {detailedOnboarded.map((u, i) => (
+                            <tr key={i} className="border-t border-border/60">
+                              <td className="px-4 py-3">
+                                <div className="flex items-center gap-2">
+                                  <div className="w-7 h-7 rounded-full bg-primary/10 flex items-center justify-center">
+                                    <Users className="h-3.5 w-3.5 text-primary" />
+                                  </div>
+                                  <span className="font-medium text-foreground text-sm">{u.name}</span>
+                                </div>
+                              </td>
+                              <td className="px-4 py-3">
+                                <Badge variant="outline" className="text-[10px]">{u.type}</Badge>
+                              </td>
+                              <td className="px-4 py-3 text-xs text-muted-foreground">{u.date}</td>
+                              <td className="px-4 py-3 text-right font-semibold text-foreground">
+                                {u.revenue > 0 ? `€${u.revenue.toLocaleString()}` : "—"}
+                              </td>
+                              <td className="px-4 py-3 text-right">
+                                {u.commission > 0 ? (
+                                  <span className="font-bold text-success">€{u.commission.toLocaleString()}</span>
+                                ) : (
+                                  <span className="text-muted-foreground">—</span>
+                                )}
+                              </td>
+                              <td className="px-4 py-3 text-center">
+                                {u.status === "active" && <CheckCircle className="h-4 w-4 text-success inline" />}
+                                {u.status === "pending" && <Clock className="h-4 w-4 text-gold inline" />}
+                                {u.status === "inactive" && <XCircle className="h-4 w-4 text-destructive inline" />}
+                              </td>
+                            </tr>
+                          ))}
+                        </tbody>
+                        <tfoot>
+                          <tr className="border-t-2 border-border bg-muted/30">
+                            <td colSpan={3} className="px-4 py-3 text-right text-xs font-bold text-muted-foreground uppercase">Toplam</td>
+                            <td className="px-4 py-3 text-right font-bold text-foreground">€{totalRevenue.toLocaleString()}</td>
+                            <td className="px-4 py-3 text-right font-extrabold text-success">€{totalCommission.toLocaleString()}</td>
+                            <td></td>
+                          </tr>
+                        </tfoot>
+                      </table>
+                    </div>
+                  </CardContent>
+                </Card>
+
+                <p className="text-[11px] text-muted-foreground text-center font-body">
+                  💡 Referral payı: Bireysel kayıt €5 sabit · Danışman/V-Blogger seans gelirinin %10'u · İşletme cirosunun %5'i
+                </p>
               </div>
-            ))}
-          </div>
+            );
+          })()}
         </TabsContent>
 
         {/* MESSAGING */}
