@@ -206,14 +206,14 @@ const Events = () => {
               <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
                 <Star className="h-5 w-5 text-gold fill-gold" /> Öne Çıkan Etkinlikler
               </h2>
-              <div className="grid grid-cols-1 lg:grid-cols-2 gap-6">
-                {featured.map((evt) => (
+              <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+                {featured.slice(0, 3).map((evt) => (
                   <Link
                     to={`/event/${evt.id}`}
                     key={evt.id}
                     className="group relative rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 block"
                   >
-                    <div className="relative h-48 md:h-56">
+                    <div className="relative h-32 md:h-36">
                       <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
                       <div className="absolute inset-0 bg-gradient-to-t from-black/70 via-black/20 to-transparent" />
                       <div className="absolute top-3 left-3 flex gap-2">
@@ -452,14 +452,14 @@ const Events = () => {
           ) : (
 
           /* All Events Grid */
-          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6">
-            {filtered.map((evt) => (
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
+            {filtered.slice(0, 3).map((evt) => (
               <Link
                 to={`/event/${evt.id}`}
                 key={evt.id}
                 className="group bg-card rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 block"
               >
-                <div className="relative h-40">
+                <div className="relative h-28">
                   <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
                   <div className="absolute top-3 left-3 flex gap-2">
                     <Badge className={`border-0 text-xs ${categoryColors[evt.category]}`}>{categoryLabels[evt.category]}</Badge>
@@ -468,7 +468,7 @@ const Events = () => {
                     <Badge className="absolute top-3 right-3 bg-gold/90 text-white border-0 text-xs">⭐</Badge>
                   )}
                 </div>
-                 <div className="p-5">
+                 <div className="p-3.5">
                    <h3 className="font-bold text-foreground mb-2 line-clamp-2">{evt.title}</h3>
                    <div className="space-y-1.5 mb-3 text-sm text-muted-foreground font-body">
                      <p className="flex items-center gap-1.5"><Calendar className="h-3.5 w-3.5" /> {evt.date} · {evt.time}</p>
