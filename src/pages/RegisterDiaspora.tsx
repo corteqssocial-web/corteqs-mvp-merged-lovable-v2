@@ -1,8 +1,7 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import {
-  Globe, Sparkles, Users, Briefcase, Building2, MapPin, MessageCircle,
-  Calendar, Newspaper, Home, Plane, Scale, TrendingUp, Heart, GraduationCap,
+  Globe, Sparkles, Users, Briefcase, Building2, MapPin,
   Rocket, CheckCircle2, Loader2, Upload, X, Languages, HeartHandshake,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -26,21 +25,7 @@ import multiculturalHero from "@/assets/multicultural-diaspora-hero.jpg";
  * so admin can sort applications by diaspora.
  */
 
-const ENGLISH_CATEGORIES = [
-  { icon: Home, title: "Real Estate Consultants", desc: "Property & investment abroad" },
-  { icon: Plane, title: "Visa & Immigration", desc: "Residency, citizenship, golden visa" },
-  { icon: Briefcase, title: "Company Setup & Business", desc: "Free zone / mainland incorporation" },
-  { icon: Scale, title: "Legal & Tax", desc: "Cross-border legal and tax planning" },
-  { icon: TrendingUp, title: "Financial Advisors", desc: "Investment & wealth planning" },
-  { icon: Heart, title: "Healthcare", desc: "Doctors, hospitals, insurance" },
-  { icon: GraduationCap, title: "Education & Schools", desc: "Schools, universities, scholarships" },
-  { icon: Building2, title: "Diaspora Organizations", desc: "Associations, foundations, schools, media" },
-  { icon: Users, title: "Diaspora Businesses", desc: "Restaurants, markets, services" },
-  { icon: MapPin, title: "City Ambassadors", desc: "Build your city's diaspora network" },
-  { icon: MessageCircle, title: "WhatsApp Groups", desc: "Alumni, hobby, professional, doctors" },
-  { icon: Calendar, title: "Events", desc: "Networking, culture, sports, business" },
-  { icon: Newspaper, title: "Bloggers / Vloggers", desc: "Content creators of the diaspora" },
-];
+
 
 const RegisterDiaspora = () => {
   const { toast } = useToast();
