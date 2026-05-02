@@ -124,13 +124,13 @@ const Navbar = () => {
             <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">{t.nav.consultants}</Link>
             <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.businesses}</Link>
             <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.organizations}</Link>
-            <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">V/Blogger</Link>
+            <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.vblogger}</Link>
 
-            {/* Daha Fazla Dropdown */}
+            {/* More Dropdown */}
             <DropdownMenu>
               <DropdownMenuTrigger asChild>
                 <Button variant="ghost" size="sm" className="gap-1 text-sm font-medium text-muted-foreground hover:text-foreground px-2 h-auto">
-                  Daha Fazla
+                  {t.nav.more}
                   <ChevronDown className="h-3 w-3" />
                 </Button>
               </DropdownMenuTrigger>
@@ -147,7 +147,7 @@ const Navbar = () => {
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
                   <Link to="/city-news" className="flex items-center gap-2 cursor-pointer">
-                    <Newspaper className="h-3.5 w-3.5 text-primary" />MEDYA
+                    <Newspaper className="h-3.5 w-3.5 text-primary" />{t.nav.media}
                   </Link>
                 </DropdownMenuItem>
                 <DropdownMenuItem asChild>
@@ -165,11 +165,11 @@ const Navbar = () => {
                 <Link to="/profile">
                   <Button variant="ghost" size="sm" className="gap-1.5">
                     <User className="h-4 w-4" />
-                    Dashboard
+                    {t.nav.dashboard}
                   </Button>
                 </Link>
                 <Button variant="ghost" size="sm" className="gap-1.5 text-muted-foreground" onClick={handleSignOut}>
-                  <LogOut className="h-4 w-4" /> Çıkış
+                  <LogOut className="h-4 w-4" /> {t.nav.logout}
                 </Button>
               </>
             ) : (
