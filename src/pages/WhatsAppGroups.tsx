@@ -137,6 +137,19 @@ const WhatsAppGroups = () => {
       <main className="pt-24 pb-16">
         <div className="container mx-auto px-4">
 
+          {/* Header row: title + Country/City selector */}
+          <div className="flex flex-col lg:flex-row lg:items-start lg:justify-between gap-4 mb-6">
+            <div>
+              <h1 className="text-3xl md:text-4xl font-bold text-foreground flex items-center gap-3">
+                <MessageSquare className="h-8 w-8 text-[#25D366]" /> WhatsApp Grupları
+              </h1>
+              <p className="text-muted-foreground font-body mt-1">
+                Diasporanın WhatsApp gruplarını ülke ve şehir bazında filtrele.
+              </p>
+            </div>
+            <CountryCitySelector city={filterCity} onCityChange={setFilterCity} />
+          </div>
+
           {/* Hero */}
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-[#25D366]/10 via-turquoise/5 to-primary/10 p-6 md:p-10 mb-8 text-center">
             <Badge className="mb-4 bg-[#25D366]/15 text-[#25D366] border-0">
