@@ -17,6 +17,8 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
+import { useAuth } from "@/contexts/AuthContext";
+import { useNavigate } from "react-router-dom";
 import { events, countries } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import eventDashboardImg from "@/assets/event-dashboard.jpg";
