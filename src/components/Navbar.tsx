@@ -73,6 +73,17 @@ const Navbar = () => {
                     </div>
                   </DropdownMenuItem>
                 ))}
+                <DropdownMenuSeparator />
+                <DropdownMenuItem
+                  className="gap-2 cursor-pointer"
+                  onClick={() => navigate("/register-diaspora")}
+                >
+                  <span className="text-lg">🌐</span>
+                  <div className="flex flex-col">
+                    <span className="text-sm font-semibold">Register Diaspora</span>
+                    <span className="text-xs text-muted-foreground">Request your community</span>
+                  </div>
+                </DropdownMenuItem>
               </DropdownMenuContent>
             </DropdownMenu>
 
