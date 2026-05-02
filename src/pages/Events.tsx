@@ -459,7 +459,7 @@ const Events = () => {
                 key={evt.id}
                 className="group bg-card rounded-2xl overflow-hidden border border-border shadow-card hover:shadow-card-hover transition-all hover:-translate-y-1 block"
               >
-                <div className="relative h-40">
+                <div className="relative h-28">
                   <img src={evt.image} alt={evt.title} className="w-full h-full object-cover" />
                   <div className="absolute top-3 left-3 flex gap-2">
                     <Badge className={`border-0 text-xs ${categoryColors[evt.category]}`}>{categoryLabels[evt.category]}</Badge>
