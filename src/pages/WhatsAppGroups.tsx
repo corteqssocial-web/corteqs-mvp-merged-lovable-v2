@@ -177,6 +177,10 @@ const WhatsAppGroups = () => {
                             <SelectItem value="doktor">Doktor / Sağlık</SelectItem>
                             <SelectItem value="hobi">Hobi</SelectItem>
                             <SelectItem value="is">İş Grubu</SelectItem>
+                            <SelectItem value="yatirim">Yatırım</SelectItem>
+                            <SelectItem value="girisim">Girişim</SelectItem>
+                            <SelectItem value="akademik">Akademik</SelectItem>
+                            <SelectItem value="dayanisma">Dayanışma</SelectItem>
                           </SelectContent>
                         </Select>
                       </div>
