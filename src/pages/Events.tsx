@@ -126,11 +126,17 @@ const Events = () => {
                     <PlusCircle className="h-4 w-4" /> Etkinlik Oluştur
                   </Button>
                 </DialogTrigger>
-                <DialogContent className="max-w-lg max-h-[90vh] overflow-y-auto">
+                <DialogContent className="max-w-lg max-h-[90vh] overflow-hidden">
                   <DialogHeader>
                     <DialogTitle>Yeni Etkinlik Oluştur</DialogTitle>
                   </DialogHeader>
-                  <div className="space-y-4 mt-4">
+                  <div className="relative">
+                    <div className="pointer-events-none absolute inset-0 z-20 flex items-center justify-center overflow-hidden">
+                      <div className="-rotate-12 bg-gold text-primary-foreground font-extrabold text-lg md:text-2xl px-8 py-3 rounded-xl shadow-card-hover border-2 border-gold/60 tracking-wide text-center">
+                        🛠️ Etkinlik Yöneticisi<br />Hazırlanıyor
+                      </div>
+                    </div>
+                    <div className="space-y-4 mt-4 blur-sm select-none pointer-events-none max-h-[60vh] overflow-hidden">
                     <div>
                       <Label>Etkinlik Adı</Label>
                       <Input placeholder="Örn: Networking Akşam Yemeği" />
@@ -151,30 +157,6 @@ const Events = () => {
                     </div>
                     <div className="grid grid-cols-2 gap-3">
                       <div>
-                        <Label>Kategori</Label>
-                        <Select>
-                          <SelectTrigger><SelectValue placeholder="Seçin" /></SelectTrigger>
-                          <SelectContent>
-                            {Object.entries(categoryLabels).map(([k, v]) => (
-                              <SelectItem key={k} value={k}>{v}</SelectItem>
-                            ))}
-                          </SelectContent>
-                        </Select>
-                      </div>
-                      <div>
-                        <Label>Tür</Label>
-                        <Select>
-                          <SelectTrigger><SelectValue placeholder="Seçin" /></SelectTrigger>
-                          <SelectContent>
-                            <SelectItem value="online">Online</SelectItem>
-                            <SelectItem value="yüz yüze">Yüz yüze</SelectItem>
-                            <SelectItem value="hybrid">Hybrid</SelectItem>
-                          </SelectContent>
-                        </Select>
-                      </div>
-                    </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
                         <Label>Ülke</Label>
                         <Select>
                           <SelectTrigger><SelectValue placeholder="Ülke" /></SelectTrigger>
@@ -188,25 +170,7 @@ const Events = () => {
                         <Input placeholder="Şehir veya mekan adı" />
                       </div>
                     </div>
-                    <div className="grid grid-cols-2 gap-3">
-                      <div>
-                        <Label>Kontenjan</Label>
-                        <Input type="number" placeholder="Maks. katılımcı" />
-                      </div>
-                      <div>
-                        <Label>Ücret (€)</Label>
-                        <Input type="number" placeholder="0 = Ücretsiz" />
-                      </div>
-                    </div>
-                    <div>
-                      <Label>Görsel URL (opsiyonel)</Label>
-                      <Input placeholder="https://..." />
-                    </div>
-                    <div>
-                      <Label>Etiketler (virgülle ayır)</Label>
-                      <Input placeholder="Networking, Yatırım, Workshop" />
-                    </div>
-                    <Button className="w-full gap-2" onClick={handleCreateEvent}>
+                    <Button className="w-full gap-2" >
                       <Calendar className="h-4 w-4" /> Etkinliği Yayınla
                     </Button>
                   </div>
