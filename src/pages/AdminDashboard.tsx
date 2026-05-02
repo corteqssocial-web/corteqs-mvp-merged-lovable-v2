@@ -25,6 +25,7 @@ import RevenueTracker from "@/components/admin/RevenueTracker";
 import AmbassadorDashboard from "@/components/admin/AmbassadorDashboard";
 import VBloggerDashboard from "@/components/admin/VBloggerDashboard";
 import WelcomePackTracker from "@/components/admin/WelcomePackTracker";
+import WhatsAppLandingsModeration from "@/components/admin/WhatsAppLandingsModeration";
 
 // ─── Mock Data ───────────────────────────────────────────
 const monthlyUsers = [
