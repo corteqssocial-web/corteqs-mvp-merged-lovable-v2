@@ -28,6 +28,7 @@ const MapSearch = () => {
   const [selectedCity, setSelectedCity] = useState<string>("all");
   const [entityType, setEntityType] = useState("all");
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // All real provider entities from consultants/associations/businesses
   const allEntities = useMemo<MapEntity[]>(() => getAllMapEntities(), []);
