@@ -120,7 +120,9 @@ const WhatsAppGroups = () => {
         whatsappLink,
         adminName,
         adminContact,
-        description,
+        description: category === "diger" && otherCategory.trim()
+          ? `[Kategori: ${otherCategory.trim()}] ${description}`
+          : description,
       });
       toast({
         title: "Başvurun alındı! 🎉",
