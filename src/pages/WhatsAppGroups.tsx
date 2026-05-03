@@ -209,12 +209,20 @@ const WhatsAppGroups = () => {
                             <SelectItem value="doktor">Doktor / Sağlık</SelectItem>
                             <SelectItem value="hobi">Hobi</SelectItem>
                             <SelectItem value="is">İş Grubu</SelectItem>
-                            <SelectItem value="yatirim">Yatırım</SelectItem>
-                            <SelectItem value="girisim">Girişim</SelectItem>
+                            <SelectItem value="yatirim">Yatırım & Girişim</SelectItem>
                             <SelectItem value="akademik">Akademik</SelectItem>
                             <SelectItem value="dayanisma">Dayanışma</SelectItem>
+                            <SelectItem value="diger">Diğer (kendin yaz)</SelectItem>
                           </SelectContent>
                         </Select>
+                        {category === "diger" && (
+                          <Input
+                            value={otherCategory}
+                            onChange={(e) => setOtherCategory(e.target.value)}
+                            placeholder="Kategori adını yaz (örn: Spor, Müzik)"
+                            className="mt-2"
+                          />
+                        )}
                       </div>
                       <div>
                         <Label>WhatsApp Linki *</Label>
