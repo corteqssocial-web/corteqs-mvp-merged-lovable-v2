@@ -41,6 +41,7 @@ const WhatsAppGroups = () => {
   const { user } = useAuth();
   const { selectedCountry } = useDiaspora();
   const [filterCity, setFilterCity] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => { setFilterCity("all"); }, [selectedCountry]);
