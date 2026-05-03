@@ -230,14 +230,12 @@ const MapSearch = () => {
                         {entity.rating && (
                           <p className="text-xs text-gold mt-1">⭐ {entity.rating}</p>
                         )}
-                        <a
-                          href={mapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={(e) => handleDirections(e, entity, mapsUrl)}
                           className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2"
                         >
-                          <Navigation className="h-3 w-3" /> Yol Tarifi (Google Maps)
-                        </a>
+                          <Navigation className="h-3 w-3" /> Yol Tarifi (WhatsApp'a gönder)
+                        </button>
                       </div>
                     </div>
                   </div>
