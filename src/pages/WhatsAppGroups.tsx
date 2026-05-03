@@ -379,7 +379,7 @@ const WhatsAppGroups = () => {
                 const matchesCountry = selectedCountry === "all" || g.country === selectedCountry;
                 const matchesCity = filterCity === "all" || g.city === filterCity;
                 if (!q) return matchesCountry && matchesCity;
-                const hay = `${g.groupName} ${g.category} ${categoryMeta[g.category]?.label ?? ""} ${g.city} ${g.country} ${g.tagline ?? ""} ${g.description ?? ""}`
+                const hay = `${g.groupName} ${g.category} ${categoryMeta[g.category]?.label ?? ""} ${g.city} ${g.country} ${g.tagline ?? ""}`
                   .toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
                 return matchesCountry && matchesCity && hay.includes(q);
               });
