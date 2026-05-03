@@ -3,7 +3,7 @@ import { Link, useNavigate } from "react-router-dom";
 import {
   MessageSquare, Users, GraduationCap, Heart, PlusCircle, Sparkles, Stethoscope,
   ShieldCheck, Layout, FileText,
-  TrendingUp, Rocket, BookOpen, HandHeart,
+  TrendingUp, Rocket, BookOpen, HandHeart, Search,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -41,6 +41,7 @@ const WhatsAppGroups = () => {
   const { user } = useAuth();
   const { selectedCountry } = useDiaspora();
   const [filterCity, setFilterCity] = useState("all");
+  const [searchQuery, setSearchQuery] = useState("");
   const [submitting, setSubmitting] = useState(false);
 
   useEffect(() => { setFilterCity("all"); }, [selectedCountry]);
@@ -357,15 +358,30 @@ const WhatsAppGroups = () => {
 
           {/* Approved (cloud) landings — populated as you add groups */}
           <section className="mt-2">
-            <h2 className="text-xl font-bold mb-4 flex items-center gap-2">
-              <Sparkles className="h-5 w-5 text-turquoise" /> Yayında Olan Gruplar
-            </h2>
+            <div className="flex flex-col sm:flex-row sm:items-center sm:justify-between gap-3 mb-4">
+              <h2 className="text-xl font-bold flex items-center gap-2">
+                <Sparkles className="h-5 w-5 text-turquoise" /> Yayında Olan Gruplar
+              </h2>
+              <div className="relative w-full sm:w-80">
+                <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+                <Input
+                  value={searchQuery}
+                  onChange={(e) => setSearchQuery(e.target.value)}
+                  placeholder="Grup adı, kategori, şehir, ülke..."
+                  className="pl-9 h-9"
+                />
+              </div>
+            </div>
 
             {(() => {
+              const q = searchQuery.trim().toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
               const filteredLandings = landings.filter((g) => {
                 const matchesCountry = selectedCountry === "all" || g.country === selectedCountry;
                 const matchesCity = filterCity === "all" || g.city === filterCity;
-                return matchesCountry && matchesCity;
+                if (!q) return matchesCountry && matchesCity;
+                const hay = `${g.groupName} ${g.category} ${categoryMeta[g.category]?.label ?? ""} ${g.city} ${g.country} ${g.tagline ?? ""}`
+                  .toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+                return matchesCountry && matchesCity && hay.includes(q);
               });
               if (loadingLandings) {
                 return <p className="text-sm text-muted-foreground">Yükleniyor...</p>;
