@@ -103,6 +103,21 @@ const MapSearch = () => {
             <CountryCitySelector city={selectedCity} onCityChange={setSelectedCity} />
           </div>
 
+          <div className="mb-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Danışman, işletme, kuruluş, konsolosluk, hastane ara..."
+                className="pl-9"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
+              💡 Aramanızı ülke ve şehir bazında daraltabilirsiniz.
+            </p>
+          </div>
+
           <div className="flex flex-wrap gap-2 mb-6">
             {entityTypes.map((t) => (
               <Button
