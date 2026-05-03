@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { getAllMapEntities, type MapEntity } from "@/lib/mapEntities";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const entityTypes = [
   { key: "all", label: "Tümü" },
@@ -24,6 +27,35 @@ const typeColors: Record<string, string> = {
 
 const MapSearch = () => {
   const { selectedCountry: globalCountry } = useDiaspora();
+  const { user, profile } = useAuth();
+  const { toast } = useToast();
+  const navigate = useNavigate();
+
+  const handleDirections = (e: React.MouseEvent, entity: MapEntity, mapsUrl: string) => {
+    e.preventDefault();
+    if (!user) {
+      toast({
+        title: "Giriş gerekli",
+        description: "Yol tarifini WhatsApp'ınıza göndermek için lütfen giriş yapın.",
+        variant: "destructive",
+      });
+      navigate("/auth");
+      return;
+    }
+    if (!profile?.phone) {
+      toast({
+        title: "WhatsApp numarası eksik",
+        description: "Profilinize WhatsApp numaranızı ekleyin.",
+        variant: "destructive",
+      });
+      navigate("/profile");
+      return;
+    }
+    const text = `📍 ${entity.name}\n${entity.address}\n${mapsUrl}`;
+    const phone = profile.phone.replace(/\D/g, "");
+    window.open(`https://wa.me/${phone}?text=${encodeURIComponent(text)}`, "_blank");
+    toast({ title: "WhatsApp'a gönderildi ✅", description: entity.name });
+  };
 
   const [selectedCity, setSelectedCity] = useState<string>("all");
   const [entityType, setEntityType] = useState("all");
@@ -198,14 +230,12 @@ const MapSearch = () => {
                         {entity.rating && (
                           <p className="text-xs text-gold mt-1">⭐ {entity.rating}</p>
                         )}
-                        <a
-                          href={mapsUrl}
-                          target="_blank"
-                          rel="noopener noreferrer"
+                        <button
+                          onClick={(e) => handleDirections(e, entity, mapsUrl)}
                           className="inline-flex items-center gap-1 text-xs text-primary hover:underline mt-2"
                         >
-                          <Navigation className="h-3 w-3" /> Yol Tarifi (Google Maps)
-                        </a>
+                          <Navigation className="h-3 w-3" /> Yol Tarifi (WhatsApp'a gönder)
+                        </button>
                       </div>
                     </div>
                   </div>
