@@ -8,6 +8,9 @@ import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { getAllMapEntities, type MapEntity } from "@/lib/mapEntities";
+import { useAuth } from "@/contexts/AuthContext";
+import { useToast } from "@/hooks/use-toast";
+import { useNavigate } from "react-router-dom";
 
 const entityTypes = [
   { key: "all", label: "Tümü" },
