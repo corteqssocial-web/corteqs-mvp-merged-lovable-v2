@@ -62,6 +62,7 @@ const WhatsAppGroups = () => {
   // ---- Post Group + Landing Page form state ----
   const [groupName, setGroupName] = useState("");
   const [category, setCategory] = useState<keyof typeof categoryMeta>("alumni");
+  const [otherCategory, setOtherCategory] = useState("");
   const [country, setCountry] = useState("");
   const [city, setCity] = useState("");
   const [whatsappLink, setWhatsappLink] = useState("");
