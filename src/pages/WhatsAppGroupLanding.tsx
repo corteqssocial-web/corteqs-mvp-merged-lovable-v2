@@ -15,10 +15,11 @@ const categoryLabel: Record<WhatsAppLanding["category"], string> = {
   hobi: "Hobi",
   is: "İş Grubu",
   doktor: "Doktor / Sağlık",
-  yatirim: "Yatırım",
-  girisim: "Girişim",
+  yatirim: "Yatırım & Girişim",
+  girisim: "Yatırım & Girişim",
   akademik: "Akademik",
   dayanisma: "Dayanışma",
+  diger: "Diğer",
 };
 
 const WhatsAppGroupLanding = () => {
