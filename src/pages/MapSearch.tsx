@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import { MapPin, Building2, Users, Store, Navigation } from "lucide-react";
+import { MapPin, Building2, Users, Store, Navigation, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
@@ -27,6 +28,7 @@ const MapSearch = () => {
   const [selectedCity, setSelectedCity] = useState<string>("all");
   const [entityType, setEntityType] = useState("all");
   const [hoveredPin, setHoveredPin] = useState<string | null>(null);
+  const [searchQuery, setSearchQuery] = useState("");
 
   // All real provider entities from consultants/associations/businesses
   const allEntities = useMemo<MapEntity[]>(() => getAllMapEntities(), []);
@@ -42,9 +44,14 @@ const MapSearch = () => {
       if (effectiveCountry && e.country !== effectiveCountry) return false;
       if (selectedCity !== "all" && e.city !== selectedCity) return false;
       if (entityType !== "all" && e.kind !== entityType) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const hay = `${e.name} ${e.category} ${e.city} ${e.country} ${e.address}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (!hay.includes(q)) return false;
+      }
       return true;
     });
-  }, [allEntities, effectiveCountry, selectedCity, entityType]);
+  }, [allEntities, effectiveCountry, selectedCity, entityType, searchQuery]);
 
   // Map center: average of filtered entity coords; fallback to first or world
   const center = useMemo(() => {
@@ -94,6 +101,21 @@ const MapSearch = () => {
               </p>
             </div>
             <CountryCitySelector city={selectedCity} onCityChange={setSelectedCity} />
+          </div>
+
+          <div className="mb-4">
+            <div className="relative">
+              <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
+              <Input
+                value={searchQuery}
+                onChange={(e) => setSearchQuery(e.target.value)}
+                placeholder="Danışman, işletme, kuruluş, konsolosluk, hastane ara..."
+                className="pl-9"
+              />
+            </div>
+            <p className="text-xs text-muted-foreground mt-1.5 flex items-center gap-1">
+              💡 Aramanızı ülke ve şehir bazında daraltabilirsiniz.
+            </p>
           </div>
 
           <div className="flex flex-wrap gap-2 mb-6">
