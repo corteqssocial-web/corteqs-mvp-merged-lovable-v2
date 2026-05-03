@@ -44,9 +44,14 @@ const MapSearch = () => {
       if (effectiveCountry && e.country !== effectiveCountry) return false;
       if (selectedCity !== "all" && e.city !== selectedCity) return false;
       if (entityType !== "all" && e.kind !== entityType) return false;
+      if (searchQuery.trim()) {
+        const q = searchQuery.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        const hay = `${e.name} ${e.category} ${e.city} ${e.country} ${e.address}`.toLowerCase().normalize("NFD").replace(/[\u0300-\u036f]/g, "");
+        if (!hay.includes(q)) return false;
+      }
       return true;
     });
-  }, [allEntities, effectiveCountry, selectedCity, entityType]);
+  }, [allEntities, effectiveCountry, selectedCity, entityType, searchQuery]);
 
   // Map center: average of filtered entity coords; fallback to first or world
   const center = useMemo(() => {
