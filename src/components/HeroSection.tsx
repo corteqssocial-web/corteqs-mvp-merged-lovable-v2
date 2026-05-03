@@ -128,7 +128,6 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <HeroCityCounters />
         </div>
       </div>
       </section>
