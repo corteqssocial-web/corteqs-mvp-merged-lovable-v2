@@ -8,7 +8,7 @@ import { supabase } from "@/integrations/supabase/client";
 export type LandingMode = "visual" | "text";
 export type LandingCategory =
   | "alumni" | "hobi" | "is" | "doktor"
-  | "yatirim" | "girisim" | "akademik" | "dayanisma";
+  | "yatirim" | "girisim" | "akademik" | "dayanisma" | "diger";
 export type LandingStatus = "pending" | "approved" | "rejected";
 
 export interface WhatsAppLanding {
