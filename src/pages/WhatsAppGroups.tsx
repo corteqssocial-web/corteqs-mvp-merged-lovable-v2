@@ -91,6 +91,10 @@ const WhatsAppGroups = () => {
       toast({ title: "Eksik alan", description: "Grup adı, ülke, şehir ve WhatsApp linki zorunludur.", variant: "destructive" });
       return;
     }
+    if (category === "diger" && !otherCategory.trim()) {
+      toast({ title: "Kategori eksik", description: "'Diğer' seçtin — lütfen kategori adını yaz.", variant: "destructive" });
+      return;
+    }
     if (!user) {
       toast({ title: "Giriş gerekli", description: "Grup eklemek için önce giriş yap.", variant: "destructive" });
       navigate("/auth");
