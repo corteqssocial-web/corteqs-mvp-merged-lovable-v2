@@ -1,7 +1,8 @@
 import { useState, useMemo, useEffect } from "react";
-import { MapPin, Building2, Users, Store, Navigation } from "lucide-react";
+import { MapPin, Building2, Users, Store, Navigation, Search } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
