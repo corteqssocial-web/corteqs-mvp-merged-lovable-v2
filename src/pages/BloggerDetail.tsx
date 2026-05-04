@@ -62,13 +62,7 @@ const BloggerDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowing(!isFollowing);
-    toast({
-      title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-      description: isFollowing
-        ? `${blogger.name} artık takip edilmiyor.`
-        : `${blogger.name} yeni bir şey paylaştığında bildirim alacaksınız.`,
-    });
+    toggle("blogger", blogger.id, blogger.name);
   };
 
   return (
