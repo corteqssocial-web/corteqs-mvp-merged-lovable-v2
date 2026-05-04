@@ -548,7 +548,7 @@ const ProfileAmbassador = () => {
                     <div className="space-y-3">
                       {[
                         { key: "showKpis", label: "KPI kartları görünsün" },
-                        { key: "showWallet", label: "Cüzdan özeti görünsün" },
+                        { key: "showWallet", label: "İşlemlerim (Stripe) görünsün" },
                         { key: "showEvents", label: "Etkinlik verileri görünsün" },
                         { key: "showOnboarding", label: "Onboarding sayıları görünsün" },
                       ].map((item) => (
