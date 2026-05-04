@@ -130,6 +130,18 @@ const ProfileBusiness = () => {
         </TabsList>
 
         {/* LISTINGS */}
+        <TabsContent value="requests" className="mt-6">
+          <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
+            <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
+              <Inbox className="h-5 w-5 text-primary" /> Teklif Talepleri
+            </h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              Kategorinize uygun kullanıcı talepleri burada listelenir. Teklif vererek ulaşın.
+            </p>
+            <ConsultantServiceRequests />
+          </div>
+        </TabsContent>
+
         <TabsContent value="listings" className="mt-6">
           {showCreateJob || editingJob ? (
             <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
