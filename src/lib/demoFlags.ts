@@ -3,6 +3,7 @@
 // from the relevant flow (e.g. after a successful Stripe checkout).
 const COUPON_KEY = "corteqs:hasRealCoupons";
 const TXN_KEY = "corteqs:hasRealTransactions";
+const REQ_KEY = "corteqs:hasRealServiceRequests";
 
 const read = (k: string) => {
   try { return localStorage.getItem(k) === "1"; } catch { return false; }
