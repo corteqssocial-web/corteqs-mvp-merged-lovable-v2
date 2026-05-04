@@ -25,23 +25,12 @@ const FeaturedConsultants = () => {
       .map((id) => consultants.find((c) => c.id === id)!)
       .map((c) => ({ ...c, isAmbassador: false })),
   ];
-  const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
 
-  const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
+  const toggleFollow = (id: string, name: string, kind: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni bir şey paylaştığında bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggle(kind, id, name);
   };
 
   return (
