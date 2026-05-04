@@ -55,20 +55,20 @@ const StripeTransactionsPanel = ({
   const effectiveTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
 
   const visible = useMemo(
-    () => filter === "all" ? transactions : transactions.filter(t => t.direction === filter),
-    [filter, transactions]
+    () => filter === "all" ? effectiveTxns : effectiveTxns.filter(t => t.direction === filter),
+    [filter, effectiveTxns]
   );
 
   const totals = useMemo(() => {
-    const succeeded = transactions.filter(t => t.status === "succeeded");
+    const succeeded = effectiveTxns.filter(t => t.status === "succeeded");
     const inSum = succeeded.filter(t => t.direction === "in").reduce((s, t) => s + t.amount, 0);
     const outSum = succeeded.filter(t => t.direction === "out").reduce((s, t) => s + t.amount, 0);
     return { inSum, outSum, net: inSum - outSum };
-  }, [transactions]);
+  }, [effectiveTxns]);
 
   const exportCsv = () => {
     const header = "id,date,description,direction,amount,status,source,stripe_ref\n";
-    const rows = transactions.map(t =>
+    const rows = effectiveTxns.map(t =>
       [t.id, t.date, `"${t.description}"`, t.direction, t.amount, t.status, t.source ?? "", t.stripeRef ?? ""].join(",")
     ).join("\n");
     const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8" });
