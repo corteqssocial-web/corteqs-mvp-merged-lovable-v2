@@ -136,9 +136,9 @@ const ProfileAmbassador = () => {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="wallet" className="w-full">
+      <Tabs defaultValue="transactions" className="w-full">
         <TabsList className="bg-card border border-border w-full justify-start overflow-x-auto flex-wrap h-auto gap-1 p-1">
-          <TabsTrigger value="wallet" className="gap-1.5"><Wallet className="h-4 w-4" /> Cüzdan</TabsTrigger>
+          <TabsTrigger value="transactions" className="gap-1.5"><CreditCard className="h-4 w-4" /> İşlemlerim</TabsTrigger>
           <TabsTrigger value="events" className="gap-1.5"><Calendar className="h-4 w-4" /> Etkinlikler</TabsTrigger>
           <TabsTrigger value="onboarding" className="gap-1.5"><Users className="h-4 w-4" /> Onboarding</TabsTrigger>
           <TabsTrigger value="messaging" className="gap-1.5"><MessageSquare className="h-4 w-4" /> Mesajlar</TabsTrigger>
@@ -148,55 +148,9 @@ const ProfileAmbassador = () => {
           <TabsTrigger value="notifications" className="gap-1.5"><Bell className="h-4 w-4" /> Bildirimler</TabsTrigger>
         </TabsList>
 
-        {/* WALLET */}
-        <TabsContent value="wallet" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="border-border md:col-span-1">
-              <CardContent className="p-6 text-center">
-                <Wallet className="h-8 w-8 text-gold mx-auto mb-3" />
-                <p className="text-3xl font-extrabold text-foreground">€{walletData.balance}</p>
-                <p className="text-sm text-muted-foreground mb-2">Mevcut Bakiye</p>
-                <div className="text-xs text-muted-foreground mb-1">
-                  Bekleyen: <span className="font-semibold text-gold">€{walletData.pendingPayout}</span>
-                </div>
-                <div className="text-xs text-muted-foreground mb-4">
-                  Toplam Kazanç: <span className="font-semibold text-success">€{walletData.totalEarned}</span>
-                </div>
-                <Button className="w-full bg-gold hover:bg-gold/90 text-primary-foreground gap-1.5">
-                  <DollarSign className="h-4 w-4" /> Ödeme Talebi
-                </Button>
-              </CardContent>
-            </Card>
-            <Card className="border-border md:col-span-2">
-              <CardContent className="p-6">
-                <h3 className="font-bold text-foreground mb-4">İşlem Geçmişi</h3>
-                <div className="space-y-3">
-                  {walletData.transactions.map((tx, i) => (
-                    <div key={i} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
-                      <div className="flex items-center gap-3">
-                        {tx.amount > 0 ? (
-                          <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center">
-                            <ArrowUpRight className="h-4 w-4 text-success" />
-                          </div>
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
-                            <ArrowDownRight className="h-4 w-4 text-destructive" />
-                          </div>
-                        )}
-                        <div>
-                          <p className="text-sm font-medium text-foreground">{tx.desc}</p>
-                          <p className="text-xs text-muted-foreground">{tx.date}</p>
-                        </div>
-                      </div>
-                      <span className={`font-bold text-sm ${tx.amount > 0 ? "text-success" : "text-destructive"}`}>
-                        {tx.amount > 0 ? "+" : ""}€{Math.abs(tx.amount)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+        {/* TRANSACTIONS (Stripe) */}
+        <TabsContent value="transactions" className="mt-6">
+          <StripeTransactionsPanel transactions={stripeTxns} stripeConnected={false} />
         </TabsContent>
 
         {/* EVENTS */}
