@@ -32,7 +32,7 @@ export const INTEREST_CATEGORIES: { value: string; label: string }[] = [
   { value: "danisman", label: "Danışman / Profesyonel" },
   { value: "isletme", label: "İşletme / Restoran / Mağaza" },
   { value: "kurulus", label: "Dernek / STK / Kuruluş" },
-  { value: "blogger", label: "Blogger / Vlogger / İçerik Üretici" },
+  { value: "blogger", label: "Blogger / Vlogger / YouTuber / İçerik Üretici" },
   { value: "sehir-elcisi", label: "Şehir Elçisi" },
   { value: "kullanici", label: "Bireysel Kullanıcı (taşınma/yaşam)" },
   { value: "founders_1000", label: "Founders 1000" },

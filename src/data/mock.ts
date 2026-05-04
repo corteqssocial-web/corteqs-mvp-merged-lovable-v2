@@ -323,7 +323,7 @@ export interface BlogPost {
 export interface Blogger {
   id: string;
   name: string;
-  type: "blogger" | "influencer";
+  type: "blogger" | "influencer" | "youtuber";
   country: string;
   city: string;
   region: string;
@@ -505,6 +505,32 @@ export const bloggers: Blogger[] = [
     vlogs: [],
     adCollaboration: false,
     collabTypes: [],
+  },
+  {
+    id: "mert-tube",
+    name: "Mert Tube",
+    type: "youtuber",
+    country: "Kanada",
+    city: "Toronto",
+    region: "Amerika",
+    bio: "Toronto merkezli YouTuber. Kanada'da Türk olarak yaşam, göç süreçleri ve diaspora hikayeleri üzerine uzun formatlı videolar üretiyor.",
+    avatar: "MT",
+    photo: "https://images.unsplash.com/photo-1500648767791-00dcc994a43e?w=400&h=400&fit=crop&crop=face",
+    website: "https://merttube.ca",
+    instagram: "@merttube",
+    youtube: "MertTubeCanada",
+    followers: 220000,
+    rating: 4.8,
+    reviews: 156,
+    specialties: ["Göç", "Yaşam", "Kariyer"],
+    languages: ["Türkçe", "İngilizce"],
+    blogPosts: [],
+    vlogs: [
+      { id: "yt-1", title: "Kanada'ya Göç: Express Entry A'dan Z'ye", thumbnail: "https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400&h=240&fit=crop", url: "https://youtube.com/watch?v=yt1", views: 145000 },
+      { id: "yt-2", title: "Toronto'da Türk Olarak İlk Yılım", thumbnail: "https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400&h=240&fit=crop", url: "https://youtube.com/watch?v=yt2", views: 98000 },
+    ],
+    adCollaboration: true,
+    collabTypes: ["Sponsorlu Video", "Uzun Format İçerik", "YouTube Premiere"],
   },
 ];
 
