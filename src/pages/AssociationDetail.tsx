@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useFollow } from "@/hooks/useFollow";
 import { useParams, Link } from "react-router-dom";
 import { Users, MapPin, Calendar as CalendarIcon, Globe as GlobeIcon, ArrowLeft, ExternalLink, MessageSquare, Share2, UserPlus, UserCheck, Heart, CreditCard, Ticket, Music, Radio, Landmark, Clock, FileText, Stethoscope, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
