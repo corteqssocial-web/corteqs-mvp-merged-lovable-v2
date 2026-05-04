@@ -36,13 +36,7 @@ const ConsultantDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowing(!isFollowing);
-    toast({
-      title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-      description: isFollowing
-        ? `${consultant.name} artık takip edilmiyor.`
-        : `${consultant.name} yeni bir şey paylaştığında bildirim alacaksınız.`,
-    });
+    toggle("consultant", consultant.id, consultant.name);
   };
 
   return (
