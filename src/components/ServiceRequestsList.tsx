@@ -2,7 +2,8 @@ import { useState, useEffect } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
-import { Briefcase, MapPin, Clock, DollarSign, MessageSquare, ChevronDown, ChevronUp, CheckCircle, XCircle, FileText, ExternalLink } from "lucide-react";
+import { Briefcase, MapPin, Clock, DollarSign, MessageSquare, ChevronDown, ChevronUp, CheckCircle, XCircle, FileText, ExternalLink, Info } from "lucide-react";
+import { useDemoFlag, markRealServiceRequest } from "@/lib/demoFlags";
 
 interface Proposal {
   id: string;
