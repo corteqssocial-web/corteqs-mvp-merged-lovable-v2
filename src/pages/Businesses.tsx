@@ -10,6 +10,7 @@ import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { businesses } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 import CategoryListingBanner from "@/components/CategoryListingBanner";
 import InterestForm from "@/components/InterestForm";
@@ -220,7 +221,7 @@ const Businesses = () => {
   const [sectorFilter, setSectorFilter] = useState("all");
   const [activeSub, setActiveSub] = useState<string | null>(null);
   const [offeringFilter, setOfferingFilter] = useState("all");
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle: toggleFollowState } = useFollow();
   const { toast } = useToast();
 
   useEffect(() => { setCity("all"); }, [country]);
@@ -252,17 +253,7 @@ const Businesses = () => {
   const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni fırsat paylaştığında bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggleFollowState("business", id, name);
   };
 
   return (
@@ -338,7 +329,7 @@ const Businesses = () => {
 
           <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 max-w-3xl mx-auto">
             {filtered.slice(0, 2).map((b) => {
-              const isFollowed = followedIds.has(b.id);
+              const isFollowed = isFollowedFn("business", b.id);
               return (
                 <Link
                   to={`/business/${b.id}`}

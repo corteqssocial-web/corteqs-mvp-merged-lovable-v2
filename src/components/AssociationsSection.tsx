@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { Users, MapPin, Calendar as CalendarIcon, UserPlus, UserCheck, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { associations } from "@/data/mock";
-import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 
 const AssociationsSection = () => {
@@ -12,23 +11,12 @@ const AssociationsSection = () => {
     associations[1],
     associations.find((a) => a.id === "bae-turk-dernegi")!,
   ];
-  const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
 
   const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni bir etkinlik düzenlediğinde bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggle("association", id, name);
   };
 
   return (
@@ -46,7 +34,7 @@ const AssociationsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {featured.map((a) => {
-            const isFollowed = followedIds.has(a.id);
+            const isFollowed = isFollowedFn("association", a.id);
             return (
               <Link
                 to={`/association/${a.id}`}

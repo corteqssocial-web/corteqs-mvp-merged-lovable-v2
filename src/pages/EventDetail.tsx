@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useFollow } from "@/hooks/useFollow";
 import { useParams, Link } from "react-router-dom";
 import {
   Calendar, MapPin, Users, Clock, ArrowLeft, Globe,
@@ -33,8 +33,9 @@ const typeLabels: Record<string, string> = {
 const EventDetail = () => {
   const { id } = useParams();
   const { toast } = useToast();
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
   const event = events.find((e) => e.id === id);
+  const isFollowing = event ? isFollowed("organizer", event.id) : false;
 
   if (!event) {
     return (
@@ -120,13 +121,7 @@ const EventDetail = () => {
                       size="sm"
                       className="gap-1"
                       onClick={() => {
-                        setIsFollowing(!isFollowing);
-                        toast({
-                          title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-                          description: isFollowing
-                            ? `${event.organizer} artık takip edilmiyor.`
-                            : `${event.organizer} etkinlik oluşturduğunda bildirim alacaksınız.`,
-                        });
+                        toggle("organizer", event.id, event.organizer);
                       }}
                     >
                       <UserPlus className="h-3.5 w-3.5" />

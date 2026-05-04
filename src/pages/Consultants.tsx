@@ -11,6 +11,7 @@ import { useDiaspora } from "@/contexts/DiasporaContext";
 import { consultants, cityAmbassadors } from "@/data/mock";
 import { countryCities } from "@/data/countryCities";
 import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 import CategoryListingBanner from "@/components/CategoryListingBanner";
 import InterestForm from "@/components/InterestForm";
@@ -189,7 +190,7 @@ const Consultants = () => {
   const [category, setCategory] = useState(filterParam || "all");
   const [activeSub, setActiveSub] = useState<string | null>(null);
   const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle: toggleFollowState } = useFollow();
 
   useEffect(() => {
     setCategory(filterParam || "all");
@@ -244,17 +245,7 @@ const Consultants = () => {
   const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni bir şey paylaştığında bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggleFollowState("consultant", id, name);
   };
 
   return (
@@ -351,7 +342,7 @@ const Consultants = () => {
                 <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                   {demoCards.map((c: any) => {
                     const linkTo = c.isAmbassador ? `/ambassador/${c.id}` : `/consultant/${c.id}`;
-                    const isFollowed = followedIds.has(c.id);
+                    const isFollowed = isFollowedFn(c.isAmbassador ? "ambassador" : "consultant", c.id);
                     return (
                       <Link
                         to={linkTo}

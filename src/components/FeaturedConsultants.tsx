@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { Star, Bot, Video, UserPlus, UserCheck, Info, Clock, Flag, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { consultants, cityAmbassadors } from "@/data/mock";
-import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 
 const FeaturedConsultants = () => {
@@ -26,23 +25,12 @@ const FeaturedConsultants = () => {
       .map((id) => consultants.find((c) => c.id === id)!)
       .map((c) => ({ ...c, isAmbassador: false })),
   ];
-  const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
 
-  const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
+  const toggleFollow = (id: string, name: string, kind: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni bir şey paylaştığında bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggle(kind, id, name);
   };
 
   return (
@@ -60,7 +48,8 @@ const FeaturedConsultants = () => {
 
         <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
           {featured.map((c: any) => {
-            const isFollowed = followedIds.has(c.id);
+            const kind = c.isAmbassador ? "ambassador" : "consultant";
+            const isFollowed = isFollowedFn(kind, c.id);
             const linkTo = c.isAmbassador ? `/ambassador/${c.id}` : `/consultant/${c.id}`;
             return (
               <Link
@@ -81,7 +70,7 @@ const FeaturedConsultants = () => {
                     </div>
                   </div>
                   <button
-                    onClick={(e) => toggleFollow(c.id, c.name, e)}
+                    onClick={(e) => toggleFollow(c.id, c.name, kind, e)}
                     className={`p-2 rounded-full transition-colors ${isFollowed ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground hover:text-primary"}`}
                   >
                     {isFollowed ? <UserCheck className="h-4 w-4" /> : <UserPlus className="h-4 w-4" />}

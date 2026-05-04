@@ -1,5 +1,5 @@
 import { useParams, Link } from "react-router-dom";
-import { useState } from "react";
+import { useFollow } from "@/hooks/useFollow";
 import { MapPin, Users, Briefcase, Globe, Mail, Building2, Calendar, UserPlus, UserCheck, ArrowLeft, Tag, Store, Stethoscope, ExternalLink, Navigation } from "lucide-react";
 
 import { Button } from "@/components/ui/button";
@@ -19,7 +19,8 @@ const offeringColors: Record<string, string> = {
 const BusinessDetail = () => {
   const { id } = useParams();
   const b = businesses.find((x) => x.id === id);
-  const [isFollowed, setIsFollowed] = useState(false);
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
+  const isFollowed = b ? isFollowedFn("business", b.id) : false;
   const { toast } = useToast();
 
   if (!b) {
@@ -38,14 +39,7 @@ const BusinessDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowed((prev) => {
-      if (prev) {
-        toast({ title: "Takipten çıkıldı", description: `${b.name} artık takip edilmiyor.` });
-      } else {
-        toast({ title: "Takip edildi! 🔔", description: `${b.name} yeni fırsat paylaştığında bildirim alacaksınız.` });
-      }
-      return !prev;
-    });
+    toggle("business", b.id, b.name);
   };
 
   const sampleJobs = [

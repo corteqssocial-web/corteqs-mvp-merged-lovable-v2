@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { MapPin, Users, Briefcase, UserPlus, UserCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { businesses } from "@/data/mock";
-import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 
 const offeringColors: Record<string, string> = {
@@ -15,23 +14,12 @@ const offeringColors: Record<string, string> = {
 
 const BusinessesSection = () => {
   const featured = businesses.slice(0, 2);
-  const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
 
   const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni fırsat paylaştığında bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggle("business", id, name);
   };
 
   return (
@@ -49,7 +37,7 @@ const BusinessesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {featured.map((b) => {
-            const isFollowed = followedIds.has(b.id);
+            const isFollowed = isFollowedFn("business", b.id);
             return (
               <Link
                 to={`/business/${b.id}`}

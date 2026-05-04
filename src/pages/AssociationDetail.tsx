@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useFollow } from "@/hooks/useFollow";
 import { useParams, Link } from "react-router-dom";
 import { Users, MapPin, Calendar as CalendarIcon, Globe as GlobeIcon, ArrowLeft, ExternalLink, MessageSquare, Share2, UserPlus, UserCheck, Heart, CreditCard, Ticket, Music, Radio, Landmark, Clock, FileText, Stethoscope, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
@@ -14,7 +14,8 @@ const AssociationDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const assoc = associations.find((a) => a.id === id);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
+  const isFollowing = assoc ? isFollowed("association", assoc.id) : false;
 
   if (!assoc) {
     return (
@@ -30,13 +31,7 @@ const AssociationDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowing(!isFollowing);
-    toast({
-      title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-      description: isFollowing
-        ? `${assoc.name} artık takip edilmiyor.`
-        : `${assoc.name} yeni bir etkinlik düzenlediğinde bildirim alacaksınız.`,
-    });
+    toggle("association", assoc.id, assoc.name);
   };
 
   const sampleAnnouncements = [

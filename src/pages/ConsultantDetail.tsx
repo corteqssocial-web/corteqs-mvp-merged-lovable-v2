@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useParams, Link } from "react-router-dom";
+import { useFollow } from "@/hooks/useFollow";
 import { Star, Bot, MessageSquare, Calendar, Video, Globe as GlobeIcon, ArrowLeft, ExternalLink, UserPlus, UserCheck, Zap, Info, Clock, Home, MapPin, BedDouble, Bath, Maximize, Crown, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -16,7 +16,8 @@ const ConsultantDetail = () => {
   const { toast } = useToast();
   const { user } = useAuth();
   const consultant = consultants.find((c) => c.id === id);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
+  const isFollowing = consultant ? isFollowed("consultant", consultant.id) : false;
 
   // Check if logged-in user is the consultant (mock: match by email or id)
   const isOwner = !!user && !!consultant;
@@ -35,13 +36,7 @@ const ConsultantDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowing(!isFollowing);
-    toast({
-      title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-      description: isFollowing
-        ? `${consultant.name} artık takip edilmiyor.`
-        : `${consultant.name} yeni bir şey paylaştığında bildirim alacaksınız.`,
-    });
+    toggle("consultant", consultant.id, consultant.name);
   };
 
   return (
