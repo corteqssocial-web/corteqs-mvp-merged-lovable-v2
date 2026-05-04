@@ -34,7 +34,7 @@ const AssociationsSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6 max-w-5xl mx-auto">
           {featured.map((a) => {
-            const isFollowed = followedIds.has(a.id);
+            const isFollowed = isFollowedFn("association", a.id);
             return (
               <Link
                 to={`/association/${a.id}`}
