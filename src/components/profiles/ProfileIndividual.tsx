@@ -1,5 +1,5 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
   Calendar, Tag, Users, Bell, CreditCard,
   ArrowLeft, Plus, ChevronRight, Star, Bot, MessageSquare,
