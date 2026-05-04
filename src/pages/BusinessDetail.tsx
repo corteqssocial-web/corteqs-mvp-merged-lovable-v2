@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { businesses } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import { markRealCouponPurchase, markRealTransaction } from "@/lib/demoFlags";
 import DemoPageBanner from "@/components/DemoPageBanner";
 
 const offeringColors: Record<string, string> = {
