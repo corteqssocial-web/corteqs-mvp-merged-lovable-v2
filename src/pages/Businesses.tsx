@@ -253,17 +253,7 @@ const Businesses = () => {
   const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni fırsat paylaştığında bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggleFollowState("business", id, name);
   };
 
   return (
