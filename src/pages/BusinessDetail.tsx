@@ -39,14 +39,7 @@ const BusinessDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowed((prev) => {
-      if (prev) {
-        toast({ title: "Takipten çıkıldı", description: `${b.name} artık takip edilmiyor.` });
-      } else {
-        toast({ title: "Takip edildi! 🔔", description: `${b.name} yeni fırsat paylaştığında bildirim alacaksınız.` });
-      }
-      return !prev;
-    });
+    toggle("business", b.id, b.name);
   };
 
   const sampleJobs = [
