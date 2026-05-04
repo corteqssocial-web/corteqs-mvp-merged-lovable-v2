@@ -45,11 +45,14 @@ const statusBadge: Record<StripeTxn["status"], { label: string; cls: string }> =
 
 const StripeTransactionsPanel = ({
   title = "İşlemlerim",
-  transactions = defaultTxns,
+  transactions,
   currency = "€",
   stripeConnected = false,
 }: Props) => {
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
+  const hasReal = useDemoFlag("transactions");
+  const isDemo = !transactions && !hasReal;
+  const effectiveTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
 
   const visible = useMemo(
     () => filter === "all" ? transactions : transactions.filter(t => t.direction === filter),
