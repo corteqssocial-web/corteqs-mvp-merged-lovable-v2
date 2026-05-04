@@ -3,8 +3,9 @@ import EventManagePanel from "@/components/EventManagePanel";
 import {
   Users, MapPin, Globe, Calendar, Heart, Megaphone,
   TrendingUp, Settings, Bell, Mail, MessageSquare,
-  Plus, ChevronRight, Star, Eye, BarChart3, FileText, ArrowLeft, Crown
+  Plus, ChevronRight, Star, Eye, BarChart3, FileText, ArrowLeft, Crown, Inbox
 } from "lucide-react";
+import ConsultantServiceRequests from "@/components/ConsultantServiceRequests";
 import SocialMediaCampaignDialog from "@/components/SocialMediaCampaignDialog";
 import CategoryShowcasePurchase from "@/components/CategoryShowcasePurchase";
 import CreateEventForm from "@/components/CreateEventForm";
