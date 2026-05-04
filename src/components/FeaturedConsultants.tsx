@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { Star, Bot, Video, UserPlus, UserCheck, Info, Clock, Flag, MessageCircle } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import { consultants, cityAmbassadors } from "@/data/mock";
-import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 
 const FeaturedConsultants = () => {
