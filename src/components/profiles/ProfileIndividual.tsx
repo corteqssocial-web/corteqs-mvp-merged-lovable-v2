@@ -22,7 +22,7 @@ import ServiceRequestsList from "@/components/ServiceRequestsList";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import WelcomePack from "@/components/profiles/WelcomePack";
 import { useDemoFlag } from "@/lib/demoFlags";
-import { Info } from "lucide-react";
+
 
 const ProfileIndividual = () => {
   const [searchParams] = useSearchParams();
