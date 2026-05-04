@@ -16,7 +16,8 @@ const ConsultantDetail = () => {
   const { toast } = useToast();
   const { user } = useAuth();
   const consultant = consultants.find((c) => c.id === id);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
+  const isFollowing = consultant ? isFollowed("consultant", consultant.id) : false;
 
   // Check if logged-in user is the consultant (mock: match by email or id)
   const isOwner = !!user && !!consultant;
