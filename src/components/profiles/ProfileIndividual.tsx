@@ -47,17 +47,12 @@ const ProfileIndividual = () => {
   const followedConsultants = consultants.slice(0, 3);
   const followedAssociations = associations.slice(0, 2);
 
-  const coupons = [
-    { id: 1, title: "İlk Seans %20 İndirim", code: "HOSGELDIN20", expires: "31 Mar 2026", type: "discount" as const, businessName: "CorteQS Platform" },
-    { id: 2, title: "Ücretsiz AI Twin Denemesi", code: "AITWIN1", expires: "15 Nis 2026", type: "free" as const, businessName: "CorteQS Platform" },
-    { id: 3, title: "Dernek Etkinliği %10", code: "ETKINLIK10", expires: "30 Nis 2026", type: "discount" as const, businessName: "Almanya Türk Toplumu" },
-    { id: 4, title: "Hoşgeldin İndirimi %15", code: "HOSGELDIN15", expires: "30 Nis 2026", type: "discount" as const, businessName: "Turkish Döner GmbH" },
-    { id: 5, title: "Hediye Baklava", code: "TATLI1", expires: "15 Mar 2026", type: "free" as const, businessName: "İstanbul Baklava House" },
-    { id: 6, title: "HSBC Diaspora %5 Döviz", code: "HSBC5", expires: "30 Haz 2026", type: "discount" as const, businessName: "HSBC Türkiye" },
-    { id: 7, title: "THY 500 Mil Hediye", code: "THY500", expires: "31 May 2026", type: "free" as const, businessName: "Türk Hava Yolları" },
-    { id: 8, title: "Vodafone Roaming %50", code: "VDFROAM50", expires: "30 Nis 2026", type: "discount" as const, businessName: "Vodafone Türk Hattı" },
-    { id: 9, title: "Turkish Market %10 Alışveriş", code: "MARKET10", expires: "30 Nis 2026", type: "discount" as const, businessName: "Turkish Market Europe" },
+  const hasRealCoupons = useDemoFlag("coupons");
+  const demoCoupons = [
+    { id: 1, title: "Demo · Hoşgeldin İndirimi %15", code: "DEMO15", expires: "30 Nis 2026", type: "discount" as const, businessName: "Turkish Döner GmbH" },
+    { id: 2, title: "Demo · Hediye Baklava", code: "DEMOTATLI", expires: "15 Mar 2026", type: "free" as const, businessName: "İstanbul Baklava House" },
   ];
+  const coupons = hasRealCoupons ? [] : demoCoupons;
 
   const [selectedCouponForScan, setSelectedCouponForScan] = useState<number | null>(null);
   const [showScanner, setShowScanner] = useState(false);
