@@ -158,13 +158,16 @@ const ServiceRequestsList = () => {
     );
   }
 
-  if (requests.length === 0) {
+  const showDemo = !hasReal && requests.length === 0;
+  const displayRequests = showDemo ? [DEMO_REQUEST] : requests;
+
+  if (displayRequests.length === 0) {
     return (
       <div className="text-center py-12">
         <span className="text-5xl mb-4 block">📋</span>
         <p className="text-lg font-semibold text-foreground mb-2">Henüz hizmet talebiniz yok</p>
         <p className="text-sm text-muted-foreground">
-          Yeni bir talep oluşturarak danışmanlardan teklif alın.
+          Hizmet talepleriniz burada listelenecek. Yeni bir talep oluşturarak danışmanlardan teklif alın.
         </p>
       </div>
     );
@@ -172,7 +175,15 @@ const ServiceRequestsList = () => {
 
   return (
     <div className="space-y-4">
-      {requests.map((req) => {
+      {showDemo && (
+        <div className="flex items-start gap-2 rounded-xl border border-primary/20 bg-primary/5 p-3 text-xs text-foreground">
+          <Info className="h-4 w-4 text-primary shrink-0 mt-0.5" />
+          <span>
+            Bu bir <strong>demo görünümdür</strong>. İlk gerçek hizmet talebinizi oluşturduğunuzda demo kaldırılacak ve gerçek talepleriniz burada listelenecek.
+          </span>
+        </div>
+      )}
+      {displayRequests.map((req) => {
         const isExpanded = expandedId === req.id;
         const statusInfo = STATUS_MAP[req.status] || STATUS_MAP.open;
         const urgencyInfo = URGENCY_MAP[req.urgency] || URGENCY_MAP.normal;
