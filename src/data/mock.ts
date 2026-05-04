@@ -1,3 +1,5 @@
+import fourVisionPhoto from "@/assets/4vision-youtube.png";
+
 export interface Consultant {
   id: string;
   name: string;
