@@ -19,7 +19,8 @@ const offeringColors: Record<string, string> = {
 const BusinessDetail = () => {
   const { id } = useParams();
   const b = businesses.find((x) => x.id === id);
-  const [isFollowed, setIsFollowed] = useState(false);
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
+  const isFollowed = b ? isFollowedFn("business", b.id) : false;
   const { toast } = useToast();
 
   if (!b) {
