@@ -53,19 +53,14 @@ const ProfileAmbassador = () => {
     totalAttendees: 144,
   };
 
-  const walletData = {
-    balance: 860,
-    pendingPayout: 380,
-    totalEarned: 2440,
-    transactions: [
-      { type: "earning", desc: "Danışman onboarding komisyonu", amount: 25, date: "28 Mar" },
-      { type: "earning", desc: "Etkinlik bilet komisyonu", amount: 45, date: "25 Mar" },
-      { type: "earning", desc: "İşletme kayıt komisyonu", amount: 30, date: "22 Mar" },
-      { type: "payout", desc: "Ödeme talebi", amount: -200, date: "20 Mar" },
-      { type: "earning", desc: "Kullanıcı onboarding x5", amount: 50, date: "18 Mar" },
-      { type: "earning", desc: "Etkinlik organizasyon bonusu", amount: 100, date: "15 Mar" },
-    ],
-  };
+  const stripeTxns: StripeTxn[] = [
+    { id: "py_001", date: "2026-03-28", description: "Danışman onboarding komisyonu", direction: "in", amount: 25, status: "succeeded", source: "Komisyon", stripeRef: "py_3PXa1b" },
+    { id: "py_002", date: "2026-03-25", description: "Etkinlik bilet komisyonu", direction: "in", amount: 45, status: "succeeded", source: "Etkinlik", stripeRef: "py_3PXa2c" },
+    { id: "py_003", date: "2026-03-22", description: "İşletme kayıt komisyonu", direction: "in", amount: 30, status: "succeeded", source: "Komisyon", stripeRef: "py_3PXa3d" },
+    { id: "po_004", date: "2026-03-20", description: "Ödeme talebi (payout)", direction: "out", amount: 200, status: "succeeded", source: "Payout", stripeRef: "po_3PXa4e" },
+    { id: "py_005", date: "2026-03-18", description: "Kullanıcı onboarding x5", direction: "in", amount: 50, status: "succeeded", source: "Komisyon", stripeRef: "py_3PXa5f" },
+    { id: "py_006", date: "2026-03-15", description: "Etkinlik organizasyon bonusu", direction: "in", amount: 100, status: "succeeded", source: "Bonus", stripeRef: "py_3PXa6g" },
+  ];
 
   const events = [
     { id: 1, title: "Berlin Networking Buluşması", date: "15 Nisan 2026", attendees: 45, maxCapacity: 60, status: "upcoming" as const },
