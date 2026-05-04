@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
-import { Link } from "react-router-dom";
+import { Link, useSearchParams } from "react-router-dom";
 import {
-  Wallet, Calendar, Tag, Users, Bell, 
+  Calendar, Tag, Users, Bell, CreditCard,
   ArrowLeft, Plus, ChevronRight, Star, Bot, MessageSquare,
   MapPin, Clock, Gift, TrendingUp, Briefcase, Linkedin,
   FileText, Eye, EyeOff, Settings, Shield, UserPlus, ScanLine, QrCode,
   Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp
 } from "lucide-react";
+import StripeTransactionsPanel from "@/components/StripeTransactionsPanel";
 import QRScannerMock from "@/components/QRScannerMock";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -22,6 +23,8 @@ import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import WelcomePack from "@/components/profiles/WelcomePack";
 
 const ProfileIndividual = () => {
+  const [searchParams] = useSearchParams();
+  const initialTab = searchParams.get("tab") || "transactions";
   const [isJobSeeking, setIsJobSeeking] = useState(true);
   const [_showWelcomePack, _setShowWelcomePack] = useState(true); // kept for future use
   const [profileVisible, setProfileVisible] = useState(true);
@@ -147,19 +150,20 @@ const ProfileIndividual = () => {
               )}
             </div>
           </div>
-          <div className="bg-turquoise/10 rounded-xl p-4 text-center shrink-0 min-w-[140px]">
-            <Wallet className="h-5 w-5 text-turquoise mx-auto mb-1" />
-            <p className="text-2xl font-bold text-foreground">€{user.balance.toFixed(2)}</p>
-            <p className="text-xs text-muted-foreground">Cüzdan Bakiyesi</p>
+          <div className="bg-primary/10 rounded-xl p-4 text-center shrink-0 min-w-[140px]">
+            <CreditCard className="h-5 w-5 text-primary mx-auto mb-1" />
+            <p className="text-xs text-muted-foreground mt-1">Stripe ile</p>
+            <p className="text-sm font-semibold text-foreground">İşlemlerim</p>
+            <p className="text-[10px] text-muted-foreground mt-0.5">Yakında aktif</p>
           </div>
         </div>
       </div>
 
 
       {/* Tabs */}
-      <Tabs defaultValue="wallet" className="w-full">
+      <Tabs defaultValue={initialTab} className="w-full">
         <TabsList className="bg-card border border-border w-full justify-start overflow-x-auto flex-wrap h-auto gap-1 p-1">
-          <TabsTrigger value="wallet" className="gap-1.5"><Wallet className="h-4 w-4" /> Cüzdan</TabsTrigger>
+          <TabsTrigger value="transactions" className="gap-1.5"><CreditCard className="h-4 w-4" /> İşlemlerim</TabsTrigger>
           <TabsTrigger value="service-requests" className="gap-1.5"><ClipboardList className="h-4 w-4" /> Hizmet Talepleri</TabsTrigger>
           <TabsTrigger value="relocations" className="gap-1.5"><Globe className="h-4 w-4" /> Taşınma Yönetimi</TabsTrigger>
           <TabsTrigger value="calendar" className="gap-1.5"><Calendar className="h-4 w-4" /> Takvim</TabsTrigger>
@@ -170,48 +174,9 @@ const ProfileIndividual = () => {
           <TabsTrigger value="settings" className="gap-1.5"><Settings className="h-4 w-4" /> Ayarlar</TabsTrigger>
         </TabsList>
 
-        {/* WALLET */}
-        <TabsContent value="wallet" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
-              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <Wallet className="h-5 w-5 text-turquoise" /> Bakiye
-              </h2>
-              <p className="text-4xl font-bold text-foreground mb-1">€{user.balance.toFixed(2)}</p>
-              <p className="text-sm text-muted-foreground mb-6">Mevcut bakiyeniz</p>
-              <div className="grid grid-cols-3 gap-2 mb-4">
-                {[25, 50, 100].map((amount) => (
-                  <Button key={amount} variant="outline" className="font-bold">€{amount}</Button>
-                ))}
-              </div>
-              <Button className="w-full gap-2 bg-turquoise hover:bg-turquoise-light text-primary-foreground">
-                <Plus className="h-4 w-4" /> Para Yükle
-              </Button>
-            </div>
-            <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
-              <h2 className="text-xl font-bold text-foreground mb-4 flex items-center gap-2">
-                <TrendingUp className="h-5 w-5 text-primary" /> Son İşlemler
-              </h2>
-              <div className="space-y-3">
-                {[
-                  { label: "AI Twin Seans - Ayşe Kara", amount: -15, date: "24 Şub" },
-                  { label: "Para Yükleme", amount: 100, date: "20 Şub" },
-                  { label: "Etkinlik Bileti - ATT", amount: -25, date: "18 Şub" },
-                  { label: "Danışmanlık - Can Özdemir", amount: -45, date: "15 Şub" },
-                ].map((tx, i) => (
-                  <div key={i} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
-                    <div>
-                      <p className="text-sm font-medium text-foreground">{tx.label}</p>
-                      <p className="text-xs text-muted-foreground">{tx.date}</p>
-                    </div>
-                    <span className={`font-bold text-sm ${tx.amount > 0 ? "text-success" : "text-foreground"}`}>
-                      {tx.amount > 0 ? "+" : ""}€{Math.abs(tx.amount)}
-                    </span>
-                  </div>
-                ))}
-              </div>
-            </div>
-          </div>
+        {/* TRANSACTIONS (Stripe) */}
+        <TabsContent value="transactions" className="mt-6">
+          <StripeTransactionsPanel stripeConnected={false} />
         </TabsContent>
 
         {/* RELOCATION MANAGEMENT */}

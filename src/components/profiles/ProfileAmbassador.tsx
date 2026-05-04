@@ -1,6 +1,6 @@
 import {
   Users, Calendar, TrendingUp, DollarSign, MapPin,
-  Wallet, ArrowUpRight, ArrowDownRight, Clock,
+  Wallet, ArrowUpRight, ArrowDownRight, Clock, CreditCard,
   MessageSquare, Bell, Target, Star, Globe, Plus,
   Send, CheckCircle, XCircle, Eye, Settings, ExternalLink, Video, ArrowLeft
 } from "lucide-react";
@@ -15,6 +15,7 @@ import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import CreateEventForm from "@/components/CreateEventForm";
 import EventManagePanel from "@/components/EventManagePanel";
+import StripeTransactionsPanel, { type StripeTxn } from "@/components/StripeTransactionsPanel";
 
 type AmbassadorEvent = {
   id: number;
@@ -52,19 +53,14 @@ const ProfileAmbassador = () => {
     totalAttendees: 144,
   };
 
-  const walletData = {
-    balance: 860,
-    pendingPayout: 380,
-    totalEarned: 2440,
-    transactions: [
-      { type: "earning", desc: "Danışman onboarding komisyonu", amount: 25, date: "28 Mar" },
-      { type: "earning", desc: "Etkinlik bilet komisyonu", amount: 45, date: "25 Mar" },
-      { type: "earning", desc: "İşletme kayıt komisyonu", amount: 30, date: "22 Mar" },
-      { type: "payout", desc: "Ödeme talebi", amount: -200, date: "20 Mar" },
-      { type: "earning", desc: "Kullanıcı onboarding x5", amount: 50, date: "18 Mar" },
-      { type: "earning", desc: "Etkinlik organizasyon bonusu", amount: 100, date: "15 Mar" },
-    ],
-  };
+  const stripeTxns: StripeTxn[] = [
+    { id: "py_001", date: "2026-03-28", description: "Danışman onboarding komisyonu", direction: "in", amount: 25, status: "succeeded", source: "Komisyon", stripeRef: "py_3PXa1b" },
+    { id: "py_002", date: "2026-03-25", description: "Etkinlik bilet komisyonu", direction: "in", amount: 45, status: "succeeded", source: "Etkinlik", stripeRef: "py_3PXa2c" },
+    { id: "py_003", date: "2026-03-22", description: "İşletme kayıt komisyonu", direction: "in", amount: 30, status: "succeeded", source: "Komisyon", stripeRef: "py_3PXa3d" },
+    { id: "po_004", date: "2026-03-20", description: "Ödeme talebi (payout)", direction: "out", amount: 200, status: "succeeded", source: "Payout", stripeRef: "po_3PXa4e" },
+    { id: "py_005", date: "2026-03-18", description: "Kullanıcı onboarding x5", direction: "in", amount: 50, status: "succeeded", source: "Komisyon", stripeRef: "py_3PXa5f" },
+    { id: "py_006", date: "2026-03-15", description: "Etkinlik organizasyon bonusu", direction: "in", amount: 100, status: "succeeded", source: "Bonus", stripeRef: "py_3PXa6g" },
+  ];
 
   const events = [
     { id: 1, title: "Berlin Networking Buluşması", date: "15 Nisan 2026", attendees: 45, maxCapacity: 60, status: "upcoming" as const },
@@ -140,9 +136,9 @@ const ProfileAmbassador = () => {
       </div>
 
       {/* Tabs */}
-      <Tabs defaultValue="wallet" className="w-full">
+      <Tabs defaultValue="transactions" className="w-full">
         <TabsList className="bg-card border border-border w-full justify-start overflow-x-auto flex-wrap h-auto gap-1 p-1">
-          <TabsTrigger value="wallet" className="gap-1.5"><Wallet className="h-4 w-4" /> Cüzdan</TabsTrigger>
+          <TabsTrigger value="transactions" className="gap-1.5"><CreditCard className="h-4 w-4" /> İşlemlerim</TabsTrigger>
           <TabsTrigger value="events" className="gap-1.5"><Calendar className="h-4 w-4" /> Etkinlikler</TabsTrigger>
           <TabsTrigger value="onboarding" className="gap-1.5"><Users className="h-4 w-4" /> Onboarding</TabsTrigger>
           <TabsTrigger value="messaging" className="gap-1.5"><MessageSquare className="h-4 w-4" /> Mesajlar</TabsTrigger>
@@ -152,55 +148,9 @@ const ProfileAmbassador = () => {
           <TabsTrigger value="notifications" className="gap-1.5"><Bell className="h-4 w-4" /> Bildirimler</TabsTrigger>
         </TabsList>
 
-        {/* WALLET */}
-        <TabsContent value="wallet" className="mt-6">
-          <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
-            <Card className="border-border md:col-span-1">
-              <CardContent className="p-6 text-center">
-                <Wallet className="h-8 w-8 text-gold mx-auto mb-3" />
-                <p className="text-3xl font-extrabold text-foreground">€{walletData.balance}</p>
-                <p className="text-sm text-muted-foreground mb-2">Mevcut Bakiye</p>
-                <div className="text-xs text-muted-foreground mb-1">
-                  Bekleyen: <span className="font-semibold text-gold">€{walletData.pendingPayout}</span>
-                </div>
-                <div className="text-xs text-muted-foreground mb-4">
-                  Toplam Kazanç: <span className="font-semibold text-success">€{walletData.totalEarned}</span>
-                </div>
-                <Button className="w-full bg-gold hover:bg-gold/90 text-primary-foreground gap-1.5">
-                  <DollarSign className="h-4 w-4" /> Ödeme Talebi
-                </Button>
-              </CardContent>
-            </Card>
-            <Card className="border-border md:col-span-2">
-              <CardContent className="p-6">
-                <h3 className="font-bold text-foreground mb-4">İşlem Geçmişi</h3>
-                <div className="space-y-3">
-                  {walletData.transactions.map((tx, i) => (
-                    <div key={i} className="flex items-center justify-between py-2 border-b border-border/50 last:border-0">
-                      <div className="flex items-center gap-3">
-                        {tx.amount > 0 ? (
-                          <div className="w-8 h-8 rounded-full bg-success/10 flex items-center justify-center">
-                            <ArrowUpRight className="h-4 w-4 text-success" />
-                          </div>
-                        ) : (
-                          <div className="w-8 h-8 rounded-full bg-destructive/10 flex items-center justify-center">
-                            <ArrowDownRight className="h-4 w-4 text-destructive" />
-                          </div>
-                        )}
-                        <div>
-                          <p className="text-sm font-medium text-foreground">{tx.desc}</p>
-                          <p className="text-xs text-muted-foreground">{tx.date}</p>
-                        </div>
-                      </div>
-                      <span className={`font-bold text-sm ${tx.amount > 0 ? "text-success" : "text-destructive"}`}>
-                        {tx.amount > 0 ? "+" : ""}€{Math.abs(tx.amount)}
-                      </span>
-                    </div>
-                  ))}
-                </div>
-              </CardContent>
-            </Card>
-          </div>
+        {/* TRANSACTIONS (Stripe) */}
+        <TabsContent value="transactions" className="mt-6">
+          <StripeTransactionsPanel transactions={stripeTxns} stripeConnected={false} />
         </TabsContent>
 
         {/* EVENTS */}
@@ -598,7 +548,7 @@ const ProfileAmbassador = () => {
                     <div className="space-y-3">
                       {[
                         { key: "showKpis", label: "KPI kartları görünsün" },
-                        { key: "showWallet", label: "Cüzdan özeti görünsün" },
+                        { key: "showWallet", label: "İşlemlerim (Stripe) görünsün" },
                         { key: "showEvents", label: "Etkinlik verileri görünsün" },
                         { key: "showOnboarding", label: "Onboarding sayıları görünsün" },
                       ].map((item) => (
