@@ -102,6 +102,20 @@ const StripeTransactionsPanel = ({
         </div>
       )}
 
+      {isDemo && (
+        <div className="rounded-xl border border-dashed border-amber-500/40 bg-amber-500/5 p-3 flex items-start gap-2">
+          <Info className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+          <div className="flex-1 text-xs">
+            <p className="font-semibold text-foreground">Demo görünüm</p>
+            <p className="text-muted-foreground mt-0.5">
+              İşlemleriniz burada listelenecek. Aşağıdakiler örnek (demo) kayıtlardır;
+              ilk gerçek Stripe işleminizde otomatik olarak kaldırılır.
+            </p>
+          </div>
+          <Badge variant="outline" className="border-amber-500/40 text-amber-700 shrink-0 text-[10px]">Demo</Badge>
+        </div>
+      )}
+
       {/* Summary cards */}
       <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
         <Card className="border-border">
