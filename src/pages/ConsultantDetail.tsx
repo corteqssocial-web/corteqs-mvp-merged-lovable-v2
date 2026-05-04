@@ -1,6 +1,6 @@
-import { useState } from "react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useParams, Link } from "react-router-dom";
+import { useFollow } from "@/hooks/useFollow";
 import { Star, Bot, MessageSquare, Calendar, Video, Globe as GlobeIcon, ArrowLeft, ExternalLink, UserPlus, UserCheck, Zap, Info, Clock, Home, MapPin, BedDouble, Bath, Maximize, Crown, Navigation } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
