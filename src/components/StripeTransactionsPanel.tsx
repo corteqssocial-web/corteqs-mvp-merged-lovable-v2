@@ -186,7 +186,9 @@ const StripeTransactionsPanel = ({
           <div className="divide-y divide-border">
             {visible.length === 0 && (
               <div className="px-5 py-10 text-center text-sm text-muted-foreground">
-                Bu filtre için işlem bulunamadı.
+                {effectiveTxns.length === 0
+                  ? "Henüz bir işleminiz yok. İşlemleriniz burada listelenecek."
+                  : "Bu filtre için işlem bulunamadı."}
               </div>
             )}
             {visible.map((tx) => {
