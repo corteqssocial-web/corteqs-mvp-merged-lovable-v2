@@ -190,7 +190,7 @@ const Consultants = () => {
   const [category, setCategory] = useState(filterParam || "all");
   const [activeSub, setActiveSub] = useState<string | null>(null);
   const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle: toggleFollowState } = useFollow();
 
   useEffect(() => {
     setCategory(filterParam || "all");
