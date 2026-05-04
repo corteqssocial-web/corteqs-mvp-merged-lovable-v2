@@ -11,23 +11,12 @@ const AssociationsSection = () => {
     associations[1],
     associations.find((a) => a.id === "bae-turk-dernegi")!,
   ];
-  const { toast } = useToast();
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle } = useFollow();
 
   const toggleFollow = (id: string, name: string, e: React.MouseEvent) => {
     e.preventDefault();
     e.stopPropagation();
-    setFollowedIds((prev) => {
-      const next = new Set(prev);
-      if (next.has(id)) {
-        next.delete(id);
-        toast({ title: "Takipten çıkıldı", description: `${name} artık takip edilmiyor.` });
-      } else {
-        next.add(id);
-        toast({ title: "Takip edildi! 🔔", description: `${name} yeni bir etkinlik düzenlediğinde bildirim alacaksınız.` });
-      }
-      return next;
-    });
+    toggle("association", id, name);
   };
 
   return (
