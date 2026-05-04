@@ -183,8 +183,8 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
       const { error } = await supabase.from("service_requests").insert({
         user_id: user.id,
-        category: `${selectedTarget?.label || targetType} › ${selectedCategory?.label || category}`,
-        subcategory: subcategory || null,
+        category: `${selectedTarget?.label || targetType} › ${finalCategoryLabel || category}`,
+        subcategory: finalSubcategory || null,
         title: form.title,
         description: form.description,
         city: form.city || null,
