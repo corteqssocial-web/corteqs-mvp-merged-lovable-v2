@@ -517,7 +517,7 @@ export const bloggers: Blogger[] = [
     region: "Avrupa",
     bio: "4Vision; teknoloji, finans, girişimcilik ve Web3 dünyasını masaya yatıran yeni nesil sohbet programı. Diaspora ekosistemi ve global girişimcilik üzerine uzun formatlı içerikler üretir.",
     avatar: "4V",
-    photo: "/src/assets/4vision-youtube.png",
+    photo: fourVisionPhoto,
     website: "https://youtube.com/@4VisionTalks",
     instagram: "@4visiontalks",
     youtube: "@4VisionTalks",
