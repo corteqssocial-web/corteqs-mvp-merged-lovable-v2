@@ -89,7 +89,9 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   const [files, setFiles] = useState<File[]>([]);
   const [targetType, setTargetType] = useState<string>("");
   const [category, setCategory] = useState("");
+  const [customCategory, setCustomCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
+  const [customSubcategory, setCustomSubcategory] = useState("");
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -102,9 +104,31 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   });
   const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
+  // Auto-fill city/country from user profile
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase
+        .from("profiles")
+        .select("city, country")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (data) {
+        setForm(p => ({
+          ...p,
+          city: p.city || (data as any).city || "",
+          country: p.country || (data as any).country || "",
+        }));
+      }
+    })();
+  }, []);
+
   const availableCategories = CATEGORIES_BY_TARGET[targetType] || [];
   const selectedCategory = availableCategories.find(c => c.value === category);
   const selectedTarget = TARGET_TYPES.find(t => t.value === targetType);
+  const isOtherCategory = category === "__other__";
+  const isOtherSubcategory = subcategory === "__other__";
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
