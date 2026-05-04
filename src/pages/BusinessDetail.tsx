@@ -8,6 +8,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { businesses } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import { markRealCouponPurchase, markRealTransaction } from "@/lib/demoFlags";
 import DemoPageBanner from "@/components/DemoPageBanner";
 
 const offeringColors: Record<string, string> = {
@@ -198,7 +199,14 @@ const BusinessDetail = () => {
                   <div className="bg-card rounded-lg px-4 py-2 border border-border">
                     <code className="text-sm font-bold text-turquoise tracking-wider">{freeCoupon.code}</code>
                   </div>
-                  <Button size="sm" className="gap-1 bg-turquoise hover:bg-turquoise/90 text-primary-foreground">
+                  <Button
+                    size="sm"
+                    className="gap-1 bg-turquoise hover:bg-turquoise/90 text-primary-foreground"
+                    onClick={() => {
+                      markRealCouponPurchase();
+                      toast({ title: "Kupon eklendi 🎁", description: `${freeCoupon.title} kuponlarınıza eklendi.` });
+                    }}
+                  >
                     <Tag className="h-3.5 w-3.5" /> Kuponu Al
                   </Button>
                 </div>
@@ -220,7 +228,15 @@ const BusinessDetail = () => {
                     <div className="bg-card rounded-lg px-4 py-2 border border-border">
                       <code className="text-sm font-bold text-primary tracking-wider">{c.code}</code>
                     </div>
-                    <Button size="sm" className="gap-1 bg-gold hover:bg-gold/90 text-primary-foreground">
+                    <Button
+                      size="sm"
+                      className="gap-1 bg-gold hover:bg-gold/90 text-primary-foreground"
+                      onClick={() => {
+                        markRealCouponPurchase();
+                        markRealTransaction();
+                        toast({ title: "Satın alındı ✅", description: `${c.title} — Stripe işlemi kaydedildi.` });
+                      }}
+                    >
                       <Tag className="h-3.5 w-3.5" /> Satın Al
                     </Button>
                   </div>

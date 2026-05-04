@@ -1,7 +1,7 @@
 import { useMemo, useState } from "react";
 import {
   CreditCard, ArrowUpRight, ArrowDownRight, Download,
-  TrendingUp, TrendingDown, Wallet, ExternalLink, Filter
+  TrendingUp, TrendingDown, Wallet, ExternalLink, Filter, Info
 } from "lucide-react";
 import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import {
   Select, SelectContent, SelectItem, SelectTrigger, SelectValue
 } from "@/components/ui/select";
+import { useDemoFlag } from "@/lib/demoFlags";
 
 export type StripeTxn = {
   id: string;
@@ -31,13 +32,8 @@ interface Props {
 }
 
 const defaultTxns: StripeTxn[] = [
-  { id: "ch_001", date: "2026-04-28", description: "AI Twin Seans — Ayşe Kara", direction: "out", amount: 15, status: "succeeded", source: "AI Twin", stripeRef: "ch_3PXa1b" },
-  { id: "ch_002", date: "2026-04-25", description: "Etkinlik Bileti — Berlin Networking", direction: "out", amount: 25, status: "succeeded", source: "Etkinlik", stripeRef: "ch_3PXa2c" },
-  { id: "ch_003", date: "2026-04-22", description: "Danışmanlık Tahsilatı — Can Özdemir", direction: "in", amount: 120, status: "succeeded", source: "Danışmanlık", stripeRef: "py_3PXa3d" },
-  { id: "ch_004", date: "2026-04-18", description: "Premium Üyelik (Aylık)", direction: "out", amount: 9.9, status: "succeeded", source: "Abonelik", stripeRef: "sub_3PXa4e" },
-  { id: "ch_005", date: "2026-04-12", description: "Kategori Vitrini — 1 Ay", direction: "out", amount: 79, status: "succeeded", source: "Vitrin", stripeRef: "ch_3PXa5f" },
-  { id: "ch_006", date: "2026-04-05", description: "Etkinlik Tahsilatı — Türk Girişimciler", direction: "in", amount: 320, status: "succeeded", source: "Etkinlik", stripeRef: "py_3PXa6g" },
-  { id: "ch_007", date: "2026-03-30", description: "İade — Etkinlik Bileti", direction: "in", amount: 25, status: "refunded", source: "Etkinlik", stripeRef: "re_3PXa7h" },
+  { id: "demo_001", date: "2026-04-28", description: "Demo · AI Twin Seans — Ayşe Kara", direction: "out", amount: 15, status: "succeeded", source: "Demo", stripeRef: "demo_ch_001" },
+  { id: "demo_002", date: "2026-04-22", description: "Demo · Danışmanlık Tahsilatı — Can Özdemir", direction: "in", amount: 120, status: "succeeded", source: "Demo", stripeRef: "demo_py_002" },
 ];
 
 const statusBadge: Record<StripeTxn["status"], { label: string; cls: string }> = {
@@ -49,27 +45,30 @@ const statusBadge: Record<StripeTxn["status"], { label: string; cls: string }> =
 
 const StripeTransactionsPanel = ({
   title = "İşlemlerim",
-  transactions = defaultTxns,
+  transactions,
   currency = "€",
   stripeConnected = false,
 }: Props) => {
   const [filter, setFilter] = useState<"all" | "in" | "out">("all");
+  const hasReal = useDemoFlag("transactions");
+  const isDemo = !transactions && !hasReal;
+  const effectiveTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
 
   const visible = useMemo(
-    () => filter === "all" ? transactions : transactions.filter(t => t.direction === filter),
-    [filter, transactions]
+    () => filter === "all" ? effectiveTxns : effectiveTxns.filter(t => t.direction === filter),
+    [filter, effectiveTxns]
   );
 
   const totals = useMemo(() => {
-    const succeeded = transactions.filter(t => t.status === "succeeded");
+    const succeeded = effectiveTxns.filter(t => t.status === "succeeded");
     const inSum = succeeded.filter(t => t.direction === "in").reduce((s, t) => s + t.amount, 0);
     const outSum = succeeded.filter(t => t.direction === "out").reduce((s, t) => s + t.amount, 0);
     return { inSum, outSum, net: inSum - outSum };
-  }, [transactions]);
+  }, [effectiveTxns]);
 
   const exportCsv = () => {
     const header = "id,date,description,direction,amount,status,source,stripe_ref\n";
-    const rows = transactions.map(t =>
+    const rows = effectiveTxns.map(t =>
       [t.id, t.date, `"${t.description}"`, t.direction, t.amount, t.status, t.source ?? "", t.stripeRef ?? ""].join(",")
     ).join("\n");
     const blob = new Blob([header + rows], { type: "text/csv;charset=utf-8" });
@@ -100,6 +99,20 @@ const StripeTransactionsPanel = ({
           <Badge variant="outline" className="border-primary/40 text-primary shrink-0">
             Stripe
           </Badge>
+        </div>
+      )}
+
+      {isDemo && (
+        <div className="rounded-xl border border-dashed border-amber-500/40 bg-amber-500/5 p-3 flex items-start gap-2">
+          <Info className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+          <div className="flex-1 text-xs">
+            <p className="font-semibold text-foreground">Demo görünüm</p>
+            <p className="text-muted-foreground mt-0.5">
+              İşlemleriniz burada listelenecek. Aşağıdakiler örnek (demo) kayıtlardır;
+              ilk gerçek Stripe işleminizde otomatik olarak kaldırılır.
+            </p>
+          </div>
+          <Badge variant="outline" className="border-amber-500/40 text-amber-700 shrink-0 text-[10px]">Demo</Badge>
         </div>
       )}
 
@@ -173,7 +186,9 @@ const StripeTransactionsPanel = ({
           <div className="divide-y divide-border">
             {visible.length === 0 && (
               <div className="px-5 py-10 text-center text-sm text-muted-foreground">
-                Bu filtre için işlem bulunamadı.
+                {effectiveTxns.length === 0
+                  ? "Henüz bir işleminiz yok. İşlemleriniz burada listelenecek."
+                  : "Bu filtre için işlem bulunamadı."}
               </div>
             )}
             {visible.map((tx) => {

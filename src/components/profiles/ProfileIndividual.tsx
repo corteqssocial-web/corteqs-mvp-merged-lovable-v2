@@ -5,7 +5,7 @@ import {
   ArrowLeft, Plus, ChevronRight, Star, Bot, MessageSquare,
   MapPin, Clock, Gift, TrendingUp, Briefcase, Linkedin,
   FileText, Eye, EyeOff, Settings, Shield, UserPlus, ScanLine, QrCode,
-  Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp
+  Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp, Info
 } from "lucide-react";
 import StripeTransactionsPanel from "@/components/StripeTransactionsPanel";
 import QRScannerMock from "@/components/QRScannerMock";
@@ -21,6 +21,8 @@ import ServiceRequestForm from "@/components/ServiceRequestForm";
 import ServiceRequestsList from "@/components/ServiceRequestsList";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import WelcomePack from "@/components/profiles/WelcomePack";
+import { useDemoFlag } from "@/lib/demoFlags";
+
 
 const ProfileIndividual = () => {
   const [searchParams] = useSearchParams();
@@ -45,17 +47,12 @@ const ProfileIndividual = () => {
   const followedConsultants = consultants.slice(0, 3);
   const followedAssociations = associations.slice(0, 2);
 
-  const coupons = [
-    { id: 1, title: "İlk Seans %20 İndirim", code: "HOSGELDIN20", expires: "31 Mar 2026", type: "discount" as const, businessName: "CorteQS Platform" },
-    { id: 2, title: "Ücretsiz AI Twin Denemesi", code: "AITWIN1", expires: "15 Nis 2026", type: "free" as const, businessName: "CorteQS Platform" },
-    { id: 3, title: "Dernek Etkinliği %10", code: "ETKINLIK10", expires: "30 Nis 2026", type: "discount" as const, businessName: "Almanya Türk Toplumu" },
-    { id: 4, title: "Hoşgeldin İndirimi %15", code: "HOSGELDIN15", expires: "30 Nis 2026", type: "discount" as const, businessName: "Turkish Döner GmbH" },
-    { id: 5, title: "Hediye Baklava", code: "TATLI1", expires: "15 Mar 2026", type: "free" as const, businessName: "İstanbul Baklava House" },
-    { id: 6, title: "HSBC Diaspora %5 Döviz", code: "HSBC5", expires: "30 Haz 2026", type: "discount" as const, businessName: "HSBC Türkiye" },
-    { id: 7, title: "THY 500 Mil Hediye", code: "THY500", expires: "31 May 2026", type: "free" as const, businessName: "Türk Hava Yolları" },
-    { id: 8, title: "Vodafone Roaming %50", code: "VDFROAM50", expires: "30 Nis 2026", type: "discount" as const, businessName: "Vodafone Türk Hattı" },
-    { id: 9, title: "Turkish Market %10 Alışveriş", code: "MARKET10", expires: "30 Nis 2026", type: "discount" as const, businessName: "Turkish Market Europe" },
+  const hasRealCoupons = useDemoFlag("coupons");
+  const demoCoupons = [
+    { id: 1, title: "Demo · Hoşgeldin İndirimi %15", code: "DEMO15", expires: "30 Nis 2026", type: "discount" as const, businessName: "Turkish Döner GmbH" },
+    { id: 2, title: "Demo · Hediye Baklava", code: "DEMOTATLI", expires: "15 Mar 2026", type: "free" as const, businessName: "İstanbul Baklava House" },
   ];
+  const coupons = hasRealCoupons ? [] : demoCoupons;
 
   const [selectedCouponForScan, setSelectedCouponForScan] = useState<number | null>(null);
   const [showScanner, setShowScanner] = useState(false);
@@ -412,6 +409,20 @@ const ProfileIndividual = () => {
               </Button>
             </div>
 
+            {!hasRealCoupons && (
+              <div className="rounded-xl border border-dashed border-amber-500/40 bg-amber-500/5 p-3 mb-5 flex items-start gap-2">
+                <Info className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                <div className="flex-1 text-xs">
+                  <p className="font-semibold text-foreground">Demo görünüm</p>
+                  <p className="text-muted-foreground mt-0.5">
+                    İşletmelerden aldığınız kuponlar burada listelenir. Aşağıdakiler örnek (demo) kuponlardır;
+                    ilk gerçek kupon satın alımınızda otomatik olarak kaldırılır.
+                  </p>
+                </div>
+                <Badge variant="outline" className="border-amber-500/40 text-amber-700 shrink-0 text-[10px]">Demo</Badge>
+              </div>
+            )}
+
             {showScanner ? (
               <div className="space-y-6">
                 {!selectedCouponForScan ? (
@@ -456,6 +467,10 @@ const ProfileIndividual = () => {
                     </Button>
                   </div>
                 )}
+              </div>
+            ) : coupons.length === 0 ? (
+              <div className="text-center py-10 text-sm text-muted-foreground">
+                İşletmelerden aldığınız kuponlar burada listelenecek.
               </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
