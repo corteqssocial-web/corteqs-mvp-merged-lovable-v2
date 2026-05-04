@@ -3,8 +3,9 @@ import EventManagePanel from "@/components/EventManagePanel";
 import {
   Users, MapPin, Globe, Calendar, Heart, Megaphone,
   TrendingUp, Settings, Bell, Mail, MessageSquare,
-  Plus, ChevronRight, Star, Eye, BarChart3, FileText, ArrowLeft, Crown
+  Plus, ChevronRight, Star, Eye, BarChart3, FileText, ArrowLeft, Crown, Inbox
 } from "lucide-react";
+import ConsultantServiceRequests from "@/components/ConsultantServiceRequests";
 import SocialMediaCampaignDialog from "@/components/SocialMediaCampaignDialog";
 import CategoryShowcasePurchase from "@/components/CategoryShowcasePurchase";
 import CreateEventForm from "@/components/CreateEventForm";
@@ -104,6 +105,7 @@ const ProfileAssociation = () => {
       <Tabs defaultValue="events" className="w-full">
         <TabsList className="bg-card border border-border w-full justify-start overflow-x-auto flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="events" className="gap-1.5"><Calendar className="h-4 w-4" /> Etkinlikler</TabsTrigger>
+          <TabsTrigger value="requests" className="gap-1.5"><Inbox className="h-4 w-4" /> Teklif Talepleri</TabsTrigger>
           <TabsTrigger value="members" className="gap-1.5"><Users className="h-4 w-4" /> Üyeler</TabsTrigger>
           <TabsTrigger value="communications" className="gap-1.5"><Mail className="h-4 w-4" /> İletişim</TabsTrigger>
           <TabsTrigger value="analytics" className="gap-1.5"><BarChart3 className="h-4 w-4" /> Analitik</TabsTrigger>

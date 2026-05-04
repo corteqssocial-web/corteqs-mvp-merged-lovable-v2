@@ -6,8 +6,9 @@ import {
   Building2, MapPin, Globe, Phone, Mail, Calendar, Users,
   TrendingUp, Star, Package, Megaphone, Settings, BarChart3,
   CreditCard, Clock, Eye, Plus, ChevronRight, Tag, ArrowLeft, Edit, Crown,
-  ScanLine, Download, BarChart2
+  ScanLine, Download, BarChart2, Inbox
 } from "lucide-react";
+import ConsultantServiceRequests from "@/components/ConsultantServiceRequests";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import CreateEventForm from "@/components/CreateEventForm";
 import SocialMediaCampaignDialog from "@/components/SocialMediaCampaignDialog";
@@ -118,6 +119,7 @@ const ProfileBusiness = () => {
       <Tabs defaultValue="listings" className="w-full">
         <TabsList className="bg-card border border-border w-full justify-start overflow-x-auto flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="listings" className="gap-1.5"><Package className="h-4 w-4" /> İlanlar</TabsTrigger>
+          <TabsTrigger value="requests" className="gap-1.5"><Inbox className="h-4 w-4" /> Teklif Talepleri</TabsTrigger>
           <TabsTrigger value="coupons" className="gap-1.5"><Tag className="h-4 w-4" /> Kuponlar</TabsTrigger>
           <TabsTrigger value="loyalty" className="gap-1.5"><ScanLine className="h-4 w-4" /> Loyalty</TabsTrigger>
           <TabsTrigger value="events" className="gap-1.5"><Calendar className="h-4 w-4" /> Etkinlikler</TabsTrigger>
@@ -128,6 +130,18 @@ const ProfileBusiness = () => {
         </TabsList>
 
         {/* LISTINGS */}
+        <TabsContent value="requests" className="mt-6">
+          <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
+            <h2 className="text-xl font-bold text-foreground mb-2 flex items-center gap-2">
+              <Inbox className="h-5 w-5 text-primary" /> Teklif Talepleri
+            </h2>
+            <p className="text-sm text-muted-foreground mb-5">
+              Kategorinize uygun kullanıcı talepleri burada listelenir. Teklif vererek ulaşın.
+            </p>
+            <ConsultantServiceRequests />
+          </div>
+        </TabsContent>
+
         <TabsContent value="listings" className="mt-6">
           {showCreateJob || editingJob ? (
             <div className="bg-card rounded-2xl border border-border p-6 shadow-card">

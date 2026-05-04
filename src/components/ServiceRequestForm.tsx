@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { supabase } from "@/integrations/supabase/client";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
@@ -89,7 +89,9 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   const [files, setFiles] = useState<File[]>([]);
   const [targetType, setTargetType] = useState<string>("");
   const [category, setCategory] = useState("");
+  const [customCategory, setCustomCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
+  const [customSubcategory, setCustomSubcategory] = useState("");
   const [form, setForm] = useState({
     title: "",
     description: "",
@@ -102,9 +104,31 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   });
   const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
+  // Auto-fill city/country from user profile
+  useEffect(() => {
+    (async () => {
+      const { data: { user } } = await supabase.auth.getUser();
+      if (!user) return;
+      const { data } = await supabase
+        .from("profiles")
+        .select("city, country")
+        .eq("id", user.id)
+        .maybeSingle();
+      if (data) {
+        setForm(p => ({
+          ...p,
+          city: p.city || (data as any).city || "",
+          country: p.country || (data as any).country || "",
+        }));
+      }
+    })();
+  }, []);
+
   const availableCategories = CATEGORIES_BY_TARGET[targetType] || [];
   const selectedCategory = availableCategories.find(c => c.value === category);
   const selectedTarget = TARGET_TYPES.find(t => t.value === targetType);
+  const isOtherCategory = category === "__other__";
+  const isOtherSubcategory = subcategory === "__other__";
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -119,8 +143,14 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!targetType || !category || !form.title || !form.description) {
+    const finalCategoryLabel = isOtherCategory ? customCategory.trim() : (selectedCategory?.label || "");
+    const finalSubcategory = isOtherSubcategory ? customSubcategory.trim() : subcategory;
+    if (!targetType || !category || (isOtherCategory && !finalCategoryLabel) || !form.title || !form.description) {
       toast({ title: "Eksik bilgi", description: "Hedef tür, kategori, başlık ve açıklama zorunludur.", variant: "destructive" });
+      return;
+    }
+    if (isOtherSubcategory && !finalSubcategory) {
+      toast({ title: "Eksik bilgi", description: "Alt kategori için bir değer girin.", variant: "destructive" });
       return;
     }
     if (!isConsentValid(consent)) {
@@ -153,8 +183,8 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
       const { error } = await supabase.from("service_requests").insert({
         user_id: user.id,
-        category: `${selectedTarget?.label || targetType} › ${selectedCategory?.label || category}`,
-        subcategory: subcategory || null,
+        category: `${selectedTarget?.label || targetType} › ${finalCategoryLabel || category}`,
+        subcategory: finalSubcategory || null,
         title: form.title,
         description: form.description,
         city: form.city || null,
@@ -212,27 +242,53 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
         {/* Category */}
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5"><Briefcase className="h-3.5 w-3.5" /> Kategori *</Label>
-          <Select value={category} onValueChange={(v) => { setCategory(v); setSubcategory(""); }} disabled={!targetType}>
+          <Select
+            value={category}
+            onValueChange={(v) => { setCategory(v); setSubcategory(""); setCustomSubcategory(""); if (v !== "__other__") setCustomCategory(""); }}
+            disabled={!targetType}
+          >
             <SelectTrigger><SelectValue placeholder={targetType ? "Kategori seçin" : "Önce hedef türünü seçin"} /></SelectTrigger>
             <SelectContent>
               {availableCategories.map(c => (
                 <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
               ))}
+              <SelectItem value="__other__">✏️ Diğer (kendim yazayım)</SelectItem>
             </SelectContent>
           </Select>
+          {isOtherCategory && (
+            <Input
+              placeholder="Kategoriyi yazın"
+              value={customCategory}
+              onChange={e => setCustomCategory(e.target.value)}
+              maxLength={80}
+            />
+          )}
         </div>
 
         {/* Subcategory */}
         <div className="space-y-2">
           <Label>Alt Kategori</Label>
-          <Select value={subcategory} onValueChange={setSubcategory} disabled={!selectedCategory}>
+          <Select
+            value={subcategory}
+            onValueChange={(v) => { setSubcategory(v); if (v !== "__other__") setCustomSubcategory(""); }}
+            disabled={!category}
+          >
             <SelectTrigger><SelectValue placeholder="Alt kategori seçin" /></SelectTrigger>
             <SelectContent>
               {selectedCategory?.subcategories.map(sc => (
                 <SelectItem key={sc} value={sc}>{sc}</SelectItem>
               ))}
+              <SelectItem value="__other__">✏️ Diğer (kendim yazayım)</SelectItem>
             </SelectContent>
           </Select>
+          {isOtherSubcategory && (
+            <Input
+              placeholder="Alt kategoriyi yazın"
+              value={customSubcategory}
+              onChange={e => setCustomSubcategory(e.target.value)}
+              maxLength={80}
+            />
+          )}
         </div>
       </div>
 
@@ -264,12 +320,14 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" /> Şehir</Label>
           <Input placeholder="Örn: Berlin" value={form.city} onChange={e => setForm(p => ({ ...p, city: e.target.value }))} />
+          <p className="text-[10px] text-muted-foreground">Profilinizden otomatik dolduruldu — değiştirebilirsiniz.</p>
         </div>
 
         {/* Country */}
         <div className="space-y-2">
           <Label>Ülke</Label>
           <Input placeholder="Örn: Almanya" value={form.country} onChange={e => setForm(p => ({ ...p, country: e.target.value }))} />
+          <p className="text-[10px] text-muted-foreground">Profilinizden otomatik dolduruldu — değiştirebilirsiniz.</p>
         </div>
       </div>
 
