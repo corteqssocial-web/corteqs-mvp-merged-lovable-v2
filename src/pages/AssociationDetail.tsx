@@ -31,13 +31,7 @@ const AssociationDetail = () => {
   }
 
   const toggleFollow = () => {
-    setIsFollowing(!isFollowing);
-    toast({
-      title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-      description: isFollowing
-        ? `${assoc.name} artık takip edilmiyor.`
-        : `${assoc.name} yeni bir etkinlik düzenlediğinde bildirim alacaksınız.`,
-    });
+    toggle("association", assoc.id, assoc.name);
   };
 
   const sampleAnnouncements = [
