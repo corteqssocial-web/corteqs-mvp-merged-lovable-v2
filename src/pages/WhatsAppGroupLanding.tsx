@@ -107,6 +107,43 @@ const WhatsAppGroupLanding = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleJoinRequest = async () => {
+    if (!user) {
+      toast({
+        title: "Giriş gerekli",
+        description: "Talep göndermek için giriş sayfası yeni sekmede açılıyor. Giriş yaptıktan sonra bu sekmeye dön ve tekrar Gönder'e bas.",
+      });
+      window.open("/auth", "_blank", "noopener");
+      return;
+    }
+    if (!joinName.trim() || !joinEmail.trim()) {
+      toast({ title: "Eksik alan", description: "Ad ve e-posta zorunludur.", variant: "destructive" });
+      return;
+    }
+    setJoinSubmitting(true);
+    try {
+      const { error } = await supabase.from("whatsapp_join_requests").insert({
+        landing_id: landing!.id,
+        user_id: user.id,
+        full_name: joinName.trim(),
+        email: joinEmail.trim(),
+        phone: joinPhone.trim() || null,
+        note: joinNote.trim() || null,
+      });
+      if (error) throw error;
+      toast({
+        title: "Talebin alındı! 🎉",
+        description: "Yöneticiler bilgilendirildi. Onay sonrası iletişime geçilecek.",
+      });
+      setJoinOpen(false);
+      setJoinNote("");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Bilinmeyen hata";
+      toast({ title: "Gönderilemedi", description: msg, variant: "destructive" });
+    } finally {
+      setJoinSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
