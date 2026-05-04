@@ -121,13 +121,7 @@ const EventDetail = () => {
                       size="sm"
                       className="gap-1"
                       onClick={() => {
-                        setIsFollowing(!isFollowing);
-                        toast({
-                          title: isFollowing ? "Takipten çıkıldı" : "Takip edildi! 🔔",
-                          description: isFollowing
-                            ? `${event.organizer} artık takip edilmiyor.`
-                            : `${event.organizer} etkinlik oluşturduğunda bildirim alacaksınız.`,
-                        });
+                        toggle("organizer", event.id, event.organizer);
                       }}
                     >
                       <UserPlus className="h-3.5 w-3.5" />
