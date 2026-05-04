@@ -155,6 +155,11 @@ const ProfileAssociation = () => {
           )}
         </TabsContent>
 
+        {/* REQUESTS */}
+        <TabsContent value="requests" className="mt-6">
+          <ConsultantServiceRequests />
+        </TabsContent>
+
         {/* MEMBERS */}
         <TabsContent value="members" className="mt-6">
           <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
