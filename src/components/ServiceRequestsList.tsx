@@ -58,10 +58,29 @@ const TIME_MAP: Record<string, string> = {
   "flexible": "Esnek",
 };
 
+const DEMO_REQUEST: ServiceRequest = {
+  id: "demo-req-1",
+  category: "Danışman › Vize / Göçmenlik",
+  subcategory: "Çalışma Vizesi",
+  title: "[DEMO] Almanya çalışma vizesi başvurusu için danışmanlık",
+  description: "Bu bir demo talebidir. Gerçek bir hizmet talebi oluşturduğunuzda burada listelenecek.",
+  city: "Berlin",
+  country: "Almanya",
+  budget_min: 100,
+  budget_max: 500,
+  preferred_time: "flexible",
+  urgency: "normal",
+  attachment_urls: [],
+  status: "open",
+  created_at: new Date().toISOString(),
+  proposals: [],
+};
+
 const ServiceRequestsList = () => {
   const [requests, setRequests] = useState<ServiceRequest[]>([]);
   const [expandedId, setExpandedId] = useState<string | null>(null);
   const [loading, setLoading] = useState(true);
+  const hasReal = useDemoFlag("serviceRequests");
 
   const fetchRequests = async () => {
     const { data: { user } } = await supabase.auth.getUser();
