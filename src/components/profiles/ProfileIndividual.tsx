@@ -409,6 +409,20 @@ const ProfileIndividual = () => {
               </Button>
             </div>
 
+            {!hasRealCoupons && (
+              <div className="rounded-xl border border-dashed border-amber-500/40 bg-amber-500/5 p-3 mb-5 flex items-start gap-2">
+                <Info className="h-4 w-4 text-amber-600 mt-0.5 shrink-0" />
+                <div className="flex-1 text-xs">
+                  <p className="font-semibold text-foreground">Demo görünüm</p>
+                  <p className="text-muted-foreground mt-0.5">
+                    İşletmelerden aldığınız kuponlar burada listelenir. Aşağıdakiler örnek (demo) kuponlardır;
+                    ilk gerçek kupon satın alımınızda otomatik olarak kaldırılır.
+                  </p>
+                </div>
+                <Badge variant="outline" className="border-amber-500/40 text-amber-700 shrink-0 text-[10px]">Demo</Badge>
+              </div>
+            )}
+
             {showScanner ? (
               <div className="space-y-6">
                 {!selectedCouponForScan ? (
