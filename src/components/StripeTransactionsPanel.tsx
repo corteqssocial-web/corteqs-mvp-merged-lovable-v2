@@ -32,13 +32,8 @@ interface Props {
 }
 
 const defaultTxns: StripeTxn[] = [
-  { id: "ch_001", date: "2026-04-28", description: "AI Twin Seans — Ayşe Kara", direction: "out", amount: 15, status: "succeeded", source: "AI Twin", stripeRef: "ch_3PXa1b" },
-  { id: "ch_002", date: "2026-04-25", description: "Etkinlik Bileti — Berlin Networking", direction: "out", amount: 25, status: "succeeded", source: "Etkinlik", stripeRef: "ch_3PXa2c" },
-  { id: "ch_003", date: "2026-04-22", description: "Danışmanlık Tahsilatı — Can Özdemir", direction: "in", amount: 120, status: "succeeded", source: "Danışmanlık", stripeRef: "py_3PXa3d" },
-  { id: "ch_004", date: "2026-04-18", description: "Premium Üyelik (Aylık)", direction: "out", amount: 9.9, status: "succeeded", source: "Abonelik", stripeRef: "sub_3PXa4e" },
-  { id: "ch_005", date: "2026-04-12", description: "Kategori Vitrini — 1 Ay", direction: "out", amount: 79, status: "succeeded", source: "Vitrin", stripeRef: "ch_3PXa5f" },
-  { id: "ch_006", date: "2026-04-05", description: "Etkinlik Tahsilatı — Türk Girişimciler", direction: "in", amount: 320, status: "succeeded", source: "Etkinlik", stripeRef: "py_3PXa6g" },
-  { id: "ch_007", date: "2026-03-30", description: "İade — Etkinlik Bileti", direction: "in", amount: 25, status: "refunded", source: "Etkinlik", stripeRef: "re_3PXa7h" },
+  { id: "demo_001", date: "2026-04-28", description: "Demo · AI Twin Seans — Ayşe Kara", direction: "out", amount: 15, status: "succeeded", source: "Demo", stripeRef: "demo_ch_001" },
+  { id: "demo_002", date: "2026-04-22", description: "Demo · Danışmanlık Tahsilatı — Can Özdemir", direction: "in", amount: 120, status: "succeeded", source: "Demo", stripeRef: "demo_py_002" },
 ];
 
 const statusBadge: Record<StripeTxn["status"], { label: string; cls: string }> = {
