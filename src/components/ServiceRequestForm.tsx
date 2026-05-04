@@ -119,7 +119,7 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category || !form.title || !form.description) {
+    if (!targetType || !category || !form.title || !form.description) {
       toast({ title: "Eksik bilgi", description: "Kategori, başlık ve açıklama zorunludur.", variant: "destructive" });
       return;
     }
