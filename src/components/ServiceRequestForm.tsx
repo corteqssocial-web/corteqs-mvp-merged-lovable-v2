@@ -15,13 +15,13 @@ import {
 import { Upload, X, FileText, Send, Clock, MapPin, DollarSign, Briefcase, Building2, Users, Target } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
+import { markRealServiceRequest } from "@/lib/demoFlags";
 
 type CategoryDef = { value: string; label: string; subcategories: string[] };
 
 const TARGET_TYPES = [
   { value: "consultant", label: "Danışman", description: "Bireysel uzman / profesyonel", icon: Briefcase, color: "text-emerald-500" },
   { value: "business", label: "İşletme", description: "Şirket, restoran, mağaza, hizmet sağlayıcı", icon: Building2, color: "text-amber-500" },
-  { value: "association", label: "Kuruluş / Dernek", description: "STK, dernek, vakıf, topluluk", icon: Users, color: "text-purple-500" },
 ];
 
 const CONSULTANT_CATEGORIES: CategoryDef[] = [
@@ -198,6 +198,7 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
       if (error) throw error;
 
+      markRealServiceRequest();
       toast({ title: "Talep oluşturuldu!", description: "Danışmanlar tekliflerini gönderecektir." });
       onSuccess?.();
     } catch (err: any) {
