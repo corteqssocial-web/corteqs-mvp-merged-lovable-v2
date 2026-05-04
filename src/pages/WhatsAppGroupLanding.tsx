@@ -1,14 +1,20 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
-  MessageSquare, Users, MapPin, ArrowLeft, ShieldCheck, Share2, Check,
+  MessageSquare, Users, MapPin, ArrowLeft, ShieldCheck, Share2, Check, UserPlus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getLanding, type WhatsAppLanding } from "@/lib/whatsappLandings";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 const categoryLabel: Record<WhatsAppLanding["category"], string> = {
   alumni: "Alumni",
@@ -26,10 +32,23 @@ const WhatsAppGroupLanding = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, profile } = useAuth();
   const [landing, setLanding] = useState<WhatsAppLanding | undefined>(undefined);
   const [copied, setCopied] = useState(false);
 
   const [loading, setLoading] = useState(true);
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [joinSubmitting, setJoinSubmitting] = useState(false);
+  const [joinName, setJoinName] = useState("");
+  const [joinEmail, setJoinEmail] = useState("");
+  const [joinPhone, setJoinPhone] = useState("");
+  const [joinNote, setJoinNote] = useState("");
+
+  useEffect(() => {
+    setJoinName(profile?.full_name ?? "");
+    setJoinEmail(user?.email ?? "");
+    setJoinPhone(profile?.phone ?? "");
+  }, [user, profile]);
 
   useEffect(() => {
     if (!id) return;
@@ -88,6 +107,43 @@ const WhatsAppGroupLanding = () => {
     setTimeout(() => setCopied(false), 2000);
   };
 
+  const handleJoinRequest = async () => {
+    if (!user) {
+      toast({
+        title: "Giriş gerekli",
+        description: "Talep göndermek için giriş sayfası yeni sekmede açılıyor. Giriş yaptıktan sonra bu sekmeye dön ve tekrar Gönder'e bas.",
+      });
+      window.open("/auth", "_blank", "noopener");
+      return;
+    }
+    if (!joinName.trim() || !joinEmail.trim()) {
+      toast({ title: "Eksik alan", description: "Ad ve e-posta zorunludur.", variant: "destructive" });
+      return;
+    }
+    setJoinSubmitting(true);
+    try {
+      const { error } = await supabase.from("whatsapp_join_requests").insert({
+        landing_id: landing!.id,
+        user_id: user.id,
+        full_name: joinName.trim(),
+        email: joinEmail.trim(),
+        phone: joinPhone.trim() || null,
+        note: joinNote.trim() || null,
+      });
+      if (error) throw error;
+      toast({
+        title: "Talebin alındı! 🎉",
+        description: "Yöneticiler bilgilendirildi. Onay sonrası iletişime geçilecek.",
+      });
+      setJoinOpen(false);
+      setJoinNote("");
+    } catch (e: unknown) {
+      const msg = e instanceof Error ? e.message : "Bilinmeyen hata";
+      toast({ title: "Gönderilemedi", description: msg, variant: "destructive" });
+    } finally {
+      setJoinSubmitting(false);
+    }
+  };
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
@@ -145,11 +201,42 @@ const WhatsAppGroupLanding = () => {
               {landing.callToActionText}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href={landing.whatsappLink} target="_blank" rel="noopener noreferrer" className="flex-1">
-                <Button size="lg" className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white">
-                  <MessageSquare className="h-5 w-5" /> WhatsApp Grubuna Katıl
-                </Button>
-              </a>
+              <Dialog open={joinOpen} onOpenChange={setJoinOpen}>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="flex-1 gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white">
+                    <UserPlus className="h-5 w-5" /> Katılma Talebi Gönder
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>{landing.groupName} — Katılma Talebi</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-3 mt-2">
+                    <div className="space-y-1.5">
+                      <Label>Ad Soyad *</Label>
+                      <Input value={joinName} onChange={(e) => setJoinName(e.target.value)} placeholder="Adınız Soyadınız" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>E-posta *</Label>
+                      <Input type="email" value={joinEmail} onChange={(e) => setJoinEmail(e.target.value)} placeholder="ornek@email.com" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>Telefon</Label>
+                      <Input value={joinPhone} onChange={(e) => setJoinPhone(e.target.value)} placeholder="+49 ..." />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>Not (opsiyonel)</Label>
+                      <Textarea value={joinNote} onChange={(e) => setJoinNote(e.target.value)} placeholder="Kendinden kısaca bahset..." rows={3} />
+                    </div>
+                    <Button onClick={handleJoinRequest} disabled={joinSubmitting} className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white">
+                      {joinSubmitting ? "Gönderiliyor..." : "Talebi Gönder"}
+                    </Button>
+                    <p className="text-xs text-muted-foreground text-center">
+                      Yöneticiler bilgilendirilecek; onay sonrası WhatsApp grup linki sana iletilecek.
+                    </p>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <Button size="lg" variant="outline" className="gap-2" onClick={handleShare}>
                 {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
                 {copied ? "Kopyalandı" : "Sayfayı Paylaş"}

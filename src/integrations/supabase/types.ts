@@ -540,6 +540,53 @@ export type Database = {
           },
         ]
       }
+      whatsapp_join_requests: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          landing_id: string
+          note: string | null
+          phone: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          landing_id: string
+          note?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          landing_id?: string
+          note?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "whatsapp_join_requests_landing_id_fkey"
+            columns: ["landing_id"]
+            isOneToOne: false
+            referencedRelation: "whatsapp_landings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
       whatsapp_landings: {
         Row: {
           admin_contact: string | null
