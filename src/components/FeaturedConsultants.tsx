@@ -70,7 +70,7 @@ const FeaturedConsultants = () => {
                     </div>
                   </div>
                   <button
-                    onClick={(e) => toggleFollow(c.id, c.name, e)}
+                    onClick={(e) => toggleFollow(c.id, c.name, kind, e)}
                     className={`p-2 rounded-full transition-colors ${isFollowed ? "bg-primary/10 text-primary" : "bg-muted text-muted-foreground hover:text-primary"}`}
                   >
                     {isFollowed ? <UserCheck className="h-4 w-4" /> : <UserPlus className="h-4 w-4" />}
