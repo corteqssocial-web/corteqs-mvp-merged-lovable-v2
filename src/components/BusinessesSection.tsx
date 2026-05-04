@@ -37,7 +37,7 @@ const BusinessesSection = () => {
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6 max-w-3xl mx-auto">
           {featured.map((b) => {
-            const isFollowed = followedIds.has(b.id);
+            const isFollowed = isFollowedFn("business", b.id);
             return (
               <Link
                 to={`/business/${b.id}`}
