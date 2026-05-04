@@ -6,8 +6,9 @@ import {
   Building2, MapPin, Globe, Phone, Mail, Calendar, Users,
   TrendingUp, Star, Package, Megaphone, Settings, BarChart3,
   CreditCard, Clock, Eye, Plus, ChevronRight, Tag, ArrowLeft, Edit, Crown,
-  ScanLine, Download, BarChart2
+  ScanLine, Download, BarChart2, Inbox
 } from "lucide-react";
+import ConsultantServiceRequests from "@/components/ConsultantServiceRequests";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import CreateEventForm from "@/components/CreateEventForm";
 import SocialMediaCampaignDialog from "@/components/SocialMediaCampaignDialog";
