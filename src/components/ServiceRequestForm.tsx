@@ -15,6 +15,7 @@ import {
 import { Upload, X, FileText, Send, Clock, MapPin, DollarSign, Briefcase, Building2, Users, Target } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
+import { markRealServiceRequest } from "@/lib/demoFlags";
 
 type CategoryDef = { value: string; label: string; subcategories: string[] };
 
