@@ -468,6 +468,10 @@ const ProfileIndividual = () => {
                   </div>
                 )}
               </div>
+            ) : coupons.length === 0 ? (
+              <div className="text-center py-10 text-sm text-muted-foreground">
+                İşletmelerden aldığınız kuponlar burada listelenecek.
+              </div>
             ) : (
               <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-4">
                 {coupons.map((coupon) => (
