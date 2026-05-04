@@ -161,7 +161,7 @@ const ProfileIndividual = () => {
 
 
       {/* Tabs */}
-      <Tabs defaultValue="transactions" className="w-full">
+      <Tabs defaultValue={initialTab} className="w-full">
         <TabsList className="bg-card border border-border w-full justify-start overflow-x-auto flex-wrap h-auto gap-1 p-1">
           <TabsTrigger value="transactions" className="gap-1.5"><CreditCard className="h-4 w-4" /> İşlemlerim</TabsTrigger>
           <TabsTrigger value="service-requests" className="gap-1.5"><ClipboardList className="h-4 w-4" /> Hizmet Talepleri</TabsTrigger>
