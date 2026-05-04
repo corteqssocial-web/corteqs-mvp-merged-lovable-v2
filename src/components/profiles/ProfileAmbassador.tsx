@@ -1,6 +1,6 @@
 import {
   Users, Calendar, TrendingUp, DollarSign, MapPin,
-  Wallet, ArrowUpRight, ArrowDownRight, Clock,
+  Wallet, ArrowUpRight, ArrowDownRight, Clock, CreditCard,
   MessageSquare, Bell, Target, Star, Globe, Plus,
   Send, CheckCircle, XCircle, Eye, Settings, ExternalLink, Video, ArrowLeft
 } from "lucide-react";
@@ -15,6 +15,7 @@ import { Switch } from "@/components/ui/switch";
 import { useState } from "react";
 import CreateEventForm from "@/components/CreateEventForm";
 import EventManagePanel from "@/components/EventManagePanel";
+import StripeTransactionsPanel, { type StripeTxn } from "@/components/StripeTransactionsPanel";
 
 type AmbassadorEvent = {
   id: number;
