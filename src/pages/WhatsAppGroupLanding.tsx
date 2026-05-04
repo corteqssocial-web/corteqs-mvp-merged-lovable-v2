@@ -201,11 +201,42 @@ const WhatsAppGroupLanding = () => {
               {landing.callToActionText}
             </p>
             <div className="flex flex-col sm:flex-row gap-3">
-              <a href={landing.whatsappLink} target="_blank" rel="noopener noreferrer" className="flex-1">
-                <Button size="lg" className="w-full gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white">
-                  <MessageSquare className="h-5 w-5" /> WhatsApp Grubuna Katıl
-                </Button>
-              </a>
+              <Dialog open={joinOpen} onOpenChange={setJoinOpen}>
+                <DialogTrigger asChild>
+                  <Button size="lg" className="flex-1 gap-2 bg-[#25D366] hover:bg-[#20bd5a] text-white">
+                    <UserPlus className="h-5 w-5" /> Katılma Talebi Gönder
+                  </Button>
+                </DialogTrigger>
+                <DialogContent className="max-w-md">
+                  <DialogHeader>
+                    <DialogTitle>{landing.groupName} — Katılma Talebi</DialogTitle>
+                  </DialogHeader>
+                  <div className="space-y-3 mt-2">
+                    <div className="space-y-1.5">
+                      <Label>Ad Soyad *</Label>
+                      <Input value={joinName} onChange={(e) => setJoinName(e.target.value)} placeholder="Adınız Soyadınız" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>E-posta *</Label>
+                      <Input type="email" value={joinEmail} onChange={(e) => setJoinEmail(e.target.value)} placeholder="ornek@email.com" />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>Telefon</Label>
+                      <Input value={joinPhone} onChange={(e) => setJoinPhone(e.target.value)} placeholder="+49 ..." />
+                    </div>
+                    <div className="space-y-1.5">
+                      <Label>Not (opsiyonel)</Label>
+                      <Textarea value={joinNote} onChange={(e) => setJoinNote(e.target.value)} placeholder="Kendinden kısaca bahset..." rows={3} />
+                    </div>
+                    <Button onClick={handleJoinRequest} disabled={joinSubmitting} className="w-full bg-[#25D366] hover:bg-[#20bd5a] text-white">
+                      {joinSubmitting ? "Gönderiliyor..." : "Talebi Gönder"}
+                    </Button>
+                    <p className="text-xs text-muted-foreground text-center">
+                      Yöneticiler bilgilendirilecek; onay sonrası WhatsApp grup linki sana iletilecek.
+                    </p>
+                  </div>
+                </DialogContent>
+              </Dialog>
               <Button size="lg" variant="outline" className="gap-2" onClick={handleShare}>
                 {copied ? <Check className="h-4 w-4" /> : <Share2 className="h-4 w-4" />}
                 {copied ? "Kopyalandı" : "Sayfayı Paylaş"}
