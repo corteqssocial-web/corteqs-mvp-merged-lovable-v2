@@ -12,18 +12,64 @@ import {
   SelectTrigger,
   SelectValue,
 } from "@/components/ui/select";
-import { Upload, X, FileText, Send, Clock, MapPin, DollarSign, Briefcase } from "lucide-react";
+import { Upload, X, FileText, Send, Clock, MapPin, DollarSign, Briefcase, Building2, Users, Target } from "lucide-react";
 import { useToast } from "@/hooks/use-toast";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 
-const CATEGORIES = [
-  { value: "yasam-relokasyon", label: "Yaşam ve Relokasyon", subcategories: ["Taşınma Danışmanlığı", "Entegrasyon", "Dil Desteği", "Konut Arama"] },
-  { value: "finans", label: "Finans", subcategories: ["Vergi Danışmanlığı", "Yatırım", "Bankacılık", "Sigorta"] },
-  { value: "hukuk", label: "Hukuk", subcategories: ["İş Hukuku", "Aile Hukuku", "Sözleşme", "Vatandaşlık"] },
-  { value: "sirket-kurulusu", label: "Şirket Kuruluşu", subcategories: ["GmbH Kuruluşu", "Freelance", "Muhasebe", "Ticari Danışmanlık"] },
-  { value: "vize-gocmenlik", label: "Vize / Göçmenlik", subcategories: ["Çalışma Vizesi", "Mavi Kart", "Aile Birleşimi", "Oturma İzni"] },
-  { value: "gayrimenkul", label: "Gayrimenkul", subcategories: ["Kiralama", "Satın Alma", "Yatırım", "Değerleme"] },
+type CategoryDef = { value: string; label: string; subcategories: string[] };
+
+const TARGET_TYPES = [
+  { value: "consultant", label: "Danışman", description: "Bireysel uzman / profesyonel", icon: Briefcase, color: "text-emerald-500" },
+  { value: "business", label: "İşletme", description: "Şirket, restoran, mağaza, hizmet sağlayıcı", icon: Building2, color: "text-amber-500" },
+  { value: "association", label: "Kuruluş / Dernek", description: "STK, dernek, vakıf, topluluk", icon: Users, color: "text-purple-500" },
 ];
+
+const CONSULTANT_CATEGORIES: CategoryDef[] = [
+  { value: "yasam-relokasyon", label: "Yaşam ve Relokasyon", subcategories: ["Taşınma Danışmanlığı", "Entegrasyon", "Dil Desteği", "Konut Arama", "Okul/Eğitim Danışmanlığı"] },
+  { value: "finans", label: "Finans & Vergi", subcategories: ["Vergi Danışmanlığı", "Yatırım", "Bankacılık", "Sigorta", "Emeklilik Planlama", "Kripto/Web3"] },
+  { value: "hukuk", label: "Hukuk", subcategories: ["İş Hukuku", "Aile Hukuku", "Sözleşme", "Vatandaşlık", "Ceza Hukuku", "Miras Hukuku"] },
+  { value: "sirket-kurulusu", label: "Şirket Kuruluşu", subcategories: ["GmbH / LTD Kuruluşu", "Freelance Kayıt", "Muhasebe", "Ticari Danışmanlık", "KOBİ Danışmanlığı"] },
+  { value: "vize-gocmenlik", label: "Vize / Göçmenlik", subcategories: ["Çalışma Vizesi", "Mavi Kart", "Aile Birleşimi", "Oturma İzni", "Vatandaşlık Başvurusu", "Öğrenci Vizesi"] },
+  { value: "gayrimenkul-danismanlik", label: "Gayrimenkul Danışmanlığı", subcategories: ["Kiralama", "Satın Alma", "Yatırım", "Değerleme", "Mortgage"] },
+  { value: "saglik-danismanlik", label: "Sağlık Danışmanlığı", subcategories: ["Hastane Yönlendirme", "Sigorta", "Diş", "Estetik", "Psikoterapi", "İkinci Görüş"] },
+  { value: "kariyer-egitim", label: "Kariyer & Eğitim", subcategories: ["CV / LinkedIn", "Mülakat Koçluğu", "Kariyer Geçişi", "Diploma Denkliği", "Sertifika"] },
+  { value: "psikoloji-aile", label: "Psikoloji & Aile", subcategories: ["Bireysel Terapi", "Çift / Aile Terapisi", "Çocuk Psikolojisi", "Yaşam Koçluğu"] },
+  { value: "dijital-pazarlama", label: "Dijital & Pazarlama", subcategories: ["SEO/SEM", "Sosyal Medya", "Web Tasarım", "İçerik Üretimi", "Marka Danışmanlığı"] },
+];
+
+const BUSINESS_CATEGORIES: CategoryDef[] = [
+  { value: "restoran-gida", label: "Restoran & Gıda", subcategories: ["Restoran", "Cafe", "Catering", "Market / Bakkal", "Pastane / Fırın", "Helal Et / Kasap"] },
+  { value: "saglik-medikal", label: "Sağlık & Medikal", subcategories: ["Hastane / Klinik", "Diş Hekimi", "Eczane", "Optik", "Estetik", "Fizyoterapi"] },
+  { value: "guzellik-bakim", label: "Güzellik & Bakım", subcategories: ["Berber", "Kuaför", "SPA / Masaj", "Tırnak / Cilt Bakımı"] },
+  { value: "perakende", label: "Perakende & Mağaza", subcategories: ["Giyim", "Mücevher", "Elektronik", "Hediyelik", "Kitap"] },
+  { value: "otomotiv", label: "Otomotiv", subcategories: ["Servis", "Galeri", "Kiralama", "Lastik", "Yıkama"] },
+  { value: "insaat-tadilat", label: "İnşaat & Tadilat", subcategories: ["Tadilat", "Boya", "Tesisat", "Elektrik", "Mobilya / Mutfak"] },
+  { value: "lojistik-tasimacilik", label: "Lojistik & Taşımacılık", subcategories: ["Evden Eve Nakliyat", "Kargo", "Uluslararası Taşıma", "Depolama"] },
+  { value: "egitim-okul", label: "Eğitim & Okul", subcategories: ["Anaokulu", "Özel Ders", "Dil Kursu", "Müzik / Sanat"] },
+  { value: "turizm-konaklama", label: "Turizm & Konaklama", subcategories: ["Otel", "Apart", "Tur Operatörü", "Bilet / Acente"] },
+  { value: "etkinlik-organizasyon", label: "Etkinlik & Organizasyon", subcategories: ["Düğün", "Catering", "Fotoğraf / Video", "DJ / Müzik"] },
+  { value: "teknoloji-yazilim", label: "Teknoloji & Yazılım", subcategories: ["Yazılım Ajansı", "IT Servis", "E-ticaret", "Donanım Satış"] },
+  { value: "finans-sigorta", label: "Finans & Sigorta", subcategories: ["Banka Şubesi", "Sigorta Acentesi", "Döviz / Transfer", "Muhasebe Bürosu"] },
+];
+
+const ASSOCIATION_CATEGORIES: CategoryDef[] = [
+  { value: "kultur-sanat", label: "Kültür & Sanat Derneği", subcategories: ["Folklor", "Müzik", "Tiyatro", "Edebiyat"] },
+  { value: "egitim-bilim", label: "Eğitim & Bilim Vakfı", subcategories: ["Burs", "Kurs", "Akademik", "Öğrenci Topluluğu"] },
+  { value: "yardimlasma", label: "Yardımlaşma & Dayanışma", subcategories: ["İhtiyaç Sahipleri", "Afet", "Sağlık Yardımı", "Gıda Bankası"] },
+  { value: "din-ibadet", label: "Din & İbadet Kurumu", subcategories: ["Cami", "Cemevi", "Kültür Merkezi"] },
+  { value: "spor-genclik", label: "Spor & Gençlik Kulübü", subcategories: ["Futbol", "Basketbol", "Geleneksel Sporlar", "Gençlik Kampı"] },
+  { value: "is-meslek", label: "İş & Meslek Odası", subcategories: ["Ticaret Odası", "Sanayici Derneği", "Profesyonel Birlik", "KOBİ Ağı"] },
+  { value: "kadin-aile", label: "Kadın & Aile Derneği", subcategories: ["Kadın Hakları", "Aile Danışmanlığı", "Çocuk Destek"] },
+  { value: "hemseri", label: "Hemşeri Derneği", subcategories: ["Şehir Derneği", "Bölge Derneği", "Köy Derneği"] },
+  { value: "siyasi-lobi", label: "Siyasi & Lobi Kuruluşu", subcategories: ["Düşünce Kuruluşu", "Lobi", "Sivil Platform"] },
+  { value: "konsolosluk-resmi", label: "Konsolosluk / Resmi Kurum", subcategories: ["Konsolosluk", "Büyükelçilik", "Ticaret Müşaviri"] },
+];
+
+const CATEGORIES_BY_TARGET: Record<string, CategoryDef[]> = {
+  consultant: CONSULTANT_CATEGORIES,
+  business: BUSINESS_CATEGORIES,
+  association: ASSOCIATION_CATEGORIES,
+};
 
 const URGENCY_OPTIONS = [
   { value: "low", label: "Acil Değil", color: "bg-muted text-muted-foreground" },
@@ -41,6 +87,7 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [targetType, setTargetType] = useState<string>("");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [form, setForm] = useState({
@@ -55,7 +102,9 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   });
   const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
-  const selectedCategory = CATEGORIES.find(c => c.value === category);
+  const availableCategories = CATEGORIES_BY_TARGET[targetType] || [];
+  const selectedCategory = availableCategories.find(c => c.value === category);
+  const selectedTarget = TARGET_TYPES.find(t => t.value === targetType);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
@@ -70,8 +119,8 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!category || !form.title || !form.description) {
-      toast({ title: "Eksik bilgi", description: "Kategori, başlık ve açıklama zorunludur.", variant: "destructive" });
+    if (!targetType || !category || !form.title || !form.description) {
+      toast({ title: "Eksik bilgi", description: "Hedef tür, kategori, başlık ve açıklama zorunludur.", variant: "destructive" });
       return;
     }
     if (!isConsentValid(consent)) {
@@ -104,7 +153,7 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
       const { error } = await supabase.from("service_requests").insert({
         user_id: user.id,
-        category: selectedCategory?.label || category,
+        category: `${selectedTarget?.label || targetType} › ${selectedCategory?.label || category}`,
         subcategory: subcategory || null,
         title: form.title,
         description: form.description,
@@ -130,14 +179,43 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Target Type */}
+      <div className="space-y-2">
+        <Label className="flex items-center gap-1.5"><Target className="h-3.5 w-3.5" /> Talebiniz kime yönelik? *</Label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          {TARGET_TYPES.map(t => {
+            const Icon = t.icon;
+            const active = targetType === t.value;
+            return (
+              <button
+                key={t.value}
+                type="button"
+                onClick={() => { setTargetType(t.value); setCategory(""); setSubcategory(""); }}
+                className={`flex items-start gap-3 p-3 rounded-xl border-2 text-left transition-all ${
+                  active ? "border-primary bg-primary/5 shadow-sm" : "border-border hover:border-primary/40"
+                }`}
+              >
+                <div className={`p-2 rounded-lg bg-muted ${t.color}`}>
+                  <Icon className="h-4 w-4" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-sm text-foreground">{t.label}</div>
+                  <div className="text-xs text-muted-foreground line-clamp-2">{t.description}</div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Category */}
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5"><Briefcase className="h-3.5 w-3.5" /> Kategori *</Label>
-          <Select value={category} onValueChange={(v) => { setCategory(v); setSubcategory(""); }}>
-            <SelectTrigger><SelectValue placeholder="Kategori seçin" /></SelectTrigger>
+          <Select value={category} onValueChange={(v) => { setCategory(v); setSubcategory(""); }} disabled={!targetType}>
+            <SelectTrigger><SelectValue placeholder={targetType ? "Kategori seçin" : "Önce hedef türünü seçin"} /></SelectTrigger>
             <SelectContent>
-              {CATEGORIES.map(c => (
+              {availableCategories.map(c => (
                 <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
               ))}
             </SelectContent>
