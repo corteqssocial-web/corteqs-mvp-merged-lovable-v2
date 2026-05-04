@@ -40,8 +40,8 @@ const accountTypes = [
   },
   {
     key: "blogger",
-    label: "Blogger / Vlogger",
-    description: "İçerik üretmek, blog yarışmalarına katılmak ve kitleinizi büyütmek için (Ücretsiz)",
+    label: "Blogger / Vlogger / YouTuber",
+    description: "İçerik üretmek, blog/vlog yarışmalarına katılmak ve diaspora kitlenizi büyütmek için (Ücretsiz)",
     icon: PenLine,
     color: "text-rose-500",
   },
