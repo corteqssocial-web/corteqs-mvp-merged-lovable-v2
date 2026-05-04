@@ -1,9 +1,8 @@
-import { useState } from "react";
 import { Users, MapPin, Calendar as CalendarIcon, UserPlus, UserCheck, Heart } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { associations } from "@/data/mock";
-import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 
 const AssociationsSection = () => {
