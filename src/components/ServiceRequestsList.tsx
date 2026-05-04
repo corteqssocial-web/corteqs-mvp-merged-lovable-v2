@@ -119,6 +119,7 @@ const ServiceRequestsList = () => {
       })
     );
 
+    if (requestsWithProposals.length > 0) markRealServiceRequest();
     setRequests(requestsWithProposals);
     setLoading(false);
   };
