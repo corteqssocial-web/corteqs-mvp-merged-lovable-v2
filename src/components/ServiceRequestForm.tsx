@@ -143,8 +143,14 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
-    if (!targetType || !category || !form.title || !form.description) {
+    const finalCategoryLabel = isOtherCategory ? customCategory.trim() : (selectedCategory?.label || "");
+    const finalSubcategory = isOtherSubcategory ? customSubcategory.trim() : subcategory;
+    if (!targetType || !category || (isOtherCategory && !finalCategoryLabel) || !form.title || !form.description) {
       toast({ title: "Eksik bilgi", description: "Hedef tür, kategori, başlık ve açıklama zorunludur.", variant: "destructive" });
+      return;
+    }
+    if (isOtherSubcategory && !finalSubcategory) {
+      toast({ title: "Eksik bilgi", description: "Alt kategori için bir değer girin.", variant: "destructive" });
       return;
     }
     if (!isConsentValid(consent)) {
