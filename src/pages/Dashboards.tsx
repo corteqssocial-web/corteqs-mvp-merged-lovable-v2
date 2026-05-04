@@ -4,13 +4,13 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 
 const dashboards = [
-  { to: "/profile", title: "Kullanıcı Profili / Dashboard", desc: "Son kullanıcı için kişisel dashboard.", icon: User },
-  { to: "/admin", title: "Admin Dashboard", desc: "Platform yönetimi, kayıtlar, gelir takibi.", icon: Shield },
-  { to: "/city-ambassadors", title: "City Ambassadors", desc: "Şehir elçileri programı paneli.", icon: Flag },
-  { to: "/businesses", title: "Businesses", desc: "İşletme listeleme ve yönetim.", icon: Building2 },
-  { to: "/consultants", title: "Consultants", desc: "Danışman dashboard'u.", icon: Briefcase },
-  { to: "/bloggers", title: "Bloggers / Vloggers", desc: "İçerik üretici paneli.", icon: Mic },
-  { to: "/associations", title: "Associations", desc: "Kuruluş ve dernek yönetimi.", icon: Megaphone },
+  { to: "/profile?view=individual", title: "Kullanıcı Profili / Dashboard", desc: "Son kullanıcı için kişisel dashboard.", icon: User },
+  { to: "/profile?view=admin", title: "Admin Dashboard", desc: "Platform yönetimi, kayıtlar, gelir takibi.", icon: Shield },
+  { to: "/profile?view=ambassador", title: "City Ambassadors", desc: "Şehir elçileri programı paneli.", icon: Flag },
+  { to: "/profile?view=business", title: "Businesses", desc: "İşletme listeleme ve yönetim.", icon: Building2 },
+  { to: "/profile?view=consultant", title: "Consultants", desc: "Danışman dashboard'u.", icon: Briefcase },
+  { to: "/profile?view=blogger", title: "Bloggers / Vloggers", desc: "İçerik üretici paneli.", icon: Mic },
+  { to: "/profile?view=association", title: "Associations", desc: "Kuruluş ve dernek yönetimi.", icon: Megaphone },
 ];
 
 const Dashboards = () => {
