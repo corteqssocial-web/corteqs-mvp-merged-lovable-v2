@@ -96,8 +96,11 @@ const WhatsAppGroups = () => {
       return;
     }
     if (!user) {
-      toast({ title: "Giriş gerekli", description: "Grup eklemek için önce giriş yap.", variant: "destructive" });
-      navigate("/auth");
+      toast({
+        title: "Giriş gerekli",
+        description: "Giriş sayfası yeni sekmede açılıyor. Giriş yaptıktan sonra bu sekmeye dönüp tekrar Gönder'e bas — formun korunuyor.",
+      });
+      window.open("/auth", "_blank", "noopener");
       return;
     }
     if (!isConsentValid(consent)) {
