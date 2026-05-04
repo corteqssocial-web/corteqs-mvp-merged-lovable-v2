@@ -87,6 +87,7 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   const { toast } = useToast();
   const [loading, setLoading] = useState(false);
   const [files, setFiles] = useState<File[]>([]);
+  const [targetType, setTargetType] = useState<string>("");
   const [category, setCategory] = useState("");
   const [subcategory, setSubcategory] = useState("");
   const [form, setForm] = useState({
@@ -101,7 +102,9 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
   });
   const [consent, setConsent] = useState<ConsentState>(emptyConsent);
 
-  const selectedCategory = CATEGORIES.find(c => c.value === category);
+  const availableCategories = CATEGORIES_BY_TARGET[targetType] || [];
+  const selectedCategory = availableCategories.find(c => c.value === category);
+  const selectedTarget = TARGET_TYPES.find(t => t.value === targetType);
 
   const handleFileChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     if (e.target.files) {
