@@ -33,8 +33,9 @@ const typeLabels: Record<string, string> = {
 const EventDetail = () => {
   const { id } = useParams();
   const { toast } = useToast();
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
   const event = events.find((e) => e.id === id);
+  const isFollowing = event ? isFollowed("organizer", event.id) : false;
 
   if (!event) {
     return (
