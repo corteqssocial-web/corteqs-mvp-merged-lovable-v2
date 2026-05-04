@@ -18,19 +18,22 @@ const write = (k: string, v: boolean) => {
 
 export const hasRealCoupons = () => read(COUPON_KEY);
 export const hasRealTransactions = () => read(TXN_KEY);
+export const hasRealServiceRequests = () => read(REQ_KEY);
 
 export const markRealCouponPurchase = () => write(COUPON_KEY, true);
 export const markRealTransaction = () => write(TXN_KEY, true);
+export const markRealServiceRequest = () => write(REQ_KEY, true);
 
 export const resetDemoFlags = () => {
   write(COUPON_KEY, false);
   write(TXN_KEY, false);
+  write(REQ_KEY, false);
 };
 
 import { useEffect, useState } from "react";
 
-export function useDemoFlag(kind: "coupons" | "transactions") {
-  const getter = kind === "coupons" ? hasRealCoupons : hasRealTransactions;
+export function useDemoFlag(kind: "coupons" | "transactions" | "serviceRequests") {
+  const getter = kind === "coupons" ? hasRealCoupons : kind === "transactions" ? hasRealTransactions : hasRealServiceRequests;
   const [hasReal, setHasReal] = useState<boolean>(() =>
     typeof window !== "undefined" ? getter() : false
   );
