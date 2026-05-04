@@ -14,7 +14,8 @@ const AssociationDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const assoc = associations.find((a) => a.id === id);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
+  const isFollowing = assoc ? isFollowed("association", assoc.id) : false;
 
   if (!assoc) {
     return (
