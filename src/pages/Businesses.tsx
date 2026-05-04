@@ -221,7 +221,7 @@ const Businesses = () => {
   const [sectorFilter, setSectorFilter] = useState("all");
   const [activeSub, setActiveSub] = useState<string | null>(null);
   const [offeringFilter, setOfferingFilter] = useState("all");
-  const [followedIds, setFollowedIds] = useState<Set<string>>(new Set());
+  const { isFollowed: isFollowedFn, toggle: toggleFollowState } = useFollow();
   const { toast } = useToast();
 
   useEffect(() => { setCity("all"); }, [country]);
