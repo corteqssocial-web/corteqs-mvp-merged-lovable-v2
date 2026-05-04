@@ -166,7 +166,7 @@ const Bloggers = () => {
               Diaspora Arşivlerine Girin — Kütüphanemizi Birlikte Oluşturalım
             </h3>
             <p className="text-muted-foreground font-body mb-3 max-w-2xl mx-auto">
-              Ürettiğiniz yazılar ve videolar diaspora kültürünün bir parçası olsun. Blogger / Vlogger kayıtlarımızdan ve panellerimizden ücret alınmaz.
+              Ürettiğiniz yazılar, vloglar ve YouTube videoları diaspora kültürünün bir parçası olsun. Blogger, Vlogger ve YouTuber kayıtlarımızdan ve panellerimizden ücret alınmaz.
             </p>
             <Badge className="bg-success/15 text-success border-0 mb-5">
               <Gift className="h-3.5 w-3.5 mr-1.5" /> Kayıt tamamen ücretsizdir
@@ -186,8 +186,8 @@ const Bloggers = () => {
               modal={false}
               context="genel"
               defaultCategory="blogger"
-              title="Blogger / Vlogger Olarak Ücretsiz Kayıt Ol"
-              description="Sunum / CV / One-Pager / kanal istatistikleri vb. tüm dökümanlarını yükleyebilirsin. Kayıtlarımız tamamen ücretsizdir."
+              title="Blogger / Vlogger / YouTuber Olarak Ücretsiz Kayıt Ol"
+              description="Yazı, vlog, YouTube kanalı — hangi formatta üretiyor olursanız olun başvurabilirsiniz. Sunum / CV / One-Pager / kanal istatistikleri vb. tüm dökümanlarınızı yükleyebilirsiniz. Kayıtlarımız tamamen ücretsizdir."
               source="bloggers-listing"
             />
           </div>
