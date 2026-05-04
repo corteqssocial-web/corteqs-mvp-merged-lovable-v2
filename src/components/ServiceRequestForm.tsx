@@ -242,27 +242,53 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
         {/* Category */}
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5"><Briefcase className="h-3.5 w-3.5" /> Kategori *</Label>
-          <Select value={category} onValueChange={(v) => { setCategory(v); setSubcategory(""); }} disabled={!targetType}>
+          <Select
+            value={category}
+            onValueChange={(v) => { setCategory(v); setSubcategory(""); setCustomSubcategory(""); if (v !== "__other__") setCustomCategory(""); }}
+            disabled={!targetType}
+          >
             <SelectTrigger><SelectValue placeholder={targetType ? "Kategori seçin" : "Önce hedef türünü seçin"} /></SelectTrigger>
             <SelectContent>
               {availableCategories.map(c => (
                 <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
               ))}
+              <SelectItem value="__other__">✏️ Diğer (kendim yazayım)</SelectItem>
             </SelectContent>
           </Select>
+          {isOtherCategory && (
+            <Input
+              placeholder="Kategoriyi yazın"
+              value={customCategory}
+              onChange={e => setCustomCategory(e.target.value)}
+              maxLength={80}
+            />
+          )}
         </div>
 
         {/* Subcategory */}
         <div className="space-y-2">
           <Label>Alt Kategori</Label>
-          <Select value={subcategory} onValueChange={setSubcategory} disabled={!selectedCategory}>
+          <Select
+            value={subcategory}
+            onValueChange={(v) => { setSubcategory(v); if (v !== "__other__") setCustomSubcategory(""); }}
+            disabled={!category}
+          >
             <SelectTrigger><SelectValue placeholder="Alt kategori seçin" /></SelectTrigger>
             <SelectContent>
               {selectedCategory?.subcategories.map(sc => (
                 <SelectItem key={sc} value={sc}>{sc}</SelectItem>
               ))}
+              <SelectItem value="__other__">✏️ Diğer (kendim yazayım)</SelectItem>
             </SelectContent>
           </Select>
+          {isOtherSubcategory && (
+            <Input
+              placeholder="Alt kategoriyi yazın"
+              value={customSubcategory}
+              onChange={e => setCustomSubcategory(e.target.value)}
+              maxLength={80}
+            />
+          )}
         </div>
       </div>
 
