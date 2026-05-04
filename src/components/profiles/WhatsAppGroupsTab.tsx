@@ -24,12 +24,34 @@ const WhatsAppGroupsTab = () => (
     {/* CorteQS WhatsApp İletişim */}
     <div className="rounded-2xl border-2 border-success/30 bg-success/5 p-5 space-y-4">
       <div className="flex items-center gap-3">
-        <div className="w-11 h-11 rounded-full bg-success/20 flex items-center justify-center">
+        <div className="w-11 h-11 rounded-full bg-success/20 flex items-center justify-center shrink-0">
           <Bot className="h-6 w-6 text-success" />
         </div>
-        <div>
-          <h3 className="font-bold text-foreground text-base">CorteQS WhatsApp</h3>
-          <p className="text-xs text-muted-foreground">Bildirimler, mesajlar ve destek tek bir yerde</p>
+        <div className="min-w-0">
+          <h3 className="font-bold text-foreground text-base">
+            CorBot — CorteQS'in yapay zekâ WhatsApp botu
+          </h3>
+          <p className="text-xs text-muted-foreground">
+            Hızlı erişim & bilgi · Bildirimler, mesajlar ve destek tek bir yerde
+          </p>
+          <div className="flex flex-wrap gap-x-3 gap-y-1 mt-1.5 text-xs">
+            <a
+              href="https://wa.me/491637084577?text=Merhaba"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-success hover:underline font-medium inline-flex items-center gap-1"
+            >
+              🤖 CorBot — WhatsApp Bot
+            </a>
+            <a
+              href="https://whatsapp.com/channel/0029VbCUnsN6GcGHZvUypo13"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="text-success hover:underline font-medium inline-flex items-center gap-1"
+            >
+              📣 CorteQS Kanalı
+            </a>
+          </div>
         </div>
       </div>
 
