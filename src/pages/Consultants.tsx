@@ -11,6 +11,7 @@ import { useDiaspora } from "@/contexts/DiasporaContext";
 import { consultants, cityAmbassadors } from "@/data/mock";
 import { countryCities } from "@/data/countryCities";
 import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 import CategoryListingBanner from "@/components/CategoryListingBanner";
 import InterestForm from "@/components/InterestForm";
