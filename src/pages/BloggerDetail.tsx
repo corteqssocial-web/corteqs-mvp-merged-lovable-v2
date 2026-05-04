@@ -13,12 +13,14 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { bloggers } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 
 const BloggerDetail = () => {
   const { id } = useParams<{ id: string }>();
   const { toast } = useToast();
   const blogger = bloggers.find((b) => b.id === id);
-  const [isFollowing, setIsFollowing] = useState(false);
+  const { isFollowed, toggle } = useFollow();
+  const isFollowing = blogger ? isFollowed("blogger", blogger.id) : false;
   const [collabOpen, setCollabOpen] = useState(false);
   const [collabForm, setCollabForm] = useState({
     name: "",
