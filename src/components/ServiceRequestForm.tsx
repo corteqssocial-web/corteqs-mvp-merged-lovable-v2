@@ -320,12 +320,14 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5"><MapPin className="h-3.5 w-3.5" /> Şehir</Label>
           <Input placeholder="Örn: Berlin" value={form.city} onChange={e => setForm(p => ({ ...p, city: e.target.value }))} />
+          <p className="text-[10px] text-muted-foreground">Profilinizden otomatik dolduruldu — değiştirebilirsiniz.</p>
         </div>
 
         {/* Country */}
         <div className="space-y-2">
           <Label>Ülke</Label>
           <Input placeholder="Örn: Almanya" value={form.country} onChange={e => setForm(p => ({ ...p, country: e.target.value }))} />
+          <p className="text-[10px] text-muted-foreground">Profilinizden otomatik dolduruldu — değiştirebilirsiniz.</p>
         </div>
       </div>
 
