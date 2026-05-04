@@ -5,7 +5,7 @@ import {
   ArrowLeft, Plus, ChevronRight, Star, Bot, MessageSquare,
   MapPin, Clock, Gift, TrendingUp, Briefcase, Linkedin,
   FileText, Eye, EyeOff, Settings, Shield, UserPlus, ScanLine, QrCode,
-  Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp
+  Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp, Info
 } from "lucide-react";
 import StripeTransactionsPanel from "@/components/StripeTransactionsPanel";
 import QRScannerMock from "@/components/QRScannerMock";
