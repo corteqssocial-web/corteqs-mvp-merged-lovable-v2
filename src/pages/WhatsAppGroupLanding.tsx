@@ -32,10 +32,23 @@ const WhatsAppGroupLanding = () => {
   const { id } = useParams<{ id: string }>();
   const navigate = useNavigate();
   const { toast } = useToast();
+  const { user, profile } = useAuth();
   const [landing, setLanding] = useState<WhatsAppLanding | undefined>(undefined);
   const [copied, setCopied] = useState(false);
 
   const [loading, setLoading] = useState(true);
+  const [joinOpen, setJoinOpen] = useState(false);
+  const [joinSubmitting, setJoinSubmitting] = useState(false);
+  const [joinName, setJoinName] = useState("");
+  const [joinEmail, setJoinEmail] = useState("");
+  const [joinPhone, setJoinPhone] = useState("");
+  const [joinNote, setJoinNote] = useState("");
+
+  useEffect(() => {
+    setJoinName(profile?.full_name ?? "");
+    setJoinEmail(user?.email ?? "");
+    setJoinPhone(profile?.phone ?? "");
+  }, [user, profile]);
 
   useEffect(() => {
     if (!id) return;
