@@ -14,7 +14,8 @@ import { bloggers } from "@/data/mock";
 const Bloggers = () => {
   const demoBlogger = bloggers.find((b) => b.type === "blogger");
   const demoVlogger = bloggers.find((b) => b.type === "influencer");
-  const demoList = [demoBlogger, demoVlogger].filter(Boolean) as typeof bloggers;
+  const demoYoutuber = bloggers.find((b) => b.type === "youtuber");
+  const demoList = [demoBlogger, demoVlogger, demoYoutuber].filter(Boolean) as typeof bloggers;
 
   return (
     <div className="min-h-screen bg-background">
@@ -24,15 +25,15 @@ const Bloggers = () => {
 
           {/* Hero */}
           <section className="relative overflow-hidden rounded-3xl border border-border bg-gradient-to-br from-primary/10 via-turquoise/5 to-gold/10 p-6 md:p-10 mb-8 text-center">
-            <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎬 Blogger & Vlogger Programı</Badge>
+            <Badge className="mb-4 bg-turquoise/15 text-turquoise border-0">🎬 Blogger · Vlogger · YouTuber Programı</Badge>
             <h1 className="text-3xl md:text-4xl font-bold leading-tight mb-3">
               Global Türklerin Hikayelerini <span className="text-gradient-primary">Gelin Birlikte Oluşturalım</span>
             </h1>
             <p className="text-base md:text-lg text-muted-foreground font-body max-w-3xl mx-auto mb-4">
-              CorteQS Diaspora Kütüphanesinde yerinizi alın. Markaların kolayca ulaştığı, taleplerinin AI ile eşleştirildiği süper bir sistemin parçası olun.
+              Yazılı içerik üreten <strong>blogger</strong>'lar, sosyal medya <strong>vlogger</strong>'ları ve diaspora <strong>YouTuber</strong>'ları — hepsi aynı çatı altında. CorteQS Diaspora Kütüphanesinde yerinizi alın; markaların kolayca ulaştığı, taleplerinin AI ile eşleştirildiği bir sistemin parçası olun.
             </p>
             <Badge className="bg-success/15 text-success border-0 text-sm px-3 py-1">
-              <Gift className="h-3.5 w-3.5 mr-1.5" /> Blogger & Vlogger kayıtlarımız tamamen ücretsizdir
+              <Gift className="h-3.5 w-3.5 mr-1.5" /> Blogger, Vlogger ve YouTuber kayıtlarımız tamamen ücretsizdir
             </Badge>
           </section>
 
@@ -51,8 +52,8 @@ const Bloggers = () => {
             <Sparkles className="h-5 w-5 text-turquoise" /> Demo İçerik Üreticiler
           </h2>
 
-          {/* 2 Demo Cards — centered: 1 Blogger + 1 Vlogger */}
-          <div className="grid grid-cols-1 sm:grid-cols-2 gap-6 mb-12 max-w-3xl mx-auto items-stretch">
+          {/* 3 Demo Cards — centered: 1 Blogger + 1 Vlogger + 1 YouTuber */}
+          <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto items-stretch">
             {demoList.map((b) => (
               <Link
                 to={`/blogger/${b.id}`}
@@ -64,8 +65,8 @@ const Bloggers = () => {
                   <img src={b.photo} alt={b.name} className="w-14 h-14 rounded-full object-cover shrink-0" />
                   <div className="min-w-0">
                     <h3 className="font-bold text-foreground truncate">{b.name}</h3>
-                    <Badge variant={b.type === "influencer" ? "default" : "secondary"} className="text-[10px] mt-0.5">
-                      {b.type === "influencer" ? "Vlogger" : "Blogger"}
+                    <Badge variant={b.type === "blogger" ? "secondary" : "default"} className="text-[10px] mt-0.5">
+                      {b.type === "youtuber" ? "YouTuber" : b.type === "influencer" ? "Vlogger" : "Blogger"}
                     </Badge>
                   </div>
                 </div>
