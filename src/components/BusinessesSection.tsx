@@ -1,10 +1,9 @@
-import { useState } from "react";
 import { MapPin, Users, Briefcase, UserPlus, UserCheck } from "lucide-react";
 import { Link } from "react-router-dom";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { businesses } from "@/data/mock";
-import { useToast } from "@/hooks/use-toast";
+import { useFollow } from "@/hooks/useFollow";
 import DemoBadge from "@/components/DemoBadge";
 
 const offeringColors: Record<string, string> = {
