@@ -179,14 +179,43 @@ const ServiceRequestForm = ({ onSuccess, onCancel }: ServiceRequestFormProps) =>
 
   return (
     <form onSubmit={handleSubmit} className="space-y-6">
+      {/* Target Type */}
+      <div className="space-y-2">
+        <Label className="flex items-center gap-1.5"><Target className="h-3.5 w-3.5" /> Talebiniz kime yönelik? *</Label>
+        <div className="grid grid-cols-1 md:grid-cols-3 gap-2">
+          {TARGET_TYPES.map(t => {
+            const Icon = t.icon;
+            const active = targetType === t.value;
+            return (
+              <button
+                key={t.value}
+                type="button"
+                onClick={() => { setTargetType(t.value); setCategory(""); setSubcategory(""); }}
+                className={`flex items-start gap-3 p-3 rounded-xl border-2 text-left transition-all ${
+                  active ? "border-primary bg-primary/5 shadow-sm" : "border-border hover:border-primary/40"
+                }`}
+              >
+                <div className={`p-2 rounded-lg bg-muted ${t.color}`}>
+                  <Icon className="h-4 w-4" />
+                </div>
+                <div className="flex-1 min-w-0">
+                  <div className="font-semibold text-sm text-foreground">{t.label}</div>
+                  <div className="text-xs text-muted-foreground line-clamp-2">{t.description}</div>
+                </div>
+              </button>
+            );
+          })}
+        </div>
+      </div>
+
       <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
         {/* Category */}
         <div className="space-y-2">
           <Label className="flex items-center gap-1.5"><Briefcase className="h-3.5 w-3.5" /> Kategori *</Label>
-          <Select value={category} onValueChange={(v) => { setCategory(v); setSubcategory(""); }}>
-            <SelectTrigger><SelectValue placeholder="Kategori seçin" /></SelectTrigger>
+          <Select value={category} onValueChange={(v) => { setCategory(v); setSubcategory(""); }} disabled={!targetType}>
+            <SelectTrigger><SelectValue placeholder={targetType ? "Kategori seçin" : "Önce hedef türünü seçin"} /></SelectTrigger>
             <SelectContent>
-              {CATEGORIES.map(c => (
+              {availableCategories.map(c => (
                 <SelectItem key={c.value} value={c.value}>{c.label}</SelectItem>
               ))}
             </SelectContent>
