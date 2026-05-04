@@ -85,8 +85,8 @@ const BloggerDetail = () => {
               <div className="flex-1 min-w-0">
                 <div className="flex items-center gap-3 flex-wrap">
                   <h1 className="text-2xl md:text-3xl font-bold text-foreground">{blogger.name}</h1>
-                  <Badge variant={blogger.type === "influencer" ? "default" : "secondary"}>
-                    {blogger.type === "influencer" ? "Vlogger" : "Blogger"}
+                  <Badge variant={blogger.type === "blogger" ? "secondary" : "default"}>
+                    {blogger.type === "youtuber" ? "YouTuber" : blogger.type === "influencer" ? "Vlogger" : "Blogger"}
                   </Badge>
                   <Button variant={isFollowing ? "secondary" : "outline"} size="sm" className="gap-1" onClick={toggleFollow}>
                     {isFollowing ? <UserCheck className="h-3.5 w-3.5" /> : <UserPlus className="h-3.5 w-3.5" />}
