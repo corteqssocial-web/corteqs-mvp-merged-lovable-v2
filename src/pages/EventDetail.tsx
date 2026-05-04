@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useFollow } from "@/hooks/useFollow";
 import { useParams, Link } from "react-router-dom";
 import {
   Calendar, MapPin, Users, Clock, ArrowLeft, Globe,
