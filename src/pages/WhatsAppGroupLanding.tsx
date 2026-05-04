@@ -1,14 +1,20 @@
 import { useParams, Link, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 import {
-  MessageSquare, Users, MapPin, ArrowLeft, ShieldCheck, Share2, Check,
+  MessageSquare, Users, MapPin, ArrowLeft, ShieldCheck, Share2, Check, UserPlus,
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
+import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Input } from "@/components/ui/input";
+import { Label } from "@/components/ui/label";
+import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { getLanding, type WhatsAppLanding } from "@/lib/whatsappLandings";
 import { useToast } from "@/hooks/use-toast";
+import { supabase } from "@/integrations/supabase/client";
+import { useAuth } from "@/contexts/AuthContext";
 
 const categoryLabel: Record<WhatsAppLanding["category"], string> = {
   alumni: "Alumni",
