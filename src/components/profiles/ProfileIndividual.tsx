@@ -1,12 +1,13 @@
 import { useState, useRef } from "react";
 import { Link } from "react-router-dom";
 import {
-  Wallet, Calendar, Tag, Users, Bell, 
+  Calendar, Tag, Users, Bell, CreditCard,
   ArrowLeft, Plus, ChevronRight, Star, Bot, MessageSquare,
   MapPin, Clock, Gift, TrendingUp, Briefcase, Linkedin,
   FileText, Eye, EyeOff, Settings, Shield, UserPlus, ScanLine, QrCode,
   Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp
 } from "lucide-react";
+import StripeTransactionsPanel from "@/components/StripeTransactionsPanel";
 import QRScannerMock from "@/components/QRScannerMock";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
