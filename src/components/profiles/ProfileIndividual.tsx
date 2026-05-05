@@ -347,51 +347,70 @@ const ProfileIndividual = () => {
                 <Calendar className="h-5 w-5 text-primary" /> Takvimim
               </h2>
               <div className="flex flex-wrap gap-2">
-                {([
-                  { key: "all" as const, label: "Tümü" },
-                  { key: "events" as const, label: "Etkinlikler" },
-                  { key: "turkey" as const, label: "🇹🇷 Türkiye" },
-                  { key: "germany" as const, label: "🇩🇪 Almanya" },
-                ]).map((f) => (
+                <Button
+                  variant={calendarFilter === "all" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setCalendarFilter("all")}
+                  className="text-xs"
+                >
+                  Tümü
+                </Button>
+                {cityOptions.map((city) => (
                   <Button
-                    key={f.key}
-                    variant={calendarFilter === f.key ? "default" : "outline"}
+                    key={city}
+                    variant={calendarFilter === city ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setCalendarFilter(f.key)}
+                    onClick={() => setCalendarFilter(city)}
                     className="text-xs"
                   >
-                    {f.label}
+                    📍 {city}
                   </Button>
                 ))}
               </div>
             </div>
-            <div className="space-y-3">
-              {filteredCalendar.map((evt) => {
-                const typeColors: Record<string, string> = {
-                  online: "bg-turquoise/10 text-turquoise",
-                  "yüz yüze": "bg-primary/10 text-primary",
-                  hatırlatma: "bg-gold/10 text-gold",
-                  "resmi tatil": "bg-destructive/10 text-destructive",
-                };
-                return (
-                  <div key={evt.id} className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className="text-center shrink-0 w-14">
-                      <div className="text-xl font-bold text-primary">{evt.date.split(" ")[0]}</div>
-                      <div className="text-xs text-muted-foreground">{evt.date.split(" ")[1]}</div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground truncate">{evt.title}</h3>
-                      <p className="text-sm text-muted-foreground flex items-center gap-1">
-                        {evt.time !== "—" && <><Clock className="h-3 w-3" /> {evt.time} · </>}
-                        <span className={`px-2 py-0.5 rounded-full text-xs ${typeColors[evt.type] || "bg-muted text-muted-foreground"}`}>
-                          {evt.type}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            {filteredCalendar.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center">
+                <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">
+                  Takvimin boş. Etkinlikleri <Link to="/events" className="text-primary hover:underline">takip et</Link> veya bilet alarak buraya ekle.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {filteredCalendar.map((evt) => {
+                  const typeColors: Record<string, string> = {
+                    online: "bg-turquoise/10 text-turquoise",
+                    "yüz yüze": "bg-primary/10 text-primary",
+                  };
+                  return (
+                    <Link
+                      key={evt.id}
+                      to={`/events/${evt.id}`}
+                      className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                    >
+                      <div className="text-center shrink-0 w-14">
+                        <div className="text-xl font-bold text-primary">{evt.date.split(" ")[0]}</div>
+                        <div className="text-xs text-muted-foreground">{evt.date.split(" ")[1]}</div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-foreground truncate">{evt.title}</h3>
+                        <p className="text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                          <Clock className="h-3 w-3" /> {evt.time}
+                          <span className="text-muted-foreground/50">·</span>
+                          <MapPin className="h-3 w-3" /> {evt.city}
+                          <span className={`px-2 py-0.5 rounded-full text-xs ${typeColors[evt.type] || "bg-muted text-muted-foreground"}`}>
+                            {evt.type}
+                          </span>
+                          <Badge variant="outline" className="text-[10px] h-4 px-1.5">
+                            {evt.source === "joined" ? "🎟️ Bilet" : "🔔 Takip"}
+                          </Badge>
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </TabsContent>
 
