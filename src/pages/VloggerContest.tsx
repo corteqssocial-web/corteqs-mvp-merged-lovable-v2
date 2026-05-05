@@ -1,19 +1,22 @@
 import { useState } from "react";
-import { Trophy, Video, Calendar, BarChart3, Heart, CheckCircle2, ArrowRight, Star, Clock, Award, Film } from "lucide-react";
+import { Trophy, Video, Calendar, BarChart3, Heart, CheckCircle2, ArrowRight, Star, Clock, Award, Film, Upload, Plane } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
+import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 import vloggerHero from "@/assets/vlogger-contest-hero.jpg";
 import mascot from "@/assets/corteqs-mascot.png";
 
+const REFERRAL_CODE = "GGVYLA-7VG2VB";
+
 const contestRules = [
   "Yarışmaya tüm CorteQS platformuna kayıtlı vloggerlar katılabilir.",
   "Videolar Türkçe veya İngilizce (altyazılı) olabilir.",
   "Videolar ülke, şehir, kültür, gusto veya diaspora hikâyeleri temalı olmalıdır.",
   "Her katılımcı en fazla 5 video ile yarışmaya katılabilir.",
-  "Videolar 1 Ocak 2026 - 15 Aralık 2026 tarihleri arasında yayınlanmış olmalıdır.",
+  "Videolar 19 Mayıs 2026 - 1 Ekim 2026 tarihleri arasında yayınlanmış olmalıdır.",
   "Telif hakkı ihlali toleransı sıfırdır. Orijinal içerik zorunludur.",
   "Sonuçlar 31 Aralık 2026'da izlenme + etkileşim performansına göre açıklanacaktır.",
 ];
@@ -22,6 +25,7 @@ const prizes = [
   { place: "1.", prize: "$1.000", icon: Trophy, color: "text-gold" },
   { place: "2.", prize: "$500", icon: Award, color: "text-muted-foreground" },
   { place: "3.", prize: "$250", icon: Star, color: "text-primary" },
+  { place: "Özel", prize: "Dubai-İstanbul Uçak Bileti", icon: Plane, color: "text-turquoise" },
 ];
 
 const VloggerContest = () => {
@@ -29,10 +33,17 @@ const VloggerContest = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     channelUrl: "",
     country: "",
     city: "",
+    videoTitle: "",
+    videoTheme: "",
+    description: "",
+    socialHandles: "",
+    referral: REFERRAL_CODE,
   });
+  const [videoFile, setVideoFile] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -40,7 +51,11 @@ const VloggerContest = () => {
       title: "Başvuru Alındı! 🎬",
       description: "Vlogger yarışmasına başvurunuz başarıyla alındı. Detaylar e-posta ile gönderilecektir.",
     });
-    setFormData({ name: "", email: "", channelUrl: "", country: "", city: "" });
+    setFormData({
+      name: "", email: "", phone: "", channelUrl: "", country: "", city: "",
+      videoTitle: "", videoTheme: "", description: "", socialHandles: "", referral: REFERRAL_CODE,
+    });
+    setVideoFile(null);
   };
 
   return (
@@ -75,14 +90,14 @@ const VloggerContest = () => {
                   {prizes.map((p) => (
                     <div key={p.place} className="bg-card border border-border rounded-2xl p-4 shadow-card min-w-[120px]">
                       <p.icon className={`h-7 w-7 mb-1.5 ${p.color}`} />
-                      <p className="text-xl font-bold text-foreground">{p.prize}</p>
+                      <p className="text-base font-bold text-foreground">{p.prize}</p>
                       <p className="text-xs text-muted-foreground">{p.place} Ödül</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Son Tarih: 31 Aralık 2026</span>
+                  <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Başvuru: 19 Mayıs - 1 Ekim 2026</span>
                   <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-turquoise" /> İzlenme + Etkileşim Bazlı</span>
                   <span className="flex items-center gap-1.5"><Film className="h-4 w-4 text-gold" /> Orijinal Video</span>
                 </div>
@@ -137,7 +152,6 @@ const VloggerContest = () => {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Rules */}
               <div>
                 <h2 className="text-3xl font-bold text-foreground mb-8">Katılım Şartları</h2>
                 <div className="space-y-4">
@@ -165,8 +179,8 @@ const VloggerContest = () => {
                     <Clock className="h-5 w-5 text-primary" /> Önemli Tarihler
                   </h3>
                   <div className="space-y-2 text-sm text-muted-foreground font-body">
-                    <p>📅 Başvuru Başlangıcı: <strong>1 Ocak 2026</strong></p>
-                    <p>📅 Son Video Yayınlama: <strong>15 Aralık 2026</strong></p>
+                    <p>📅 Başvuru Başlangıcı: <strong>19 Mayıs 2026</strong></p>
+                    <p>📅 Son Başvuru / Video Yayınlama: <strong>1 Ekim 2026</strong></p>
                     <p>🏆 Sonuç Açıklaması: <strong>31 Aralık 2026</strong></p>
                   </div>
                 </div>
@@ -176,54 +190,75 @@ const VloggerContest = () => {
               <div>
                 <h2 className="text-3xl font-bold text-foreground mb-8">Başvuru Formu</h2>
                 <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 shadow-card space-y-5">
-                  <div>
-                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Ad Soyad</label>
-                    <Input
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Adınız ve soyadınız"
-                      required
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Ad Soyad</label>
+                      <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Adınız ve soyadınız" required />
+                    </div>
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Telefon</label>
+                      <Input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+90 5xx xxx xx xx" required />
+                    </div>
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-foreground mb-1.5 block">E-posta</label>
-                    <Input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="email@example.com"
-                      required
-                    />
+                    <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="email@example.com" required />
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-foreground mb-1.5 block">Kanal / Video URL (YouTube, Instagram, TikTok)</label>
-                    <Input
-                      type="url"
-                      value={formData.channelUrl}
-                      onChange={(e) => setFormData({ ...formData, channelUrl: e.target.value })}
-                      placeholder="https://youtube.com/@kanalim"
-                      required
-                    />
+                    <Input type="url" value={formData.channelUrl} onChange={(e) => setFormData({ ...formData, channelUrl: e.target.value })} placeholder="https://youtube.com/@kanalim" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Sosyal Medya Hesapları</label>
+                    <Input value={formData.socialHandles} onChange={(e) => setFormData({ ...formData, socialHandles: e.target.value })} placeholder="@instagram, @tiktok, @youtube" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold text-foreground mb-1.5 block">Ülke</label>
-                      <Input
-                        value={formData.country}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        placeholder="Almanya"
-                        required
-                      />
+                      <Input value={formData.country} onChange={(e) => setFormData({ ...formData, country: e.target.value })} placeholder="Almanya" required />
                     </div>
                     <div>
                       <label className="text-sm font-semibold text-foreground mb-1.5 block">Şehir</label>
-                      <Input
-                        value={formData.city}
-                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        placeholder="Berlin"
-                        required
-                      />
+                      <Input value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} placeholder="Berlin" required />
                     </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Video Başlığı</label>
+                      <Input value={formData.videoTitle} onChange={(e) => setFormData({ ...formData, videoTitle: e.target.value })} placeholder="Berlin'de Bir Türk Hikâyesi" required />
+                    </div>
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Tema / Kategori</label>
+                      <Input value={formData.videoTheme} onChange={(e) => setFormData({ ...formData, videoTheme: e.target.value })} placeholder="Kültür / Gusto / Şehir Rehberi" required />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Kısa Açıklama</label>
+                    <Textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Videonuz hakkında kısa bilgi (2-3 cümle)" rows={3} />
+                  </div>
+
+                  {/* Upload area */}
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Video Yükleme (opsiyonel)</label>
+                    <label className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl p-6 cursor-pointer hover:border-primary/50 hover:bg-muted/30 transition-colors">
+                      <Upload className="h-8 w-8 text-primary mb-2" />
+                      <span className="text-sm font-semibold text-foreground">
+                        {videoFile ? videoFile.name : "Video dosyası seç veya buraya sürükle"}
+                      </span>
+                      <span className="text-xs text-muted-foreground mt-1">MP4, MOV, WEBM · Maks 500 MB</span>
+                      <input
+                        type="file"
+                        accept="video/*"
+                        className="hidden"
+                        onChange={(e) => setVideoFile(e.target.files?.[0] ?? null)}
+                      />
+                    </label>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Referans Kodu</label>
+                    <Input value={formData.referral} onChange={(e) => setFormData({ ...formData, referral: e.target.value })} readOnly className="bg-muted/40 font-mono" />
+                    <p className="text-[11px] text-muted-foreground mt-1">Bu kod başvurunuza otomatik olarak eklenmiştir.</p>
                   </div>
 
                   <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground">
@@ -237,15 +272,6 @@ const VloggerContest = () => {
                     Yarışmaya Başvur <ArrowRight className="h-5 w-5" />
                   </Button>
                 </form>
-
-                <div className="mt-6 bg-turquoise/10 border border-turquoise/20 rounded-2xl p-6 text-center">
-                  <p className="text-sm text-muted-foreground font-body mb-2">
-                    Zaten bir kanalınız var mı? Videolarınızı CorteQS'te öne çıkarın!
-                  </p>
-                  <Button variant="outline" className="gap-2">
-                    <Video className="h-4 w-4" /> Video İçe Aktarma
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
