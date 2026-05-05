@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Star, PenLine, Video, Instagram, Users, Handshake, Eye,
-  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift, Radio
+  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
