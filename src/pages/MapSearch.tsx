@@ -135,14 +135,6 @@ const MapSearch = () => {
             <CountryCitySelector city={selectedCity} onCityChange={setSelectedCity} />
           </div>
 
-          {/* Belirgin bilgi notu */}
-          <div className="mb-4 rounded-xl border-2 border-orange-400/60 bg-gradient-to-r from-orange-100 via-amber-50 to-turquoise/15 px-4 py-3 flex items-center gap-3 shadow-sm">
-            <span className="shrink-0 w-9 h-9 rounded-lg bg-orange-500 text-white flex items-center justify-center text-lg">📣</span>
-            <p className="text-sm md:text-base font-semibold text-foreground">
-              Kuruluşlarımız ve işletmelerimiz eklendikçe daha fazla sonuca ulaşabileceksiniz.
-            </p>
-          </div>
-
           <div className="mb-4">
             <div className="relative">
               <Search className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-muted-foreground" />
