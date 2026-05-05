@@ -21,6 +21,7 @@ const typeFilters = [
   { key: "medya", label: "📺 Türk Medya Kuruluşları" },
   { key: "diplomatik", label: "🏛️ Büyükelçilik & Konsolosluk" },
   { key: "hastane", label: "🏥 Sağlık Kuruluşları" },
+  { key: "dijital", label: "💬 Dijital Topluluklar" },
 ];
 
 const Associations = () => {
