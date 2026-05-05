@@ -206,7 +206,7 @@ const ProfileIndividual = () => {
 
         {/* TRANSACTIONS (Stripe) */}
         <TabsContent value="transactions" className="mt-6">
-          <StripeTransactionsPanel stripeConnected={false} />
+          <StripeTransactionsPanel stripeConnected={false} outgoingOnly />
         </TabsContent>
 
         {/* RELOCATION MANAGEMENT */}

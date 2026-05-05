@@ -29,6 +29,8 @@ interface Props {
   currency?: string;
   /** Stripe henüz bağlı değilken Ready banner gösterilsin */
   stripeConnected?: boolean;
+  /** Bireysel kullanıcılar tahsilat yapamaz — sadece harcama göster */
+  outgoingOnly?: boolean;
 }
 
 const defaultTxns: StripeTxn[] = [
@@ -48,11 +50,15 @@ const StripeTransactionsPanel = ({
   transactions,
   currency = "€",
   stripeConnected = false,
+  outgoingOnly = false,
 }: Props) => {
-  const [filter, setFilter] = useState<"all" | "in" | "out">("all");
+  const [filter, setFilter] = useState<"all" | "in" | "out">(outgoingOnly ? "out" : "all");
   const hasReal = useDemoFlag("transactions");
   const isDemo = !transactions && !hasReal;
-  const effectiveTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
+  const baseTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
+  const effectiveTxns: StripeTxn[] = outgoingOnly
+    ? baseTxns.filter((t) => t.direction === "out")
+    : baseTxns;
 
   const visible = useMemo(
     () => filter === "all" ? effectiveTxns : effectiveTxns.filter(t => t.direction === filter),
@@ -92,8 +98,9 @@ const StripeTransactionsPanel = ({
               Stripe Ready · Yakında Aktif
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Tüm tahsilat ve harcamalarınız Stripe üzerinden güvenle takip edilecek.
-              Aşağıdaki kayıtlar entegrasyon tamamlandığında otomatik dolacak.
+              {outgoingOnly
+                ? "Bireysel hesaplar yalnızca harcama (ödeme) yapabilir; tahsilat ve satış yapılamaz. Aşağıdaki kayıtlar tüm ödemelerinizi listeler."
+                : "Tüm tahsilat ve harcamalarınız Stripe üzerinden güvenle takip edilecek. Aşağıdaki kayıtlar entegrasyon tamamlandığında otomatik dolacak."}
             </p>
           </div>
           <Badge variant="outline" className="border-primary/40 text-primary shrink-0">
@@ -117,19 +124,21 @@ const StripeTransactionsPanel = ({
       )}
 
       {/* Summary cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-border">
-          <CardContent className="p-5">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-xs text-muted-foreground">Toplam Tahsilat</p>
-              <TrendingUp className="h-4 w-4 text-success" />
-            </div>
-            <p className="text-2xl font-extrabold text-foreground">
-              {currency}{totals.inSum.toLocaleString()}
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-1">Stripe üzerinden gelen ödemeler</p>
-          </CardContent>
-        </Card>
+      <div className={`grid grid-cols-1 ${outgoingOnly ? "" : "md:grid-cols-3"} gap-4`}>
+        {!outgoingOnly && (
+          <Card className="border-border">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xs text-muted-foreground">Toplam Tahsilat</p>
+                <TrendingUp className="h-4 w-4 text-success" />
+              </div>
+              <p className="text-2xl font-extrabold text-foreground">
+                {currency}{totals.inSum.toLocaleString()}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-1">Stripe üzerinden gelen ödemeler</p>
+            </CardContent>
+          </Card>
+        )}
         <Card className="border-border">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-1">
@@ -142,18 +151,20 @@ const StripeTransactionsPanel = ({
             <p className="text-[11px] text-muted-foreground mt-1">Stripe üzerinden yapılan ödemeler</p>
           </CardContent>
         </Card>
-        <Card className="border-border">
-          <CardContent className="p-5">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-xs text-muted-foreground">Net</p>
-              <Wallet className="h-4 w-4 text-primary" />
-            </div>
-            <p className={`text-2xl font-extrabold ${totals.net >= 0 ? "text-success" : "text-destructive"}`}>
-              {totals.net >= 0 ? "+" : "-"}{currency}{Math.abs(totals.net).toLocaleString()}
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-1">Tahsilat − Harcama</p>
-          </CardContent>
-        </Card>
+        {!outgoingOnly && (
+          <Card className="border-border">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xs text-muted-foreground">Net</p>
+                <Wallet className="h-4 w-4 text-primary" />
+              </div>
+              <p className={`text-2xl font-extrabold ${totals.net >= 0 ? "text-success" : "text-destructive"}`}>
+                {totals.net >= 0 ? "+" : "-"}{currency}{Math.abs(totals.net).toLocaleString()}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-1">Tahsilat − Harcama</p>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Transactions table */}
@@ -173,7 +184,7 @@ const StripeTransactionsPanel = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Tümü</SelectItem>
-                  <SelectItem value="in">Tahsilat</SelectItem>
+                  {!outgoingOnly && <SelectItem value="in">Tahsilat</SelectItem>}
                   <SelectItem value="out">Harcama</SelectItem>
                 </SelectContent>
               </Select>
