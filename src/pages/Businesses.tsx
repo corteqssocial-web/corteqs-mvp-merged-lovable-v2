@@ -418,7 +418,7 @@ const Businesses = () => {
               modal={false}
               context="genel"
               defaultCategory="isletme"
-              title="İşletmenizi Kaydedin"
+              title="İşletme Olarak Ön Kayıt Ol"
               description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategoriyi isterseniz değiştirin."
               source="businesses-listing"
             />

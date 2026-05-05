@@ -1,42 +1,41 @@
 import { Link } from "react-router-dom";
-import { Button } from "@/components/ui/button";
-import { Crown, UserPlus, Sparkles } from "lucide-react";
+import { Crown, ArrowRight, Sparkles } from "lucide-react";
 
 interface CategoryListingBannerProps {
   /** Kategori adı (ör. "Danışmanlık", "İşletmeler", "Kuruluşlar") */
   categoryLabel: string;
-  /** Tıklayınca aşağıdaki forma scroll için id */
-  formAnchorId: string;
+  /** (Geriye dönük uyumluluk — artık kullanılmıyor) */
+  formAnchorId?: string;
 }
 
-const CategoryListingBanner = ({ categoryLabel, formAnchorId }: CategoryListingBannerProps) => {
+/**
+ * Kayıt formunun ÜZERİNE konulan kompakt Founding 1000 şeridi.
+ * Tıklanınca doğrudan /founders-1000 sayfasına yönlendirir.
+ */
+const CategoryListingBanner = ({ categoryLabel }: CategoryListingBannerProps) => {
   return (
-    <div className="rounded-2xl border border-turquoise/30 bg-gradient-to-br from-turquoise/5 via-card to-orange-50/40 p-6 md:p-8 mb-8">
-      <div className="flex flex-col items-center text-center gap-2 mb-4">
-        <Sparkles className="h-5 w-5 text-turquoise" />
-        <h2 className="text-xl md:text-2xl font-bold">
-          {categoryLabel} kategorimize başvurularımız devam etmektedir
-        </h2>
-        <p className="text-sm text-muted-foreground max-w-2xl">
-          Aşağıda gördüğünüz kartlar örnek (DEMO) içeriklerdir. Gerçek profiller başvurular değerlendirildikçe yayına alınacaktır.
-        </p>
+    <Link
+      to="/founders-1000"
+      className="group block rounded-xl border border-gold/40 bg-gradient-to-r from-gold/10 via-orange-50/60 to-turquoise/10 hover:from-gold/15 hover:via-orange-50 hover:to-turquoise/15 transition-all px-4 py-3 mb-4"
+    >
+      <div className="flex items-center gap-3">
+        <div className="shrink-0 w-9 h-9 rounded-lg bg-gold/20 flex items-center justify-center">
+          <Crown className="h-4.5 w-4.5 text-gold" />
+        </div>
+        <div className="min-w-0 flex-1">
+          <div className="flex items-center gap-1.5">
+            <Sparkles className="h-3 w-3 text-turquoise" />
+            <span className="text-[11px] font-bold uppercase tracking-wider text-turquoise">
+              Founding 1000 — Sınırlı Kontenjan
+            </span>
+          </div>
+          <p className="text-sm font-semibold text-foreground leading-tight mt-0.5">
+            {categoryLabel} kategorisinde <span className="text-gold">Founding Partner</span> olmak ister misiniz?
+          </p>
+        </div>
+        <ArrowRight className="h-4 w-4 text-foreground/60 group-hover:translate-x-0.5 group-hover:text-foreground transition-all shrink-0" />
       </div>
-
-      <div className="flex flex-col sm:flex-row gap-3">
-        <Link to="/founders-1000" className="flex-1">
-          <Button size="lg" className="w-full bg-gold text-foreground hover:bg-gold/90 gap-2">
-            <Crown className="h-4 w-4" />
-            Avantajlı Kayıt + Global Görünürlük: Founders 1000
-          </Button>
-        </Link>
-        <a href={`#${formAnchorId}`} className="flex-1">
-          <Button size="lg" variant="outline" className="w-full border-turquoise text-turquoise hover:bg-turquoise/10 gap-2">
-            <UserPlus className="h-4 w-4" />
-            {categoryLabel} Kategorisine Kayıt Ol
-          </Button>
-        </a>
-      </div>
-    </div>
+    </Link>
   );
 };
 

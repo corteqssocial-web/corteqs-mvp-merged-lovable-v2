@@ -170,7 +170,7 @@ const Associations = () => {
               modal={false}
               context="genel"
               defaultCategory="kurulus"
-              title="Kuruluşumuzu Kaydet"
+              title="Kuruluş Olarak Ön Kayıt Ol"
               description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategori sabitlenmedi — istediğinizi seçin."
               source="associations-listing"
             />
