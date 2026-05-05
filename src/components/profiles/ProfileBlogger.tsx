@@ -1,11 +1,11 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import SocialMediaCampaignDialog from "@/components/SocialMediaCampaignDialog";
 import CategoryShowcasePurchase from "@/components/CategoryShowcasePurchase";
 import {
   Users, MapPin, Globe, Calendar, Heart, Megaphone,
   TrendingUp, Settings, Star, Eye, BarChart3, CreditCard, Crown,
   Instagram, Video, Bot, MessageSquare, Phone, PenLine,
-  Edit3, Handshake, Play
+  Edit3, Handshake, Play, Link2, Trash2, ExternalLink, Radio
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -15,6 +15,8 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Switch } from "@/components/ui/switch";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
+import { addDiasporaBlogLink, getDiasporaBlogLinksByAuthor, removeDiasporaBlogLink, type DiasporaBlogLink } from "@/lib/diasporaBlogLinks";
+import { toast } from "@/hooks/use-toast";
 
 const ProfileBlogger = () => {
   const blogger = {
@@ -37,6 +39,41 @@ const ProfileBlogger = () => {
     website: "selinakis.com",
     gustos: ["Seyahat", "Yaşam", "Kültür", "Yemek"],
     aiTwinEnabled: true,
+  };
+
+  // Diaspora blog link uploader state (links published to Medya page → Türk Diaspora Medyası filter)
+  const [myBlogLinks, setMyBlogLinks] = useState<DiasporaBlogLink[]>([]);
+  const [linkUrl, setLinkUrl] = useState("");
+  const [linkTitle, setLinkTitle] = useState("");
+  const [linkDesc, setLinkDesc] = useState("");
+
+  useEffect(() => {
+    setMyBlogLinks(getDiasporaBlogLinksByAuthor(blogger.name));
+  }, []);
+
+  const handleAddLink = () => {
+    if (!linkUrl.trim() || !linkTitle.trim()) {
+      toast({ title: "Eksik alan", description: "Link ve başlık zorunludur.", variant: "destructive" });
+      return;
+    }
+    addDiasporaBlogLink({
+      url: linkUrl.trim(),
+      title: linkTitle.trim(),
+      description: linkDesc.trim() || undefined,
+      author: blogger.name,
+      city: blogger.city,
+      country: blogger.country,
+    });
+    setMyBlogLinks(getDiasporaBlogLinksByAuthor(blogger.name));
+    setLinkUrl("");
+    setLinkTitle("");
+    setLinkDesc("");
+    toast({ title: "Yazı eklendi", description: "Medya → Türk Diaspora Medyası filtresinde yayında." });
+  };
+
+  const handleRemoveLink = (id: string) => {
+    removeDiasporaBlogLink(id);
+    setMyBlogLinks(getDiasporaBlogLinksByAuthor(blogger.name));
   };
 
   const sessions = {
@@ -144,7 +181,73 @@ const ProfileBlogger = () => {
         </TabsList>
 
         {/* CONTENT */}
-        <TabsContent value="content" className="mt-6">
+        <TabsContent value="content" className="mt-6 space-y-6">
+          {/* Diaspora Blog Link Uploader */}
+          <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
+            <div className="flex items-start justify-between mb-4 flex-wrap gap-2">
+              <div>
+                <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
+                  <Link2 className="h-5 w-5 text-primary" /> Blog Linkleri Yükle
+                </h2>
+                <p className="text-xs text-muted-foreground mt-1 flex items-center gap-1">
+                  <Radio className="h-3 w-3" />
+                  Eklediğiniz yazılar <strong className="mx-1">Medya → Türk Diaspora Medyası</strong> filtresinde yayınlanır.
+                </p>
+              </div>
+              <Badge variant="secondary" className="text-xs">{myBlogLinks.length} yazı</Badge>
+            </div>
+
+            <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-3">
+              <div>
+                <Label className="text-xs">Yazı Linki *</Label>
+                <Input
+                  placeholder="https://blogunuz.com/yazi"
+                  value={linkUrl}
+                  onChange={(e) => setLinkUrl(e.target.value)}
+                />
+              </div>
+              <div>
+                <Label className="text-xs">Yazı Başlığı *</Label>
+                <Input
+                  placeholder="Amsterdam'da Türk Mahalleleri"
+                  value={linkTitle}
+                  onChange={(e) => setLinkTitle(e.target.value)}
+                />
+              </div>
+            </div>
+            <div className="mb-3">
+              <Label className="text-xs">Kısa Açıklama (opsiyonel)</Label>
+              <Textarea
+                rows={2}
+                placeholder="Yazının kısa özeti..."
+                value={linkDesc}
+                onChange={(e) => setLinkDesc(e.target.value)}
+              />
+            </div>
+            <Button onClick={handleAddLink} className="gap-2">
+              <Link2 className="h-4 w-4" /> Linki Yayınla
+            </Button>
+
+            {myBlogLinks.length > 0 && (
+              <div className="mt-5 space-y-2">
+                <p className="text-xs font-semibold text-muted-foreground">Yayınlanan Yazılarım</p>
+                {myBlogLinks.map((b) => (
+                  <div key={b.id} className="flex items-center gap-3 p-3 rounded-lg bg-muted/50">
+                    <div className="flex-1 min-w-0">
+                      <p className="font-medium text-sm text-foreground truncate">{b.title}</p>
+                      <a href={b.url} target="_blank" rel="noopener noreferrer" className="text-xs text-primary hover:underline flex items-center gap-1 truncate">
+                        <ExternalLink className="h-3 w-3" /> {b.url}
+                      </a>
+                    </div>
+                    <Button variant="ghost" size="sm" onClick={() => handleRemoveLink(b.id)} className="text-destructive">
+                      <Trash2 className="h-4 w-4" />
+                    </Button>
+                  </div>
+                ))}
+              </div>
+            )}
+          </div>
+
           <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
             <div className="flex items-center justify-between mb-6">
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">

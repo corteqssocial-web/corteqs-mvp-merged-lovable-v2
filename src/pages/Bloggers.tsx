@@ -2,7 +2,7 @@ import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Star, PenLine, Video, Instagram, Users, Handshake, Eye,
-  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift, Radio
+  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -12,7 +12,7 @@ import DemoBadge from "@/components/DemoBadge";
 import InterestForm from "@/components/InterestForm";
 import { bloggers } from "@/data/mock";
 
-type MediaFilter = "all" | "blogger" | "influencer" | "youtuber" | "diaspora";
+type MediaFilter = "all" | "blogger" | "influencer" | "youtuber";
 
 const Bloggers = () => {
   const [filter, setFilter] = useState<MediaFilter>("all");
@@ -24,7 +24,6 @@ const Bloggers = () => {
 
   const visible = useMemo(() => {
     if (filter === "all") return baseDemo;
-    if (filter === "diaspora") return bloggers.filter((b) => b.diasporaMedia);
     return bloggers.filter((b) => b.type === filter);
   }, [filter, baseDemo]);
 
@@ -72,7 +71,6 @@ const Bloggers = () => {
               { key: "blogger", label: "Blogger", icon: PenLine },
               { key: "influencer", label: "Vlogger", icon: Video },
               { key: "youtuber", label: "YouTuber", icon: Video },
-              { key: "diaspora", label: "Türk Diaspora Medyası", icon: Radio },
             ] as { key: MediaFilter; label: string; icon: typeof Sparkles }[]).map((f) => {
               const active = filter === f.key;
               return (

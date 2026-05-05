@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Cloud, TrendingUp, Briefcase, Newspaper, MapPin, Search, Globe, BookOpen, FileText, Library } from "lucide-react";
+import { Cloud, TrendingUp, Briefcase, Newspaper, MapPin, Search, Globe, BookOpen, FileText, Library, Radio, ExternalLink, PenLine } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { cityMeta, categoryConfig, getFilteredNews, searchAllNews, getDiasporaMedia, type NewsCategory, type DiasporaMediaItem } from "@/data/cityNewsData";
@@ -9,6 +9,7 @@ import CityWeatherWidget from "@/components/city-news/CityWeatherWidget";
 import NewsCard from "@/components/city-news/NewsCard";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
+import { getDiasporaBlogLinks } from "@/lib/diasporaBlogLinks";
 
 const mediaTypeMeta = {
   magazine: { label: "Dergi", icon: BookOpen, color: "text-violet-400", bg: "bg-violet-500/10 border-violet-500/30" },
@@ -16,10 +17,12 @@ const mediaTypeMeta = {
   book: { label: "Kitap", icon: Library, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/30" },
 } as const;
 
+type ExtCategory = NewsCategory | "diaspora";
+
 const CityNews = () => {
   const { selectedCountry: country } = useDiaspora();
   const [city, setCity] = useState("all");
-  const [category, setCategory] = useState<NewsCategory>("all");
+  const [category, setCategory] = useState<ExtCategory>("all");
   const [keyword, setKeyword] = useState("");
 
   // Reset city when country changes
@@ -47,7 +50,8 @@ const CityNews = () => {
     let localNews: ReturnType<typeof getFilteredNews>["local"] = [];
     let intlNews: ReturnType<typeof getFilteredNews>["international"] = [];
     cities.forEach(cityName => {
-      const { local, international } = getFilteredNews(cityName, category, keyword);
+      const newsCat: NewsCategory = category === "diaspora" ? "all" : category;
+      const { local, international } = getFilteredNews(cityName, newsCat, keyword);
       localNews = [...localNews, ...local];
       intlNews = [...intlNews, ...international];
     });
@@ -58,7 +62,8 @@ const CityNews = () => {
   const crossCityResults = useMemo(() => {
     if (!keyword.trim()) return [];
     const currentCities = filteredCityMetas.map(c => c.city);
-    return searchAllNews(category, keyword).filter(n => !currentCities.includes(n.city));
+    const newsCat: NewsCategory = category === "diaspora" ? "all" : category;
+    return searchAllNews(newsCat, keyword).filter(n => !currentCities.includes(n.city));
   }, [keyword, category, filteredCityMetas]);
 
   // Diaspora media (magazines, newspapers, books) for current country/city scope
@@ -74,7 +79,19 @@ const CityNews = () => {
     };
   }, [diasporaMedia]);
 
+  const blogLinks = useMemo(() => {
+    const items = getDiasporaBlogLinks(city !== "all" ? city : undefined, country !== "all" ? country : undefined);
+    const kw = keyword.toLowerCase().trim();
+    if (!kw) return items;
+    return items.filter(b =>
+      b.title.toLowerCase().includes(kw) ||
+      (b.description || "").toLowerCase().includes(kw) ||
+      b.author.toLowerCase().includes(kw)
+    );
+  }, [city, country, keyword]);
+
   const locationLabel = city !== "all" ? city : country !== "all" ? country : "Tüm Şehirler";
+  const isDiasporaOnly = category === "diaspora";
 
   return (
     <div className="min-h-screen bg-background">
@@ -121,6 +138,17 @@ const CityNews = () => {
                 </button>
               );
             })}
+            <button
+              onClick={() => setCategory("diaspora")}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+                category === "diaspora"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+              }`}
+            >
+              <Radio className="h-3.5 w-3.5" />
+              Türk Diaspora Medyası
+            </button>
           </div>
           <div className="sm:ml-auto">
             <CountryCitySelector city={city} onCityChange={setCity} />
@@ -146,24 +174,73 @@ const CityNews = () => {
         )}
 
         {/* Local News Section */}
-        <div className="mb-10">
-          <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-primary" />
-            {locationLabel} Yerel Haberler
-          </h2>
-          {allLocal.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {allLocal.map((news) => (
-                <NewsCard key={news.id} news={news} showCity={city === "all"} />
-              ))}
+        {!isDiasporaOnly && (
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-primary" />
+              {locationLabel} Yerel Haberler
+            </h2>
+            {allLocal.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {allLocal.map((news) => (
+                  <NewsCard key={news.id} news={news} showCity={city === "all"} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10 text-muted-foreground">
+                <Newspaper className="h-10 w-10 mx-auto mb-2 opacity-30" />
+                <p>Bu filtrede yerel haber bulunamadı.</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Türk Diaspora Medyası — Blogger Linkleri */}
+        {isDiasporaOnly && (
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <PenLine className="h-5 w-5 text-primary" />
+                {locationLabel} — Blogger & Yazar Yazıları
+                <span className="text-xs font-normal text-muted-foreground ml-1">Türk Diaspora Medyası</span>
+              </h2>
+              <Badge variant="secondary" className="text-xs">{blogLinks.length} yazı</Badge>
             </div>
-          ) : (
-            <div className="text-center py-10 text-muted-foreground">
-              <Newspaper className="h-10 w-10 mx-auto mb-2 opacity-30" />
-              <p>Bu filtrede yerel haber bulunamadı.</p>
-            </div>
-          )}
-        </div>
+            {blogLinks.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {blogLinks.map((b) => (
+                  <a
+                    key={b.id}
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-card border border-border rounded-xl p-4 hover:border-primary/40 transition-all flex flex-col"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] gap-1">
+                        <Radio className="h-3 w-3" /> Diaspora Blog
+                      </Badge>
+                      {b.city && <Badge variant="outline" className="text-[10px]">{b.city}</Badge>}
+                    </div>
+                    <h3 className="font-bold text-foreground leading-snug mb-1 line-clamp-2 group-hover:text-primary transition-colors">{b.title}</h3>
+                    <p className="text-xs text-primary font-medium mb-2">{b.author}</p>
+                    {b.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2">{b.description}</p>
+                    )}
+                    <div className="flex items-center gap-1 mt-3 text-xs text-muted-foreground">
+                      <ExternalLink className="h-3 w-3" /> Yazıyı Aç
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10 text-muted-foreground">
+                <PenLine className="h-10 w-10 mx-auto mb-2 opacity-30" />
+                <p>Bu lokasyonda henüz yayınlanmış blog yazısı yok.</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Diaspora Medya — Dergi · Gazete · Kitap */}
         {diasporaMedia.length > 0 && (
@@ -215,7 +292,7 @@ const CityNews = () => {
         )}
 
         {/* International News Section */}
-        {allInternational.length > 0 && (
+        {!isDiasporaOnly && allInternational.length > 0 && (
           <div className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
@@ -231,7 +308,7 @@ const CityNews = () => {
         )}
 
         {/* Cross-city keyword results */}
-        {crossCityResults.length > 0 && (
+        {!isDiasporaOnly && crossCityResults.length > 0 && (
           <div className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <Search className="h-5 w-5 text-primary" />
