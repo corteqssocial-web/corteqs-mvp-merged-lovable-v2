@@ -92,23 +92,53 @@ const ProfileIndividual = () => {
     .map((id) => allEvents.find((e) => e.id === id))
     .filter((e): e is NonNullable<typeof e> => !!e);
 
-  const calendarEvents = userEvents.map((e) => ({
-    id: e.id,
-    title: e.title,
-    date: e.date.split(" ").slice(0, 2).join(" "),
-    time: e.time,
-    type: (e.type === "online" ? "online" : "yüz yüze") as "online" | "yüz yüze",
-    city: e.city,
-    source: isFollowed("event-joined", e.id) ? ("joined" as const) : ("followed" as const),
-  }));
+  const TR_MONTHS: Record<string, number> = {
+    Oca: 0, Şub: 1, Mar: 2, Nis: 3, May: 4, Haz: 5,
+    Tem: 6, Ağu: 7, Eyl: 8, Eki: 9, Kas: 10, Ara: 11,
+  };
+  const parseTrDate = (s: string): Date | null => {
+    const parts = s.split(" ");
+    if (parts.length < 2) return null;
+    const day = parseInt(parts[0], 10);
+    const month = TR_MONTHS[parts[1]];
+    const year = parts[2] ? parseInt(parts[2], 10) : new Date().getFullYear();
+    if (isNaN(day) || month === undefined) return null;
+    return new Date(year, month, day);
+  };
 
-  const cityOptions = Array.from(new Set(calendarEvents.map((e) => e.city))).filter(Boolean);
+  const now = new Date();
+  const threeMonthsAgo = new Date(now.getFullYear(), now.getMonth() - 3, now.getDate());
+
+  const calendarEvents = userEvents
+    .map((e) => {
+      const d = parseTrDate(e.date);
+      const isPast = d ? d < new Date(now.getFullYear(), now.getMonth(), now.getDate()) : false;
+      const inArchiveWindow = d ? d >= threeMonthsAgo : false;
+      return {
+        id: e.id,
+        title: e.title,
+        date: e.date.split(" ").slice(0, 2).join(" "),
+        time: e.time,
+        type: (e.type === "online" ? "online" : "yüz yüze") as "online" | "yüz yüze",
+        city: e.city,
+        source: isFollowed("event-joined", e.id) ? ("joined" as const) : ("followed" as const),
+        isPast,
+        keep: !isPast || inArchiveWindow,
+      };
+    })
+    .filter((e) => e.keep);
+
+  const upcomingEvents = calendarEvents.filter((e) => !e.isPast);
+  const archivedEvents = calendarEvents.filter((e) => e.isPast);
+  const cityOptions = Array.from(new Set(upcomingEvents.map((e) => e.city))).filter(Boolean);
 
   const [calendarFilter, setCalendarFilter] = useState<string>("all");
+  const [showArchive, setShowArchive] = useState(false);
 
-  const filteredCalendar = calendarFilter === "all"
-    ? calendarEvents
-    : calendarEvents.filter((e) => e.city === calendarFilter);
+  const baseList = showArchive ? archivedEvents : upcomingEvents;
+  const filteredCalendar = calendarFilter === "all" || showArchive
+    ? baseList
+    : baseList.filter((e) => e.city === calendarFilter);
 
   return (
     <>
