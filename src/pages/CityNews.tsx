@@ -126,6 +126,17 @@ const CityNews = () => {
                 </button>
               );
             })}
+            <button
+              onClick={() => setCategory("diaspora")}
+              className={`flex items-center gap-1.5 px-4 py-2 rounded-full text-sm font-medium transition-colors border ${
+                category === "diaspora"
+                  ? "bg-primary text-primary-foreground border-primary"
+                  : "bg-card border-border text-muted-foreground hover:text-foreground hover:border-foreground/30"
+              }`}
+            >
+              <Radio className="h-3.5 w-3.5" />
+              Türk Diaspora Medyası
+            </button>
           </div>
           <div className="sm:ml-auto">
             <CountryCitySelector city={city} onCityChange={setCity} />
