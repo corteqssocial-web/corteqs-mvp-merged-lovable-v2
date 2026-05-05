@@ -410,7 +410,9 @@ const ProfileIndividual = () => {
               <div className="rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center">
                 <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
                 <p className="text-sm text-muted-foreground">
-                  Takvimin boş. Etkinlikleri <Link to="/events" className="text-primary hover:underline">takip et</Link> veya bilet alarak buraya ekle.
+                  {showArchive
+                    ? "Arşivde gösterilecek geçmiş etkinlik yok. (Son 3 ay tutulur)"
+                    : <>Takvimin boş. Etkinlikleri <Link to="/events" className="text-primary hover:underline">takip et</Link> veya bilet alarak buraya ekle.</>}
                 </p>
               </div>
             ) : (
