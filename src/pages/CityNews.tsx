@@ -174,24 +174,73 @@ const CityNews = () => {
         )}
 
         {/* Local News Section */}
-        <div className="mb-10">
-          <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
-            <MapPin className="h-5 w-5 text-primary" />
-            {locationLabel} Yerel Haberler
-          </h2>
-          {allLocal.length > 0 ? (
-            <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-              {allLocal.map((news) => (
-                <NewsCard key={news.id} news={news} showCity={city === "all"} />
-              ))}
+        {!isDiasporaOnly && (
+          <div className="mb-10">
+            <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
+              <MapPin className="h-5 w-5 text-primary" />
+              {locationLabel} Yerel Haberler
+            </h2>
+            {allLocal.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {allLocal.map((news) => (
+                  <NewsCard key={news.id} news={news} showCity={city === "all"} />
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10 text-muted-foreground">
+                <Newspaper className="h-10 w-10 mx-auto mb-2 opacity-30" />
+                <p>Bu filtrede yerel haber bulunamadı.</p>
+              </div>
+            )}
+          </div>
+        )}
+
+        {/* Türk Diaspora Medyası — Blogger Linkleri */}
+        {isDiasporaOnly && (
+          <div className="mb-10">
+            <div className="flex items-center justify-between mb-4 flex-wrap gap-2">
+              <h2 className="text-lg font-bold text-foreground flex items-center gap-2">
+                <PenLine className="h-5 w-5 text-primary" />
+                {locationLabel} — Blogger & Yazar Yazıları
+                <span className="text-xs font-normal text-muted-foreground ml-1">Türk Diaspora Medyası</span>
+              </h2>
+              <Badge variant="secondary" className="text-xs">{blogLinks.length} yazı</Badge>
             </div>
-          ) : (
-            <div className="text-center py-10 text-muted-foreground">
-              <Newspaper className="h-10 w-10 mx-auto mb-2 opacity-30" />
-              <p>Bu filtrede yerel haber bulunamadı.</p>
-            </div>
-          )}
-        </div>
+            {blogLinks.length > 0 ? (
+              <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+                {blogLinks.map((b) => (
+                  <a
+                    key={b.id}
+                    href={b.url}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    className="group bg-card border border-border rounded-xl p-4 hover:border-primary/40 transition-all flex flex-col"
+                  >
+                    <div className="flex items-center gap-2 mb-2">
+                      <Badge className="bg-primary/10 text-primary border-primary/20 text-[10px] gap-1">
+                        <Radio className="h-3 w-3" /> Diaspora Blog
+                      </Badge>
+                      {b.city && <Badge variant="outline" className="text-[10px]">{b.city}</Badge>}
+                    </div>
+                    <h3 className="font-bold text-foreground leading-snug mb-1 line-clamp-2 group-hover:text-primary transition-colors">{b.title}</h3>
+                    <p className="text-xs text-primary font-medium mb-2">{b.author}</p>
+                    {b.description && (
+                      <p className="text-sm text-muted-foreground line-clamp-2">{b.description}</p>
+                    )}
+                    <div className="flex items-center gap-1 mt-3 text-xs text-muted-foreground">
+                      <ExternalLink className="h-3 w-3" /> Yazıyı Aç
+                    </div>
+                  </a>
+                ))}
+              </div>
+            ) : (
+              <div className="text-center py-10 text-muted-foreground">
+                <PenLine className="h-10 w-10 mx-auto mb-2 opacity-30" />
+                <p>Bu lokasyonda henüz yayınlanmış blog yazısı yok.</p>
+              </div>
+            )}
+          </div>
+        )}
 
         {/* Diaspora Medya — Dergi · Gazete · Kitap */}
         {diasporaMedia.length > 0 && (
