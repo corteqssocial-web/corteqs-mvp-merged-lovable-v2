@@ -24,7 +24,6 @@ const Bloggers = () => {
 
   const visible = useMemo(() => {
     if (filter === "all") return baseDemo;
-    if (filter === "diaspora") return bloggers.filter((b) => b.diasporaMedia);
     return bloggers.filter((b) => b.type === filter);
   }, [filter, baseDemo]);
 
