@@ -22,6 +22,8 @@ import ServiceRequestsList from "@/components/ServiceRequestsList";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import WelcomePack from "@/components/profiles/WelcomePack";
 import { useDemoFlag } from "@/lib/demoFlags";
+import { useFollow } from "@/hooks/useFollow";
+import { events as allEvents } from "@/data/mock";
 
 
 const ProfileIndividual = () => {
