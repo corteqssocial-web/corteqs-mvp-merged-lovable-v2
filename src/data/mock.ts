@@ -344,6 +344,8 @@ export interface Blogger {
   vlogs: { id: string; title: string; thumbnail: string; url: string; views: number }[];
   adCollaboration: boolean;
   collabTypes: string[];
+  /** Sadece "Türk Diaspora Medyası" başvurusu ile gelenler için işaretlenir */
+  diasporaMedia?: boolean;
 }
 
 export const bloggers: Blogger[] = [
@@ -533,6 +535,7 @@ export const bloggers: Blogger[] = [
     ],
     adCollaboration: true,
     collabTypes: ["Sponsorlu Bölüm", "Uzun Format İçerik", "Konuk Ağırlama"],
+    diasporaMedia: true,
   },
 ];
 
