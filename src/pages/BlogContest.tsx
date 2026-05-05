@@ -1,20 +1,22 @@
 import { useState } from "react";
-import { Trophy, PenLine, Calendar, BarChart3, Heart, CheckCircle2, ArrowRight, Star, Clock, Award } from "lucide-react";
+import { Trophy, PenLine, Calendar, BarChart3, Heart, CheckCircle2, ArrowRight, Star, Clock, Award, Upload, Plane } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
-import { Badge } from "@/components/ui/badge";
+import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 import bloggerHero from "@/assets/blogger-contest-hero.jpg";
 import mascot from "@/assets/corteqs-mascot.png";
 
+const REFERRAL_CODE = "GGBYLA-KFGJ5V";
+
 const contestRules = [
   "Yarışmaya tüm CorteQS platformuna kayıtlı bloggerlar katılabilir.",
   "Blog yazıları Türkçe veya İngilizce yazılabilir.",
   "Yazılar ülke, şehir, kültür veya gusto temalı olmalıdır.",
   "Her katılımcı en fazla 5 yazı ile yarışmaya katılabilir.",
-  "Yazılar 1 Ocak 2026 - 31 Aralık 2026 tarihleri arasında yayınlanmış olmalıdır.",
+  "Yazılar 19 Mayıs 2026 - 1 Ekim 2026 tarihleri arasında yayınlanmış olmalıdır.",
   "Plagiarism toleransı sıfırdır. Orijinal içerik zorunludur.",
   "Sonuçlar 31 Aralık 2026'da analitik veriler + beğeni performansına göre açıklanacaktır.",
 ];
@@ -23,6 +25,7 @@ const prizes = [
   { place: "1.", prize: "$1.000", icon: Trophy, color: "text-gold" },
   { place: "2.", prize: "$500", icon: Award, color: "text-muted-foreground" },
   { place: "3.", prize: "$250", icon: Star, color: "text-primary" },
+  { place: "Özel", prize: "Dubai-İstanbul Uçak Bileti", icon: Plane, color: "text-turquoise" },
 ];
 
 const BlogContest = () => {
@@ -30,10 +33,17 @@ const BlogContest = () => {
   const [formData, setFormData] = useState({
     name: "",
     email: "",
+    phone: "",
     blogUrl: "",
     country: "",
     city: "",
+    postTitle: "",
+    postTheme: "",
+    description: "",
+    socialHandles: "",
+    referral: REFERRAL_CODE,
   });
+  const [postFile, setPostFile] = useState<File | null>(null);
 
   const handleSubmit = (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +51,11 @@ const BlogContest = () => {
       title: "Başvuru Alındı! 🎉",
       description: "Blog yazısı yarışmasına başvurunuz başarıyla alındı. Detaylar e-posta ile gönderilecektir.",
     });
-    setFormData({ name: "", email: "", blogUrl: "", country: "", city: "" });
+    setFormData({
+      name: "", email: "", phone: "", blogUrl: "", country: "", city: "",
+      postTitle: "", postTheme: "", description: "", socialHandles: "", referral: REFERRAL_CODE,
+    });
+    setPostFile(null);
   };
 
   return (
@@ -76,14 +90,14 @@ const BlogContest = () => {
                   {prizes.map((p) => (
                     <div key={p.place} className="bg-card border border-border rounded-2xl p-4 shadow-card min-w-[120px]">
                       <p.icon className={`h-7 w-7 mb-1.5 ${p.color}`} />
-                      <p className="text-xl font-bold text-foreground">{p.prize}</p>
+                      <p className="text-base font-bold text-foreground">{p.prize}</p>
                       <p className="text-xs text-muted-foreground">{p.place} Ödül</p>
                     </div>
                   ))}
                 </div>
 
                 <div className="flex flex-wrap items-center gap-4 text-sm text-muted-foreground">
-                  <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Son Tarih: 31 Aralık 2026</span>
+                  <span className="flex items-center gap-1.5"><Calendar className="h-4 w-4 text-primary" /> Başvuru: 19 Mayıs - 1 Ekim 2026</span>
                   <span className="flex items-center gap-1.5"><BarChart3 className="h-4 w-4 text-turquoise" /> Analitik + Beğeni Bazlı</span>
                   <span className="flex items-center gap-1.5"><PenLine className="h-4 w-4 text-gold" /> Orijinal İçerik</span>
                 </div>
@@ -138,7 +152,6 @@ const BlogContest = () => {
         <section className="py-16">
           <div className="container mx-auto px-4">
             <div className="grid grid-cols-1 lg:grid-cols-2 gap-12">
-              {/* Rules */}
               <div>
                 <h2 className="text-3xl font-bold text-foreground mb-8">Katılım Şartları</h2>
                 <div className="space-y-4">
@@ -166,8 +179,8 @@ const BlogContest = () => {
                     <Clock className="h-5 w-5 text-primary" /> Önemli Tarihler
                   </h3>
                   <div className="space-y-2 text-sm text-muted-foreground font-body">
-                    <p>📅 Başvuru Başlangıcı: <strong>1 Ocak 2026</strong></p>
-                    <p>📅 Son Yazı Yayınlama: <strong>15 Aralık 2026</strong></p>
+                    <p>📅 Başvuru Başlangıcı: <strong>19 Mayıs 2026</strong></p>
+                    <p>📅 Son Başvuru / Yazı Yayınlama: <strong>1 Ekim 2026</strong></p>
                     <p>🏆 Sonuç Açıklaması: <strong>31 Aralık 2026</strong></p>
                   </div>
                 </div>
@@ -177,54 +190,75 @@ const BlogContest = () => {
               <div>
                 <h2 className="text-3xl font-bold text-foreground mb-8">Başvuru Formu</h2>
                 <form onSubmit={handleSubmit} className="bg-card border border-border rounded-2xl p-6 shadow-card space-y-5">
-                  <div>
-                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Ad Soyad</label>
-                    <Input
-                      value={formData.name}
-                      onChange={(e) => setFormData({ ...formData, name: e.target.value })}
-                      placeholder="Adınız ve soyadınız"
-                      required
-                    />
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Ad Soyad</label>
+                      <Input value={formData.name} onChange={(e) => setFormData({ ...formData, name: e.target.value })} placeholder="Adınız ve soyadınız" required />
+                    </div>
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Telefon</label>
+                      <Input type="tel" value={formData.phone} onChange={(e) => setFormData({ ...formData, phone: e.target.value })} placeholder="+90 5xx xxx xx xx" required />
+                    </div>
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-foreground mb-1.5 block">E-posta</label>
-                    <Input
-                      type="email"
-                      value={formData.email}
-                      onChange={(e) => setFormData({ ...formData, email: e.target.value })}
-                      placeholder="email@example.com"
-                      required
-                    />
+                    <Input type="email" value={formData.email} onChange={(e) => setFormData({ ...formData, email: e.target.value })} placeholder="email@example.com" required />
                   </div>
                   <div>
                     <label className="text-sm font-semibold text-foreground mb-1.5 block">Blog / Website URL</label>
-                    <Input
-                      type="url"
-                      value={formData.blogUrl}
-                      onChange={(e) => setFormData({ ...formData, blogUrl: e.target.value })}
-                      placeholder="https://myblog.com"
-                      required
-                    />
+                    <Input type="url" value={formData.blogUrl} onChange={(e) => setFormData({ ...formData, blogUrl: e.target.value })} placeholder="https://myblog.com" />
+                  </div>
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Sosyal Medya Hesapları</label>
+                    <Input value={formData.socialHandles} onChange={(e) => setFormData({ ...formData, socialHandles: e.target.value })} placeholder="@instagram, @x, @medium" />
                   </div>
                   <div className="grid grid-cols-2 gap-4">
                     <div>
                       <label className="text-sm font-semibold text-foreground mb-1.5 block">Ülke</label>
-                      <Input
-                        value={formData.country}
-                        onChange={(e) => setFormData({ ...formData, country: e.target.value })}
-                        placeholder="Almanya"
-                        required
-                      />
+                      <Input value={formData.country} onChange={(e) => setFormData({ ...formData, country: e.target.value })} placeholder="Almanya" required />
                     </div>
                     <div>
                       <label className="text-sm font-semibold text-foreground mb-1.5 block">Şehir</label>
-                      <Input
-                        value={formData.city}
-                        onChange={(e) => setFormData({ ...formData, city: e.target.value })}
-                        placeholder="Berlin"
-                        required
-                      />
+                      <Input value={formData.city} onChange={(e) => setFormData({ ...formData, city: e.target.value })} placeholder="Berlin" required />
                     </div>
+                  </div>
+                  <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Yazı Başlığı</label>
+                      <Input value={formData.postTitle} onChange={(e) => setFormData({ ...formData, postTitle: e.target.value })} placeholder="Berlin'de Bir Türk Hikâyesi" required />
+                    </div>
+                    <div>
+                      <label className="text-sm font-semibold text-foreground mb-1.5 block">Tema / Kategori</label>
+                      <Input value={formData.postTheme} onChange={(e) => setFormData({ ...formData, postTheme: e.target.value })} placeholder="Kültür / Gusto / Şehir Rehberi" required />
+                    </div>
+                  </div>
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Kısa Açıklama</label>
+                    <Textarea value={formData.description} onChange={(e) => setFormData({ ...formData, description: e.target.value })} placeholder="Yazınız hakkında kısa bilgi (2-3 cümle)" rows={3} />
+                  </div>
+
+                  {/* Upload area */}
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Yazı Yükleme (opsiyonel)</label>
+                    <label className="flex flex-col items-center justify-center border-2 border-dashed border-border rounded-xl p-6 cursor-pointer hover:border-primary/50 hover:bg-muted/30 transition-colors">
+                      <Upload className="h-8 w-8 text-primary mb-2" />
+                      <span className="text-sm font-semibold text-foreground">
+                        {postFile ? postFile.name : "Dosya seç veya buraya sürükle"}
+                      </span>
+                      <span className="text-xs text-muted-foreground mt-1">PDF, DOCX, MD, TXT · Maks 25 MB</span>
+                      <input
+                        type="file"
+                        accept=".pdf,.doc,.docx,.md,.txt"
+                        className="hidden"
+                        onChange={(e) => setPostFile(e.target.files?.[0] ?? null)}
+                      />
+                    </label>
+                  </div>
+
+                  <div>
+                    <label className="text-sm font-semibold text-foreground mb-1.5 block">Referans Kodu</label>
+                    <Input value={formData.referral} onChange={(e) => setFormData({ ...formData, referral: e.target.value })} readOnly className="bg-muted/40 font-mono" />
+                    <p className="text-[11px] text-muted-foreground mt-1">Bu kod başvurunuza otomatik olarak eklenmiştir.</p>
                   </div>
 
                   <div className="bg-muted/50 rounded-xl p-4 text-sm text-muted-foreground">
@@ -238,15 +272,6 @@ const BlogContest = () => {
                     Yarışmaya Başvur <ArrowRight className="h-5 w-5" />
                   </Button>
                 </form>
-
-                <div className="mt-6 bg-turquoise/10 border border-turquoise/20 rounded-2xl p-6 text-center">
-                  <p className="text-sm text-muted-foreground font-body mb-2">
-                    Zaten bir blogunuz var mı? Yazılarınızı CorteQS'e taşıyın!
-                  </p>
-                  <Button variant="outline" className="gap-2">
-                    <PenLine className="h-4 w-4" /> Blog İçe Aktarma
-                  </Button>
-                </div>
               </div>
             </div>
           </div>
