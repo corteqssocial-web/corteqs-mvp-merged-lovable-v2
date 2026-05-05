@@ -64,30 +64,44 @@ const ConsultantServiceRequests = () => {
 
   const fetchRequests = async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
-
-    // Get consultant's categories first
-    const { data: myCats } = await supabase
-      .from("consultant_categories")
-      .select("category")
-      .eq("user_id", user.id);
-
-    const myCategories = myCats?.map(c => c.category) || [];
-
-    if (myCategories.length === 0) {
+    if (!user) {
       setRequests([]);
       setLoading(false);
       return;
     }
 
-    const { data: reqData } = await supabase
+    // Detect role — consultants filter by their categories; businesses see all open requests
+    const { data: roles } = await supabase
+      .from("user_roles")
+      .select("role")
+      .eq("user_id", user.id);
+    const roleNames = (roles || []).map((r) => r.role as string);
+    const isConsultant = roleNames.includes("consultant");
+    const isBusiness = roleNames.includes("business");
+
+    let query = supabase
       .from("service_requests")
       .select("*")
       .eq("status", "open")
-      .in("category", myCategories)
       .order("created_at", { ascending: false });
 
-    if (!reqData) { setLoading(false); return; }
+    if (isConsultant && !isBusiness) {
+      const { data: myCats } = await supabase
+        .from("consultant_categories")
+        .select("category")
+        .eq("user_id", user.id);
+      const myCategories = myCats?.map((c) => c.category) || [];
+      if (myCategories.length === 0) {
+        setRequests([]);
+        setLoading(false);
+        return;
+      }
+      query = query.in("category", myCategories);
+    }
+
+    const { data: reqData } = await query;
+
+    if (!reqData) { setRequests([]); setLoading(false); return; }
 
     const enriched = await Promise.all(
       reqData.map(async (req) => {
