@@ -251,6 +251,26 @@ export const setLandingStatus = async (
   if (error) throw error;
 };
 
+/** Current user: list own submissions (any status). */
+export const listMyLandings = async (): Promise<(WhatsAppLanding & { dbId: string })[]> => {
+  const { data: userRes } = await supabase.auth.getUser();
+  const user = userRes.user;
+  if (!user) return [];
+  const { data, error } = await supabase
+    .from("whatsapp_landings")
+    .select("*")
+    .eq("user_id", user.id)
+    .order("created_at", { ascending: false });
+  if (error || !data) return [];
+  return (data as Row[]).map((r) => ({ ...rowToLanding(r), dbId: r.id }));
+};
+
+/** Current user: delete own submission. */
+export const deleteMyLanding = async (dbId: string) => {
+  const { error } = await supabase.from("whatsapp_landings").delete().eq("id", dbId);
+  if (error) throw error;
+};
+
 /** Admin: delete. */
 export const deleteLanding = async (dbId: string) => {
   const { error } = await supabase.from("whatsapp_landings").delete().eq("id", dbId);
