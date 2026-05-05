@@ -604,20 +604,6 @@ const ProfileIndividual = () => {
             <NotificationsList />
           </div>
         </TabsContent>
-                <div key={n.id} className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${n.type === "follow" ? "bg-gold/10" : n.type === "event" ? "bg-turquoise/10" : "bg-primary/10"}`}>
-                    {n.type === "follow" ? <UserPlus className="h-4 w-4 text-gold" /> : n.type === "event" ? <Calendar className="h-4 w-4 text-turquoise" /> : <MessageSquare className="h-4 w-4 text-primary" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground"><span className="font-semibold">{n.from}</span></p>
-                    <p className="text-sm text-muted-foreground">{n.message}</p>
-                    <p className="text-xs text-muted-foreground/60 mt-1">{n.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
-          </div>
-        </TabsContent>
 
         <TabsContent value="whatsapp" className="mt-6">
           <WhatsAppGroupsTab />
