@@ -15,11 +15,12 @@ import InterestForm from "@/components/InterestForm";
 const typeFilters = [
   { key: "all", label: "Tümü" },
   { key: "dernek", label: "Dernekler & Vakıflar" },
+  { key: "oda", label: "🏢 Odalar & Konseyler" },
+  { key: "akademik", label: "🎓 Akademik Birimler" },
+  { key: "egitim", label: "📚 Eğitim Kuruluşları" },
+  { key: "medya", label: "📺 Türk Medya Kuruluşları" },
   { key: "diplomatik", label: "🏛️ Büyükelçilik & Konsolosluk" },
   { key: "hastane", label: "🏥 Sağlık Kuruluşları" },
-  { key: "okul", label: "🎓 Türk Okulları" },
-  { key: "radyo", label: "📻 Radyolar" },
-  { key: "tv", label: "📺 TV Kanalları" },
 ];
 
 const Associations = () => {
@@ -35,11 +36,12 @@ const Associations = () => {
     const matchesCity = city === "all" || a.city === city;
     const matchesType = typeFilter === "all"
       || (typeFilter === "dernek" && ["Dernek", "Vakıf", "İş Örgütü", "Sosyal Örgüt"].includes(a.type))
+      || (typeFilter === "oda" && ["Oda", "Konsey", "İş Örgütü"].includes(a.type))
+      || (typeFilter === "akademik" && ["Akademik", "Üniversite"].includes(a.type))
+      || (typeFilter === "egitim" && a.type === "Okul")
+      || (typeFilter === "medya" && ["TV Kanalı", "Radyo"].includes(a.type))
       || (typeFilter === "diplomatik" && ["Büyükelçilik", "Konsolosluk"].includes(a.type))
-      || (typeFilter === "hastane" && a.type === "Hastane")
-      || (typeFilter === "okul" && a.type === "Okul")
-      || (typeFilter === "radyo" && a.type === "Radyo")
-      || (typeFilter === "tv" && a.type === "TV Kanalı");
+      || (typeFilter === "hastane" && a.type === "Hastane");
     return matchesCountry && matchesCity && matchesType;
   });
 
