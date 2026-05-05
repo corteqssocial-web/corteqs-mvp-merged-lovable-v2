@@ -62,7 +62,8 @@ const CityNews = () => {
   const crossCityResults = useMemo(() => {
     if (!keyword.trim()) return [];
     const currentCities = filteredCityMetas.map(c => c.city);
-    return searchAllNews(category, keyword).filter(n => !currentCities.includes(n.city));
+    const newsCat: NewsCategory = category === "diaspora" ? "all" : category;
+    return searchAllNews(newsCat, keyword).filter(n => !currentCities.includes(n.city));
   }, [keyword, category, filteredCityMetas]);
 
   // Diaspora media (magazines, newspapers, books) for current country/city scope
