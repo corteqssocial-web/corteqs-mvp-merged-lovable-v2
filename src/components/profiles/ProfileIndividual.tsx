@@ -601,8 +601,9 @@ const ProfileIndividual = () => {
             <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
               <Bell className="h-5 w-5 text-primary" /> Bildirimler
             </h2>
-            <div className="space-y-3">
-              {notifications.map((n) => (
+            <NotificationsList />
+          </div>
+        </TabsContent>
                 <div key={n.id} className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
                   <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${n.type === "follow" ? "bg-gold/10" : n.type === "event" ? "bg-turquoise/10" : "bg-primary/10"}`}>
                     {n.type === "follow" ? <UserPlus className="h-4 w-4 text-gold" /> : n.type === "event" ? <Calendar className="h-4 w-4 text-turquoise" /> : <MessageSquare className="h-4 w-4 text-primary" />}
