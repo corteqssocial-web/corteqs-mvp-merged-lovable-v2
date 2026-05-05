@@ -1,7 +1,7 @@
 import { useState, useMemo, useEffect } from "react";
 import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
-import { Cloud, TrendingUp, Briefcase, Newspaper, MapPin, Search, Globe, BookOpen, FileText, Library } from "lucide-react";
+import { Cloud, TrendingUp, Briefcase, Newspaper, MapPin, Search, Globe, BookOpen, FileText, Library, Radio, ExternalLink, PenLine } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import { cityMeta, categoryConfig, getFilteredNews, searchAllNews, getDiasporaMedia, type NewsCategory, type DiasporaMediaItem } from "@/data/cityNewsData";
@@ -9,6 +9,7 @@ import CityWeatherWidget from "@/components/city-news/CityWeatherWidget";
 import NewsCard from "@/components/city-news/NewsCard";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
+import { getDiasporaBlogLinks } from "@/lib/diasporaBlogLinks";
 
 const mediaTypeMeta = {
   magazine: { label: "Dergi", icon: BookOpen, color: "text-violet-400", bg: "bg-violet-500/10 border-violet-500/30" },
@@ -16,10 +17,12 @@ const mediaTypeMeta = {
   book: { label: "Kitap", icon: Library, color: "text-emerald-400", bg: "bg-emerald-500/10 border-emerald-500/30" },
 } as const;
 
+type ExtCategory = NewsCategory | "diaspora";
+
 const CityNews = () => {
   const { selectedCountry: country } = useDiaspora();
   const [city, setCity] = useState("all");
-  const [category, setCategory] = useState<NewsCategory>("all");
+  const [category, setCategory] = useState<ExtCategory>("all");
   const [keyword, setKeyword] = useState("");
 
   // Reset city when country changes
