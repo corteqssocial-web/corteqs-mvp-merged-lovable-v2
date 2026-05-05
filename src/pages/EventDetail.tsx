@@ -159,6 +159,15 @@ const EventDetail = () => {
                   <Ticket className="h-5 w-5" /> Etkinliğe Katıl
                 </Button>
 
+                <Button
+                  variant={isEventFollowed ? "secondary" : "outline"}
+                  className="w-full gap-2 mb-3"
+                  onClick={() => toggle("event", event.id, event.title)}
+                >
+                  <UserPlus className="h-4 w-4" />
+                  {isEventFollowed ? "Etkinlik Takipte" : "Etkinliği Takip Et"}
+                </Button>
+
                 <EventBoostDialog eventTitle={event.title} eventCategory={event.category} eventCountry={event.country} />
 
                 <Button variant="outline" className="w-full gap-2 mb-6 mt-3" onClick={handleShare}>
