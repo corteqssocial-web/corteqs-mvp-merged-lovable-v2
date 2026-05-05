@@ -15,13 +15,15 @@ import { Switch } from "@/components/ui/switch";
 import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Badge } from "@/components/ui/badge";
-import { consultants, associations } from "@/data/mock";
+import { consultants, associations, events as allEvents } from "@/data/mock";
 import { useRelocationResearches } from "@/hooks/useRelocationResearches";
 import ServiceRequestForm from "@/components/ServiceRequestForm";
 import ServiceRequestsList from "@/components/ServiceRequestsList";
 import WhatsAppGroupsTab from "@/components/profiles/WhatsAppGroupsTab";
 import WelcomePack from "@/components/profiles/WelcomePack";
 import { useDemoFlag } from "@/lib/demoFlags";
+import { useFollow } from "@/hooks/useFollow";
+
 
 
 const ProfileIndividual = () => {
@@ -82,30 +84,31 @@ const ProfileIndividual = () => {
     { id: 3, from: "Zeynep Arslan", type: "follow", message: "Dubai Şirket Kurma Workshop'u yayınladı", time: "5 saat önce" },
   ];
 
-  const calendarEvents = [
-    { id: 1, title: "Ayşe Kara - Yatırım Webinarı", date: "15 Mar", time: "20:00", type: "online" as const },
-    { id: 2, title: "ATT Networking Yemeği", date: "08 Mar", time: "19:00", type: "yüz yüze" as const },
-    { id: 3, title: "Can Özdemir - Danışmanlık", date: "20 Mar", time: "14:00", type: "online" as const },
-  ];
+  const { isFollowed, list: followList } = useFollow();
+  const followedEventIds = followList("event");
+  const joinedEventIds = followList("event-joined");
+  const userEventIds = Array.from(new Set([...followedEventIds, ...joinedEventIds]));
+  const userEvents = userEventIds
+    .map((id) => allEvents.find((e) => e.id === id))
+    .filter((e): e is NonNullable<typeof e> => !!e);
 
-  const turkeyDates = [
-    { id: 100, title: "🇹🇷 MTV 1. Taksit Son Gün", date: "31 Oca", time: "—", type: "hatırlatma" as const },
-    { id: 101, title: "🇹🇷 Gelir Vergisi Beyannamesi", date: "31 Mar", time: "—", type: "hatırlatma" as const },
-    { id: 105, title: "🇹🇷 23 Nisan Ulusal Egemenlik", date: "23 Nis", time: "—", type: "resmi tatil" as const },
-  ];
+  const calendarEvents = userEvents.map((e) => ({
+    id: e.id,
+    title: e.title,
+    date: e.date.split(" ").slice(0, 2).join(" "),
+    time: e.time,
+    type: (e.type === "online" ? "online" : "yüz yüze") as "online" | "yüz yüze",
+    city: e.city,
+    source: isFollowed("event-joined", e.id) ? ("joined" as const) : ("followed" as const),
+  }));
 
-  const germanyDates = [
-    { id: 200, title: "🇩🇪 Einkommensteuer Beyanname", date: "31 Tem", time: "—", type: "hatırlatma" as const },
-    { id: 203, title: "🇩🇪 Tag der Arbeit", date: "01 May", time: "—", type: "resmi tatil" as const },
-  ];
+  const cityOptions = Array.from(new Set(calendarEvents.map((e) => e.city))).filter(Boolean);
 
-  const [calendarFilter, setCalendarFilter] = useState<"all" | "events" | "turkey" | "germany">("all");
+  const [calendarFilter, setCalendarFilter] = useState<string>("all");
 
-  const allCalendarItems = [...calendarEvents, ...turkeyDates, ...germanyDates];
   const filteredCalendar = calendarFilter === "all"
-    ? allCalendarItems
-    : calendarFilter === "events" ? calendarEvents
-    : calendarFilter === "turkey" ? turkeyDates : germanyDates;
+    ? calendarEvents
+    : calendarEvents.filter((e) => e.city === calendarFilter);
 
   return (
     <>
@@ -344,51 +347,70 @@ const ProfileIndividual = () => {
                 <Calendar className="h-5 w-5 text-primary" /> Takvimim
               </h2>
               <div className="flex flex-wrap gap-2">
-                {([
-                  { key: "all" as const, label: "Tümü" },
-                  { key: "events" as const, label: "Etkinlikler" },
-                  { key: "turkey" as const, label: "🇹🇷 Türkiye" },
-                  { key: "germany" as const, label: "🇩🇪 Almanya" },
-                ]).map((f) => (
+                <Button
+                  variant={calendarFilter === "all" ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setCalendarFilter("all")}
+                  className="text-xs"
+                >
+                  Tümü
+                </Button>
+                {cityOptions.map((city) => (
                   <Button
-                    key={f.key}
-                    variant={calendarFilter === f.key ? "default" : "outline"}
+                    key={city}
+                    variant={calendarFilter === city ? "default" : "outline"}
                     size="sm"
-                    onClick={() => setCalendarFilter(f.key)}
+                    onClick={() => setCalendarFilter(city)}
                     className="text-xs"
                   >
-                    {f.label}
+                    📍 {city}
                   </Button>
                 ))}
               </div>
             </div>
-            <div className="space-y-3">
-              {filteredCalendar.map((evt) => {
-                const typeColors: Record<string, string> = {
-                  online: "bg-turquoise/10 text-turquoise",
-                  "yüz yüze": "bg-primary/10 text-primary",
-                  hatırlatma: "bg-gold/10 text-gold",
-                  "resmi tatil": "bg-destructive/10 text-destructive",
-                };
-                return (
-                  <div key={evt.id} className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className="text-center shrink-0 w-14">
-                      <div className="text-xl font-bold text-primary">{evt.date.split(" ")[0]}</div>
-                      <div className="text-xs text-muted-foreground">{evt.date.split(" ")[1]}</div>
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <h3 className="font-semibold text-foreground truncate">{evt.title}</h3>
-                      <p className="text-sm text-muted-foreground flex items-center gap-1">
-                        {evt.time !== "—" && <><Clock className="h-3 w-3" /> {evt.time} · </>}
-                        <span className={`px-2 py-0.5 rounded-full text-xs ${typeColors[evt.type] || "bg-muted text-muted-foreground"}`}>
-                          {evt.type}
-                        </span>
-                      </p>
-                    </div>
-                  </div>
-                );
-              })}
-            </div>
+            {filteredCalendar.length === 0 ? (
+              <div className="rounded-xl border border-dashed border-border bg-muted/20 p-8 text-center">
+                <Calendar className="h-8 w-8 text-muted-foreground mx-auto mb-2" />
+                <p className="text-sm text-muted-foreground">
+                  Takvimin boş. Etkinlikleri <Link to="/events" className="text-primary hover:underline">takip et</Link> veya bilet alarak buraya ekle.
+                </p>
+              </div>
+            ) : (
+              <div className="space-y-3">
+                {filteredCalendar.map((evt) => {
+                  const typeColors: Record<string, string> = {
+                    online: "bg-turquoise/10 text-turquoise",
+                    "yüz yüze": "bg-primary/10 text-primary",
+                  };
+                  return (
+                    <Link
+                      key={evt.id}
+                      to={`/events/${evt.id}`}
+                      className="flex items-center gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors"
+                    >
+                      <div className="text-center shrink-0 w-14">
+                        <div className="text-xl font-bold text-primary">{evt.date.split(" ")[0]}</div>
+                        <div className="text-xs text-muted-foreground">{evt.date.split(" ")[1]}</div>
+                      </div>
+                      <div className="flex-1 min-w-0">
+                        <h3 className="font-semibold text-foreground truncate">{evt.title}</h3>
+                        <p className="text-sm text-muted-foreground flex items-center gap-1.5 flex-wrap">
+                          <Clock className="h-3 w-3" /> {evt.time}
+                          <span className="text-muted-foreground/50">·</span>
+                          <MapPin className="h-3 w-3" /> {evt.city}
+                          <span className={`px-2 py-0.5 rounded-full text-xs ${typeColors[evt.type] || "bg-muted text-muted-foreground"}`}>
+                            {evt.type}
+                          </span>
+                          <Badge variant="outline" className="text-[10px] h-4 px-1.5">
+                            {evt.source === "joined" ? "🎟️ Bilet" : "🔔 Takip"}
+                          </Badge>
+                        </p>
+                      </div>
+                    </Link>
+                  );
+                })}
+              </div>
+            )}
           </div>
         </TabsContent>
 

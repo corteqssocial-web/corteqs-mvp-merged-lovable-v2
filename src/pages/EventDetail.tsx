@@ -36,6 +36,8 @@ const EventDetail = () => {
   const { isFollowed, toggle } = useFollow();
   const event = events.find((e) => e.id === id);
   const isFollowing = event ? isFollowed("organizer", event.id) : false;
+  const isEventFollowed = event ? isFollowed("event", event.id) : false;
+  const isJoined = event ? isFollowed("event-joined", event.id) : false;
 
   if (!event) {
     return (
@@ -55,8 +57,13 @@ const EventDetail = () => {
   const capacityPercent = Math.round((event.attendees / event.maxAttendees) * 100);
 
   const handleJoin = () => {
-    toast({ title: "Katılım onaylandı! 🎉", description: `${event.title} etkinliğine kaydınız alındı.` });
+    if (!isJoined) toggle("event-joined", event.id, event.title);
+    toast({ title: "Katılım onaylandı! 🎉", description: `${event.title} takvimine eklendi.` });
   };
+
+  const similarEvents = events
+    .filter((e) => e.id !== event.id && e.tags.some((t) => event.tags.includes(t)))
+    .slice(0, 3);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
@@ -133,9 +140,36 @@ const EventDetail = () => {
                   </div>
                 </div>
               </div>
-            </div>
 
-            {/* Sidebar */}
+              {/* Similar Events */}
+              {similarEvents.length > 0 && (
+                <div className="bg-card rounded-2xl border border-border p-6 shadow-card">
+                  <h2 className="text-xl font-bold text-foreground mb-4">Benzer Etkinlikler</h2>
+                  <div className="space-y-3">
+                    {similarEvents.map((se) => (
+                      <Link
+                        key={se.id}
+                        to={`/events/${se.id}`}
+                        className="flex items-center gap-3 p-3 rounded-xl border border-border hover:bg-muted/40 transition-colors"
+                      >
+                        <img src={se.image} alt={se.title} className="w-16 h-16 rounded-lg object-cover shrink-0" />
+                        <div className="min-w-0 flex-1">
+                          <p className="font-semibold text-foreground text-sm truncate">{se.title}</p>
+                          <p className="text-xs text-muted-foreground truncate flex items-center gap-2 mt-0.5">
+                            <Calendar className="h-3 w-3" /> {se.date} · {se.city}
+                          </p>
+                          <div className="flex flex-wrap gap-1 mt-1">
+                            {se.tags.filter((t) => event.tags.includes(t)).slice(0, 2).map((t) => (
+                              <Badge key={t} variant="secondary" className="text-[10px] h-4 px-1.5">{t}</Badge>
+                            ))}
+                          </div>
+                        </div>
+                      </Link>
+                    ))}
+                  </div>
+                </div>
+              )}
+            </div>
             <div className="space-y-6">
               {/* Join card */}
               <div className="bg-card rounded-2xl border border-border p-6 shadow-card sticky top-24">
@@ -150,6 +184,15 @@ const EventDetail = () => {
 
                 <Button className="w-full gap-2 mb-3" size="lg" onClick={handleJoin}>
                   <Ticket className="h-5 w-5" /> Etkinliğe Katıl
+                </Button>
+
+                <Button
+                  variant={isEventFollowed ? "secondary" : "outline"}
+                  className="w-full gap-2 mb-3"
+                  onClick={() => toggle("event", event.id, event.title)}
+                >
+                  <UserPlus className="h-4 w-4" />
+                  {isEventFollowed ? "Etkinlik Takipte" : "Etkinliği Takip Et"}
                 </Button>
 
                 <EventBoostDialog eventTitle={event.title} eventCategory={event.category} eventCountry={event.country} />
