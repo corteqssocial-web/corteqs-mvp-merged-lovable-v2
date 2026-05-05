@@ -123,19 +123,21 @@ const StripeTransactionsPanel = ({
       )}
 
       {/* Summary cards */}
-      <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
-        <Card className="border-border">
-          <CardContent className="p-5">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-xs text-muted-foreground">Toplam Tahsilat</p>
-              <TrendingUp className="h-4 w-4 text-success" />
-            </div>
-            <p className="text-2xl font-extrabold text-foreground">
-              {currency}{totals.inSum.toLocaleString()}
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-1">Stripe üzerinden gelen ödemeler</p>
-          </CardContent>
-        </Card>
+      <div className={`grid grid-cols-1 ${outgoingOnly ? "" : "md:grid-cols-3"} gap-4`}>
+        {!outgoingOnly && (
+          <Card className="border-border">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xs text-muted-foreground">Toplam Tahsilat</p>
+                <TrendingUp className="h-4 w-4 text-success" />
+              </div>
+              <p className="text-2xl font-extrabold text-foreground">
+                {currency}{totals.inSum.toLocaleString()}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-1">Stripe üzerinden gelen ödemeler</p>
+            </CardContent>
+          </Card>
+        )}
         <Card className="border-border">
           <CardContent className="p-5">
             <div className="flex items-center justify-between mb-1">
@@ -148,18 +150,20 @@ const StripeTransactionsPanel = ({
             <p className="text-[11px] text-muted-foreground mt-1">Stripe üzerinden yapılan ödemeler</p>
           </CardContent>
         </Card>
-        <Card className="border-border">
-          <CardContent className="p-5">
-            <div className="flex items-center justify-between mb-1">
-              <p className="text-xs text-muted-foreground">Net</p>
-              <Wallet className="h-4 w-4 text-primary" />
-            </div>
-            <p className={`text-2xl font-extrabold ${totals.net >= 0 ? "text-success" : "text-destructive"}`}>
-              {totals.net >= 0 ? "+" : "-"}{currency}{Math.abs(totals.net).toLocaleString()}
-            </p>
-            <p className="text-[11px] text-muted-foreground mt-1">Tahsilat − Harcama</p>
-          </CardContent>
-        </Card>
+        {!outgoingOnly && (
+          <Card className="border-border">
+            <CardContent className="p-5">
+              <div className="flex items-center justify-between mb-1">
+                <p className="text-xs text-muted-foreground">Net</p>
+                <Wallet className="h-4 w-4 text-primary" />
+              </div>
+              <p className={`text-2xl font-extrabold ${totals.net >= 0 ? "text-success" : "text-destructive"}`}>
+                {totals.net >= 0 ? "+" : "-"}{currency}{Math.abs(totals.net).toLocaleString()}
+              </p>
+              <p className="text-[11px] text-muted-foreground mt-1">Tahsilat − Harcama</p>
+            </CardContent>
+          </Card>
+        )}
       </div>
 
       {/* Transactions table */}
