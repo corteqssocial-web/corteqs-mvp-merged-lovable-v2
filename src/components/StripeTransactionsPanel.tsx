@@ -216,7 +216,14 @@ const StripeTransactionsPanel = ({
                       )}
                     </div>
                     <div className="min-w-0">
-                      <p className="text-sm font-medium text-foreground truncate">{tx.description}</p>
+                      <p className="text-sm font-medium text-foreground truncate flex items-center gap-2">
+                        {tx.description}
+                        {isDemo && (
+                          <Badge variant="outline" className="text-[9px] border-amber-500/40 text-amber-700 bg-amber-500/10 shrink-0">
+                            DEMO
+                          </Badge>
+                        )}
+                      </p>
                       <div className="flex items-center gap-2 mt-0.5 flex-wrap">
                         <span className="text-[11px] text-muted-foreground">
                           {new Date(tx.date).toLocaleDateString("tr-TR", { day: "2-digit", month: "short", year: "numeric" })}
