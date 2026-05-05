@@ -84,13 +84,7 @@ const ProfileAmbassador = () => {
     { from: "Murat D.", text: "London elçisi olarak deneyimlerimi paylaşmak isterim.", time: "2 gün önce", read: true },
   ];
 
-  const notifications = [
-    { title: "Yeni kullanıcı kaydı", desc: "Ayşe K. şehrinden platforma katıldı", time: "2 saat önce", type: "user" },
-    { title: "Etkinlik hatırlatması", desc: "Berlin Networking etkinliğine 3 gün kaldı", time: "5 saat önce", type: "event" },
-    { title: "KPI uyarısı", desc: "Bu haftaki onboarding hedefinizin %60'ına ulaştınız", time: "1 gün önce", type: "kpi" },
-    { title: "WhatsApp grup aktivitesi", desc: "Grubunuzda 15 yeni mesaj", time: "2 gün önce", type: "whatsapp" },
-    { title: "Yeni danışman başvurusu", desc: "Emre T. danışman olarak kaydoldu", time: "3 gün önce", type: "user" },
-  ];
+  // Notifications loaded live via NotificationsList component.
 
   return (
     <>
