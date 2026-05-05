@@ -8,6 +8,7 @@ import {
   Globe, Trash2, ExternalLink, ClipboardList, Download, ChevronDown, ChevronUp, Info
 } from "lucide-react";
 import StripeTransactionsPanel from "@/components/StripeTransactionsPanel";
+import NotificationsList from "@/components/NotificationsList";
 import QRScannerMock from "@/components/QRScannerMock";
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
@@ -78,11 +79,7 @@ const ProfileIndividual = () => {
     if (cvInputRef.current) cvInputRef.current.value = "";
   };
 
-  const notifications = [
-    { id: 1, from: "Ayşe Kara", type: "follow", message: "Yeni etkinlik oluşturdu: Yatırım Webinarı 2026", time: "1 saat önce" },
-    { id: 2, from: "Almanya Türk Toplumu", type: "follow", message: "Networking akşam yemeği düzenliyor — 18 Mar", time: "3 saat önce" },
-    { id: 3, from: "Zeynep Arslan", type: "follow", message: "Dubai Şirket Kurma Workshop'u yayınladı", time: "5 saat önce" },
-  ];
+  // Notifications now load from the live notifications table via NotificationsList component.
 
   const { isFollowed, list: followList } = useFollow();
   const followedEventIds = followList("event");
@@ -605,20 +602,7 @@ const ProfileIndividual = () => {
             <h2 className="text-xl font-bold text-foreground mb-6 flex items-center gap-2">
               <Bell className="h-5 w-5 text-primary" /> Bildirimler
             </h2>
-            <div className="space-y-3">
-              {notifications.map((n) => (
-                <div key={n.id} className="flex items-start gap-4 p-4 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                  <div className={`w-10 h-10 rounded-full flex items-center justify-center shrink-0 ${n.type === "follow" ? "bg-gold/10" : n.type === "event" ? "bg-turquoise/10" : "bg-primary/10"}`}>
-                    {n.type === "follow" ? <UserPlus className="h-4 w-4 text-gold" /> : n.type === "event" ? <Calendar className="h-4 w-4 text-turquoise" /> : <MessageSquare className="h-4 w-4 text-primary" />}
-                  </div>
-                  <div className="flex-1 min-w-0">
-                    <p className="text-sm text-foreground"><span className="font-semibold">{n.from}</span></p>
-                    <p className="text-sm text-muted-foreground">{n.message}</p>
-                    <p className="text-xs text-muted-foreground/60 mt-1">{n.time}</p>
-                  </div>
-                </div>
-              ))}
-            </div>
+            <NotificationsList />
           </div>
         </TabsContent>
 

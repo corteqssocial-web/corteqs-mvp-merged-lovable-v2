@@ -16,6 +16,7 @@ import { useState } from "react";
 import CreateEventForm from "@/components/CreateEventForm";
 import EventManagePanel from "@/components/EventManagePanel";
 import StripeTransactionsPanel, { type StripeTxn } from "@/components/StripeTransactionsPanel";
+import NotificationsList from "@/components/NotificationsList";
 
 type AmbassadorEvent = {
   id: number;
@@ -84,13 +85,7 @@ const ProfileAmbassador = () => {
     { from: "Murat D.", text: "London elçisi olarak deneyimlerimi paylaşmak isterim.", time: "2 gün önce", read: true },
   ];
 
-  const notifications = [
-    { title: "Yeni kullanıcı kaydı", desc: "Ayşe K. şehrinden platforma katıldı", time: "2 saat önce", type: "user" },
-    { title: "Etkinlik hatırlatması", desc: "Berlin Networking etkinliğine 3 gün kaldı", time: "5 saat önce", type: "event" },
-    { title: "KPI uyarısı", desc: "Bu haftaki onboarding hedefinizin %60'ına ulaştınız", time: "1 gün önce", type: "kpi" },
-    { title: "WhatsApp grup aktivitesi", desc: "Grubunuzda 15 yeni mesaj", time: "2 gün önce", type: "whatsapp" },
-    { title: "Yeni danışman başvurusu", desc: "Emre T. danışman olarak kaydoldu", time: "3 gün önce", type: "user" },
-  ];
+  // Notifications loaded live via NotificationsList component.
 
   return (
     <>
@@ -663,25 +658,7 @@ const ProfileAmbassador = () => {
               <h3 className="font-bold text-foreground mb-4 flex items-center gap-2">
                 <Bell className="h-5 w-5 text-gold" /> Bildirimler
               </h3>
-              <div className="space-y-3">
-                {notifications.map((n, i) => (
-                  <div key={i} className="flex items-start gap-3 p-3 rounded-xl bg-muted/50 hover:bg-muted transition-colors">
-                    <div className={`w-8 h-8 rounded-full flex items-center justify-center shrink-0 ${
-                      n.type === "user" ? "bg-primary/10" : n.type === "event" ? "bg-gold/10" : n.type === "kpi" ? "bg-turquoise/10" : "bg-success/10"
-                    }`}>
-                      {n.type === "user" ? <Users className="h-4 w-4 text-primary" /> :
-                       n.type === "event" ? <Calendar className="h-4 w-4 text-gold" /> :
-                       n.type === "kpi" ? <Target className="h-4 w-4 text-turquoise" /> :
-                       <MessageSquare className="h-4 w-4 text-success" />}
-                    </div>
-                    <div className="flex-1 min-w-0">
-                      <p className="text-sm font-medium text-foreground">{n.title}</p>
-                      <p className="text-xs text-muted-foreground">{n.desc}</p>
-                    </div>
-                    <span className="text-[10px] text-muted-foreground shrink-0">{n.time}</span>
-                  </div>
-                ))}
-              </div>
+              <NotificationsList accent="gold" />
             </CardContent>
           </Card>
         </TabsContent>
