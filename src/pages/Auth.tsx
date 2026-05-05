@@ -12,7 +12,6 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
-import { lovable } from "@/integrations/lovable";
 
 const Auth = () => {
   const { user, onboardingCompleted } = useAuth();
@@ -107,15 +106,18 @@ const Auth = () => {
 
   const handleGoogle = async () => {
     setLoading(true);
-    const result = await lovable.auth.signInWithOAuth("google", {
-      redirect_uri: window.location.origin,
+    const { error, data } = await supabase.auth.signInWithOAuth({
+      provider: "google",
+      options: {
+        redirectTo: window.location.origin,
+      },
     });
-    if (result.error) {
+    if (error) {
       setLoading(false);
-      toast({ title: "Google girişi başarısız", description: result.error.message, variant: "destructive" });
+      toast({ title: "Google girişi başarısız", description: error.message, variant: "destructive" });
       return;
     }
-    if (result.redirected) return;
+    if (data.url) return;
     setLoading(false);
   };
 
