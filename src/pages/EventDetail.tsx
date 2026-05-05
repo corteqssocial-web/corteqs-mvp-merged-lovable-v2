@@ -36,6 +36,8 @@ const EventDetail = () => {
   const { isFollowed, toggle } = useFollow();
   const event = events.find((e) => e.id === id);
   const isFollowing = event ? isFollowed("organizer", event.id) : false;
+  const isEventFollowed = event ? isFollowed("event", event.id) : false;
+  const isJoined = event ? isFollowed("event-joined", event.id) : false;
 
   if (!event) {
     return (
