@@ -45,6 +45,24 @@ const WhatsAppGroupsTab = () => {
 
   return (
     <div className="space-y-6">
+      {/* Live announcement */}
+      <div className="rounded-xl border-2 border-success/40 bg-gradient-to-r from-success/10 to-success/5 p-4 flex items-start gap-3">
+        <div className="w-9 h-9 rounded-full bg-success/20 flex items-center justify-center shrink-0">
+          <CheckCircle2 className="h-5 w-5 text-success" />
+        </div>
+        <div className="flex-1 min-w-0">
+          <p className="text-sm font-bold text-foreground">🎉 Chat Grup yükleme açıldı!</p>
+          <p className="text-xs text-muted-foreground mt-0.5">
+            Artık ülke, şehir ve temaya göre grubunuzu ekleyebilir; landing page oluşturabilir veya landing page'i atlayarak doğrudan WhatsApp linkinizle yayınlayabilirsiniz.
+          </p>
+          <Link to="/whatsapp-groups">
+            <Button size="sm" className="mt-2 h-7 text-xs gap-1 bg-success hover:bg-success/90 text-white">
+              <Plus className="h-3 w-3" /> Hemen Grup Yükle
+            </Button>
+          </Link>
+        </div>
+      </div>
+
       {/* CorteQS WhatsApp İletişim */}
       <div className="rounded-2xl border-2 border-success/30 bg-success/5 p-5 space-y-4">
         <div className="flex items-center gap-3">
