@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
+import { lovable } from "@/integrations/lovable";
 
 const Auth = () => {
   const { user, onboardingCompleted } = useAuth();
