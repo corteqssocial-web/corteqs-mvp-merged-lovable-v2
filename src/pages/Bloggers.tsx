@@ -12,7 +12,7 @@ import DemoBadge from "@/components/DemoBadge";
 import InterestForm from "@/components/InterestForm";
 import { bloggers } from "@/data/mock";
 
-type MediaFilter = "all" | "blogger" | "influencer" | "youtuber" | "diaspora";
+type MediaFilter = "all" | "blogger" | "influencer" | "youtuber";
 
 const Bloggers = () => {
   const [filter, setFilter] = useState<MediaFilter>("all");
