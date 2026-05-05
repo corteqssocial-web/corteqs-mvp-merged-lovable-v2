@@ -98,8 +98,9 @@ const StripeTransactionsPanel = ({
               Stripe Ready · Yakında Aktif
             </p>
             <p className="text-xs text-muted-foreground mt-0.5">
-              Tüm tahsilat ve harcamalarınız Stripe üzerinden güvenle takip edilecek.
-              Aşağıdaki kayıtlar entegrasyon tamamlandığında otomatik dolacak.
+              {outgoingOnly
+                ? "Bireysel hesaplar yalnızca harcama (ödeme) yapabilir; tahsilat ve satış yapılamaz. Aşağıdaki kayıtlar tüm ödemelerinizi listeler."
+                : "Tüm tahsilat ve harcamalarınız Stripe üzerinden güvenle takip edilecek. Aşağıdaki kayıtlar entegrasyon tamamlandığında otomatik dolacak."}
             </p>
           </div>
           <Badge variant="outline" className="border-primary/40 text-primary shrink-0">
