@@ -78,11 +78,7 @@ const ProfileIndividual = () => {
     if (cvInputRef.current) cvInputRef.current.value = "";
   };
 
-  const notifications = [
-    { id: 1, from: "Ayşe Kara", type: "follow", message: "Yeni etkinlik oluşturdu: Yatırım Webinarı 2026", time: "1 saat önce" },
-    { id: 2, from: "Almanya Türk Toplumu", type: "follow", message: "Networking akşam yemeği düzenliyor — 18 Mar", time: "3 saat önce" },
-    { id: 3, from: "Zeynep Arslan", type: "follow", message: "Dubai Şirket Kurma Workshop'u yayınladı", time: "5 saat önce" },
-  ];
+  // Notifications now load from the live notifications table via NotificationsList component.
 
   const { isFollowed, list: followList } = useFollow();
   const followedEventIds = followList("event");
