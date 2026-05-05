@@ -41,6 +41,41 @@ const ProfileBlogger = () => {
     aiTwinEnabled: true,
   };
 
+  // Diaspora blog link uploader state (links published to Medya page → Türk Diaspora Medyası filter)
+  const [myBlogLinks, setMyBlogLinks] = useState<DiasporaBlogLink[]>([]);
+  const [linkUrl, setLinkUrl] = useState("");
+  const [linkTitle, setLinkTitle] = useState("");
+  const [linkDesc, setLinkDesc] = useState("");
+
+  useEffect(() => {
+    setMyBlogLinks(getDiasporaBlogLinksByAuthor(blogger.name));
+  }, []);
+
+  const handleAddLink = () => {
+    if (!linkUrl.trim() || !linkTitle.trim()) {
+      toast({ title: "Eksik alan", description: "Link ve başlık zorunludur.", variant: "destructive" });
+      return;
+    }
+    addDiasporaBlogLink({
+      url: linkUrl.trim(),
+      title: linkTitle.trim(),
+      description: linkDesc.trim() || undefined,
+      author: blogger.name,
+      city: blogger.city,
+      country: blogger.country,
+    });
+    setMyBlogLinks(getDiasporaBlogLinksByAuthor(blogger.name));
+    setLinkUrl("");
+    setLinkTitle("");
+    setLinkDesc("");
+    toast({ title: "Yazı eklendi", description: "Medya → Türk Diaspora Medyası filtresinde yayında." });
+  };
+
+  const handleRemoveLink = (id: string) => {
+    removeDiasporaBlogLink(id);
+    setMyBlogLinks(getDiasporaBlogLinksByAuthor(blogger.name));
+  };
+
   const sessions = {
     aiTwin: [
       { id: 1, client: "Emre Aydın", date: "09 Mar 2026", time: "14:20", duration: "22dk", amount: 0 },
