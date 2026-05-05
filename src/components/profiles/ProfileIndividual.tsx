@@ -376,16 +376,16 @@ const ProfileIndividual = () => {
               <h2 className="text-xl font-bold text-foreground flex items-center gap-2">
                 <Calendar className="h-5 w-5 text-primary" /> Takvimim
               </h2>
-              <div className="flex flex-wrap gap-2">
+              <div className="flex flex-wrap gap-2 items-center">
                 <Button
-                  variant={calendarFilter === "all" ? "default" : "outline"}
+                  variant={!showArchive && calendarFilter === "all" ? "default" : "outline"}
                   size="sm"
-                  onClick={() => setCalendarFilter("all")}
+                  onClick={() => { setShowArchive(false); setCalendarFilter("all"); }}
                   className="text-xs"
                 >
                   Tümü
                 </Button>
-                {cityOptions.map((city) => (
+                {!showArchive && cityOptions.map((city) => (
                   <Button
                     key={city}
                     variant={calendarFilter === city ? "default" : "outline"}
@@ -396,6 +396,14 @@ const ProfileIndividual = () => {
                     📍 {city}
                   </Button>
                 ))}
+                <Button
+                  variant={showArchive ? "default" : "outline"}
+                  size="sm"
+                  onClick={() => setShowArchive((v) => !v)}
+                  className="text-xs gap-1"
+                >
+                  🗂️ Arşiv {archivedEvents.length > 0 && `(${archivedEvents.length})`}
+                </Button>
               </div>
             </div>
             {filteredCalendar.length === 0 ? (
