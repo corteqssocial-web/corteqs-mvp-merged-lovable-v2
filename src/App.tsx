@@ -146,7 +146,7 @@ const App = () => (
                   <Route path="/founding-1000" element={<Founders1000 />} />
                   <Route path="/kariyer" element={<Career />} />
                   <Route path="/career" element={<Career />} />
-                  <Route path="/dashboards" element={<Dashboards />} />
+                  <Route path="/internal-cq-dashboards-7f3a9b2e1d4c" element={<Dashboards />} />
                   <Route path="/ai-twin" element={<AITwin />} />
                   <Route path="/legal/privacy" element={<PrivacyPolicy />} />
                   <Route path="/legal/terms" element={<TermsOfService />} />
