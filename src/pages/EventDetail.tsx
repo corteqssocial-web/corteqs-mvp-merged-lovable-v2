@@ -57,8 +57,13 @@ const EventDetail = () => {
   const capacityPercent = Math.round((event.attendees / event.maxAttendees) * 100);
 
   const handleJoin = () => {
-    toast({ title: "Katılım onaylandı! 🎉", description: `${event.title} etkinliğine kaydınız alındı.` });
+    if (!isJoined) toggle("event-joined", event.id, event.title);
+    toast({ title: "Katılım onaylandı! 🎉", description: `${event.title} takvimine eklendi.` });
   };
+
+  const similarEvents = events
+    .filter((e) => e.id !== event.id && e.tags.some((t) => event.tags.includes(t)))
+    .slice(0, 3);
 
   const handleShare = () => {
     navigator.clipboard.writeText(window.location.href);
