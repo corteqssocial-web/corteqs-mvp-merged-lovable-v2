@@ -292,7 +292,7 @@ const CityNews = () => {
         )}
 
         {/* International News Section */}
-        {allInternational.length > 0 && (
+        {!isDiasporaOnly && allInternational.length > 0 && (
           <div className="mb-10">
             <h2 className="text-lg font-bold text-foreground mb-4 flex items-center gap-2">
               <Globe className="h-5 w-5 text-primary" />
