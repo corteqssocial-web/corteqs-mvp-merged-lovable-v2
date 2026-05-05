@@ -58,6 +58,11 @@ const Associations = () => {
     "Büyükelçilik": "bg-secondary text-secondary-foreground",
     "Konsolosluk": "bg-secondary text-secondary-foreground",
     "Hastane": "bg-turquoise/10 text-turquoise",
+    "Dijital Topluluk": "bg-success/10 text-success",
+    "WhatsApp Grubu": "bg-success/10 text-success",
+    "Telegram Grubu": "bg-primary/10 text-primary",
+    "Discord Topluluğu": "bg-purple-500/10 text-purple-600",
+    "Online Topluluk": "bg-turquoise/10 text-turquoise",
   };
 
   return (
