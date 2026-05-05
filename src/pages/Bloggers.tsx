@@ -71,7 +71,6 @@ const Bloggers = () => {
               { key: "blogger", label: "Blogger", icon: PenLine },
               { key: "influencer", label: "Vlogger", icon: Video },
               { key: "youtuber", label: "YouTuber", icon: Video },
-              { key: "diaspora", label: "Türk Diaspora Medyası", icon: Radio },
             ] as { key: MediaFilter; label: string; icon: typeof Sparkles }[]).map((f) => {
               const active = filter === f.key;
               return (
