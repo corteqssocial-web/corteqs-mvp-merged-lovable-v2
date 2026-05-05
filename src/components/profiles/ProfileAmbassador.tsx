@@ -16,6 +16,7 @@ import { useState } from "react";
 import CreateEventForm from "@/components/CreateEventForm";
 import EventManagePanel from "@/components/EventManagePanel";
 import StripeTransactionsPanel, { type StripeTxn } from "@/components/StripeTransactionsPanel";
+import NotificationsList from "@/components/NotificationsList";
 
 type AmbassadorEvent = {
   id: number;
