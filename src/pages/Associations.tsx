@@ -42,7 +42,8 @@ const Associations = () => {
       || (typeFilter === "egitim" && a.type === "Okul")
       || (typeFilter === "medya" && ["TV Kanalı", "Radyo"].includes(a.type))
       || (typeFilter === "diplomatik" && ["Büyükelçilik", "Konsolosluk"].includes(a.type))
-      || (typeFilter === "hastane" && a.type === "Hastane");
+      || (typeFilter === "hastane" && a.type === "Hastane")
+      || (typeFilter === "dijital" && ["Dijital Topluluk", "WhatsApp Grubu", "Telegram Grubu", "Discord Topluluğu", "Online Topluluk"].includes(a.type));
     return matchesCountry && matchesCity && matchesType;
   });
 
