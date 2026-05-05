@@ -79,7 +79,19 @@ const CityNews = () => {
     };
   }, [diasporaMedia]);
 
+  const blogLinks = useMemo(() => {
+    const items = getDiasporaBlogLinks(city !== "all" ? city : undefined, country !== "all" ? country : undefined);
+    const kw = keyword.toLowerCase().trim();
+    if (!kw) return items;
+    return items.filter(b =>
+      b.title.toLowerCase().includes(kw) ||
+      (b.description || "").toLowerCase().includes(kw) ||
+      b.author.toLowerCase().includes(kw)
+    );
+  }, [city, country, keyword]);
+
   const locationLabel = city !== "all" ? city : country !== "all" ? country : "Tüm Şehirler";
+  const isDiasporaOnly = category === "diaspora";
 
   return (
     <div className="min-h-screen bg-background">
