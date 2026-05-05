@@ -50,11 +50,15 @@ const StripeTransactionsPanel = ({
   transactions,
   currency = "€",
   stripeConnected = false,
+  outgoingOnly = false,
 }: Props) => {
-  const [filter, setFilter] = useState<"all" | "in" | "out">("all");
+  const [filter, setFilter] = useState<"all" | "in" | "out">(outgoingOnly ? "out" : "all");
   const hasReal = useDemoFlag("transactions");
   const isDemo = !transactions && !hasReal;
-  const effectiveTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
+  const baseTxns: StripeTxn[] = transactions ?? (hasReal ? [] : defaultTxns);
+  const effectiveTxns: StripeTxn[] = outgoingOnly
+    ? baseTxns.filter((t) => t.direction === "out")
+    : baseTxns;
 
   const visible = useMemo(
     () => filter === "all" ? effectiveTxns : effectiveTxns.filter(t => t.direction === filter),
