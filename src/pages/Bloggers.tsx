@@ -1,7 +1,8 @@
+import { useState, useMemo } from "react";
 import { Link } from "react-router-dom";
 import {
   Star, PenLine, Video, Instagram, Users, Handshake, Eye,
-  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift
+  Megaphone, Globe2, Bot, Phone, Briefcase, Database, Sparkles, BookOpen, Gift, Radio
 } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
@@ -11,11 +12,23 @@ import DemoBadge from "@/components/DemoBadge";
 import InterestForm from "@/components/InterestForm";
 import { bloggers } from "@/data/mock";
 
+type MediaFilter = "all" | "blogger" | "influencer" | "youtuber" | "diaspora";
+
 const Bloggers = () => {
+  const [filter, setFilter] = useState<MediaFilter>("all");
+
   const demoBlogger = bloggers.find((b) => b.type === "blogger");
   const demoVlogger = bloggers.find((b) => b.type === "influencer");
   const demoYoutuber = bloggers.find((b) => b.type === "youtuber");
-  const demoList = [demoBlogger, demoVlogger, demoYoutuber].filter(Boolean) as typeof bloggers;
+  const baseDemo = [demoBlogger, demoVlogger, demoYoutuber].filter(Boolean) as typeof bloggers;
+
+  const visible = useMemo(() => {
+    if (filter === "all") return baseDemo;
+    if (filter === "diaspora") return bloggers.filter((b) => b.diasporaMedia);
+    return bloggers.filter((b) => b.type === filter);
+  }, [filter, baseDemo]);
+
+  const demoList = visible;
 
   return (
     <div className="min-h-screen bg-background">
