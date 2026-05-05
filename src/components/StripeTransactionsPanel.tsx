@@ -183,7 +183,7 @@ const StripeTransactionsPanel = ({
                 </SelectTrigger>
                 <SelectContent>
                   <SelectItem value="all">Tümü</SelectItem>
-                  <SelectItem value="in">Tahsilat</SelectItem>
+                  {!outgoingOnly && <SelectItem value="in">Tahsilat</SelectItem>}
                   <SelectItem value="out">Harcama</SelectItem>
                 </SelectContent>
               </Select>
