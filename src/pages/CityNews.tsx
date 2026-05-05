@@ -50,7 +50,8 @@ const CityNews = () => {
     let localNews: ReturnType<typeof getFilteredNews>["local"] = [];
     let intlNews: ReturnType<typeof getFilteredNews>["international"] = [];
     cities.forEach(cityName => {
-      const { local, international } = getFilteredNews(cityName, category, keyword);
+      const newsCat: NewsCategory = category === "diaspora" ? "all" : category;
+      const { local, international } = getFilteredNews(cityName, newsCat, keyword);
       localNews = [...localNews, ...local];
       intlNews = [...intlNews, ...international];
     });
