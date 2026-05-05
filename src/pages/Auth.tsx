@@ -105,6 +105,20 @@ const Auth = () => {
     }
   };
 
+  const handleGoogle = async () => {
+    setLoading(true);
+    const result = await lovable.auth.signInWithOAuth("google", {
+      redirect_uri: window.location.origin,
+    });
+    if (result.error) {
+      setLoading(false);
+      toast({ title: "Google girişi başarısız", description: result.error.message, variant: "destructive" });
+      return;
+    }
+    if (result.redirected) return;
+    setLoading(false);
+  };
+
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
