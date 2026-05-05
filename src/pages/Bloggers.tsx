@@ -65,6 +65,31 @@ const Bloggers = () => {
             <Sparkles className="h-5 w-5 text-turquoise" /> Demo İçerik Üreticiler
           </h2>
 
+          {/* Kategori Filtresi */}
+          <div className="flex flex-wrap items-center justify-center gap-2 mb-6">
+            {([
+              { key: "all", label: "Tümü", icon: Sparkles },
+              { key: "blogger", label: "Blogger", icon: PenLine },
+              { key: "influencer", label: "Vlogger", icon: Video },
+              { key: "youtuber", label: "YouTuber", icon: Video },
+              { key: "diaspora", label: "Türk Diaspora Medyası", icon: Radio },
+            ] as { key: MediaFilter; label: string; icon: typeof Sparkles }[]).map((f) => {
+              const active = filter === f.key;
+              return (
+                <Button
+                  key={f.key}
+                  size="sm"
+                  variant={active ? "default" : "outline"}
+                  onClick={() => setFilter(f.key)}
+                  className="text-xs gap-1.5"
+                >
+                  <f.icon className="h-3.5 w-3.5" />
+                  {f.label}
+                </Button>
+              );
+            })}
+          </div>
+
           {/* 3 Demo Cards — centered: 1 Blogger + 1 Vlogger + 1 YouTuber */}
           <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 mb-12 max-w-5xl mx-auto items-stretch">
             {demoList.map((b) => (
