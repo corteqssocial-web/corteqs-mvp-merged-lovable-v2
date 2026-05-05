@@ -84,7 +84,11 @@ const ServiceRequestsList = () => {
 
   const fetchRequests = async () => {
     const { data: { user } } = await supabase.auth.getUser();
-    if (!user) return;
+    if (!user) {
+      setRequests([]);
+      setLoading(false);
+      return;
+    }
 
     const { data: reqData } = await supabase
       .from("service_requests")
@@ -92,7 +96,11 @@ const ServiceRequestsList = () => {
       .eq("user_id", user.id)
       .order("created_at", { ascending: false });
 
-    if (!reqData) return;
+    if (!reqData) {
+      setRequests([]);
+      setLoading(false);
+      return;
+    }
 
     // Fetch proposals for each request
     const requestsWithProposals = await Promise.all(
@@ -165,9 +173,9 @@ const ServiceRequestsList = () => {
     return (
       <div className="text-center py-12">
         <span className="text-5xl mb-4 block">📋</span>
-        <p className="text-lg font-semibold text-foreground mb-2">Henüz hizmet talebiniz yok</p>
+        <p className="text-lg font-semibold text-foreground mb-2">Bu bölgeye henüz bir hizmet talebiniz bulunmamaktadır</p>
         <p className="text-sm text-muted-foreground">
-          Hizmet talepleriniz burada listelenecek. Yeni bir talep oluşturarak danışmanlardan teklif alın.
+          Yeni bir talep oluşturarak danışmanlardan teklif alın.
         </p>
       </div>
     );
