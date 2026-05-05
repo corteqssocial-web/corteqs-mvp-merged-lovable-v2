@@ -153,6 +153,17 @@ const Auth = () => {
                     <TabsTrigger value="signup" className="flex-1 gap-1.5"><UserPlus className="h-3.5 w-3.5" /> Kayıt Ol</TabsTrigger>
                   </TabsList>
 
+                  <div className="mt-4 space-y-2">
+                    <Button type="button" variant="outline" className="w-full gap-2" disabled={loading} onClick={handleGoogle}>
+                      <img src="https://www.google.com/favicon.ico" alt="" className="h-4 w-4" />
+                      Google ile devam et
+                    </Button>
+                    <div className="relative my-2">
+                      <div className="absolute inset-0 flex items-center"><span className="w-full border-t border-border" /></div>
+                      <div className="relative flex justify-center text-[11px] uppercase"><span className="bg-card px-2 text-muted-foreground">veya</span></div>
+                    </div>
+                  </div>
+
                   <TabsContent value="login">
                     <form onSubmit={handleLogin} className="space-y-4 mt-4">
                       <div className="space-y-2">
