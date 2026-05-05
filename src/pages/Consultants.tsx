@@ -408,7 +408,7 @@ const Consultants = () => {
               modal={false}
               context="genel"
               defaultCategory="danisman"
-              title="Danışman Olarak Kayıt Ol"
+              title="Danışman Olarak Ön Kayıt Ol"
               description="Sunum / CV / One-Pager vb. tüm dökümanlarınızı yükleyebilirsiniz. Kategoriyi isterseniz değiştirin."
               source="consultants-listing"
             />
