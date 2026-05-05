@@ -21,6 +21,7 @@ const typeFilters = [
   { key: "medya", label: "📺 Türk Medya Kuruluşları" },
   { key: "diplomatik", label: "🏛️ Büyükelçilik & Konsolosluk" },
   { key: "hastane", label: "🏥 Sağlık Kuruluşları" },
+  { key: "dijital", label: "💬 Dijital Topluluklar" },
 ];
 
 const Associations = () => {
@@ -41,7 +42,8 @@ const Associations = () => {
       || (typeFilter === "egitim" && a.type === "Okul")
       || (typeFilter === "medya" && ["TV Kanalı", "Radyo"].includes(a.type))
       || (typeFilter === "diplomatik" && ["Büyükelçilik", "Konsolosluk"].includes(a.type))
-      || (typeFilter === "hastane" && a.type === "Hastane");
+      || (typeFilter === "hastane" && a.type === "Hastane")
+      || (typeFilter === "dijital" && ["Dijital Topluluk", "WhatsApp Grubu", "Telegram Grubu", "Discord Topluluğu", "Online Topluluk"].includes(a.type));
     return matchesCountry && matchesCity && matchesType;
   });
 
@@ -56,6 +58,11 @@ const Associations = () => {
     "Büyükelçilik": "bg-secondary text-secondary-foreground",
     "Konsolosluk": "bg-secondary text-secondary-foreground",
     "Hastane": "bg-turquoise/10 text-turquoise",
+    "Dijital Topluluk": "bg-success/10 text-success",
+    "WhatsApp Grubu": "bg-success/10 text-success",
+    "Telegram Grubu": "bg-primary/10 text-primary",
+    "Discord Topluluğu": "bg-purple-500/10 text-purple-600",
+    "Online Topluluk": "bg-turquoise/10 text-turquoise",
   };
 
   return (
