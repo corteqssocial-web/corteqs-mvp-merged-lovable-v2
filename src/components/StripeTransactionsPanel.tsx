@@ -29,6 +29,8 @@ interface Props {
   currency?: string;
   /** Stripe henüz bağlı değilken Ready banner gösterilsin */
   stripeConnected?: boolean;
+  /** Bireysel kullanıcılar tahsilat yapamaz — sadece harcama göster */
+  outgoingOnly?: boolean;
 }
 
 const defaultTxns: StripeTxn[] = [
