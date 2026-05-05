@@ -84,30 +84,31 @@ const ProfileIndividual = () => {
     { id: 3, from: "Zeynep Arslan", type: "follow", message: "Dubai Şirket Kurma Workshop'u yayınladı", time: "5 saat önce" },
   ];
 
-  const calendarEvents = [
-    { id: 1, title: "Ayşe Kara - Yatırım Webinarı", date: "15 Mar", time: "20:00", type: "online" as const },
-    { id: 2, title: "ATT Networking Yemeği", date: "08 Mar", time: "19:00", type: "yüz yüze" as const },
-    { id: 3, title: "Can Özdemir - Danışmanlık", date: "20 Mar", time: "14:00", type: "online" as const },
-  ];
+  const { isFollowed, list: followList } = useFollow();
+  const followedEventIds = followList("event");
+  const joinedEventIds = followList("event-joined");
+  const userEventIds = Array.from(new Set([...followedEventIds, ...joinedEventIds]));
+  const userEvents = userEventIds
+    .map((id) => allEvents.find((e) => e.id === id))
+    .filter((e): e is NonNullable<typeof e> => !!e);
 
-  const turkeyDates = [
-    { id: 100, title: "🇹🇷 MTV 1. Taksit Son Gün", date: "31 Oca", time: "—", type: "hatırlatma" as const },
-    { id: 101, title: "🇹🇷 Gelir Vergisi Beyannamesi", date: "31 Mar", time: "—", type: "hatırlatma" as const },
-    { id: 105, title: "🇹🇷 23 Nisan Ulusal Egemenlik", date: "23 Nis", time: "—", type: "resmi tatil" as const },
-  ];
+  const calendarEvents = userEvents.map((e) => ({
+    id: e.id,
+    title: e.title,
+    date: e.date.split(" ").slice(0, 2).join(" "),
+    time: e.time,
+    type: (e.type === "online" ? "online" : "yüz yüze") as "online" | "yüz yüze",
+    city: e.city,
+    source: isFollowed("event-joined", e.id) ? ("joined" as const) : ("followed" as const),
+  }));
 
-  const germanyDates = [
-    { id: 200, title: "🇩🇪 Einkommensteuer Beyanname", date: "31 Tem", time: "—", type: "hatırlatma" as const },
-    { id: 203, title: "🇩🇪 Tag der Arbeit", date: "01 May", time: "—", type: "resmi tatil" as const },
-  ];
+  const cityOptions = Array.from(new Set(calendarEvents.map((e) => e.city))).filter(Boolean);
 
-  const [calendarFilter, setCalendarFilter] = useState<"all" | "events" | "turkey" | "germany">("all");
+  const [calendarFilter, setCalendarFilter] = useState<string>("all");
 
-  const allCalendarItems = [...calendarEvents, ...turkeyDates, ...germanyDates];
   const filteredCalendar = calendarFilter === "all"
-    ? allCalendarItems
-    : calendarFilter === "events" ? calendarEvents
-    : calendarFilter === "turkey" ? turkeyDates : germanyDates;
+    ? calendarEvents
+    : calendarEvents.filter((e) => e.city === calendarFilter);
 
   return (
     <>
