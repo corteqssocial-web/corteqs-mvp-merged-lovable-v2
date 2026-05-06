@@ -1,11 +1,6 @@
 import {
   ArrowRight,
   Globe,
-  MessageCircle,
-  PenSquare,
-  Sparkles,
-  UserPlus,
-  Video,
 } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDiaspora } from "@/contexts/DiasporaContext";
@@ -14,7 +9,7 @@ import { cn } from "@/lib/utils";
 const actionCardBase =
   "group relative w-full overflow-hidden rounded-[1.5rem] border px-5 py-4 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.38)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_48px_-30px_rgba(15,23,42,0.44)]";
 
-const topRowCardHeight = "min-h-[92px] sm:min-h-[96px]";
+const secondaryCardBase = "min-h-[104px]";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
@@ -74,16 +69,11 @@ const HeroSection = () => {
                 )}
               >
                 <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-full bg-white/15 p-2.5 backdrop-blur-sm">
-                      <UserPlus className="h-4.5 w-4.5" />
-                    </div>
-                    <div>
-                      <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Ücretsiz Kayıt Ol!</p>
-                      <p className="mt-1 text-[11px] text-primary-foreground/80 sm:text-xs">
-                        Hesabını aç, profilini düzenle! Diasporanın bir parçası ol!
-                      </p>
-                    </div>
+                  <div className="min-w-0">
+                    <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Ücretsiz Kayıt Ol!</p>
+                    <p className="mt-1 line-clamp-1 text-[11px] text-primary-foreground/80 sm:text-xs">
+                      Hesabını aç, profilini düzenle! Diasporanın bir parçası ol!
+                    </p>
                   </div>
                   <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
@@ -95,19 +85,14 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    topRowCardHeight,
-                    "h-full border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
+                    secondaryCardBase,
+                    "flex h-full items-center border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-white/40 p-2.5">
-                        <MessageCircle className="h-4.5 w-4.5 text-emerald-700" />
-                      </div>
-                      <div>
-                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">WhatsApp Grubuna Katıl</p>
-                        <p className="mt-1 text-[11px] text-slate-800/78 sm:text-xs">Topluluklar, şehirler, hızlı bağlantılar</p>
-                      </div>
+                    <div className="min-w-0">
+                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">WhatsApp Grubuna Katıl</p>
+                      <p className="mt-1 line-clamp-1 text-[11px] text-slate-800/78 sm:text-xs">Topluluklar, şehirler, hızlı bağlantılar</p>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
@@ -118,46 +103,34 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    topRowCardHeight,
-                    "h-full border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
+                    secondaryCardBase,
+                    "flex h-full items-center border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
                   )}
                 >
-                  <span className="absolute right-4 top-4 rounded-full bg-slate-900 px-3 py-1 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold shadow-sm">
+                  <span className="absolute left-5 top-0 -translate-y-1/2 rounded-full bg-slate-900 px-4 py-1.5 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold shadow-[0_10px_24px_-14px_rgba(15,23,42,0.9)]">
                     Erken Erişim
                   </span>
-                  <div className="flex items-center justify-between gap-4 pr-24">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-white/45 p-2.5">
-                        <Sparkles className="h-4.5 w-4.5 text-amber-600" />
-                      </div>
-                      <div>
-                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Founding 1000</p>
-                        <p className="mt-1 text-[11px] text-slate-800/76 sm:text-xs">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
-                      </div>
+                  <div className="flex items-center justify-between gap-4 pt-1">
+                    <div className="min-w-0">
+                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Founding 1000</p>
+                      <p className="mt-1 line-clamp-1 text-[11px] text-slate-800/76 sm:text-xs">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
               </Link>
-            </div>
-
-            <div className="grid gap-3 sm:grid-cols-2">
               <Link to="/blog-contest" className="block">
                 <div
                   className={cn(
                     actionCardBase,
-                    "h-full border-orange-300/54 bg-[linear-gradient(135deg,#f26a21_0%,#f68d33_56%,#f7a55b_100%)] text-white",
+                    secondaryCardBase,
+                    "flex h-full items-center border-orange-300/54 bg-[linear-gradient(135deg,#f26a21_0%,#f68d33_56%,#f7a55b_100%)] text-white",
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-white/16 p-2.5">
-                        <PenSquare className="h-4.5 w-4.5" />
-                      </div>
-                      <div>
-                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Blogger Yarışması</p>
-                        <p className="mt-1 text-[11px] text-white/82 sm:text-xs">Yaz, yayınla, ödül havuzuna gir.</p>
-                      </div>
+                    <div className="min-w-0">
+                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Blogger Yarışması</p>
+                      <p className="mt-1 line-clamp-1 text-[11px] text-white/82 sm:text-xs">Yaz, yayınla, ödül havuzuna gir.</p>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
@@ -168,18 +141,14 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    "h-full border-sky-300/48 bg-[linear-gradient(135deg,#1887b4_0%,#2676a1_54%,#315b91_100%)] text-white",
+                    secondaryCardBase,
+                    "flex h-full items-center border-sky-300/48 bg-[linear-gradient(135deg,#1887b4_0%,#2676a1_54%,#315b91_100%)] text-white",
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
-                    <div className="flex items-center gap-3">
-                      <div className="rounded-full bg-white/16 p-2.5">
-                        <Video className="h-4.5 w-4.5" />
-                      </div>
-                      <div>
-                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Vlogger Yarışması</p>
-                        <p className="mt-1 text-[11px] text-white/82 sm:text-xs">Video üret, kitleni büyüt, öne çık.</p>
-                      </div>
+                    <div className="min-w-0">
+                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Vlogger Yarışması</p>
+                      <p className="mt-1 line-clamp-1 text-[11px] text-white/82 sm:text-xs">Video üret, kitleni büyüt, öne çık.</p>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
