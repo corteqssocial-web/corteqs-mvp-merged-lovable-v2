@@ -1,15 +1,10 @@
-import {
-  ArrowRight,
-  Globe,
-} from "lucide-react";
+import { Globe } from "lucide-react";
 import { Link } from "react-router-dom";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { cn } from "@/lib/utils";
 
 const actionCardBase =
   "group relative w-full overflow-hidden rounded-[1.5rem] border px-5 py-4 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.38)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_48px_-30px_rgba(15,23,42,0.44)]";
-
-const secondaryCardBase = "min-h-[104px]";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
@@ -75,7 +70,6 @@ const HeroSection = () => {
                       Hesabını aç, profilini düzenle! Diasporanın bir parçası ol!
                     </p>
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
               </div>
             </Link>
@@ -85,8 +79,7 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    secondaryCardBase,
-                    "flex h-full items-center border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
+                    "border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
@@ -94,7 +87,6 @@ const HeroSection = () => {
                       <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">WhatsApp Grubuna Katıl</p>
                       <p className="mt-1 line-clamp-1 text-[11px] text-slate-800/78 sm:text-xs">Topluluklar, şehirler, hızlı bağlantılar</p>
                     </div>
-                    <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
               </Link>
@@ -103,19 +95,14 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    secondaryCardBase,
-                    "flex h-full items-center border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
+                    "border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
                   )}
                 >
-                  <span className="absolute left-5 top-0 -translate-y-1/2 rounded-full bg-slate-900 px-4 py-1.5 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold shadow-[0_10px_24px_-14px_rgba(15,23,42,0.9)]">
-                    Erken Erişim
-                  </span>
                   <div className="flex items-center justify-between gap-4 pt-1">
                     <div className="min-w-0">
                       <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Founding 1000</p>
                       <p className="mt-1 line-clamp-1 text-[11px] text-slate-800/76 sm:text-xs">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
                     </div>
-                    <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
               </Link>
@@ -123,8 +110,7 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    secondaryCardBase,
-                    "flex h-full items-center border-orange-300/54 bg-[linear-gradient(135deg,#f26a21_0%,#f68d33_56%,#f7a55b_100%)] text-white",
+                    "border-orange-300/54 bg-[linear-gradient(135deg,#f26a21_0%,#f68d33_56%,#f7a55b_100%)] text-white",
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
@@ -132,7 +118,6 @@ const HeroSection = () => {
                       <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Blogger Yarışması</p>
                       <p className="mt-1 line-clamp-1 text-[11px] text-white/82 sm:text-xs">Yaz, yayınla, ödül havuzuna gir.</p>
                     </div>
-                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
               </Link>
@@ -141,8 +126,7 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
-                    secondaryCardBase,
-                    "flex h-full items-center border-sky-300/48 bg-[linear-gradient(135deg,#1887b4_0%,#2676a1_54%,#315b91_100%)] text-white",
+                    "border-sky-300/48 bg-[linear-gradient(135deg,#1887b4_0%,#2676a1_54%,#315b91_100%)] text-white",
                   )}
                 >
                   <div className="flex items-center justify-between gap-4">
@@ -150,7 +134,6 @@ const HeroSection = () => {
                       <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Vlogger Yarışması</p>
                       <p className="mt-1 line-clamp-1 text-[11px] text-white/82 sm:text-xs">Video üret, kitleni büyüt, öne çık.</p>
                     </div>
-                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
                 </div>
               </Link>

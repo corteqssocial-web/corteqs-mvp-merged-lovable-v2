@@ -1,6 +1,6 @@
-import { useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, User, LogIn, LogOut, MapPin, PenLine, ChevronDown, Newspaper, MessageCircle, Calendar } from "lucide-react";
+import { Menu, X, User, LogOut, MapPin, PenLine, ChevronDown, Newspaper, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -13,12 +13,19 @@ import {
 import { useDiaspora, countryList } from "@/contexts/DiasporaContext";
 import { useAuth } from "@/contexts/AuthContext";
 
+const desktopNavItemClass =
+  "rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-[rgba(248,176,121,0.18)] hover:text-[hsl(220_30%_12%)] focus-visible:bg-[rgba(248,176,121,0.18)] focus-visible:text-[hsl(220_30%_12%)]";
+
+const desktopSeparatorClass = "h-5 w-px bg-border/90";
+
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
+  const [isMoreOpen, setIsMoreOpen] = useState(false);
   const { diaspora, t, selectedCountry, setSelectedCountry } = useDiaspora();
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
+  const moreCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
   const isHome = location.pathname === "/";
   // Routes that have their own dedicated Country+City selector (CountryCitySelector)
   // — hide the duplicate navbar selector on these pages.
@@ -38,6 +45,34 @@ const Navbar = () => {
   const isInternational = diaspora !== "tr";
   const isRegisterDiaspora = location.pathname.startsWith("/register-diaspora");
   const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isRegisterDiaspora;
+
+  useEffect(() => {
+    return () => {
+      if (moreCloseTimerRef.current) {
+        clearTimeout(moreCloseTimerRef.current);
+      }
+    };
+  }, []);
+
+  const clearMoreCloseTimer = () => {
+    if (moreCloseTimerRef.current) {
+      clearTimeout(moreCloseTimerRef.current);
+      moreCloseTimerRef.current = null;
+    }
+  };
+
+  const openMoreMenu = () => {
+    clearMoreCloseTimer();
+    setIsMoreOpen(true);
+  };
+
+  const queueMoreMenuClose = () => {
+    clearMoreCloseTimer();
+    moreCloseTimerRef.current = setTimeout(() => {
+      setIsMoreOpen(false);
+      moreCloseTimerRef.current = null;
+    }, 120);
+  };
 
   const handleSignOut = async () => {
     await signOut();
@@ -86,42 +121,58 @@ const Navbar = () => {
             )}
           </div>
 
-          <div className="hidden md:flex items-center gap-6">
-            <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors whitespace-nowrap">{t.nav.consultants}</Link>
-            <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.businesses}</Link>
-            <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.organizations}</Link>
-            <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground transition-colors">{t.nav.vblogger}</Link>
+          <div className="hidden md:flex items-center">
+            <Link to="/consultants" className={`${desktopNavItemClass} whitespace-nowrap`}>{t.nav.consultants}</Link>
+            <div className={desktopSeparatorClass} />
+            <Link to="/businesses" className={desktopNavItemClass}>{t.nav.businesses}</Link>
+            <div className={desktopSeparatorClass} />
+            <Link to="/associations" className={desktopNavItemClass}>{t.nav.organizations}</Link>
+            <div className={desktopSeparatorClass} />
+            <Link to="/bloggers" className={desktopNavItemClass}>{t.nav.vblogger}</Link>
+            <div className={desktopSeparatorClass} />
 
             {/* More Dropdown */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-1 text-sm font-medium text-muted-foreground hover:text-foreground px-2 h-auto">
-                  {t.nav.more}
-                  <ChevronDown className="h-3 w-3" />
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-52">
-                <DropdownMenuItem asChild>
-                  <Link to="/events" className="flex items-center gap-2 cursor-pointer">
-                    <Calendar className="h-3.5 w-3.5 text-primary" />{t.nav.events}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/whatsapp-groups" className="flex items-center gap-2 cursor-pointer">
-                    <MessageCircle className="h-3.5 w-3.5 text-primary" />{t.nav.groups}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/city-news" className="flex items-center gap-2 cursor-pointer">
-                    <Newspaper className="h-3.5 w-3.5 text-primary" />{t.nav.media}
-                  </Link>
-                </DropdownMenuItem>
-                <DropdownMenuItem asChild>
-                  <Link to="/map" className="flex items-center gap-2 cursor-pointer">
-                    <MapPin className="h-3.5 w-3.5 text-primary" />{t.nav.map}
-                  </Link>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
+            <DropdownMenu open={isMoreOpen} onOpenChange={setIsMoreOpen}>
+              <div onMouseEnter={openMoreMenu} onMouseLeave={queueMoreMenuClose}>
+                <DropdownMenuTrigger asChild>
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className={`${desktopNavItemClass} gap-1 px-3 py-2 h-auto hover:bg-[rgba(248,176,121,0.18)] hover:text-[hsl(220_30%_12%)]`}
+                  >
+                    {t.nav.more}
+                    <ChevronDown className="h-3 w-3" />
+                  </Button>
+                </DropdownMenuTrigger>
+                <DropdownMenuContent
+                  align="end"
+                  sideOffset={-2}
+                  className="z-[60] mt-0 w-52 rounded-[1.35rem] border border-[rgba(248,176,121,0.35)] bg-white/96 p-2 shadow-[0_22px_44px_-18px_rgba(15,23,42,0.28)] backdrop-blur-md"
+                  onMouseEnter={openMoreMenu}
+                  onMouseLeave={queueMoreMenuClose}
+                >
+                  <DropdownMenuItem asChild>
+                    <Link to="/events" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
+                      <Calendar className="h-3.5 w-3.5 text-primary" />{t.nav.events}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/whatsapp-groups" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
+                      <MessageCircle className="h-3.5 w-3.5 text-primary" />{t.nav.groups}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/city-news" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
+                      <Newspaper className="h-3.5 w-3.5 text-primary" />{t.nav.media}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/map" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
+                      <MapPin className="h-3.5 w-3.5 text-primary" />{t.nav.map}
+                    </Link>
+                  </DropdownMenuItem>
+                </DropdownMenuContent>
+              </div>
             </DropdownMenu>
           </div>
 
@@ -140,13 +191,25 @@ const Navbar = () => {
               </>
             ) : (
               <>
-                <Link to="/auth">
-                  <Button variant="ghost" size="sm" className="gap-1.5">
-                    <LogIn className="h-4 w-4" /> {t.nav.login}
+                <div className="h-6 w-px bg-border/90" />
+                <Link to="/auth" className="flex-1 min-w-[132px]">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full rounded-xl border border-emerald-200/80 bg-[rgba(173,226,202,0.55)] px-4 text-[hsl(155_30%_20%)] shadow-none hover:bg-[rgba(173,226,202,0.8)] hover:text-[hsl(155_30%_18%)]"
+                  >
+                    {t.nav.login}
                   </Button>
                 </Link>
-                <Link to="/auth">
-                  <Button variant="default" size="sm">{t.nav.signup}</Button>
+                <div className="h-6 w-px bg-border/90" />
+                <Link to="/auth" className="flex-1 min-w-[132px]">
+                  <Button
+                    variant="ghost"
+                    size="sm"
+                    className="w-full rounded-xl border border-orange-200/80 bg-[rgba(248,176,121,0.42)] px-4 text-[hsl(20_58%_28%)] shadow-none hover:bg-[rgba(248,176,121,0.65)] hover:text-[hsl(20_58%_24%)]"
+                  >
+                    {t.nav.signup}
+                  </Button>
                 </Link>
               </>
             )}
