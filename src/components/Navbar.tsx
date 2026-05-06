@@ -14,7 +14,7 @@ import { useDiaspora, countryList } from "@/contexts/DiasporaContext";
 import { useAuth } from "@/contexts/AuthContext";
 
 const desktopNavItemClass =
-  "rounded-md px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-[rgba(248,176,121,0.18)] hover:text-[hsl(220_30%_12%)] focus-visible:bg-[rgba(248,176,121,0.18)] focus-visible:text-[hsl(220_30%_12%)]";
+  "rounded-none px-3 py-2 text-sm font-medium text-muted-foreground transition-colors hover:bg-[rgba(148,163,184,0.18)] hover:text-[hsl(220_30%_12%)] focus-visible:bg-[rgba(148,163,184,0.18)] focus-visible:text-[hsl(220_30%_12%)]";
 
 const desktopSeparatorClass = "h-5 w-px bg-border/90";
 
@@ -138,7 +138,7 @@ const Navbar = () => {
                   <Button
                     variant="ghost"
                     size="sm"
-                    className={`${desktopNavItemClass} gap-1 px-3 py-2 h-auto hover:bg-[rgba(248,176,121,0.18)] hover:text-[hsl(220_30%_12%)]`}
+                    className={`${desktopNavItemClass} gap-1 px-3 py-2 h-auto hover:bg-[rgba(148,163,184,0.18)] hover:text-[hsl(220_30%_12%)]`}
                   >
                     {t.nav.more}
                     <ChevronDown className="h-3 w-3" />

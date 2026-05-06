@@ -4,7 +4,7 @@ import { useDiaspora } from "@/contexts/DiasporaContext";
 import { cn } from "@/lib/utils";
 
 const actionCardBase =
-  "group relative w-full overflow-hidden rounded-[1.5rem] border px-5 py-4 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.38)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_48px_-30px_rgba(15,23,42,0.44)]";
+  "group relative w-full overflow-hidden rounded-[1.45rem] border px-4 py-3 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.38)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_48px_-30px_rgba(15,23,42,0.44)]";
 
 const HeroSection = () => {
   const { t } = useDiaspora();
@@ -23,10 +23,10 @@ const HeroSection = () => {
         />
       </div>
 
-      <div className="container relative z-10 mx-auto px-4 py-8 md:py-10">
-        <div className="max-w-[770px] lg:max-w-[540px] xl:max-w-[590px]">
-          <div className="mb-4 rounded-[2rem] border border-white/80 bg-[linear-gradient(90deg,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.93)_38%,rgba(255,255,255,0.82)_62%,rgba(255,255,255,0.58)_82%,rgba(255,255,255,0.18)_100%)] px-4 py-4 shadow-[0_20px_55px_-36px_rgba(15,23,42,0.32)] backdrop-blur-xl sm:px-5 lg:px-6">
-            <div className="mb-3 inline-flex w-full items-center gap-2 rounded-full border border-turquoise/22 bg-[linear-gradient(90deg,rgba(255,255,255,0.86),rgba(220,247,242,0.92),rgba(255,255,255,0.42))] px-4 py-2 shadow-sm">
+      <div className="container relative z-10 mx-auto px-4 py-5 md:py-6">
+        <div className="max-w-[770px] lg:max-w-[540px] lg:-translate-y-10 xl:max-w-[590px] xl:-translate-y-12">
+          <div className="mb-3 rounded-[2rem] border border-white/80 bg-[linear-gradient(90deg,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.93)_38%,rgba(255,255,255,0.82)_62%,rgba(255,255,255,0.58)_82%,rgba(255,255,255,0.18)_100%)] px-4 py-4 shadow-[0_20px_55px_-36px_rgba(15,23,42,0.32)] backdrop-blur-xl sm:px-5 lg:px-6">
+            <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-turquoise/22 bg-[linear-gradient(90deg,rgba(255,255,255,0.86),rgba(220,247,242,0.92),rgba(255,255,255,0.42))] px-4 py-2 shadow-sm">
               <Globe className="h-4 w-4 text-turquoise" />
               <span className="text-sm font-semibold text-turquoise sm:text-[0.95rem]">{h.badge}</span>
             </div>
@@ -48,14 +48,12 @@ const HeroSection = () => {
               </div>
             </div>
 
-            <p className="mt-4 max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] text-sm leading-relaxed text-muted-foreground/88 sm:text-base">
-              Danışmanlar, dernekler, etkinlikler ve AI destekli araçlarla
-              <br />
-              diasporadaki yaşamınızı kolaylaştırın.
+            <p className="mt-3 max-w-[770px] whitespace-nowrap text-[0.7rem] leading-none text-muted-foreground/88 sm:text-[0.74rem]">
+              Danışmanlar, dernekler, etkinlikler ve AI destekli araçlarla diasporadaki yaşamınızı kolaylaştırın.
             </p>
           </div>
 
-          <div className="max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] space-y-3">
+          <div className="max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] space-y-2.5">
             <Link to="/auth" className="block">
               <div
                 className={cn(
@@ -65,8 +63,8 @@ const HeroSection = () => {
               >
                 <div className="flex items-center justify-between gap-4">
                   <div className="min-w-0">
-                    <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Ücretsiz Kayıt Ol!</p>
-                    <p className="mt-1 line-clamp-1 text-[11px] text-primary-foreground/80 sm:text-xs">
+                    <p className="line-clamp-1 text-[0.78rem] font-bold leading-tight sm:text-[0.84rem]">Ücretsiz Kayıt Ol!</p>
+                    <p className="mt-0.5 line-clamp-1 text-[10px] text-primary-foreground/80 sm:text-[11px]">
                       Hesabını aç, profilini düzenle! Diasporanın bir parçası ol!
                     </p>
                   </div>
@@ -74,7 +72,7 @@ const HeroSection = () => {
               </div>
             </Link>
 
-            <div className="grid gap-3 sm:grid-cols-2">
+            <div className="grid gap-2.5 sm:grid-cols-2">
               <Link to="/whatsapp-groups" className="block">
                 <div
                   className={cn(
@@ -84,8 +82,8 @@ const HeroSection = () => {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">WhatsApp Grubuna Katıl</p>
-                      <p className="mt-1 line-clamp-1 text-[11px] text-slate-800/78 sm:text-xs">Topluluklar, şehirler, hızlı bağlantılar</p>
+                      <p className="line-clamp-1 text-[0.78rem] font-bold leading-tight sm:text-[0.84rem]">WhatsApp Grubuna Katıl</p>
+                      <p className="mt-0.5 line-clamp-1 text-[10px] text-slate-800/78 sm:text-[11px]">Topluluklar, şehirler, hızlı bağlantılar</p>
                     </div>
                   </div>
                 </div>
@@ -98,10 +96,10 @@ const HeroSection = () => {
                     "border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
                   )}
                 >
-                  <div className="flex items-center justify-between gap-4 pt-1">
+                  <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Founding 1000</p>
-                      <p className="mt-1 line-clamp-1 text-[11px] text-slate-800/76 sm:text-xs">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
+                      <p className="line-clamp-1 text-[0.78rem] font-bold leading-tight sm:text-[0.84rem]">Founding 1000</p>
+                      <p className="mt-0.5 line-clamp-1 text-[10px] text-slate-800/76 sm:text-[11px]">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
                     </div>
                   </div>
                 </div>
@@ -115,8 +113,8 @@ const HeroSection = () => {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Blogger Yarışması</p>
-                      <p className="mt-1 line-clamp-1 text-[11px] text-white/82 sm:text-xs">Yaz, yayınla, ödül havuzuna gir.</p>
+                      <p className="line-clamp-1 text-[0.78rem] font-bold leading-tight sm:text-[0.84rem]">Blogger Yarışması</p>
+                      <p className="mt-0.5 line-clamp-1 text-[10px] text-white/82 sm:text-[11px]">Yaz, yayınla, ödül havuzuna gir.</p>
                     </div>
                   </div>
                 </div>
@@ -131,8 +129,8 @@ const HeroSection = () => {
                 >
                   <div className="flex items-center justify-between gap-4">
                     <div className="min-w-0">
-                      <p className="line-clamp-1 text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Vlogger Yarışması</p>
-                      <p className="mt-1 line-clamp-1 text-[11px] text-white/82 sm:text-xs">Video üret, kitleni büyüt, öne çık.</p>
+                      <p className="line-clamp-1 text-[0.78rem] font-bold leading-tight sm:text-[0.84rem]">Vlogger Yarışması</p>
+                      <p className="mt-0.5 line-clamp-1 text-[10px] text-white/82 sm:text-[11px]">Video üret, kitleni büyüt, öne çık.</p>
                     </div>
                   </div>
                 </div>
