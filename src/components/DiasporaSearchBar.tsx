@@ -16,7 +16,7 @@ interface SearchResult {
 }
 
 const quickPillClass =
-  "inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/62 px-4 py-2 text-xs font-medium text-foreground/78 shadow-[0_10px_28px_-20px_rgba(15,23,42,0.25)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/78 hover:text-foreground hover:shadow-[0_16px_36px_-22px_rgba(15,23,42,0.3)]";
+  "inline-flex items-center gap-1.5 rounded-full border border-orange-200/70 bg-[linear-gradient(135deg,rgba(255,243,236,0.92),rgba(255,233,220,0.98))] px-4 py-2 text-xs font-medium text-orange-700 shadow-[0_10px_28px_-20px_rgba(249,115,22,0.28)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-[linear-gradient(135deg,rgba(255,238,228,0.96),rgba(255,225,207,1))] hover:text-orange-800 hover:shadow-[0_16px_36px_-22px_rgba(249,115,22,0.34)]";
 
 const DiasporaSearchBar = () => {
   const navigate = useNavigate();
@@ -75,11 +75,6 @@ const DiasporaSearchBar = () => {
 
   return (
     <section className="relative py-12">
-      <div className="pointer-events-none absolute inset-0 overflow-hidden">
-        <div className="ambient-blob absolute left-[8%] top-10 h-36 w-36 rounded-full bg-turquoise/8 blur-3xl" />
-        <div className="ambient-blob absolute right-[10%] top-14 h-40 w-40 rounded-full bg-gold/8 blur-3xl" />
-      </div>
-
       <div className="container mx-auto px-4">
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-2">
@@ -112,44 +107,49 @@ const DiasporaSearchBar = () => {
           </div>
 
           {/* Quick CTA Buttons */}
-          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3">
-            <button onClick={() => handleQuickSearch("Konsolosluk")} className={quickPillClass}>
-              🏛️ Konsolosluk
-            </button>
-            <button onClick={() => handleQuickSearch("Doktor")} className={quickPillClass}>
-              🩺 Doktor
-            </button>
-            <button onClick={() => handleQuickSearch("Hastane")} className={quickPillClass}>
-              🏥 Hastane
-            </button>
-            <WelcomePackOrderForm
-              trigger={
-                <button className={quickPillClass}>
-                  🎁 Hoşgeldin Paketi Oluştur
-                </button>
-              }
-            />
-            <button
-              onClick={() => navigate("/relocation")}
-              className={quickPillClass}
-            >
-              🌍 Taşınma Motoru
-            </button>
-            <button
-              onClick={() => navigate("/consultants?filter=ambassador")}
-              className={quickPillClass}
-            >
-              🏅 Şehir Elçine Ulaş
-            </button>
-            <button onClick={() => handleQuickSearch("Vize danışmanı")} className={quickPillClass}>
-              ✈️ Vize & Göçmenlik
-            </button>
-            <button onClick={() => handleQuickSearch("Türk marketi")} className={quickPillClass}>
-              🛒 Türk Marketi
-            </button>
-            <button onClick={() => handleQuickSearch("İş ilanları")} className={quickPillClass}>
-              💼 İş İlanları
-            </button>
+          <div className="mx-auto flex max-w-6xl flex-col items-center gap-3">
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <button onClick={() => handleQuickSearch("Konsolosluk")} className={quickPillClass}>
+                🏛️ Konsolosluk
+              </button>
+              <button onClick={() => handleQuickSearch("Doktor")} className={quickPillClass}>
+                🩺 Doktor
+              </button>
+              <button onClick={() => handleQuickSearch("Hastane")} className={quickPillClass}>
+                🏥 Hastane
+              </button>
+              <button
+                onClick={() => navigate("/consultants?filter=ambassador")}
+                className={quickPillClass}
+              >
+                🏅 Şehir Elçine Ulaş
+              </button>
+              <button onClick={() => handleQuickSearch("Vize danışmanı")} className={quickPillClass}>
+                ✈️ Vize & Göçmenlik
+              </button>
+              <button onClick={() => handleQuickSearch("Türk marketi")} className={quickPillClass}>
+                🛒 Türk Marketi
+              </button>
+              <button onClick={() => handleQuickSearch("İş ilanları")} className={quickPillClass}>
+                💼 İş İlanları
+              </button>
+            </div>
+
+            <div className="flex flex-wrap items-center justify-center gap-3">
+              <WelcomePackOrderForm
+                trigger={
+                  <button className={quickPillClass}>
+                    🎁 Hoşgeldin Paketi Oluştur
+                  </button>
+                }
+              />
+              <button
+                onClick={() => navigate("/relocation")}
+                className={quickPillClass}
+              >
+                🌍 Taşınma Motoru
+              </button>
+            </div>
           </div>
 
           {/* Search Results */}

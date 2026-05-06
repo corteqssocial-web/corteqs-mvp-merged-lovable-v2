@@ -112,13 +112,49 @@
 }
 
 @layer utilities {
-  @keyframes ambient-drift {
+  @keyframes float {
     0% {
       transform: translate3d(0, 0, 0) scale(1);
     }
 
     50% {
-      transform: translate3d(0.9rem, -0.7rem, 0) scale(1.04);
+      transform: translate3d(0.45rem, -0.8rem, 0) scale(1.03);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+  }
+
+  @keyframes float-slow {
+    0% {
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    }
+
+    50% {
+      transform: translate3d(-0.7rem, -1rem, 0) rotate(4deg) scale(1.06);
+    }
+
+    100% {
+      transform: translate3d(0, 0, 0) rotate(0deg) scale(1);
+    }
+  }
+
+  @keyframes drift {
+    0% {
+      transform: translate3d(0, 0, 0) scale(1);
+    }
+
+    25% {
+      transform: translate3d(0.7rem, -0.35rem, 0) scale(1.02);
+    }
+
+    50% {
+      transform: translate3d(1rem, 0.55rem, 0) scale(1.05);
+    }
+
+    75% {
+      transform: translate3d(-0.55rem, 0.8rem, 0) scale(0.98);
     }
 
     100% {
@@ -153,8 +189,18 @@
     box-shadow: var(--shadow-elevated);
   }
 
-  .ambient-blob {
-    animation: ambient-drift 18s ease-in-out infinite;
+  .animate-floating-dot {
+    animation: float 5s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-floating-dot-slow {
+    animation: float-slow 7s ease-in-out infinite;
+    will-change: transform;
+  }
+
+  .animate-floating-dot-drift {
+    animation: drift 9s ease-in-out infinite;
     will-change: transform;
   }
 }

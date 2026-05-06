@@ -20,12 +20,6 @@ const HeroSection = () => {
 
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden bg-gradient-hero pt-16">
-      <div className="absolute inset-0 overflow-hidden">
-        <div className="ambient-blob absolute left-[-5rem] top-20 h-56 w-56 rounded-full bg-primary/8 blur-3xl" />
-        <div className="ambient-blob absolute bottom-10 left-1/4 h-40 w-40 rounded-full bg-turquoise/10 blur-3xl" />
-        <div className="ambient-blob absolute right-[12%] top-[18%] h-48 w-48 rounded-full bg-gold/10 blur-3xl" />
-      </div>
-
       <div
         className="pointer-events-none absolute inset-y-0 right-0 hidden w-[52%] lg:block"
         aria-hidden="true"
@@ -44,25 +38,27 @@ const HeroSection = () => {
             </div>
 
             <div className="flex items-center gap-4 lg:gap-5">
-            <img
-              src="/logo.png"
-              alt="Corteqs"
-              className="h-28 w-28 shrink-0 object-contain drop-shadow-[0_18px_30px_rgba(249,115,22,0.14)] sm:h-32 sm:w-32 lg:h-40 lg:w-40"
-              loading="eager"
-            />
+              <img
+                src="/logo.png"
+                alt="Corteqs"
+                className="h-20 w-20 shrink-0 object-contain drop-shadow-[0_18px_30px_rgba(249,115,22,0.14)] sm:h-24 sm:w-24 lg:h-28 lg:w-28"
+                loading="eager"
+              />
 
-            <div className="min-w-0">
-              <h1 className="max-w-[10.2ch] text-[2.8rem] font-extrabold leading-[0.92] tracking-[-0.05em] text-foreground sm:text-[3.6rem] lg:text-[4.2rem]">
-                {h.title}
-                <span className="text-gradient-primary">{h.titleHighlight}</span>
-                {h.titleEnd}
-              </h1>
+              <div className="min-w-0">
+                <h1 className="max-w-[11ch] text-[1.9rem] font-extrabold leading-[0.94] tracking-[-0.045em] text-foreground sm:text-[2.45rem] lg:text-[2.85rem]">
+                  {h.title}
+                  <span className="text-gradient-primary">{h.titleHighlight}</span>
+                  {h.titleEnd}
+                </h1>
+              </div>
             </div>
           </div>
-          </div>
 
-          <p className="mb-5 max-w-[36rem] text-base leading-relaxed text-muted-foreground/88 sm:text-[1.1rem]">
-            {h.subtitle}
+          <p className="mb-5 max-w-[34rem] text-sm leading-relaxed text-muted-foreground/88 sm:text-base">
+            Danışmanlar, dernekler, etkinlikler ve AI destekli araçlarla
+            <br />
+            diasporadaki yaşamınızı kolaylaştırın.
           </p>
 
           <div className="max-w-[42rem] space-y-3">
@@ -72,18 +68,18 @@ const HeroSection = () => {
                   actionCardBase,
                   "border-turquoise/38 bg-[linear-gradient(135deg,#11385f_0%,#1b6288_55%,#36bcc7_110%)] text-primary-foreground",
                 )}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-full bg-white/15 p-2.5 backdrop-blur-sm">
-                      <UserPlus className="h-4.5 w-4.5" />
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-white/15 p-2.5 backdrop-blur-sm">
+                        <UserPlus className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Ücretsiz Kayıt Ol!</p>
+                        <p className="mt-1 text-[11px] text-primary-foreground/80 sm:text-xs">Hesabını aç, profilini düzenle! Diasporanın bir parçası ol!</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold leading-tight sm:text-[1.1rem]">Kaydol — Diaspora Pasaportun Çıksın</p>
-                      <p className="mt-1 text-sm text-primary-foreground/80">Hesabını aç, profilini kur, ağın içine gir.</p>
-                    </div>
-                  </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
+                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
               </div>
             </Link>
@@ -102,8 +98,8 @@ const HeroSection = () => {
                         <MessageCircle className="h-4.5 w-4.5 text-emerald-700" />
                       </div>
                       <div>
-                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">WhatsApp Grubuna Katıl</p>
-                        <p className="mt-1 text-sm text-slate-800/78">Topluluklar, şehirler, hızlı bağlantılar</p>
+                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">WhatsApp Grubuna Katıl</p>
+                        <p className="mt-1 text-[11px] text-slate-800/78 sm:text-xs">Topluluklar, şehirler, hızlı bağlantılar</p>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
@@ -127,8 +123,8 @@ const HeroSection = () => {
                         <Sparkles className="h-4.5 w-4.5 text-amber-600" />
                       </div>
                       <div>
-                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">Founding 1000&apos;e Katıl</p>
-                        <p className="mt-1 text-sm text-slate-800/76">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
+                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Founding 1000</p>
+                        <p className="mt-1 text-[11px] text-slate-800/76 sm:text-xs">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
@@ -151,8 +147,8 @@ const HeroSection = () => {
                         <PenSquare className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">Blogger Yarışması</p>
-                        <p className="mt-1 text-sm text-white/82">Yaz, yayınla, ödül havuzuna gir.</p>
+                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Blogger Yarışması</p>
+                        <p className="mt-1 text-[11px] text-white/82 sm:text-xs">Yaz, yayınla, ödül havuzuna gir.</p>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
@@ -173,8 +169,8 @@ const HeroSection = () => {
                         <Video className="h-4.5 w-4.5" />
                       </div>
                       <div>
-                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">Vlogger Yarışması</p>
-                        <p className="mt-1 text-sm text-white/82">Video üret, kitleni büyüt, öne çık.</p>
+                        <p className="text-[0.82rem] font-bold leading-tight sm:text-[0.9rem]">Vlogger Yarışması</p>
+                        <p className="mt-1 text-[11px] text-white/82 sm:text-xs">Video üret, kitleni büyüt, öne çık.</p>
                       </div>
                     </div>
                     <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
