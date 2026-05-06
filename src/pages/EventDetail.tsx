@@ -7,7 +7,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import EventBoostDialog from "@/components/EventBoostDialog";
 import { events } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
@@ -49,7 +48,6 @@ const EventDetail = () => {
             <Link to="/events"><Button variant="outline" className="mt-4">← Etkinliklere Dön</Button></Link>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -255,7 +253,6 @@ const EventDetail = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

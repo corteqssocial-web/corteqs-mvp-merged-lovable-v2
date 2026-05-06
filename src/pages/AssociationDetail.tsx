@@ -4,7 +4,6 @@ import { Users, MapPin, Calendar as CalendarIcon, Globe as GlobeIcon, ArrowLeft,
 import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Badge } from "@/components/ui/badge";
 import { associations } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
@@ -25,7 +24,6 @@ const AssociationDetail = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">Kuruluş bulunamadı</h1>
           <Link to="/associations" className="text-primary hover:underline">← Kuruluşlara dön</Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -415,7 +413,6 @@ const AssociationDetail = () => {
           </Tabs>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

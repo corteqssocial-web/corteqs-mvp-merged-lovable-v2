@@ -6,7 +6,6 @@ import {
   Baby, Eye as EyeIcon, Bone, Brain, Pill
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
@@ -465,7 +464,6 @@ const HospitalAppointment = () => {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

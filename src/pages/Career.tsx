@@ -9,7 +9,6 @@ import {
   AlertTriangle,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import InterestForm from "@/components/InterestForm";
 import { Button } from "@/components/ui/button";
 
@@ -349,7 +348,6 @@ const Career = () => {
           </div>
         </section>
       </main>
-      <Footer />
       <InterestForm
         open={open}
         onOpenChange={setOpen}

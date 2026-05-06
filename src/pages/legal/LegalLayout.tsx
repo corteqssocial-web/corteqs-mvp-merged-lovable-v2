@@ -1,6 +1,5 @@
 import { ReactNode } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Link } from "react-router-dom";
 import { ShieldCheck, FileText, Cookie, Scale } from "lucide-react";
 
@@ -39,7 +38,6 @@ const LegalLayout = ({ title, children }: { title: string; children: ReactNode }
         </div>
       </div>
     </main>
-    <Footer />
   </div>
 );
 

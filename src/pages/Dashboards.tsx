@@ -1,7 +1,6 @@
 import { Link } from "react-router-dom";
 import { LayoutDashboard, Shield, User, Building2, Briefcase, Mic, Flag, Megaphone, CreditCard } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const dashboards = [
   { to: "/profile?view=individual&tab=transactions", title: "İşlemlerim (Stripe)", desc: "Stripe üzerinden tahsilat ve harcama izleri. Stripe Ready.", icon: CreditCard },
@@ -46,7 +45,6 @@ const Dashboards = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

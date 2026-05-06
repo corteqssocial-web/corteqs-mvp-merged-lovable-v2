@@ -9,7 +9,6 @@ import { Card, CardContent, CardHeader, CardTitle, CardDescription } from "@/com
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { useToast } from "@/hooks/use-toast";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
 import { getOAuthRedirectUrl, getResetPasswordRedirectUrl } from "@/lib/runtimeEnv";
@@ -227,7 +226,6 @@ const Auth = () => {
           </Card>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

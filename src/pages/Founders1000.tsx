@@ -25,7 +25,6 @@ import {
   Star,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import InterestForm from "@/components/InterestForm";
 import landmarksImage from "@/assets/landmarks-collage.png";
 
@@ -337,7 +336,6 @@ const Founders1000 = () => {
           </div>
         </section>
       </main>
-      <Footer />
       <InterestForm
         open={formOpen}
         onOpenChange={setFormOpen}

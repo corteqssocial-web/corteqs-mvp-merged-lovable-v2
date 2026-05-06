@@ -5,7 +5,6 @@ import { MapPin, Users, Briefcase, Globe, Mail, Building2, Calendar, UserPlus, U
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { businesses } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import { markRealCouponPurchase, markRealTransaction } from "@/lib/demoFlags";
@@ -34,7 +33,6 @@ const BusinessDetail = () => {
             <Button variant="outline" className="mt-4">İşletmelere dön</Button>
           </Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -342,7 +340,6 @@ const BusinessDetail = () => {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

@@ -6,7 +6,6 @@ import { Button } from "@/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Tooltip, TooltipContent, TooltipProvider, TooltipTrigger } from "@/components/ui/tooltip";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { consultants } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import DemoPageBanner from "@/components/DemoPageBanner";
@@ -30,7 +29,6 @@ const ConsultantDetail = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">Danışman bulunamadı</h1>
           <Link to="/consultants" className="text-primary hover:underline">← Danışmanlara dön</Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -324,7 +322,6 @@ const ConsultantDetail = () => {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

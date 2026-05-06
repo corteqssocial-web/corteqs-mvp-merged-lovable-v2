@@ -5,7 +5,6 @@ import MapShareButtons from "@/components/MapShareButtons";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { businesses } from "@/data/mock";
@@ -425,7 +424,6 @@ const Businesses = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

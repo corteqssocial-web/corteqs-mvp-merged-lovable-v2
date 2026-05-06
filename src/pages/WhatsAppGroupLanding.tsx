@@ -10,7 +10,6 @@ import { Input } from "@/components/ui/input";
 import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { getLanding, type WhatsAppLanding } from "@/lib/whatsappLandings";
 import { useToast } from "@/hooks/use-toast";
 import { supabase } from "@/integrations/supabase/client";
@@ -65,7 +64,6 @@ const WhatsAppGroupLanding = () => {
       <div className="min-h-screen bg-background">
         <Navbar />
         <main className="pt-24 pb-16 text-center text-muted-foreground">Yükleniyor...</main>
-        <Footer />
       </div>
     );
   }
@@ -83,7 +81,6 @@ const WhatsAppGroupLanding = () => {
             </Button>
           </div>
         </main>
-        <Footer />
       </div>
     );
   }
@@ -275,7 +272,6 @@ const WhatsAppGroupLanding = () => {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

@@ -7,7 +7,6 @@ import FeaturedConsultants from "@/components/FeaturedConsultants";
 import FeaturedEvents from "@/components/FeaturedEvents";
 import AssociationsSection from "@/components/AssociationsSection";
 import BusinessesSection from "@/components/BusinessesSection";
-import Footer from "@/components/Footer";
 import HomeClosingCTA from "@/components/HomeClosingCTA";
 import SectionErrorBoundary from "@/components/SectionErrorBoundary";
 import FloatingDotsBackground from "@/components/FloatingDotsBackground";
@@ -26,7 +25,6 @@ const Index = () => {
         <div className="relative z-10">
           <InternationalDiasporaHero />
           <HomeClosingCTA />
-          <Footer />
         </div>
       ) : (
         <div className="relative z-10">
@@ -40,7 +38,6 @@ const Index = () => {
           <BusinessesSection />
           <FeaturedEvents />
           <HomeClosingCTA />
-          <Footer />
         </div>
       )}
     </div>

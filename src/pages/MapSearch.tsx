@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { getAllMapEntities, type MapEntity } from "@/lib/mapEntities";
@@ -253,7 +252,6 @@ const MapSearch = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

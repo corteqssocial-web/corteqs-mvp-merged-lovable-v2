@@ -3,7 +3,6 @@ import { ArrowLeft } from "lucide-react";
 import { useAuth } from "@/contexts/AuthContext";
 import { useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import ProfileIndividual from "@/components/profiles/ProfileIndividual";
 import ProfileBusiness from "@/components/profiles/ProfileBusiness";
 import ProfileAssociation from "@/components/profiles/ProfileAssociation";
@@ -76,7 +75,6 @@ const Profile = () => {
           {renderProfile()}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

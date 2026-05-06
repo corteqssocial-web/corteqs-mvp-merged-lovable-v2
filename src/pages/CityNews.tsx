@@ -1,6 +1,5 @@
 import { useState, useMemo, useEffect } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Cloud, TrendingUp, Briefcase, Newspaper, MapPin, Search, Globe, BookOpen, FileText, Library, Radio, ExternalLink, PenLine } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Input } from "@/components/ui/input";
@@ -322,7 +321,6 @@ const CityNews = () => {
           </div>
         )}
       </div>
-      <Footer />
     </div>
   );
 };

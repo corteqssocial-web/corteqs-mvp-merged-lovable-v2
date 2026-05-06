@@ -4,6 +4,7 @@ import { Link } from "react-router-dom";
 import InterestForm from "@/components/InterestForm";
 import { footerFlatLinks } from "@/components/footerLinks";
 import { useToast } from "@/hooks/use-toast";
+import footerCommunityVideo from "../../footer-community.mp4";
 
 const whatsappUrl = "https://chat.whatsapp.com/IOpBgZK29CQEhhdOd5hUAD";
 
@@ -52,14 +53,24 @@ const HomeClosingCTA = () => {
 
   return (
     <>
-      <section className="relative overflow-hidden px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_top_left,rgba(17,183,166,0.2),transparent_34%),radial-gradient(circle_at_85%_78%,rgba(249,115,22,0.22),transparent_30%),linear-gradient(135deg,#08242c_0%,#10252f_38%,#1b2228_68%,#33231c_100%)]" />
-        <div className="absolute inset-0 opacity-40 [background-image:linear-gradient(rgba(255,255,255,0.06)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.06)_1px,transparent_1px)] [background-size:32px_32px]" />
+      <section className="relative isolate overflow-hidden px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
+        <video
+          className="absolute inset-0 h-full w-full object-cover"
+          autoPlay
+          muted
+          loop
+          playsInline
+          aria-hidden="true"
+        >
+          <source src={footerCommunityVideo} type="video/mp4" />
+        </video>
+        <div className="absolute inset-0 bg-[linear-gradient(135deg,rgba(8,36,44,0.88)_0%,rgba(16,37,47,0.76)_40%,rgba(23,29,35,0.72)_66%,rgba(51,35,28,0.84)_100%)]" />
+        <div className="absolute inset-0 opacity-30 [background-image:linear-gradient(rgba(255,255,255,0.08)_1px,transparent_1px),linear-gradient(90deg,rgba(255,255,255,0.08)_1px,transparent_1px)] [background-size:32px_32px]" />
         <div className="pointer-events-none absolute left-[-12%] top-16 h-44 w-44 rounded-full bg-turquoise/25 blur-3xl" />
         <div className="pointer-events-none absolute bottom-10 right-[-4%] h-56 w-56 rounded-full bg-primary/25 blur-3xl" />
 
         <div className="container relative z-10 mx-auto max-w-6xl">
-          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/15 bg-white/10 px-5 py-8 text-center shadow-[0_36px_120px_-42px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:px-8 lg:px-12 lg:py-10">
+          <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/15 bg-black/25 px-5 py-8 text-center shadow-[0_36px_120px_-42px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:px-8 lg:px-12 lg:py-10">
             <div className="mx-auto max-w-3xl">
               <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
                 <Rocket className="h-4 w-4 text-turquoise" />

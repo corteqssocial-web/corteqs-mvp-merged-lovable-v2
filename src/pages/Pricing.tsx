@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 type UserType = "consultant" | "association" | "business";
 
@@ -289,7 +288,6 @@ const Pricing = () => {
           </p>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

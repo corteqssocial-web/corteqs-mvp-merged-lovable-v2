@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { cityAmbassadors } from "@/data/mock";
 
 const AmbassadorDetail = () => {
@@ -19,7 +18,6 @@ const AmbassadorDetail = () => {
           <p className="text-muted-foreground">Elçi bulunamadı.</p>
           <Link to="/consultants" className="text-primary underline mt-4 inline-block">Danışmanlara dön</Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -226,7 +224,6 @@ const AmbassadorDetail = () => {
           </Card>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

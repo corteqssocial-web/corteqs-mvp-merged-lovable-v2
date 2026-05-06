@@ -7,7 +7,6 @@ import { Button } from "@/components/ui/button";
 import { useToast } from "@/hooks/use-toast";
 import { UserCircle, Briefcase, Building2, Users, PenLine, Globe } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 
 const accountTypes = [
   {
@@ -152,7 +151,6 @@ const Onboarding = () => {
           </Button>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

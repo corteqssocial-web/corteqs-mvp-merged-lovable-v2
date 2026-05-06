@@ -1,6 +1,5 @@
 import { useState, useMemo } from "react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/components/ui/tabs";
 import { Card, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
@@ -621,7 +620,6 @@ const AdminDashboard = () => {
           </Tabs>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

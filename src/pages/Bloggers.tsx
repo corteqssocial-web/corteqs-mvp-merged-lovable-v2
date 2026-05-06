@@ -7,7 +7,6 @@ import {
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import DemoBadge from "@/components/DemoBadge";
 import InterestForm from "@/components/InterestForm";
 import { bloggers } from "@/data/mock";
@@ -229,7 +228,6 @@ const Bloggers = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

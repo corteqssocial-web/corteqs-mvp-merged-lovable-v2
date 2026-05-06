@@ -10,7 +10,6 @@ import { Label } from "@/components/ui/label";
 import { Textarea } from "@/components/ui/textarea";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { bloggers } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 import { useFollow } from "@/hooks/useFollow";
@@ -56,7 +55,6 @@ const BloggerDetail = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">Profil bulunamadı</h1>
           <Link to="/bloggers" className="text-primary hover:underline">← Geri dön</Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -363,7 +361,6 @@ const BloggerDetail = () => {
           </Tabs>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

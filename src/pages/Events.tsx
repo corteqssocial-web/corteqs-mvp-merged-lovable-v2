@@ -14,7 +14,6 @@ import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@
 import { Dialog, DialogContent, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
 import { Badge } from "@/components/ui/badge";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import CreateEventForm from "@/components/CreateEventForm";
 import { useDiaspora } from "@/contexts/DiasporaContext";
@@ -524,7 +523,6 @@ const Events = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

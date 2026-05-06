@@ -4,7 +4,6 @@ import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { useToast } from "@/hooks/use-toast";
 import vloggerHero from "@/assets/vlogger-contest-hero.jpg";
 import mascot from "@/assets/corteqs-mascot.png";
@@ -277,7 +276,6 @@ const VloggerContest = () => {
           </div>
         </section>
       </main>
-      <Footer />
     </div>
   );
 };

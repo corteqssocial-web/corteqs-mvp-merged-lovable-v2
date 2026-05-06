@@ -4,7 +4,6 @@ import { Users, MapPin, Calendar as CalendarIcon, GraduationCap, Radio, Tv, Musi
 import MapShareButtons from "@/components/MapShareButtons";
 import { Button } from "@/components/ui/button";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import CountryCitySelector from "@/components/CountryCitySelector";
 import { useDiaspora } from "@/contexts/DiasporaContext";
 import { associations } from "@/data/mock";
@@ -186,7 +185,6 @@ const Associations = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

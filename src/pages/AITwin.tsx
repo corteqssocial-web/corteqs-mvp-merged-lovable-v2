@@ -6,7 +6,6 @@ import {
   ArrowRight, CheckCircle2, AlertCircle, Percent
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { useToast } from "@/hooks/use-toast";
@@ -246,7 +245,6 @@ const AITwin = () => {
           </div>
         </div>
       </main>
-      <Footer />
     </div>
   );
 };

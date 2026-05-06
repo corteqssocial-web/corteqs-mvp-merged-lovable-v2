@@ -11,7 +11,6 @@ import { Textarea } from "@/components/ui/textarea";
 import { Badge } from "@/components/ui/badge";
 import { Switch } from "@/components/ui/switch";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { associations } from "@/data/mock";
 import { useToast } from "@/hooks/use-toast";
 
@@ -90,7 +89,6 @@ const RadioSongRequest = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">Radyo bulunamadı</h1>
           <Link to="/associations" className="text-primary hover:underline">← Kuruluşlara dön</Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -398,7 +396,6 @@ const RadioSongRequest = () => {
           )}
         </div>
       </main>
-      <Footer />
     </div>
   );
 };
