@@ -25,11 +25,12 @@ const HeroSection = () => {
         <img
           src={landmarksImage}
           alt="World landmarks"
-          className="w-full h-full object-contain object-bottom opacity-55"
+          className="w-full h-full object-contain object-bottom opacity-52"
           loading="eager"
         />
         <div className="absolute inset-0 bg-gradient-to-t from-background/70 via-background/15 to-transparent" />
-        <div className="absolute inset-0 bg-gradient-to-r from-background/80 via-background/30 to-transparent" />
+        <div className="absolute inset-0 bg-gradient-to-r from-background via-background/85 via-background/45 to-transparent" />
+        <div className="absolute inset-y-0 left-0 w-24 md:w-40 bg-gradient-to-r from-background/95 via-background/60 to-transparent blur-xl" />
       </div>
 
       <div className="container mx-auto px-4 pt-20 relative z-10">
@@ -39,13 +40,13 @@ const HeroSection = () => {
             <span className="text-sm font-semibold text-turquoise">{h.badge}</span>
           </div>
 
-          <h1 className="text-4xl md:text-6xl lg:text-7xl font-extrabold text-foreground leading-tight mb-6 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
+          <h1 className="text-[3.15rem] md:text-[4.5rem] lg:text-[5.8rem] font-extrabold text-foreground leading-[0.96] mb-5 animate-fade-in-up" style={{ animationDelay: '0.1s' }}>
             {h.title}
             <span className="text-gradient-primary">{h.titleHighlight}</span>
             {h.titleEnd}
           </h1>
 
-          <p className="text-lg md:text-xl text-muted-foreground max-w-xl mb-10 animate-fade-in-up font-body" style={{ animationDelay: '0.2s' }}>
+          <p className="text-base md:text-lg text-muted-foreground/90 max-w-xl mb-9 animate-fade-in-up font-body leading-relaxed" style={{ animationDelay: '0.2s' }}>
             {h.subtitle}
           </p>
 
