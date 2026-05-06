@@ -1,8 +1,6 @@
-import { useState } from "react";
-import { Check, Copy, Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
+import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 import { footerFlatLinks } from "@/components/footerLinks";
-import { useToast } from "@/hooks/use-toast";
 import footerCommunityVideo from "../../footer-community.mp4";
 
 const socialLinks = [
@@ -33,19 +31,6 @@ const socialLinks = [
 ];
 
 const HomeClosingCTA = () => {
-  const { toast } = useToast();
-  const [copied, setCopied] = useState(false);
-
-  const handleCopy = async () => {
-    await navigator.clipboard.writeText("info@corteqs.net");
-    setCopied(true);
-    toast({
-      title: "Kopyalandı",
-      description: "E-posta adresi panoya alındı.",
-    });
-    window.setTimeout(() => setCopied(false), 2000);
-  };
-
   return (
     <>
       <section className="relative isolate overflow-hidden px-4 py-14 sm:px-6 lg:px-8 lg:py-20">
@@ -85,30 +70,9 @@ const HomeClosingCTA = () => {
               </div>
             </div>
 
-            <div className="flex flex-col items-center justify-between gap-4 border-t border-white/12 pt-6 text-sm text-white/60 md:flex-row">
-              <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
-                <span>© {new Date().getFullYear()} CorteQS. Diaspora ağı, fırsatlar ve topluluklar için hazırlanıyor.</span>
-                <Link to="/pricing" className="font-semibold text-turquoise transition-colors hover:text-white">
-                  Hakkımızda / Planlar
-                </Link>
-              </div>
-
-              <div className="flex items-center gap-2">
-                <a href="mailto:info@corteqs.net" className="font-semibold text-turquoise transition-colors hover:text-white">
-                  info@corteqs.net
-                </a>
-                <button
-                  onClick={handleCopy}
-                  className="rounded-full border border-white/10 bg-white/5 p-2 text-white/70 transition-colors hover:bg-white/10 hover:text-white"
-                  title="E-postayı kopyala"
-                >
-                  {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
-                </button>
-              </div>
-            </div>
-
             <div className="mt-6 border-t border-white/10 pt-5">
-              <div className="flex flex-wrap items-center justify-center gap-y-3 text-sm text-white/70">
+              <div className="overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="inline-flex min-w-max items-center whitespace-nowrap px-1 text-sm text-white/70">
                 {footerFlatLinks.map((link, index) => (
                   <div
                     key={link.label}
@@ -131,7 +95,14 @@ const HomeClosingCTA = () => {
                     )}
                   </div>
                 ))}
+                </div>
               </div>
+            </div>
+
+            <div className="mt-5 border-t border-white/10 pt-5">
+              <p className="overflow-x-auto whitespace-nowrap text-center text-xs text-white/60 sm:text-sm">
+                © 2026 CorteQS bir Qualtron Sinclair ve Akçakanat-Terzioğlu Girişimidir. Tüm hakları saklıdır.
+              </p>
             </div>
           </div>
         </div>
