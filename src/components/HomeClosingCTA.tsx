@@ -1,4 +1,4 @@
-import { Facebook, Instagram, Linkedin, Twitter } from "lucide-react";
+import { Facebook, Instagram, Linkedin, MessageCircle, Send, Twitter, Youtube } from "lucide-react";
 import { Link } from "react-router-dom";
 import { footerFlatLinks } from "@/components/footerLinks";
 import footerCommunityVideo from "../../footer-community.mp4";
@@ -8,25 +8,43 @@ const socialLinks = [
     href: "https://www.linkedin.com/company/corteqs-global",
     label: "LinkedIn",
     icon: Linkedin,
-    className: "bg-[#0A66C2] hover:bg-[#0958a7]",
+    className: "text-[#7dd3fc] hover:shadow-[0_0_28px_rgba(125,211,252,0.2)]",
   },
   {
     href: "https://www.facebook.com/corteqs",
     label: "Facebook",
     icon: Facebook,
-    className: "bg-[#1877F2] hover:bg-[#1669d2]",
+    className: "text-[#60a5fa] hover:shadow-[0_0_28px_rgba(96,165,250,0.22)]",
   },
   {
     href: "https://www.instagram.com/corteqsturk",
     label: "Instagram",
     icon: Instagram,
-    className: "bg-[linear-gradient(135deg,#feda75_0%,#d62976_50%,#4f5bd5_100%)] hover:opacity-90",
+    className: "text-[#f472b6] hover:shadow-[0_0_28px_rgba(244,114,182,0.22)]",
   },
   {
     href: "https://x.com/turksdiaspora",
     label: "X",
     icon: Twitter,
-    className: "bg-black hover:bg-neutral-800",
+    className: "text-[#d1d5db] hover:shadow-[0_0_28px_rgba(209,213,219,0.16)]",
+  },
+  {
+    href: "https://www.reddit.com/r/corteqs/",
+    label: "Reddit",
+    icon: MessageCircle,
+    className: "text-[#fb923c] hover:shadow-[0_0_28px_rgba(251,146,60,0.22)]",
+  },
+  {
+    href: "https://www.youtube.com/@corteqsyoutube",
+    label: "YouTube",
+    icon: Youtube,
+    className: "text-[#f87171] hover:shadow-[0_0_28px_rgba(248,113,113,0.22)]",
+  },
+  {
+    href: "https://t.me/turksdiaspora",
+    label: "Telegram",
+    icon: Send,
+    className: "text-[#38bdf8] hover:shadow-[0_0_28px_rgba(56,189,248,0.22)]",
   },
 ];
 
@@ -51,9 +69,10 @@ const HomeClosingCTA = () => {
 
         <div className="container relative z-10 mx-auto max-w-6xl">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/15 bg-black/25 px-5 py-8 text-center shadow-[0_36px_120px_-42px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:px-8 lg:px-12 lg:py-10">
-            <div className="mx-auto mb-10 max-w-3xl">
-              <p className="mb-4 text-sm font-medium text-white/68">Bizi sosyal medyada takip edin</p>
-              <div className="mx-auto grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
+            <div className="mx-auto mb-10 max-w-4xl">
+              <p className="mb-5 text-sm font-medium tracking-[0.08em] text-white/82">İletişim Kanallarımız</p>
+              <div className="overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="mx-auto flex min-w-max items-center justify-center gap-3 px-1 sm:gap-4">
                 {socialLinks.map(({ href, label, icon: Icon, className }) => (
                   <a
                     key={label}
@@ -61,12 +80,15 @@ const HomeClosingCTA = () => {
                     target="_blank"
                     rel="noopener noreferrer"
                     aria-label={`CorteQS ${label}`}
-                    className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 ${className}`}
+                    title={label}
+                    className={`group relative inline-flex h-16 w-16 items-center justify-center rounded-full border border-white/25 bg-white/8 text-[#29d3c3] shadow-[0_18px_40px_-24px_rgba(0,0,0,0.7)] backdrop-blur-xl transition-all duration-300 hover:-translate-y-1 hover:border-white/40 hover:bg-white/12 sm:h-20 sm:w-20 ${className}`}
                   >
-                    <Icon className="h-4 w-4" />
-                    {label}
+                    <span className="absolute inset-1 rounded-full border border-white/10 bg-[radial-gradient(circle_at_30%_30%,rgba(255,255,255,0.12),transparent_58%)]" />
+                    <Icon className="relative z-10 h-7 w-7 transition-transform duration-300 group-hover:scale-110 sm:h-8 sm:w-8" />
+                    <span className="sr-only">{label}</span>
                   </a>
                 ))}
+                </div>
               </div>
             </div>
 
