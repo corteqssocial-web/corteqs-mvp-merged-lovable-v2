@@ -70,13 +70,13 @@ const HomeClosingCTA = () => {
               </div>
             </div>
 
-            <div className="mt-6 border-t border-white/10 pt-5">
-              <div className="overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="inline-flex min-w-max items-center whitespace-nowrap px-1 text-sm text-white/70">
+            <div className="mt-5 border-t border-white/10 pt-3.5">
+              <div className="overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="inline-flex min-w-max items-center whitespace-nowrap px-0.5 text-[0.76rem] text-white/66 sm:text-[0.8rem]">
                 {footerFlatLinks.map((link, index) => (
                   <div
                     key={link.label}
-                    className={index > 0 ? "ml-3 border-l border-white/20 pl-3" : ""}
+                    className={index > 0 ? "ml-2 border-l border-white/20 pl-2" : ""}
                   >
                     {link.to ? (
                       <Link
@@ -99,8 +99,8 @@ const HomeClosingCTA = () => {
               </div>
             </div>
 
-            <div className="mt-5 border-t border-white/10 pt-5">
-              <p className="overflow-x-auto whitespace-nowrap text-center text-xs text-white/60 sm:text-sm">
+            <div className="mt-3.5 border-t border-white/10 pt-3.5">
+              <p className="overflow-x-auto whitespace-nowrap text-center text-[0.66rem] text-white/54 sm:text-[0.72rem]">
                 © 2026 CorteQS bir Qualtron Sinclair ve Akçakanat-Terzioğlu Girişimidir. Tüm hakları saklıdır.
               </p>
             </div>
