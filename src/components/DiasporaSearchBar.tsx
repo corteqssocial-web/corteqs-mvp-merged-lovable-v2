@@ -15,6 +15,9 @@ interface SearchResult {
   icon: string;
 }
 
+const quickPillClass =
+  "inline-flex items-center gap-1.5 rounded-full border border-white/70 bg-white/62 px-4 py-2 text-xs font-medium text-foreground/78 shadow-[0_10px_28px_-20px_rgba(15,23,42,0.25)] backdrop-blur-md transition-all duration-300 hover:-translate-y-0.5 hover:bg-white/78 hover:text-foreground hover:shadow-[0_16px_36px_-22px_rgba(15,23,42,0.3)]";
+
 const DiasporaSearchBar = () => {
   const navigate = useNavigate();
   const { toast } = useToast();
@@ -71,7 +74,12 @@ const DiasporaSearchBar = () => {
   };
 
   return (
-    <section className="py-12 bg-muted/30">
+    <section className="relative py-12">
+      <div className="pointer-events-none absolute inset-0 overflow-hidden">
+        <div className="ambient-blob absolute left-[8%] top-10 h-36 w-36 rounded-full bg-turquoise/8 blur-3xl" />
+        <div className="ambient-blob absolute right-[10%] top-14 h-40 w-40 rounded-full bg-gold/8 blur-3xl" />
+      </div>
+
       <div className="container mx-auto px-4">
         <div className="text-center">
           <h2 className="text-2xl md:text-3xl font-extrabold text-foreground mb-2">
@@ -83,7 +91,7 @@ const DiasporaSearchBar = () => {
 
           {/* AI Chat Bar */}
           <div className="max-w-2xl mx-auto mb-6">
-            <div className="relative flex items-center bg-card border border-border rounded-2xl shadow-card px-4 py-3 gap-3">
+            <div className="relative flex items-center rounded-2xl border border-white/70 bg-white/70 shadow-[0_22px_45px_-28px_rgba(15,23,42,0.26)] px-4 py-3 gap-3 backdrop-blur-xl">
               <span className="text-xl">🤖</span>
               <input
                 type="text"
@@ -96,7 +104,7 @@ const DiasporaSearchBar = () => {
               <button
                 onClick={handleSearch}
                 disabled={loading || !query.trim()}
-                className="shrink-0 bg-primary text-primary-foreground rounded-xl px-4 py-2 text-sm font-semibold hover:bg-primary/90 transition-colors disabled:opacity-50"
+                className="shrink-0 rounded-xl bg-primary text-primary-foreground px-4 py-2 text-sm font-semibold transition-colors hover:bg-primary/90 disabled:opacity-50"
               >
                 {loading ? <Loader2 className="h-4 w-4 animate-spin" /> : "Ara"}
               </button>
@@ -104,42 +112,42 @@ const DiasporaSearchBar = () => {
           </div>
 
           {/* Quick CTA Buttons */}
-          <div className="flex flex-wrap items-center justify-center gap-2">
-            <button onClick={() => handleQuickSearch("Konsolosluk")} className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors">
+          <div className="mx-auto flex max-w-6xl flex-wrap items-center justify-center gap-3">
+            <button onClick={() => handleQuickSearch("Konsolosluk")} className={quickPillClass}>
               🏛️ Konsolosluk
             </button>
-            <button onClick={() => handleQuickSearch("Doktor")} className="px-3 py-1.5 text-xs font-medium rounded-full bg-turquoise/10 text-turquoise hover:bg-turquoise/20 transition-colors">
+            <button onClick={() => handleQuickSearch("Doktor")} className={quickPillClass}>
               🩺 Doktor
             </button>
-            <button onClick={() => handleQuickSearch("Hastane")} className="px-3 py-1.5 text-xs font-medium rounded-full bg-turquoise/10 text-turquoise hover:bg-turquoise/20 transition-colors">
+            <button onClick={() => handleQuickSearch("Hastane")} className={quickPillClass}>
               🏥 Hastane
             </button>
             <WelcomePackOrderForm
               trigger={
-                <button className="px-3 py-1.5 text-xs font-medium rounded-full bg-primary/10 text-primary hover:bg-primary/20 transition-colors border border-primary/20">
+                <button className={quickPillClass}>
                   🎁 Hoşgeldin Paketi Oluştur
                 </button>
               }
             />
             <button
               onClick={() => navigate("/relocation")}
-              className="px-3 py-1.5 text-xs font-medium rounded-full bg-secondary/10 text-secondary hover:bg-secondary/20 transition-colors border border-secondary/20"
+              className={quickPillClass}
             >
               🌍 Taşınma Motoru
             </button>
             <button
               onClick={() => navigate("/consultants?filter=ambassador")}
-              className="px-3 py-1.5 text-xs font-medium rounded-full bg-gold/10 text-gold hover:bg-gold/20 transition-colors border border-gold/20"
+              className={quickPillClass}
             >
               🏅 Şehir Elçine Ulaş
             </button>
-            <button onClick={() => handleQuickSearch("Vize danışmanı")} className="px-3 py-1.5 text-xs font-medium rounded-full bg-gold/10 text-gold hover:bg-gold/20 transition-colors">
+            <button onClick={() => handleQuickSearch("Vize danışmanı")} className={quickPillClass}>
               ✈️ Vize & Göçmenlik
             </button>
-            <button onClick={() => handleQuickSearch("Türk marketi")} className="px-3 py-1.5 text-xs font-medium rounded-full bg-success/10 text-success hover:bg-success/20 transition-colors">
+            <button onClick={() => handleQuickSearch("Türk marketi")} className={quickPillClass}>
               🛒 Türk Marketi
             </button>
-            <button onClick={() => handleQuickSearch("İş ilanları")} className="px-3 py-1.5 text-xs font-medium rounded-full bg-accent/10 text-accent-foreground hover:bg-accent/20 transition-colors">
+            <button onClick={() => handleQuickSearch("İş ilanları")} className={quickPillClass}>
               💼 İş İlanları
             </button>
           </div>

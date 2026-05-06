@@ -21,8 +21,9 @@ const HeroSection = () => {
   return (
     <section className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden bg-gradient-hero pt-16">
       <div className="absolute inset-0 overflow-hidden">
-        <div className="absolute left-[-5rem] top-20 h-56 w-56 rounded-full bg-primary/8 blur-3xl" />
-        <div className="absolute bottom-10 left-1/4 h-40 w-40 rounded-full bg-turquoise/10 blur-3xl" />
+        <div className="ambient-blob absolute left-[-5rem] top-20 h-56 w-56 rounded-full bg-primary/8 blur-3xl" />
+        <div className="ambient-blob absolute bottom-10 left-1/4 h-40 w-40 rounded-full bg-turquoise/10 blur-3xl" />
+        <div className="ambient-blob absolute right-[12%] top-[18%] h-48 w-48 rounded-full bg-gold/10 blur-3xl" />
       </div>
 
       <div
@@ -36,26 +37,28 @@ const HeroSection = () => {
 
       <div className="container relative z-10 mx-auto px-4 py-8 md:py-10">
         <div className="max-w-[43rem]">
-          <div className="mb-4 flex items-center gap-4 lg:gap-5">
+          <div className="mb-4 rounded-[2rem] border border-white/65 bg-white/45 px-4 py-4 shadow-[0_20px_55px_-36px_rgba(15,23,42,0.32)] backdrop-blur-xl sm:px-5 lg:px-6">
+            <div className="mb-3 inline-flex w-full items-center gap-2 rounded-full border border-turquoise/22 bg-[linear-gradient(90deg,rgba(255,255,255,0.72),rgba(220,247,242,0.9),rgba(255,255,255,0.72))] px-4 py-2 shadow-sm">
+              <Globe className="h-4 w-4 text-turquoise" />
+              <span className="text-sm font-semibold text-turquoise sm:text-[0.95rem]">{h.badge}</span>
+            </div>
+
+            <div className="flex items-center gap-4 lg:gap-5">
             <img
               src="/logo.png"
               alt="Corteqs"
-              className="h-20 w-20 shrink-0 object-contain drop-shadow-[0_16px_26px_rgba(249,115,22,0.14)] sm:h-24 sm:w-24 lg:h-28 lg:w-28"
+              className="h-28 w-28 shrink-0 object-contain drop-shadow-[0_18px_30px_rgba(249,115,22,0.14)] sm:h-32 sm:w-32 lg:h-40 lg:w-40"
               loading="eager"
             />
 
             <div className="min-w-0">
-              <div className="mb-2 inline-flex items-center gap-2 rounded-full border border-turquoise/28 bg-turquoise/10 px-3 py-1.5 shadow-sm">
-                <Globe className="h-3.5 w-3.5 text-turquoise" />
-                <span className="text-xs font-semibold text-turquoise sm:text-sm">{h.badge}</span>
-              </div>
-
-              <h1 className="max-w-[10.5ch] text-[2.8rem] font-extrabold leading-[0.92] tracking-[-0.05em] text-foreground sm:text-[3.6rem] lg:text-[4.2rem]">
+              <h1 className="max-w-[10.2ch] text-[2.8rem] font-extrabold leading-[0.92] tracking-[-0.05em] text-foreground sm:text-[3.6rem] lg:text-[4.2rem]">
                 {h.title}
                 <span className="text-gradient-primary">{h.titleHighlight}</span>
                 {h.titleEnd}
               </h1>
             </div>
+          </div>
           </div>
 
           <p className="mb-5 max-w-[36rem] text-base leading-relaxed text-muted-foreground/88 sm:text-[1.1rem]">
@@ -85,96 +88,100 @@ const HeroSection = () => {
               </div>
             </Link>
 
-            <Link to="/whatsapp-groups" className="block">
-              <div
-                className={cn(
-                  actionCardBase,
-                  "border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
-                )}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-full bg-white/40 p-2.5">
-                      <MessageCircle className="h-4.5 w-4.5 text-emerald-700" />
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link to="/whatsapp-groups" className="block">
+                <div
+                  className={cn(
+                    actionCardBase,
+                    "h-full border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-white/40 p-2.5">
+                        <MessageCircle className="h-4.5 w-4.5 text-emerald-700" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">WhatsApp Grubuna Katıl</p>
+                        <p className="mt-1 text-sm text-slate-800/78">Topluluklar, şehirler, hızlı bağlantılar</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold leading-tight sm:text-[1.1rem]">WhatsApp Grubuna Katıl</p>
-                      <p className="mt-1 text-sm text-slate-800/78">Topluluklar, şehirler, hızlı bağlantılar</p>
-                    </div>
+                    <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
-              </div>
-            </Link>
+              </Link>
 
-            <Link to="/founders-1000" className="block">
-              <div
-                className={cn(
-                  actionCardBase,
-                  "border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
-                )}
-              >
-                <span className="absolute right-4 top-3 rounded-full bg-slate-900 px-3 py-1 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold">
-                  Erken Erişim
-                </span>
-                <div className="flex items-center justify-between gap-4 pr-24">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-full bg-white/45 p-2.5">
-                      <Sparkles className="h-4.5 w-4.5 text-amber-600" />
+              <Link to="/founders-1000" className="block">
+                <div
+                  className={cn(
+                    actionCardBase,
+                    "h-full border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
+                  )}
+                >
+                  <span className="absolute right-4 top-3 rounded-full bg-slate-900 px-3 py-1 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold">
+                    Erken Erişim
+                  </span>
+                  <div className="flex items-center justify-between gap-4 pr-24">
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-white/45 p-2.5">
+                        <Sparkles className="h-4.5 w-4.5 text-amber-600" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">Founding 1000&apos;e Katıl</p>
+                        <p className="mt-1 text-sm text-slate-800/76">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold leading-tight sm:text-[1.1rem]">Founding 1000&apos;e Katıl</p>
-                      <p className="mt-1 text-sm text-slate-800/76">Danışmanlar, işletmeler, kuruluşlar, vloggerlar</p>
-                    </div>
+                    <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 text-slate-800/75 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
 
-            <Link to="/blog-contest" className="block">
-              <div
-                className={cn(
-                  actionCardBase,
-                  "border-orange-300/54 bg-[linear-gradient(135deg,#f26a21_0%,#f68d33_56%,#f7a55b_100%)] text-white",
-                )}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-full bg-white/16 p-2.5">
-                      <PenSquare className="h-4.5 w-4.5" />
+            <div className="grid gap-3 sm:grid-cols-2">
+              <Link to="/blog-contest" className="block">
+                <div
+                  className={cn(
+                    actionCardBase,
+                    "h-full border-orange-300/54 bg-[linear-gradient(135deg,#f26a21_0%,#f68d33_56%,#f7a55b_100%)] text-white",
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-white/16 p-2.5">
+                        <PenSquare className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">Blogger Yarışması</p>
+                        <p className="mt-1 text-sm text-white/82">Yaz, yayınla, ödül havuzuna gir.</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold leading-tight sm:text-[1.1rem]">Blogger Yarışması</p>
-                      <p className="mt-1 text-sm text-white/82">Yaz, yayınla, ödül havuzuna gir.</p>
-                    </div>
+                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
-              </div>
-            </Link>
+              </Link>
 
-            <Link to="/vlogger-contest" className="block">
-              <div
-                className={cn(
-                  actionCardBase,
-                  "border-sky-300/48 bg-[linear-gradient(135deg,#1887b4_0%,#2676a1_54%,#315b91_100%)] text-white",
-                )}
-              >
-                <div className="flex items-center justify-between gap-4">
-                  <div className="flex items-center gap-3">
-                    <div className="rounded-full bg-white/16 p-2.5">
-                      <Video className="h-4.5 w-4.5" />
+              <Link to="/vlogger-contest" className="block">
+                <div
+                  className={cn(
+                    actionCardBase,
+                    "h-full border-sky-300/48 bg-[linear-gradient(135deg,#1887b4_0%,#2676a1_54%,#315b91_100%)] text-white",
+                  )}
+                >
+                  <div className="flex items-center justify-between gap-4">
+                    <div className="flex items-center gap-3">
+                      <div className="rounded-full bg-white/16 p-2.5">
+                        <Video className="h-4.5 w-4.5" />
+                      </div>
+                      <div>
+                        <p className="text-lg font-bold leading-tight sm:text-[1.05rem]">Vlogger Yarışması</p>
+                        <p className="mt-1 text-sm text-white/82">Video üret, kitleni büyüt, öne çık.</p>
+                      </div>
                     </div>
-                    <div>
-                      <p className="text-lg font-bold leading-tight sm:text-[1.1rem]">Vlogger Yarışması</p>
-                      <p className="mt-1 text-sm text-white/82">Video üret, kitleni büyüt, öne çık.</p>
-                    </div>
+                    <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                   </div>
-                  <ArrowRight className="h-5 w-5 shrink-0 transition-transform duration-300 group-hover:translate-x-1" />
                 </div>
-              </div>
-            </Link>
+              </Link>
+            </div>
           </div>
         </div>
       </div>
