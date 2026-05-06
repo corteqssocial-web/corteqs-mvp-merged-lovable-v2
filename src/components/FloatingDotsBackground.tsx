@@ -2,7 +2,7 @@ import FloatingDot from "@/components/FloatingDot";
 
 const FloatingDotsBackground = () => {
   return (
-    <div className="pointer-events-none fixed inset-0 overflow-hidden" aria-hidden="true">
+    <div className="pointer-events-none fixed inset-0 z-0 overflow-hidden" aria-hidden="true">
       <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(246,252,251,0.9)_0%,rgba(255,249,245,0.82)_48%,rgba(248,252,250,0.9)_100%)]" />
 
       <FloatingDot size="lg" color="blue" variant="float" delay={0.2} className="left-[6%] top-[8%]" />

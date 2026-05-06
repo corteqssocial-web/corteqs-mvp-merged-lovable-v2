@@ -22,12 +22,12 @@ const Index = () => {
 
       <Navbar />
       {isInternational ? (
-        <>
+        <div className="relative z-10">
           <InternationalDiasporaHero />
           <Footer />
-        </>
+        </div>
       ) : (
-        <>
+        <div className="relative z-10">
           <HeroSection />
           <SectionErrorBoundary sectionName="DiasporaSearchBar">
             <DiasporaSearchBar />
@@ -38,7 +38,7 @@ const Index = () => {
           <BusinessesSection />
           <FeaturedEvents />
           <Footer />
-        </>
+        </div>
       )}
     </div>
   );
