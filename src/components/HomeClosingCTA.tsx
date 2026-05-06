@@ -1,3 +1,4 @@
+import { useState } from "react";
 import { Check, Copy, Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 import { footerFlatLinks } from "@/components/footerLinks";
