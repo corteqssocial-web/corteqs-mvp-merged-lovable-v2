@@ -14,6 +14,8 @@ import { cn } from "@/lib/utils";
 const actionCardBase =
   "group relative w-full overflow-hidden rounded-[1.5rem] border px-5 py-4 shadow-[0_18px_40px_-30px_rgba(15,23,42,0.38)] transition-all duration-300 hover:-translate-y-0.5 hover:shadow-[0_22px_48px_-30px_rgba(15,23,42,0.44)]";
 
+const topRowCardHeight = "min-h-[92px] sm:min-h-[96px]";
+
 const HeroSection = () => {
   const { t } = useDiaspora();
   const h = t.hero;
@@ -55,13 +57,13 @@ const HeroSection = () => {
                 </h1>
               </div>
             </div>
-          </div>
 
-          <p className="mb-5 max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] text-sm leading-relaxed text-muted-foreground/88 sm:text-base">
-            Danışmanlar, dernekler, etkinlikler ve AI destekli araçlarla
-            <br />
-            diasporadaki yaşamınızı kolaylaştırın.
-          </p>
+            <p className="mt-4 max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] text-sm leading-relaxed text-muted-foreground/88 sm:text-base">
+              Danışmanlar, dernekler, etkinlikler ve AI destekli araçlarla
+              <br />
+              diasporadaki yaşamınızı kolaylaştırın.
+            </p>
+          </div>
 
           <div className="max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] space-y-3">
             <Link to="/auth" className="block">
@@ -93,6 +95,7 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
+                    topRowCardHeight,
                     "h-full border-emerald-300/52 bg-[linear-gradient(135deg,#92d65c_0%,#b5e15d_52%,#d9ef8f_100%)] text-slate-900",
                   )}
                 >
@@ -115,10 +118,11 @@ const HeroSection = () => {
                 <div
                   className={cn(
                     actionCardBase,
+                    topRowCardHeight,
                     "h-full border-amber-300/58 bg-[linear-gradient(135deg,#ffd35a_0%,#ffe07b_55%,#fff1a8_100%)] text-slate-900",
                   )}
                 >
-                  <span className="absolute right-4 top-3 rounded-full bg-slate-900 px-3 py-1 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold">
+                  <span className="absolute right-4 top-4 rounded-full bg-slate-900 px-3 py-1 text-[0.66rem] font-extrabold uppercase tracking-[0.16em] text-gold shadow-sm">
                     Erken Erişim
                   </span>
                   <div className="flex items-center justify-between gap-4 pr-24">
