@@ -1,12 +1,8 @@
-import { useState } from "react";
-import { Check, Copy, Facebook, Instagram, Linkedin, Mail, MessageCircle, Rocket, Twitter } from "lucide-react";
+import { Check, Copy, Facebook, Instagram, Linkedin, Mail, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
-import InterestForm from "@/components/InterestForm";
 import { footerFlatLinks } from "@/components/footerLinks";
 import { useToast } from "@/hooks/use-toast";
 import footerCommunityVideo from "../../footer-community.mp4";
-
-const whatsappUrl = "https://chat.whatsapp.com/IOpBgZK29CQEhhdOd5hUAD";
 
 const socialLinks = [
   {
@@ -37,8 +33,6 @@ const socialLinks = [
 
 const HomeClosingCTA = () => {
   const { toast } = useToast();
-  const [registerOpen, setRegisterOpen] = useState(false);
-  const [supportOpen, setSupportOpen] = useState(false);
   const [copied, setCopied] = useState(false);
 
   const handleCopy = async () => {
@@ -71,78 +65,26 @@ const HomeClosingCTA = () => {
 
         <div className="container relative z-10 mx-auto max-w-6xl">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/15 bg-black/25 px-5 py-8 text-center shadow-[0_36px_120px_-42px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:px-8 lg:px-12 lg:py-10">
-            <div className="mx-auto max-w-3xl">
-              <div className="mb-4 inline-flex items-center gap-2 rounded-full border border-white/15 bg-white/10 px-4 py-2 text-xs font-semibold uppercase tracking-[0.24em] text-white/70">
-                <Rocket className="h-4 w-4 text-turquoise" />
-                Diaspora Launch Pad
-              </div>
-
-              <h2 className="text-balance text-3xl font-extrabold tracking-[-0.04em] text-white sm:text-4xl lg:text-[3.3rem]">
-                Yakında Açılıyoruz!
-              </h2>
-
-              <p className="mx-auto mt-4 max-w-3xl text-pretty text-base leading-relaxed text-white/78 sm:text-lg">
-                Dünyanın neresinde olursanız olun, CorteQS sizi danışmanlar, topluluklar, fırsatlar ve hızlı bağlantılarla
-                bir araya getirecek.
-              </p>
-
-              <div className="mt-7">
-                <a
-                  href="mailto:info@corteqs.net"
-                  className="inline-flex items-center gap-3 rounded-2xl border border-white/15 bg-white/10 px-5 py-3 text-left transition-all hover:bg-white/15"
-                >
-                  <Mail className="h-5 w-5 text-turquoise" />
-                  <span className="text-base font-bold text-turquoise sm:text-lg">info@corteqs.net</span>
-                </a>
-              </div>
-
-              <div className="mx-auto mt-8 flex max-w-md flex-col gap-3">
-                <button
-                  onClick={() => setRegisterOpen(true)}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-gradient-primary px-5 py-3 text-sm font-bold text-primary-foreground shadow-[0_18px_45px_-18px_rgba(249,115,22,0.75)] transition-all duration-300 hover:-translate-y-0.5 hover:opacity-95"
-                >
-                  Kategorine Kayıt ve Takip İçin →
-                </button>
-
-                <button
-                  onClick={() => setSupportOpen(true)}
-                  className="inline-flex min-h-12 w-full items-center justify-center rounded-xl bg-[linear-gradient(135deg,#1ab6c9_0%,#2382d5_100%)] px-5 py-3 text-sm font-bold text-white shadow-[0_18px_45px_-18px_rgba(35,130,213,0.72)] transition-all duration-300 hover:-translate-y-0.5 hover:brightness-105"
-                >
-                  Teknik, Org, Yatırım Görüşmeleri İçin →
-                </button>
-
-                <a
-                  href={whatsappUrl}
-                  target="_blank"
-                  rel="noopener noreferrer"
-                  className="inline-flex min-h-12 w-full items-center justify-center gap-2 rounded-xl bg-[#25D366] px-5 py-3 text-sm font-bold text-white shadow-[0_18px_45px_-18px_rgba(37,211,102,0.72)] transition-all duration-300 hover:-translate-y-0.5 hover:bg-[#1ebe5d]"
-                >
-                  <MessageCircle className="h-4 w-4" />
-                  WhatsApp Grubuna Katıl →
-                </a>
-              </div>
-
-              <div className="mt-9">
-                <p className="mb-3 text-sm font-medium text-white/68">Bizi sosyal medyada takip edin</p>
-                <div className="mx-auto grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
-                  {socialLinks.map(({ href, label, icon: Icon, className }) => (
-                    <a
-                      key={label}
-                      href={href}
-                      target="_blank"
-                      rel="noopener noreferrer"
-                      aria-label={`CorteQS ${label}`}
-                      className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 ${className}`}
-                    >
-                      <Icon className="h-4 w-4" />
-                      {label}
-                    </a>
-                  ))}
-                </div>
+            <div className="mx-auto mb-10 max-w-3xl">
+              <p className="mb-4 text-sm font-medium text-white/68">Bizi sosyal medyada takip edin</p>
+              <div className="mx-auto grid max-w-xl grid-cols-2 gap-3 sm:grid-cols-4">
+                {socialLinks.map(({ href, label, icon: Icon, className }) => (
+                  <a
+                    key={label}
+                    href={href}
+                    target="_blank"
+                    rel="noopener noreferrer"
+                    aria-label={`CorteQS ${label}`}
+                    className={`inline-flex min-h-12 items-center justify-center gap-2 rounded-2xl px-4 py-3 text-sm font-semibold text-white shadow-md transition-all duration-300 hover:-translate-y-0.5 ${className}`}
+                  >
+                    <Icon className="h-4 w-4" />
+                    {label}
+                  </a>
+                ))}
               </div>
             </div>
 
-            <div className="mt-10 flex flex-col items-center justify-between gap-4 border-t border-white/12 pt-6 text-sm text-white/60 md:flex-row">
+            <div className="flex flex-col items-center justify-between gap-4 border-t border-white/12 pt-6 text-sm text-white/60 md:flex-row">
               <div className="flex flex-col items-center gap-3 md:flex-row md:gap-4">
                 <span>© {new Date().getFullYear()} CorteQS. Diaspora ağı, fırsatlar ve topluluklar için hazırlanıyor.</span>
                 <Link to="/pricing" className="font-semibold text-turquoise transition-colors hover:text-white">
@@ -193,24 +135,6 @@ const HomeClosingCTA = () => {
           </div>
         </div>
       </section>
-
-      <InterestForm
-        open={registerOpen}
-        onOpenChange={setRegisterOpen}
-        context="genel"
-        title="Kategorine kayıt ol"
-        description="Platform açıldığında ilk sen haberdar ol. Rolünü seç, bilgilerini bırak, erken erişim avantajını yakala."
-        source="home-closing-cta-register"
-      />
-
-      <InterestForm
-        open={supportOpen}
-        onOpenChange={setSupportOpen}
-        context="genel"
-        title="Teknik / organizasyon / yatırım görüşmesi"
-        description="İş birliği, partnerlik, operasyon veya yatırım tarafında konuşmak istiyorsanız bilgilerinizi bırakın."
-        source="home-closing-cta-support"
-      />
     </>
   );
 };
