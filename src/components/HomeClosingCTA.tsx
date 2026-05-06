@@ -2,6 +2,7 @@ import { useState } from "react";
 import { Check, Copy, Facebook, Instagram, Linkedin, Mail, MessageCircle, Rocket, Twitter } from "lucide-react";
 import { Link } from "react-router-dom";
 import InterestForm from "@/components/InterestForm";
+import { footerFlatLinks } from "@/components/footerLinks";
 import { useToast } from "@/hooks/use-toast";
 
 const whatsappUrl = "https://chat.whatsapp.com/IOpBgZK29CQEhhdOd5hUAD";
@@ -149,6 +150,33 @@ const HomeClosingCTA = () => {
                 >
                   {copied ? <Check className="h-4 w-4 text-emerald-400" /> : <Copy className="h-4 w-4" />}
                 </button>
+              </div>
+            </div>
+
+            <div className="mt-6 border-t border-white/10 pt-5">
+              <div className="flex flex-wrap items-center justify-center gap-y-3 text-sm text-white/70">
+                {footerFlatLinks.map((link, index) => (
+                  <div
+                    key={link.label}
+                    className={index > 0 ? "ml-3 border-l border-white/20 pl-3" : ""}
+                  >
+                    {link.to ? (
+                      <Link
+                        to={link.to}
+                        className="transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </Link>
+                    ) : (
+                      <a
+                        href={link.href}
+                        className="transition-colors hover:text-white"
+                      >
+                        {link.label}
+                      </a>
+                    )}
+                  </div>
+                ))}
               </div>
             </div>
           </div>
