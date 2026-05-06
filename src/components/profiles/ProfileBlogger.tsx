@@ -22,7 +22,7 @@ const ProfileBlogger = () => {
   const blogger = {
     name: "Selin Akış",
     title: "Travel & Lifestyle Influencer",
-    email: "selin@corteqs.com",
+    email: "info@corteqs.net",
     country: "Hollanda",
     city: "Amsterdam",
     avatar: "SA",

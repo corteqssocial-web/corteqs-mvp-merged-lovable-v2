@@ -31,7 +31,7 @@ const ProfileBusiness = () => {
   const business = {
     name: "Anatolian Tech GmbH",
     type: "Yazılım & Danışmanlık",
-    email: "info@anatoliantech.de",
+    email: "info@corteqs.net",
     phone: "+49 30 1234567",
     website: "anatoliantech.de",
     country: "Almanya",

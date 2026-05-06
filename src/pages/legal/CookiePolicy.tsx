@@ -27,7 +27,7 @@ const CookiePolicy = () => (
 
     <h2>4. İletişim</h2>
     <p>
-      <a href="mailto:privacy@corteqs.com">privacy@corteqs.com</a>
+      <a href="mailto:info@corteqs.net">info@corteqs.net</a>
     </p>
   </LegalLayout>
 );

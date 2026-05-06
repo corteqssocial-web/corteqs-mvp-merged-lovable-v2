@@ -13,8 +13,8 @@ const KVKK = () => (
     <p>
       <strong>CorteQS Global Ltd.</strong> — Veri Sorumlusu sıfatıyla.
       <br />
-      İletişim: <a href="mailto:kvkk@corteqs.com">kvkk@corteqs.com</a> ·{" "}
-      <a href="mailto:dpo@corteqs.com">dpo@corteqs.com</a>
+      İletişim: <a href="mailto:info@corteqs.net">info@corteqs.net</a> ·{" "}
+      <a href="mailto:info@corteqs.net">info@corteqs.net</a>
     </p>
 
     <h2>2. Hangi Verileri İşliyoruz?</h2>
@@ -65,7 +65,7 @@ const KVKK = () => (
     <h2>7. Başvuru Yöntemi</h2>
     <p>
       Veri Sorumlusuna Başvuru Usul ve Esasları Hakkında Tebliğ uyarınca yazılı olarak veya
-      kayıtlı elektronik posta ile <a href="mailto:kvkk@corteqs.com">kvkk@corteqs.com</a>{" "}
+      kayıtlı elektronik posta ile <a href="mailto:info@corteqs.net">info@corteqs.net</a>{" "}
       adresine başvurabilirsiniz. Başvurunuz en geç 30 gün içinde ücretsiz olarak
       sonuçlandırılır.
     </p>

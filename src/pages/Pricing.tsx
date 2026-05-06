@@ -283,7 +283,7 @@ const Pricing = () => {
           <p className="text-center text-sm text-muted-foreground mt-12 font-body">
             Bireysel kullanıcılar için platform tamamen <span className="font-semibold text-foreground">ücretsizdir</span>.{" "}
             Sorularınız mı var?{" "}
-            <a href="mailto:info@diasporaconnect.com" className="text-primary hover:underline font-semibold">
+            <a href="mailto:info@corteqs.net" className="text-primary hover:underline font-semibold">
               Bize yazın
             </a>
           </p>

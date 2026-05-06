@@ -58,7 +58,7 @@ const TermsOfService = () => (
 
     <h2>8. İletişim</h2>
     <p>
-      <a href="mailto:legal@corteqs.com">legal@corteqs.com</a>
+      <a href="mailto:info@corteqs.net">info@corteqs.net</a>
     </p>
   </LegalLayout>
 );

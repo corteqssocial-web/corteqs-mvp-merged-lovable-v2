@@ -70,7 +70,7 @@ const BusinessDetail = () => {
   return (
     <div className="min-h-screen bg-background">
       <Navbar />
-      <div className="pt-16">
+      <div className="pt-20">
         <DemoPageBanner categoryLabel="İşletmeler" listingHref="/businesses" />
       </div>
       <main className="pt-8 pb-16">

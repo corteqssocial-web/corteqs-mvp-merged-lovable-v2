@@ -184,7 +184,7 @@ const ConsentCheckboxes = ({
         * işaretli alanlar zorunludur. Onayınızı dilediğiniz zaman{" "}
         <Link to="/profile" className="underline">profil</Link>'inizden geri çekebilirsiniz.
         İletişim:{" "}
-        <a href="mailto:privacy@corteqs.com" className="underline">privacy@corteqs.com</a>
+        <a href="mailto:info@corteqs.net" className="underline">info@corteqs.net</a>
       </p>
     </div>
   );

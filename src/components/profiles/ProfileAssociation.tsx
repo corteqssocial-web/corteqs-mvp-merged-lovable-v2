@@ -23,7 +23,7 @@ const ProfileAssociation = () => {
   const association = {
     name: "Almanya Türk Toplumu Derneği",
     type: "Dernek",
-    email: "info@att-berlin.de",
+    email: "info@corteqs.net",
     website: "att-berlin.de",
     country: "Almanya",
     city: "Berlin",

@@ -64,7 +64,7 @@ const DEMOS: WhatsAppLanding[] = [
       "Sadece GMC kayıtlı veya kayıt sürecinde olan Türk hekimler\nKısa CV ve branş bilgisi gerekli\nReçete / hasta bilgisi paylaşımı kesinlikle yasak\nReklam yasak — sadece mesleki içerik",
     whatsappLink: "https://chat.whatsapp.com/doktor-london",
     adminName: "Dr. Leyla Aydın",
-    adminContact: "admin@drleylaaydin.co.uk",
+    adminContact: "info@corteqs.net",
     status: "approved",
     createdAt: new Date().toISOString(),
   },

@@ -28,7 +28,7 @@ const ProfileConsultant = () => {
     name: "Dr. Ayşe Kara",
     title: "Göçmenlik & Vize Danışmanı",
     category: "Vize / Göçmenlik",
-    email: "ayse.kara@corteqs.com",
+    email: "info@corteqs.net",
     phone: "+49 176 1234567",
     website: "aysekara.de",
     country: "Almanya",

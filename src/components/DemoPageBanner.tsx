@@ -16,15 +16,15 @@ interface DemoPageBannerProps {
 const DemoPageBanner = ({ categoryLabel, listingHref }: DemoPageBannerProps) => {
   return (
     <div className="bg-gradient-to-r from-gold/15 via-orange-50 to-turquoise/10 border-y border-gold/30">
-      <div className="container mx-auto px-4 py-2.5 flex flex-col md:flex-row items-center justify-between gap-2">
-        <div className="flex items-center gap-2 text-xs md:text-sm">
+      <div className="container mx-auto px-4 py-3 flex flex-col lg:flex-row items-start lg:items-center justify-between gap-3">
+        <div className="flex items-start gap-2 text-xs md:text-sm min-w-0">
           <Sparkles className="h-3.5 w-3.5 text-gold shrink-0" />
           <span className="font-semibold uppercase tracking-wider text-foreground">DEMO</span>
-          <span className="text-muted-foreground">
+          <span className="text-muted-foreground leading-relaxed">
             – Bu profil örnek içeriktir. {categoryLabel} kategorimize başvurular değerlendirildikçe gerçek profiller yayına alınır.
           </span>
         </div>
-        <div className="flex items-center gap-2 shrink-0">
+        <div className="flex flex-wrap items-center gap-2 shrink-0">
           <Link to="/founders-1000">
             <Button size="sm" variant="default" className="h-7 text-xs gap-1 bg-gold text-foreground hover:bg-gold/90">
               <Crown className="h-3 w-3" /> Founders 1000

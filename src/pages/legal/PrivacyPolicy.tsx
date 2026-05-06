@@ -18,9 +18,9 @@ const PrivacyPolicy = () => (
     <p>
       <strong>CorteQS Global Ltd.</strong>
       <br />
-      İletişim: <a href="mailto:privacy@corteqs.com">privacy@corteqs.com</a>
+      İletişim: <a href="mailto:info@corteqs.net">info@corteqs.net</a>
       <br />
-      Veri Koruma Görevlisi (DPO): <a href="mailto:dpo@corteqs.com">dpo@corteqs.com</a>
+      Veri Koruma Görevlisi (DPO): <a href="mailto:info@corteqs.net">info@corteqs.net</a>
     </p>
 
     <h2>2. İşlenen Kişisel Veriler</h2>
@@ -76,7 +76,7 @@ const PrivacyPolicy = () => (
       <li>"Do Not Sell or Share My Personal Information" (CCPA için).</li>
     </ul>
     <p>
-      Bu haklarınızı kullanmak için: <a href="mailto:privacy@corteqs.com">privacy@corteqs.com</a>{" "}
+      Bu haklarınızı kullanmak için: <a href="mailto:info@corteqs.net">info@corteqs.net</a>{" "}
       adresine yazın. Talebiniz 30 gün içinde ücretsiz olarak yanıtlanır.
     </p>
 
