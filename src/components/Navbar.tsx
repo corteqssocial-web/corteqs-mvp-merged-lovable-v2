@@ -1,7 +1,6 @@
 import { useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, Globe, User, LogIn, LogOut, MapPin, PenLine, ChevronDown, Users, Briefcase, Building2, Shield, Flag, Newspaper, MoreHorizontal, MessageCircle, Calendar } from "lucide-react";
-import corteqsLogo from "@/assets/corteqs-logo.png";
+import { Menu, X, User, LogIn, LogOut, MapPin, PenLine, ChevronDown, Newspaper, MessageCircle, Calendar } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -11,12 +10,12 @@ import {
   DropdownMenuSeparator,
   DropdownMenuTrigger,
 } from "@/components/ui/dropdown-menu";
-import { useDiaspora, diasporaOptions, countryList } from "@/contexts/DiasporaContext";
+import { useDiaspora, countryList } from "@/contexts/DiasporaContext";
 import { useAuth } from "@/contexts/AuthContext";
 
 const Navbar = () => {
   const [isOpen, setIsOpen] = useState(false);
-  const { diaspora, setDiaspora, t, currentOption, selectedCountry, setSelectedCountry } = useDiaspora();
+  const { diaspora, t, selectedCountry, setSelectedCountry } = useDiaspora();
   const { user, profile, signOut } = useAuth();
   const navigate = useNavigate();
   const location = useLocation();
@@ -51,46 +50,8 @@ const Navbar = () => {
         <div className="flex items-center justify-between py-2" style={{ minHeight: '4rem' }}>
           <div className="flex items-center gap-2 min-w-0 shrink-0">
             <Link to="/" className="flex items-center gap-2 shrink-0">
-              <img src={corteqsLogo} alt="CorteQS" className="w-auto" style={{ height: '4rem' }} />
+              <img src="/logo.png" alt="CorteQS" className="h-12 w-auto sm:h-14 md:h-16" />
             </Link>
-
-            {/* Diaspora Selector */}
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="sm" className="gap-1.5 text-base px-2">
-                  <span className="text-lg">{currentOption.flag}</span>
-                  <span className="hidden sm:inline text-xs text-muted-foreground">{currentOption.label}</span>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="start" className="w-56">
-                <DropdownMenuLabel className="text-xs text-muted-foreground">{t.nav.selectDiaspora}</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                {diasporaOptions.map((opt) => (
-                  <DropdownMenuItem
-                    key={opt.key}
-                    className={`gap-2 cursor-pointer ${diaspora === opt.key ? "bg-accent/50 font-semibold" : ""}`}
-                    onClick={() => { setDiaspora(opt.key); navigate("/"); }}
-                  >
-                    <span className="text-lg">{opt.flag}</span>
-                    <div className="flex flex-col">
-                      <span className="text-sm">{opt.label}</span>
-                      <span className="text-xs text-muted-foreground">{opt.nativeLabel}</span>
-                    </div>
-                  </DropdownMenuItem>
-                ))}
-                <DropdownMenuSeparator />
-                <DropdownMenuItem
-                  className="gap-2 cursor-pointer"
-                  onClick={() => navigate("/register-diaspora")}
-                >
-                  <span className="text-lg">🌐</span>
-                  <div className="flex flex-col">
-                    <span className="text-sm font-semibold">Register Diaspora</span>
-                    <span className="text-xs text-muted-foreground">Request your community</span>
-                  </div>
-                </DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
 
             {/* Country Selector — hidden on home page */}
             {showNavbarCountry && (
@@ -202,18 +163,6 @@ const Navbar = () => {
         {isOpen && (
           <div className="md:hidden pb-4 border-t border-border pt-4 animate-fade-in">
             <div className="flex flex-col gap-3">
-              {/* Mobile Diaspora Selector */}
-              <div className="flex gap-2 mb-2">
-                {diasporaOptions.map((opt) => (
-                  <button
-                    key={opt.key}
-                    onClick={() => { setDiaspora(opt.key); navigate("/"); setIsOpen(false); }}
-                    className={`text-xl p-1.5 rounded-lg transition-all ${diaspora === opt.key ? "bg-primary/15 ring-2 ring-primary/30 scale-110" : "hover:bg-muted"}`}
-                  >
-                    {opt.flag}
-                  </button>
-                ))}
-              </div>
               {/* Mobile Country Selector — hidden on home */}
               {showNavbarCountry && (
                 <select
