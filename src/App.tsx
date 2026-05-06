@@ -36,6 +36,8 @@ const ResetPassword = lazy(() => import("./pages/ResetPassword"));
 const CityAmbassadors = lazy(() => import("./pages/CityAmbassadors"));
 const AmbassadorDetail = lazy(() => import("./pages/AmbassadorDetail"));
 const CityNews = lazy(() => import("./pages/CityNews"));
+const Radar = lazy(() => import("./pages/Radar"));
+const RadarDetail = lazy(() => import("./pages/RadarDetail"));
 const AdminDashboard = lazy(() => import("./pages/AdminDashboard"));
 const HospitalAppointment = lazy(() => import("./pages/HospitalAppointment"));
 const Founders1000 = lazy(() => import("./pages/Founders1000"));
@@ -134,6 +136,8 @@ const App = () => (
                   <Route path="/reset-password" element={<ResetPassword />} />
                   <Route path="/city-ambassadors" element={<CityAmbassadors />} />
                   <Route path="/city-news" element={<CityNews />} />
+                  <Route path="/radar" element={<Radar />} />
+                  <Route path="/radar/:slug" element={<RadarDetail />} />
                   <Route path="/ambassador/:id" element={<AmbassadorDetail />} />
                   <Route path="/admin" element={<AdminDashboard />} />
                   <Route path="/hospital-appointment/:hospitalId?" element={<HospitalAppointment />} />

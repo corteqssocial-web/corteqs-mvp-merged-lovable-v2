@@ -28,6 +28,7 @@ import AmbassadorDashboard from "@/components/admin/AmbassadorDashboard";
 import VBloggerDashboard from "@/components/admin/VBloggerDashboard";
 import WelcomePackTracker from "@/components/admin/WelcomePackTracker";
 import WhatsAppLandingsModeration from "@/components/admin/WhatsAppLandingsModeration";
+import RadarNewsManager from "@/components/admin/RadarNewsManager";
 import CreateEventForm from "@/components/CreateEventForm";
 
 // ─── Mock Data ───────────────────────────────────────────
@@ -236,6 +237,9 @@ const AdminDashboard = () => {
               <TabsTrigger value="whatsapp" className="gap-1.5">
                 <MessageSquare className="h-3.5 w-3.5" /> WhatsApp Grupları
               </TabsTrigger>
+              <TabsTrigger value="radar" className="gap-1.5">
+                <Newspaper className="h-3.5 w-3.5" /> CorteQS Radar
+              </TabsTrigger>
               <TabsTrigger value="aitwin" className="gap-1.5">
                 <Bot className="h-3.5 w-3.5" /> AI Twin Başvuruları
               </TabsTrigger>
@@ -259,6 +263,10 @@ const AdminDashboard = () => {
 
             <TabsContent value="whatsapp">
               <WhatsAppLandingsModeration />
+            </TabsContent>
+
+            <TabsContent value="radar">
+              <RadarNewsManager />
             </TabsContent>
 
             <TabsContent value="aitwin">

@@ -2,6 +2,7 @@ import Navbar from "@/components/Navbar";
 import HeroSection from "@/components/HeroSection";
 import InternationalDiasporaHero from "@/components/InternationalDiasporaHero";
 import DiasporaSearchBar from "@/components/DiasporaSearchBar";
+import RadarNewsMarquee from "@/components/RadarNewsMarquee";
 import ConsultantCategories from "@/components/ConsultantCategories";
 import FeaturedConsultants from "@/components/FeaturedConsultants";
 import FeaturedEvents from "@/components/FeaturedEvents";
@@ -31,6 +32,9 @@ const Index = () => {
           <HeroSection />
           <SectionErrorBoundary sectionName="DiasporaSearchBar">
             <DiasporaSearchBar />
+          </SectionErrorBoundary>
+          <SectionErrorBoundary sectionName="CorteQSRadar">
+            <RadarNewsMarquee />
           </SectionErrorBoundary>
           <ConsultantCategories />
           <FeaturedConsultants />

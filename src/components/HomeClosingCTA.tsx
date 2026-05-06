@@ -46,6 +46,12 @@ const socialLinks = [
     icon: Send,
     className: "text-[#38bdf8] hover:shadow-[0_0_28px_rgba(56,189,248,0.22)]",
   },
+  {
+    href: "https://chat.whatsapp.com/IOpBgZK29CQEhhdOd5hUAD",
+    label: "WhatsApp",
+    icon: MessageCircle,
+    className: "text-[#4ade80] hover:shadow-[0_0_28px_rgba(74,222,128,0.22)]",
+  },
 ];
 
 const HomeClosingCTA = () => {
@@ -69,10 +75,10 @@ const HomeClosingCTA = () => {
 
         <div className="container relative z-10 mx-auto max-w-6xl">
           <div className="mx-auto max-w-5xl rounded-[2rem] border border-white/15 bg-black/25 px-5 py-8 text-center shadow-[0_36px_120px_-42px_rgba(0,0,0,0.55)] backdrop-blur-xl sm:px-8 lg:px-12 lg:py-10">
-            <div className="mx-auto mb-10 max-w-4xl">
-              <p className="mb-5 text-sm font-medium tracking-[0.08em] text-white/82">İletişim Kanallarımız</p>
-              <div className="overflow-x-auto pb-2 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="mx-auto flex min-w-max items-center justify-center gap-3 px-1 sm:gap-4">
+            <div className="mx-auto mb-10 max-w-4xl py-2">
+              <p className="mb-5 text-sm font-medium tracking-[0.08em] text-white">İletişim Kanallarımız</p>
+              <div className="overflow-x-auto px-1 py-3 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
+                <div className="mx-auto flex min-w-max items-center justify-center gap-3 px-1 py-1 sm:gap-4">
                 {socialLinks.map(({ href, label, icon: Icon, className }) => (
                   <a
                     key={label}
@@ -94,7 +100,7 @@ const HomeClosingCTA = () => {
 
             <div className="mt-5 border-t border-white/10 pt-3.5">
               <div className="overflow-x-auto pb-1 [-ms-overflow-style:none] [scrollbar-width:none] [&::-webkit-scrollbar]:hidden">
-                <div className="inline-flex min-w-max items-center whitespace-nowrap px-0.5 text-[0.76rem] text-white/92 sm:text-[0.8rem]">
+                <div className="inline-flex min-w-max items-center whitespace-nowrap px-0.5 text-[0.76rem] text-white sm:text-[0.8rem]">
                 {footerFlatLinks.map((link, index) => (
                   <div
                     key={link.label}
@@ -103,14 +109,14 @@ const HomeClosingCTA = () => {
                     {link.to ? (
                       <Link
                         to={link.to}
-                        className="transition-colors hover:text-white"
+                        className="text-white transition-colors hover:text-white"
                       >
                         {link.label}
                       </Link>
                     ) : (
                       <a
                         href={link.href}
-                        className="transition-colors hover:text-white"
+                        className="text-white transition-colors hover:text-white"
                       >
                         {link.label}
                       </a>
@@ -122,7 +128,7 @@ const HomeClosingCTA = () => {
             </div>
 
             <div className="mt-3.5 border-t border-white/10 pt-3.5">
-              <p className="overflow-x-auto whitespace-nowrap text-center text-[0.66rem] text-white/88 sm:text-[0.72rem]">
+              <p className="overflow-x-auto whitespace-nowrap text-center text-[0.66rem] text-white sm:text-[0.72rem]">
                 © 2026 CorteQS bir Qualtron Sinclair ve Akçakanat-Terzioğlu Girişimidir. Tüm hakları saklıdır.
               </p>
             </div>
