@@ -62,12 +62,7 @@ const RouteLoadingFallback = () => {
 
   useEffect(() => {
     const slowTimer = window.setTimeout(() => setIsSlow(true), ROUTE_LOADING_WARNING_MS);
-    const recoveryTimer = window.setTimeout(() => {
-      const recovered = recoverFromWhiteScreen();
-      if (!recovered) {
-        setTimedOut(true);
-      }
-    }, ROUTE_LOADING_TIMEOUT_MS);
+    const recoveryTimer = window.setTimeout(() => setTimedOut(true), ROUTE_LOADING_TIMEOUT_MS);
 
     return () => {
       window.clearTimeout(slowTimer);

@@ -1,3 +1,5 @@
+import { canAutoRecover } from "@/lib/runtimeEnv";
+
 const RECOVERY_FLAG_KEY = "__diaspora_white_screen_recovery__";
 const RECOVERY_TS_KEY = "__diaspora_white_screen_recovery_ts__";
 const RECOVERY_COOLDOWN_MS = 15_000;
@@ -7,7 +9,6 @@ const RECOVERABLE_PATTERNS = [
   "Loading chunk",
   "Failed to fetch dynamically imported module",
   "Importing a module script failed",
-  "Failed to import",
 ];
 
 const toErrorMessage = (value: unknown) => {
@@ -44,14 +45,15 @@ const markRecoveryAttempt = () => {
   }
 };
 
-const isBootstrapShellVisible = () => {
-  const root = document.getElementById("root");
-  if (!root) return true;
-  const firstElement = root.firstElementChild;
-  return firstElement instanceof HTMLElement && firstElement.dataset.bootstrapShell === "true";
-};
-
 export const recoverFromWhiteScreen = (options?: { forceReloadOnCooldown?: boolean }) => {
+  if (!canAutoRecover()) {
+    if (options?.forceReloadOnCooldown) {
+      window.location.reload();
+      return true;
+    }
+    return false;
+  }
+
   if (!canAttemptRecoveryNow()) {
     if (options?.forceReloadOnCooldown) {
       window.location.reload();
@@ -63,6 +65,9 @@ export const recoverFromWhiteScreen = (options?: { forceReloadOnCooldown?: boole
   markRecoveryAttempt();
 
   const url = new URL(window.location.href);
+  if (url.searchParams.has("_recover")) {
+    return false;
+  }
   url.searchParams.set("_recover", String(Date.now()));
   window.location.replace(url.toString());
   return true;
@@ -96,12 +101,4 @@ export const setupWhiteScreenRecovery = () => {
       triggerRecovery();
     }
   });
-
-  window.setTimeout(() => {
-    const root = document.getElementById("root");
-    const pageLoaded = document.readyState === "complete";
-    if (pageLoaded && (!root || !root.hasChildNodes() || isBootstrapShellVisible())) {
-      triggerRecovery();
-    }
-  }, 8000);
 };

@@ -59,10 +59,7 @@ const bootstrapApp = async () => {
     root.render(<App />);
   } catch (error) {
     console.error("Application bootstrap error:", error);
-    const recovered = recoverFromWhiteScreen();
-    if (!recovered) {
-      renderBootstrapFallback();
-    }
+    renderBootstrapFallback();
   }
 };
 

@@ -12,6 +12,7 @@ import Navbar from "@/components/Navbar";
 import Footer from "@/components/Footer";
 import { LogIn, UserPlus, Mail, Lock, User } from "lucide-react";
 import ConsentCheckboxes, { emptyConsent, isConsentValid, type ConsentState } from "@/components/ConsentCheckboxes";
+import { getOAuthRedirectUrl, getResetPasswordRedirectUrl } from "@/lib/runtimeEnv";
 
 const Auth = () => {
   const { user, onboardingCompleted } = useAuth();
@@ -78,7 +79,7 @@ const Auth = () => {
           consent_marketing: consent.marketing,
           consent_timestamp: new Date().toISOString(),
         },
-        emailRedirectTo: window.location.origin,
+        emailRedirectTo: getOAuthRedirectUrl(),
       },
     });
     setLoading(false);
@@ -93,7 +94,7 @@ const Auth = () => {
     e.preventDefault();
     setLoading(true);
     const { error } = await supabase.auth.resetPasswordForEmail(resetEmail, {
-      redirectTo: `${window.location.origin}/reset-password`,
+      redirectTo: getResetPasswordRedirectUrl(),
     });
     setLoading(false);
     if (error) {
@@ -109,7 +110,7 @@ const Auth = () => {
     const { error, data } = await supabase.auth.signInWithOAuth({
       provider: "google",
       options: {
-        redirectTo: window.location.origin,
+        redirectTo: getOAuthRedirectUrl(),
       },
     });
     if (error) {
