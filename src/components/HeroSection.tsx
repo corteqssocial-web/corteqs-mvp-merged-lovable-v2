@@ -19,18 +19,22 @@ const HeroSection = () => {
   const h = t.hero;
 
   return (
-    <section className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden bg-gradient-hero pt-16">
+    <section className="relative flex min-h-[calc(100vh-4rem)] items-center overflow-hidden bg-white pt-16">
       <div className="pointer-events-none absolute inset-0" aria-hidden="true">
-        <div className="absolute inset-0 bg-[url('/denemeremake.png')] bg-cover bg-center bg-no-repeat opacity-[0.22] lg:opacity-[0.3]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_14%_18%,rgba(240,253,250,0.96),rgba(240,253,250,0.84)_26%,rgba(240,253,250,0.3)_48%,transparent_64%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(90deg,rgba(240,253,250,0.98)_0%,rgba(240,253,250,0.92)_24%,rgba(240,253,250,0.82)_44%,rgba(240,253,250,0.48)_62%,rgba(240,253,250,0.18)_78%,rgba(240,253,250,0.08)_100%)]" />
-        <div className="absolute inset-0 bg-[linear-gradient(180deg,rgba(255,255,255,0.2)_0%,rgba(255,255,255,0.04)_32%,rgba(255,255,255,0.14)_100%)]" />
+        <div
+          className="absolute inset-y-0 right-0 hidden w-[56%] bg-no-repeat lg:block"
+          style={{
+            backgroundImage: "url('/newera.png')",
+            backgroundPosition: "right center",
+            backgroundSize: "contain",
+          }}
+        />
       </div>
 
       <div className="container relative z-10 mx-auto px-4 py-8 md:py-10">
-        <div className="max-w-[43rem]">
-          <div className="mb-4 rounded-[2rem] border border-white/65 bg-white/45 px-4 py-4 shadow-[0_20px_55px_-36px_rgba(15,23,42,0.32)] backdrop-blur-xl sm:px-5 lg:px-6">
-            <div className="mb-3 inline-flex w-full items-center gap-2 rounded-full border border-turquoise/22 bg-[linear-gradient(90deg,rgba(255,255,255,0.72),rgba(220,247,242,0.9),rgba(255,255,255,0.72))] px-4 py-2 shadow-sm">
+        <div className="max-w-[770px] lg:max-w-[540px] xl:max-w-[590px]">
+          <div className="mb-4 rounded-[2rem] border border-white/80 bg-[linear-gradient(90deg,rgba(255,255,255,0.96)_0%,rgba(255,255,255,0.93)_38%,rgba(255,255,255,0.82)_62%,rgba(255,255,255,0.58)_82%,rgba(255,255,255,0.18)_100%)] px-4 py-4 shadow-[0_20px_55px_-36px_rgba(15,23,42,0.32)] backdrop-blur-xl sm:px-5 lg:px-6">
+            <div className="mb-3 inline-flex w-full items-center gap-2 rounded-full border border-turquoise/22 bg-[linear-gradient(90deg,rgba(255,255,255,0.86),rgba(220,247,242,0.92),rgba(255,255,255,0.42))] px-4 py-2 shadow-sm">
               <Globe className="h-4 w-4 text-turquoise" />
               <span className="text-sm font-semibold text-turquoise sm:text-[0.95rem]">{h.badge}</span>
             </div>
@@ -53,13 +57,13 @@ const HeroSection = () => {
             </div>
           </div>
 
-          <p className="mb-5 max-w-[34rem] text-sm leading-relaxed text-muted-foreground/88 sm:text-base">
+          <p className="mb-5 max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] text-sm leading-relaxed text-muted-foreground/88 sm:text-base">
             Danışmanlar, dernekler, etkinlikler ve AI destekli araçlarla
             <br />
             diasporadaki yaşamınızı kolaylaştırın.
           </p>
 
-          <div className="max-w-[42rem] space-y-3">
+          <div className="max-w-[770px] lg:max-w-[540px] xl:max-w-[590px] space-y-3">
             <Link to="/auth" className="block">
               <div
                 className={cn(
