@@ -16,7 +16,7 @@ import {
 import {
   Users, Briefcase, Building2, Flag, PenLine, Calendar, MapPin,
   TrendingUp, DollarSign, Eye, MessageSquare, Send, Shield,
-  BarChart3, Activity, Globe, Radio, FileText, Bell, Search, Wallet, Gift, PlusCircle, Bot, CheckCircle2, XCircle, Crown
+  BarChart3, Activity, Globe, Radio, FileText, Bell, Search, Wallet, Gift, PlusCircle, Bot, CheckCircle2, XCircle, Crown, Newspaper
 } from "lucide-react";
 import {
   BarChart, Bar, LineChart, Line, PieChart, Pie, Cell,
