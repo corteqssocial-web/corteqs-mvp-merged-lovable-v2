@@ -5,7 +5,6 @@ import { Button } from "@/components/ui/button";
 import { Badge } from "@/components/ui/badge";
 import { Textarea } from "@/components/ui/textarea";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import PlatformMessageDialog from "@/components/messaging/PlatformMessageDialog";
 import DetailAuthLock from "@/components/DetailAuthLock";
 
@@ -47,7 +46,6 @@ const VolunteerMentorDetail = () => {
           <h1 className="text-2xl font-bold text-foreground mb-4">Gönüllü mentör bulunamadı</h1>
           <Link to="/consultants?filter=gonullu" className="text-primary hover:underline">← Gönüllülere dön</Link>
         </div>
-        <Footer />
       </div>
     );
   }
@@ -264,8 +262,6 @@ const VolunteerMentorDetail = () => {
         recipientName={mentor.name}
         defaultSubject={`Gönüllü mentörlük talebi — ${mentor.city}`}
       />
-
-      <Footer />
     </div>
   );
 };

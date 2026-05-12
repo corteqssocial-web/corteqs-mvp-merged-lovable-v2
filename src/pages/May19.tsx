@@ -5,7 +5,6 @@ import {
   Globe, Users, Calendar, Heart, Flag, PartyPopper, UserCheck,
 } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Button } from "@/components/ui/button";
 import { Input } from "@/components/ui/input";
 import { Textarea } from "@/components/ui/textarea";
@@ -497,8 +496,6 @@ const May19 = () => {
           </Tabs>
         </div>
       </section>
-
-      <Footer />
     </div>
   );
 };

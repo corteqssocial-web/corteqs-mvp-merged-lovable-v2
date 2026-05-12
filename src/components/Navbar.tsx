@@ -1,16 +1,8 @@
 import { useEffect, useRef, useState } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, User, LogOut, MapPin, PenLine, ChevronDown, Newspaper, MessageCircle, Calendar, Briefcase, Users } from "lucide-react";
+import { Link, useNavigate } from "react-router-dom";
+import { Menu, X, User, LogOut, MapPin, PenLine, Newspaper, MessageCircle, Calendar, Briefcase, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { useDiaspora, countryList } from "@/contexts/DiasporaContext";
+import { useDiaspora } from "@/contexts/DiasporaContext";
 import { useAuth } from "@/contexts/AuthContext";
 
 const desktopNavItemClass =
@@ -20,29 +12,9 @@ const desktopSeparatorClass = "h-5 w-px bg-border/90";
 
 const Navbar = () => {
 const [isOpen, setIsOpen] = useState(false);
-const { diaspora, t, selectedCountry, setSelectedCountry } = useDiaspora();
+const { t } = useDiaspora();
 const { user, profile, signOut } = useAuth();
 const navigate = useNavigate();
-const location = useLocation();
-const isHome = location.pathname === "/";
-// Routes that have their own dedicated Country+City selector (CountryCitySelector)
-// — hide the duplicate navbar selector on these pages.
-const routesWithOwnSelector = [
-  "/consultants",
-  "/businesses",
-  "/associations",
-  "/events",
-  "/city-news",
-  "/whatsapp-groups",
-  "/map",
-];
-const hasOwnSelector = routesWithOwnSelector.some((p) => location.pathname.startsWith(p));
-// Country selector only makes sense for the Turkish diaspora (the only one
-// with full country/city data live). For other diasporas — and the register-
-// diaspora landing — hide it entirely so it isn't confused with the diaspora picker.
-const isInternational = diaspora !== "tr";
-const isRegisterDiaspora = location.pathname.startsWith("/register-diaspora");
-const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isRegisterDiaspora;
 
   const handleSignOut = async () => {
     await signOut();
@@ -57,38 +29,6 @@ const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isR
             <Link to="/" className="flex items-center gap-2 shrink-0">
               <img src="/logo.png" alt="CorteQS" className="h-12 w-auto sm:h-14 md:h-16" />
             </Link>
-
-            {/* Country Selector — hidden on home page */}
-            {showNavbarCountry && (
-              <DropdownMenu>
-                <DropdownMenuTrigger asChild>
-                  <Button variant="outline" size="sm" className="gap-1.5 px-2.5 h-8 text-xs border-border">
-                    <MapPin className="h-3.5 w-3.5 text-primary" />
-                    <span className="hidden sm:inline">{selectedCountry === "all" ? t.nav.allCountries : selectedCountry}</span>
-                    <ChevronDown className="h-3 w-3 text-muted-foreground" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent align="start" className="w-56 max-h-[70vh] overflow-y-auto">
-                  <DropdownMenuLabel className="text-xs text-muted-foreground">{t.nav.selectCountry}</DropdownMenuLabel>
-                  <DropdownMenuSeparator />
-                  <DropdownMenuItem
-                    className={`cursor-pointer text-sm ${selectedCountry === "all" ? "bg-accent/50 font-semibold" : ""}`}
-                    onClick={() => setSelectedCountry("all")}
-                  >
-                    🌍 {t.nav.allCountries}
-                  </DropdownMenuItem>
-                  {countryList.map((c) => (
-                    <DropdownMenuItem
-                      key={c}
-                      className={`cursor-pointer text-sm ${selectedCountry === c ? "bg-accent/50 font-semibold" : ""}`}
-                      onClick={() => setSelectedCountry(c)}
-                    >
-                      {c}
-                    </DropdownMenuItem>
-                  ))}
-                </DropdownMenuContent>
-              </DropdownMenu>
-            )}
           </div>
 
           <div className="hidden md:flex items-center">
@@ -109,6 +49,15 @@ const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isR
           </div>
 
           <div className="hidden md:flex items-center gap-3">
+            <Link to="/19-mayis" className="shrink-0">
+              <Button
+                size="sm"
+                className="gap-1.5 bg-gradient-to-r from-rose-500 to-red-600 hover:from-rose-600 hover:to-red-700 text-white shadow-lg shadow-rose-500/30"
+              >
+                <span className="text-base leading-none" role="img" aria-label="Türk Bayrağı">🇹🇷</span>
+                <span className="font-bold">19 Mayıs Etkinlikleri</span>
+              </Button>
+            </Link>
             {user ? (
               <>
                 <Link to="/profile">
@@ -158,19 +107,6 @@ const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isR
         {isOpen && (
           <div className="md:hidden pb-4 border-t border-border pt-4 animate-fade-in">
             <div className="flex flex-col gap-3">
-              {/* Mobile Country Selector — hidden on home */}
-              {showNavbarCountry && (
-                <select
-                  value={selectedCountry}
-                  onChange={(e) => setSelectedCountry(e.target.value)}
-                  className="w-full px-3 py-2 rounded-lg border border-border bg-card text-sm text-foreground mb-2"
-                >
-                  <option value="all">🌍 {t.nav.allCountries}</option>
-                  {countryList.map((c) => (
-                    <option key={c} value={c}>{c}</option>
-                  ))}
-                </select>
-              )}
               <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.consultants}</Link>
               <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.organizations}</Link>
               <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.businesses}</Link>
@@ -181,6 +117,9 @@ const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isR
               <Link to="/diaspora-people" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Users className="h-3 w-3" />Diasporada İnsanlar</Link>
               <Link to="/city-news" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Newspaper className="h-3 w-3" />{t.nav.media}</Link>
               <Link to="/feed" className="text-sm font-semibold text-foreground hover:text-primary" onClick={() => setIsOpen(false)}>Cadde</Link>
+              <Link to="/19-mayis" className="text-sm font-semibold text-rose-600 hover:text-rose-700" onClick={() => setIsOpen(false)}>
+                19 Mayıs Etkinlikleri
+              </Link>
               
               <Link to="/map" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><MapPin className="h-3 w-3" />{t.nav.map}</Link>
               <div className="border-t border-border pt-3 mt-1">

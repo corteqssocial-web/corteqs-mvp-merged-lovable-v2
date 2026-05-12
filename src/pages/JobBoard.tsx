@@ -2,7 +2,6 @@ import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { Briefcase, Search, MapPin, Building2, Clock, Filter } from "lucide-react";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -185,7 +184,6 @@ const JobBoard = () => {
           listing={{ id: applyTarget.id, title: applyTarget.title }}
         />
       )}
-      <Footer />
     </div>
   );
 };

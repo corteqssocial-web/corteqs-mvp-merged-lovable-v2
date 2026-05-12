@@ -4,11 +4,12 @@ import { TooltipProvider } from "@/components/ui/tooltip";
 import { Button } from "@/components/ui/button";
 import { QueryClient, QueryClientProvider } from "@tanstack/react-query";
 import { Suspense, lazy, useEffect, useState } from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
+import { BrowserRouter, Routes, Route, useLocation } from "react-router-dom";
 import { DiasporaProvider } from "@/contexts/DiasporaContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import AppErrorBoundary from "@/components/AppErrorBoundary";
 import BrandLoader from "@/components/BrandLoader";
+import Footer from "@/components/Footer";
 import { recoverFromWhiteScreen } from "@/lib/recoveryReload";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -65,6 +66,45 @@ const queryClient = new QueryClient();
 
 const ROUTE_LOADING_WARNING_MS = 4000;
 const ROUTE_LOADING_TIMEOUT_MS = 12000;
+const PUBLIC_FOOTER_ROUTE_PATTERNS = [
+  /^\/$/,
+  /^\/consultants(?:\/.*)?$/,
+  /^\/consultant\/[^/]+$/,
+  /^\/associations(?:\/.*)?$/,
+  /^\/association\/[^/]+$/,
+  /^\/businesses(?:\/.*)?$/,
+  /^\/business\/[^/]+$/,
+  /^\/whatsapp-groups(?:\/[^/]+)?$/,
+  /^\/events(?:\/.*)?$/,
+  /^\/event\/[^/]+$/,
+  /^\/radio\/[^/]+\/song-request$/,
+  /^\/map$/,
+  /^\/pricing$/,
+  /^\/bloggers$/,
+  /^\/blogger\/[^/]+$/,
+  /^\/blog-contest$/,
+  /^\/vlogger-contest$/,
+  /^\/relocation$/,
+  /^\/city-ambassadors$/,
+  /^\/ambassador\/[^/]+$/,
+  /^\/city-news$/,
+  /^\/radar(?:\/[^/]+)?$/,
+  /^\/hospital-appointment(?:\/[^/]+)?$/,
+  /^\/founders-1000$/,
+  /^\/founding-1000$/,
+  /^\/kariyer$/,
+  /^\/career$/,
+  /^\/ai-twin$/,
+  /^\/legal\/(privacy|terms|kvkk|cookies)$/,
+  /^\/register-diaspora$/,
+  /^\/volunteer\/[^/]+$/,
+  /^\/is-ilanlari$/,
+  /^\/feed$/,
+  /^\/cadde(?:\/[^/]+)?$/,
+  /^\/diaspora-people$/,
+  /^\/19-mayis(?:\/harita)?$/,
+  /^\/may19(?:\/map)?$/,
+];
 
 const RouteLoadingFallback = () => {
   const [isSlow, setIsSlow] = useState(false);
@@ -108,6 +148,74 @@ const RouteLoadingFallback = () => {
   );
 };
 
+const AppRoutes = () => {
+  const location = useLocation();
+  const showPublicFooter = PUBLIC_FOOTER_ROUTE_PATTERNS.some((pattern) => pattern.test(location.pathname));
+
+  return (
+    <>
+      <Suspense fallback={<RouteLoadingFallback />}>
+        <Routes>
+          <Route path="/" element={<Index />} />
+          <Route path="/consultants" element={<Consultants />} />
+          <Route path="/consultant/:id" element={<ConsultantDetail />} />
+          <Route path="/associations" element={<Associations />} />
+          <Route path="/association/:id" element={<AssociationDetail />} />
+          <Route path="/businesses" element={<Businesses />} />
+          <Route path="/business/:id" element={<BusinessDetail />} />
+          <Route path="/profile" element={<Profile />} />
+          <Route path="/whatsapp-groups" element={<WhatsAppGroups />} />
+          <Route path="/whatsapp-groups/:id" element={<WhatsAppGroupLanding />} />
+          <Route path="/events" element={<Events />} />
+          <Route path="/event/:id" element={<EventDetail />} />
+          <Route path="/radio/:id/song-request" element={<RadioSongRequest />} />
+          <Route path="/map" element={<MapSearch />} />
+          <Route path="/pricing" element={<Pricing />} />
+          <Route path="/bloggers" element={<Bloggers />} />
+          <Route path="/blogger/:id" element={<BloggerDetail />} />
+          <Route path="/blog-contest" element={<BlogContest />} />
+          <Route path="/vlogger-contest" element={<VloggerContest />} />
+          <Route path="/relocation" element={<RelocationEngine />} />
+          <Route path="/auth" element={<Auth />} />
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/reset-password" element={<ResetPassword />} />
+          <Route path="/city-ambassadors" element={<CityAmbassadors />} />
+          <Route path="/city-news" element={<CityNews />} />
+          <Route path="/radar" element={<Radar />} />
+          <Route path="/radar/:slug" element={<RadarDetail />} />
+          <Route path="/ambassador/:id" element={<AmbassadorDetail />} />
+          <Route path="/admin" element={<AdminDashboard />} />
+          <Route path="/hospital-appointment/:hospitalId?" element={<HospitalAppointment />} />
+          <Route path="/founders-1000" element={<Founders1000 />} />
+          <Route path="/founding-1000" element={<Founders1000 />} />
+          <Route path="/kariyer" element={<Career />} />
+          <Route path="/career" element={<Career />} />
+          <Route path="/internal-cq-dashboards-7f3a9b2e1d4c" element={<Dashboards />} />
+          <Route path="/ai-twin" element={<AITwin />} />
+          <Route path="/legal/privacy" element={<PrivacyPolicy />} />
+          <Route path="/legal/terms" element={<TermsOfService />} />
+          <Route path="/legal/kvkk" element={<KVKK />} />
+          <Route path="/legal/cookies" element={<CookiePolicy />} />
+          <Route path="/register-diaspora" element={<RegisterDiaspora />} />
+          <Route path="/volunteer/:id" element={<VolunteerMentorDetail />} />
+          <Route path="/admin/post-generator" element={<PostGenerator />} />
+          <Route path="/is-ilanlari" element={<JobBoard />} />
+          <Route path="/feed" element={<Feed />} />
+          <Route path="/cadde" element={<Feed />} />
+          <Route path="/cadde/:cafeId" element={<Feed />} />
+          <Route path="/diaspora-people" element={<DiasporaPeople />} />
+          <Route path="/19-mayis" element={<May19 />} />
+          <Route path="/19-mayis/harita" element={<May19Map />} />
+          <Route path="/may19" element={<May19 />} />
+          <Route path="/may19/map" element={<May19Map />} />
+          <Route path="*" element={<NotFound />} />
+        </Routes>
+      </Suspense>
+      {showPublicFooter && <Footer />}
+    </>
+  );
+};
+
 const App = () => (
   <AppErrorBoundary>
     <QueryClientProvider client={queryClient}>
@@ -118,63 +226,7 @@ const App = () => (
             <Sonner />
             <BrandLoader />
             <BrowserRouter>
-              <Suspense fallback={<RouteLoadingFallback />}>
-                <Routes>
-                  <Route path="/" element={<Index />} />
-                  <Route path="/consultants" element={<Consultants />} />
-                  <Route path="/consultant/:id" element={<ConsultantDetail />} />
-                  <Route path="/associations" element={<Associations />} />
-                  <Route path="/association/:id" element={<AssociationDetail />} />
-                  <Route path="/businesses" element={<Businesses />} />
-                  <Route path="/business/:id" element={<BusinessDetail />} />
-                  <Route path="/profile" element={<Profile />} />
-                  <Route path="/whatsapp-groups" element={<WhatsAppGroups />} />
-                  <Route path="/whatsapp-groups/:id" element={<WhatsAppGroupLanding />} />
-                  <Route path="/events" element={<Events />} />
-                  <Route path="/event/:id" element={<EventDetail />} />
-                  <Route path="/radio/:id/song-request" element={<RadioSongRequest />} />
-                  <Route path="/map" element={<MapSearch />} />
-                  <Route path="/pricing" element={<Pricing />} />
-                  <Route path="/bloggers" element={<Bloggers />} />
-                  <Route path="/blogger/:id" element={<BloggerDetail />} />
-                  <Route path="/blog-contest" element={<BlogContest />} />
-                  <Route path="/vlogger-contest" element={<VloggerContest />} />
-                  <Route path="/relocation" element={<RelocationEngine />} />
-                  <Route path="/auth" element={<Auth />} />
-                  <Route path="/onboarding" element={<Onboarding />} />
-                  <Route path="/reset-password" element={<ResetPassword />} />
-                  <Route path="/city-ambassadors" element={<CityAmbassadors />} />
-                  <Route path="/city-news" element={<CityNews />} />
-                  <Route path="/radar" element={<Radar />} />
-                  <Route path="/radar/:slug" element={<RadarDetail />} />
-                  <Route path="/ambassador/:id" element={<AmbassadorDetail />} />
-                  <Route path="/admin" element={<AdminDashboard />} />
-                  <Route path="/hospital-appointment/:hospitalId?" element={<HospitalAppointment />} />
-                  <Route path="/founders-1000" element={<Founders1000 />} />
-                  <Route path="/founding-1000" element={<Founders1000 />} />
-                  <Route path="/kariyer" element={<Career />} />
-                  <Route path="/career" element={<Career />} />
-                  <Route path="/internal-cq-dashboards-7f3a9b2e1d4c" element={<Dashboards />} />
-                  <Route path="/ai-twin" element={<AITwin />} />
-                  <Route path="/legal/privacy" element={<PrivacyPolicy />} />
-                  <Route path="/legal/terms" element={<TermsOfService />} />
-                  <Route path="/legal/kvkk" element={<KVKK />} />
-                  <Route path="/legal/cookies" element={<CookiePolicy />} />
-                  <Route path="/register-diaspora" element={<RegisterDiaspora />} />
-                  <Route path="/volunteer/:id" element={<VolunteerMentorDetail />} />
-                  <Route path="/admin/post-generator" element={<PostGenerator />} />
-                  <Route path="/is-ilanlari" element={<JobBoard />} />
-                  <Route path="/feed" element={<Feed />} />
-                  <Route path="/cadde" element={<Feed />} />
-                  <Route path="/cadde/:cafeId" element={<Feed />} />
-                  <Route path="/diaspora-people" element={<DiasporaPeople />} />
-                  <Route path="/19-mayis" element={<May19 />} />
-                  <Route path="/19-mayis/harita" element={<May19Map />} />
-                  <Route path="/may19" element={<May19 />} />
-                  <Route path="/may19/map" element={<May19Map />} />
-                  <Route path="*" element={<NotFound />} />
-                </Routes>
-              </Suspense>
+              <AppRoutes />
               <CookieConsentBanner />
             </BrowserRouter>
           </DiasporaProvider>

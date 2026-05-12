@@ -1,6 +1,5 @@
 import { Link } from "react-router-dom";
 import Navbar from "@/components/Navbar";
-import Footer from "@/components/Footer";
 import { Users, Sparkles, MapPin, Coffee, Calendar, MessageSquare, ShieldCheck, Plane, Briefcase, Heart } from "lucide-react";
 import { Badge } from "@/components/ui/badge";
 import { Button } from "@/components/ui/button";
@@ -219,8 +218,6 @@ const DiasporaPeople = () => {
           </section>
         </div>
       </main>
-
-      <Footer />
     </div>
   );
 };
