@@ -6,14 +6,21 @@ const corsHeaders = {
     "authorization, x-client-info, apikey, content-type, x-supabase-client-platform, x-supabase-client-platform-version, x-supabase-client-runtime, x-supabase-client-runtime-version",
 };
 
+const GEMINI_MODEL = "gemini-flash-latest";
+
+type ChatMessage = {
+  role: "user" | "assistant";
+  content: string;
+};
+
 serve(async (req) => {
   if (req.method === "OPTIONS") {
     return new Response(null, { headers: corsHeaders });
   }
 
   try {
-    const LOVABLE_API_KEY = Deno.env.get("LOVABLE_API_KEY");
-    if (!LOVABLE_API_KEY) throw new Error("LOVABLE_API_KEY is not configured");
+    const GEMINI_API_KEY = Deno.env.get("GEMINI_API_KEY");
+    if (!GEMINI_API_KEY) throw new Error("GEMINI_API_KEY is not configured");
 
     const { messages, surveyData } = await req.json();
 
@@ -40,24 +47,49 @@ Görevin:
 
 ÖNEMLİ: Kullanıcının mesleğine ve aile durumuna göre kişiselleştirilmiş öneriler ver.`;
 
-    const response = await fetch(
-      "https://ai.gateway.lovable.dev/v1/chat/completions",
-      {
-        method: "POST",
-        headers: {
-          Authorization: `Bearer ${LOVABLE_API_KEY}`,
-          "Content-Type": "application/json",
-        },
-        body: JSON.stringify({
-          model: "google/gemini-3-flash-preview",
-          messages: [
-            { role: "system", content: systemPrompt },
-            ...messages,
-          ],
-          stream: true,
-        }),
+    const contents = (messages as ChatMessage[]).map((message) => ({
+      role: message.role === "assistant" ? "model" : "user",
+      parts: [{ text: message.content }],
+    }));
+
+    const requestBody = {
+      systemInstruction: {
+        parts: [{ text: systemPrompt }],
+      },
+      contents,
+      generationConfig: {
+        temperature: 0.7,
+      },
+    };
+
+    let response: Response | null = null;
+    let lastErrorText = "";
+
+    for (let attempt = 0; attempt < 3; attempt++) {
+      response = await fetch(
+        `https://generativelanguage.googleapis.com/v1beta/models/${GEMINI_MODEL}:generateContent?key=${GEMINI_API_KEY}`,
+        {
+          method: "POST",
+          headers: {
+            "Content-Type": "application/json",
+          },
+          body: JSON.stringify(requestBody),
+        }
+      );
+
+      if (response.ok) break;
+
+      lastErrorText = await response.text();
+      if (![429, 503].includes(response.status) || attempt === 2) {
+        break;
       }
-    );
+
+      await new Promise((resolve) => setTimeout(resolve, 1000 * (attempt + 1)));
+    }
+
+    if (!response) {
+      throw new Error("Gemini response was not created");
+    }
 
     if (!response.ok) {
       if (response.status === 429) {
@@ -68,19 +100,23 @@ Görevin:
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: "Kredi yetersiz. Lütfen Lovable workspace'inize kredi ekleyin." }),
+          JSON.stringify({ error: "Kredi yetersiz." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }
-      const t = await response.text();
-      console.error("AI gateway error:", response.status, t);
+      const t = lastErrorText || await response.text();
+      console.error("Gemini API error:", response.status, t);
       return new Response(
         JSON.stringify({ error: "AI servisi şu an kullanılamıyor." }),
         { status: 500, headers: { ...corsHeaders, "Content-Type": "application/json" } }
       );
     }
 
-    return new Response(response.body, {
+    const data = await response.json();
+    const content = data.candidates?.[0]?.content?.parts?.map((part: { text?: string }) => part.text ?? "").join("") || "";
+    const payload = `data: ${JSON.stringify({ choices: [{ delta: { content } }] })}\n\ndata: [DONE]\n\n`;
+
+    return new Response(payload, {
       headers: { ...corsHeaders, "Content-Type": "text/event-stream" },
     });
   } catch (e) {

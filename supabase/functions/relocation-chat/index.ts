@@ -100,7 +100,7 @@ Görevin:
       }
       if (response.status === 402) {
         return new Response(
-          JSON.stringify({ error: "Kredi yetersiz. Lütfen Lovable workspace'inize kredi ekleyin." }),
+          JSON.stringify({ error: "Kredi yetersiz." }),
           { status: 402, headers: { ...corsHeaders, "Content-Type": "application/json" } }
         );
       }

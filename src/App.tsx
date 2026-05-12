@@ -8,6 +8,7 @@ import { BrowserRouter, Routes, Route } from "react-router-dom";
 import { DiasporaProvider } from "@/contexts/DiasporaContext";
 import { AuthProvider } from "@/contexts/AuthContext";
 import AppErrorBoundary from "@/components/AppErrorBoundary";
+import BrandLoader from "@/components/BrandLoader";
 import { recoverFromWhiteScreen } from "@/lib/recoveryReload";
 
 const Index = lazy(() => import("./pages/Index"));
@@ -49,6 +50,13 @@ const TermsOfService = lazy(() => import("./pages/legal/TermsOfService"));
 const KVKK = lazy(() => import("./pages/legal/KVKK"));
 const CookiePolicy = lazy(() => import("./pages/legal/CookiePolicy"));
 const RegisterDiaspora = lazy(() => import("./pages/RegisterDiaspora"));
+const VolunteerMentorDetail = lazy(() => import("./pages/VolunteerMentorDetail"));
+const JobBoard = lazy(() => import("./pages/JobBoard"));
+const PostGenerator = lazy(() => import("./pages/PostGenerator"));
+const Feed = lazy(() => import("./pages/Feed"));
+const DiasporaPeople = lazy(() => import("./pages/DiasporaPeople"));
+const May19 = lazy(() => import("./pages/May19"));
+const May19Map = lazy(() => import("./pages/May19Map"));
 const NotFound = lazy(() => import("./pages/NotFound"));
 
 import CookieConsentBanner from "@/components/CookieConsentBanner";
@@ -108,6 +116,7 @@ const App = () => (
           <DiasporaProvider>
             <Toaster />
             <Sonner />
+            <BrandLoader />
             <BrowserRouter>
               <Suspense fallback={<RouteLoadingFallback />}>
                 <Routes>
@@ -152,6 +161,17 @@ const App = () => (
                   <Route path="/legal/kvkk" element={<KVKK />} />
                   <Route path="/legal/cookies" element={<CookiePolicy />} />
                   <Route path="/register-diaspora" element={<RegisterDiaspora />} />
+                  <Route path="/volunteer/:id" element={<VolunteerMentorDetail />} />
+                  <Route path="/admin/post-generator" element={<PostGenerator />} />
+                  <Route path="/is-ilanlari" element={<JobBoard />} />
+                  <Route path="/feed" element={<Feed />} />
+                  <Route path="/cadde" element={<Feed />} />
+                  <Route path="/cadde/:cafeId" element={<Feed />} />
+                  <Route path="/diaspora-people" element={<DiasporaPeople />} />
+                  <Route path="/19-mayis" element={<May19 />} />
+                  <Route path="/19-mayis/harita" element={<May19Map />} />
+                  <Route path="/may19" element={<May19 />} />
+                  <Route path="/may19/map" element={<May19Map />} />
                   <Route path="*" element={<NotFound />} />
                 </Routes>
               </Suspense>

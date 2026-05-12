@@ -2418,6 +2418,881 @@ export type Database = {
         }
         Relationships: []
       }
+      appointments: {
+        Row: {
+          client_email: string | null
+          client_id: string
+          client_name: string | null
+          client_timezone: string
+          created_at: string
+          duration_minutes: number
+          id: string
+          meeting_url: string | null
+          notes: string | null
+          provider_id: string
+          provider_kind: string
+          scheduled_at: string
+          status: string
+          topic: string | null
+          updated_at: string
+        }
+        Insert: {
+          client_email?: string | null
+          client_id: string
+          client_name?: string | null
+          client_timezone: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          meeting_url?: string | null
+          notes?: string | null
+          provider_id: string
+          provider_kind?: string
+          scheduled_at: string
+          status?: string
+          topic?: string | null
+          updated_at?: string
+        }
+        Update: {
+          client_email?: string | null
+          client_id?: string
+          client_name?: string | null
+          client_timezone?: string
+          created_at?: string
+          duration_minutes?: number
+          id?: string
+          meeting_url?: string | null
+          notes?: string | null
+          provider_id?: string
+          provider_kind?: string
+          scheduled_at?: string
+          status?: string
+          topic?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      approval_requests: {
+        Row: {
+          admin_note: string | null
+          created_at: string
+          decided_at: string | null
+          decided_by: string | null
+          id: string
+          payload: Json
+          request_type: string
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          admin_note?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          payload?: Json
+          request_type: string
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          admin_note?: string | null
+          created_at?: string
+          decided_at?: string | null
+          decided_by?: string | null
+          id?: string
+          payload?: Json
+          request_type?: string
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      cafe_memberships: {
+        Row: {
+          answer: string | null
+          approved: boolean
+          cafe_id: string
+          id: string
+          joined_at: string
+          user_id: string
+        }
+        Insert: {
+          answer?: string | null
+          approved?: boolean
+          cafe_id: string
+          id?: string
+          joined_at?: string
+          user_id: string
+        }
+        Update: {
+          answer?: string | null
+          approved?: boolean
+          cafe_id?: string
+          id?: string
+          joined_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "cafe_memberships_cafe_id_fkey"
+            columns: ["cafe_id"]
+            isOneToOne: false
+            referencedRelation: "cafes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      cafes: {
+        Row: {
+          audience_scope: string
+          capacity: number | null
+          city: string | null
+          closes_at: string
+          continent: string | null
+          country: string | null
+          created_at: string
+          created_by: string
+          duration_hours: number
+          entry_question: string | null
+          extra_links: Json | null
+          id: string
+          kind: string
+          linkedin_url: string
+          member_count: number
+          name: string
+          open_entry: boolean
+          opens_at: string
+          referral_code: string | null
+          theme: string
+        }
+        Insert: {
+          audience_scope?: string
+          capacity?: number | null
+          city?: string | null
+          closes_at: string
+          continent?: string | null
+          country?: string | null
+          created_at?: string
+          created_by: string
+          duration_hours?: number
+          entry_question?: string | null
+          extra_links?: Json | null
+          id?: string
+          kind?: string
+          linkedin_url: string
+          member_count?: number
+          name: string
+          open_entry?: boolean
+          opens_at?: string
+          referral_code?: string | null
+          theme: string
+        }
+        Update: {
+          audience_scope?: string
+          capacity?: number | null
+          city?: string | null
+          closes_at?: string
+          continent?: string | null
+          country?: string | null
+          created_at?: string
+          created_by?: string
+          duration_hours?: number
+          entry_question?: string | null
+          extra_links?: Json | null
+          id?: string
+          kind?: string
+          linkedin_url?: string
+          member_count?: number
+          name?: string
+          open_entry?: boolean
+          opens_at?: string
+          referral_code?: string | null
+          theme?: string
+        }
+        Relationships: []
+      }
+      contact_messages: {
+        Row: {
+          city: string | null
+          country: string | null
+          created_at: string
+          email: string
+          full_name: string
+          id: string
+          message: string | null
+          status: string
+        }
+        Insert: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email: string
+          full_name: string
+          id?: string
+          message?: string | null
+          status?: string
+        }
+        Update: {
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          email?: string
+          full_name?: string
+          id?: string
+          message?: string | null
+          status?: string
+        }
+        Relationships: []
+      }
+      coupon_purchases: {
+        Row: {
+          business_name: string | null
+          business_user_id: string | null
+          buyer_email: string | null
+          buyer_id: string
+          buyer_name: string | null
+          coupon_code: string
+          coupon_title: string | null
+          created_at: string
+          currency: string
+          id: string
+          price: number
+          status: string
+          stripe_session_id: string | null
+          updated_at: string
+        }
+        Insert: {
+          business_name?: string | null
+          business_user_id?: string | null
+          buyer_email?: string | null
+          buyer_id: string
+          buyer_name?: string | null
+          coupon_code: string
+          coupon_title?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          price?: number
+          status?: string
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Update: {
+          business_name?: string | null
+          business_user_id?: string | null
+          buyer_email?: string | null
+          buyer_id?: string
+          buyer_name?: string | null
+          coupon_code?: string
+          coupon_title?: string | null
+          created_at?: string
+          currency?: string
+          id?: string
+          price?: number
+          status?: string
+          stripe_session_id?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      feed_likes: {
+        Row: {
+          created_at: string
+          id: string
+          post_id: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          post_id: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          post_id?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feed_likes_post_id_fkey"
+            columns: ["post_id"]
+            isOneToOne: false
+            referencedRelation: "feed_posts"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      feed_posts: {
+        Row: {
+          author_role: string | null
+          cafe_id: string | null
+          city: string | null
+          comment_count: number
+          content: string
+          country: string | null
+          created_at: string
+          id: string
+          image_url: string | null
+          like_count: number
+          status: string
+          tags: string[] | null
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          author_role?: string | null
+          cafe_id?: string | null
+          city?: string | null
+          comment_count?: number
+          content: string
+          country?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          like_count?: number
+          status?: string
+          tags?: string[] | null
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          author_role?: string | null
+          cafe_id?: string | null
+          city?: string | null
+          comment_count?: number
+          content?: string
+          country?: string | null
+          created_at?: string
+          id?: string
+          image_url?: string | null
+          like_count?: number
+          status?: string
+          tags?: string[] | null
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "feed_posts_cafe_id_fkey"
+            columns: ["cafe_id"]
+            isOneToOne: false
+            referencedRelation: "cafes"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
+      founding_1000_signups: {
+        Row: {
+          account_type: string
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          status: string
+          user_id: string
+        }
+        Insert: {
+          account_type: string
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          status?: string
+          user_id: string
+        }
+        Update: {
+          account_type?: string
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          status?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      generated_posts: {
+        Row: {
+          created_at: string
+          created_by: string
+          expertise: string | null
+          id: string
+          image_url: string
+          logo_url: string | null
+          platforms: string[]
+          recipient_name: string
+          share_text: string | null
+          tagline: string | null
+          template_type: string
+          thumbnail_url: string | null
+        }
+        Insert: {
+          created_at?: string
+          created_by: string
+          expertise?: string | null
+          id?: string
+          image_url: string
+          logo_url?: string | null
+          platforms?: string[]
+          recipient_name: string
+          share_text?: string | null
+          tagline?: string | null
+          template_type: string
+          thumbnail_url?: string | null
+        }
+        Update: {
+          created_at?: string
+          created_by?: string
+          expertise?: string | null
+          id?: string
+          image_url?: string
+          logo_url?: string | null
+          platforms?: string[]
+          recipient_name?: string
+          share_text?: string | null
+          tagline?: string | null
+          template_type?: string
+          thumbnail_url?: string | null
+        }
+        Relationships: []
+      }
+      job_applications: {
+        Row: {
+          applicant_email: string | null
+          applicant_id: string
+          applicant_name: string | null
+          applicant_phone: string | null
+          attachment_name: string | null
+          attachment_url: string | null
+          created_at: string
+          id: string
+          link_url: string | null
+          listing_id: string
+          message: string | null
+          status: string
+          updated_at: string
+        }
+        Insert: {
+          applicant_email?: string | null
+          applicant_id: string
+          applicant_name?: string | null
+          applicant_phone?: string | null
+          attachment_name?: string | null
+          attachment_url?: string | null
+          created_at?: string
+          id?: string
+          link_url?: string | null
+          listing_id: string
+          message?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Update: {
+          applicant_email?: string | null
+          applicant_id?: string
+          applicant_name?: string | null
+          applicant_phone?: string | null
+          attachment_name?: string | null
+          attachment_url?: string | null
+          created_at?: string
+          id?: string
+          link_url?: string | null
+          listing_id?: string
+          message?: string | null
+          status?: string
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      job_listings: {
+        Row: {
+          business_name: string | null
+          city: string | null
+          country: string | null
+          created_at: string
+          currency: string
+          department: string | null
+          description: string | null
+          employment_type: string
+          expires_at: string | null
+          hide_business_name: boolean
+          id: string
+          location: string | null
+          location_type: string
+          package: string
+          requirements: string | null
+          salary_max: number | null
+          salary_min: number | null
+          status: string
+          title: string
+          total_price: number
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          business_name?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          currency?: string
+          department?: string | null
+          description?: string | null
+          employment_type?: string
+          expires_at?: string | null
+          hide_business_name?: boolean
+          id?: string
+          location?: string | null
+          location_type?: string
+          package?: string
+          requirements?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          status?: string
+          title: string
+          total_price?: number
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          business_name?: string | null
+          city?: string | null
+          country?: string | null
+          created_at?: string
+          currency?: string
+          department?: string | null
+          description?: string | null
+          employment_type?: string
+          expires_at?: string | null
+          hide_business_name?: boolean
+          id?: string
+          location?: string | null
+          location_type?: string
+          package?: string
+          requirements?: string | null
+          salary_max?: number | null
+          salary_min?: number | null
+          status?: string
+          title?: string
+          total_price?: number
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: []
+      }
+      may19_submissions: {
+        Row: {
+          attachment_urls: string[] | null
+          bio: string | null
+          city: string | null
+          consent: boolean | null
+          country: string | null
+          created_at: string
+          description: string | null
+          email: string | null
+          full_name: string | null
+          id: string
+          kind: string
+          link: string | null
+          livestream_participation: string | null
+          livestream_time_slot: string | null
+          livestream_topic: string | null
+          message: string | null
+          metadata: Json | null
+          phone: string | null
+          show_on_map: boolean | null
+          social_handle: string | null
+          status: string
+          title: string | null
+          updated_at: string
+          user_id: string | null
+        }
+        Insert: {
+          attachment_urls?: string[] | null
+          bio?: string | null
+          city?: string | null
+          consent?: boolean | null
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          kind: string
+          link?: string | null
+          livestream_participation?: string | null
+          livestream_time_slot?: string | null
+          livestream_topic?: string | null
+          message?: string | null
+          metadata?: Json | null
+          phone?: string | null
+          show_on_map?: boolean | null
+          social_handle?: string | null
+          status?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Update: {
+          attachment_urls?: string[] | null
+          bio?: string | null
+          city?: string | null
+          consent?: boolean | null
+          country?: string | null
+          created_at?: string
+          description?: string | null
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          kind?: string
+          link?: string | null
+          livestream_participation?: string | null
+          livestream_time_slot?: string | null
+          livestream_topic?: string | null
+          message?: string | null
+          metadata?: Json | null
+          phone?: string | null
+          show_on_map?: boolean | null
+          social_handle?: string | null
+          status?: string
+          title?: string | null
+          updated_at?: string
+          user_id?: string | null
+        }
+        Relationships: []
+      }
+      messages: {
+        Row: {
+          body: string
+          context_url: string | null
+          created_at: string
+          id: string
+          is_read: boolean
+          recipient_kind: string
+          recipient_name: string | null
+          recipient_slug: string | null
+          recipient_user_id: string | null
+          sender_id: string
+          sender_name: string | null
+          subject: string | null
+          thread_id: string
+        }
+        Insert: {
+          body: string
+          context_url?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          recipient_kind?: string
+          recipient_name?: string | null
+          recipient_slug?: string | null
+          recipient_user_id?: string | null
+          sender_id: string
+          sender_name?: string | null
+          subject?: string | null
+          thread_id?: string
+        }
+        Update: {
+          body?: string
+          context_url?: string | null
+          created_at?: string
+          id?: string
+          is_read?: boolean
+          recipient_kind?: string
+          recipient_name?: string | null
+          recipient_slug?: string | null
+          recipient_user_id?: string | null
+          sender_id?: string
+          sender_name?: string | null
+          subject?: string | null
+          thread_id?: string
+        }
+        Relationships: []
+      }
+      phone_verifications: {
+        Row: {
+          attempts: number
+          code: string
+          created_at: string
+          expires_at: string
+          id: string
+          phone: string
+          user_id: string
+          verified_at: string | null
+        }
+        Insert: {
+          attempts?: number
+          code: string
+          created_at?: string
+          expires_at: string
+          id?: string
+          phone: string
+          user_id: string
+          verified_at?: string | null
+        }
+        Update: {
+          attempts?: number
+          code?: string
+          created_at?: string
+          expires_at?: string
+          id?: string
+          phone?: string
+          user_id?: string
+          verified_at?: string | null
+        }
+        Relationships: []
+      }
+      profile_views: {
+        Row: {
+          created_at: string
+          id: string
+          profile_id: string
+          viewer_id: string | null
+        }
+        Insert: {
+          created_at?: string
+          id?: string
+          profile_id: string
+          viewer_id?: string | null
+        }
+        Update: {
+          created_at?: string
+          id?: string
+          profile_id?: string
+          viewer_id?: string | null
+        }
+        Relationships: []
+      }
+      site_settings: {
+        Row: {
+          brand_name: string | null
+          email_header_html: string | null
+          favicon_url: string | null
+          id: number
+          logo_url: string | null
+          updated_at: string
+        }
+        Insert: {
+          brand_name?: string | null
+          email_header_html?: string | null
+          favicon_url?: string | null
+          id?: number
+          logo_url?: string | null
+          updated_at?: string
+        }
+        Update: {
+          brand_name?: string | null
+          email_header_html?: string | null
+          favicon_url?: string | null
+          id?: number
+          logo_url?: string | null
+          updated_at?: string
+        }
+        Relationships: []
+      }
+      user_connections: {
+        Row: {
+          block_reason: string | null
+          created_at: string
+          decided_at: string | null
+          id: string
+          recipient_id: string
+          requester_id: string
+          status: string
+        }
+        Insert: {
+          block_reason?: string | null
+          created_at?: string
+          decided_at?: string | null
+          id?: string
+          recipient_id: string
+          requester_id: string
+          status?: string
+        }
+        Update: {
+          block_reason?: string | null
+          created_at?: string
+          decided_at?: string | null
+          id?: string
+          recipient_id?: string
+          requester_id?: string
+          status?: string
+        }
+        Relationships: []
+      }
+      user_follows: {
+        Row: {
+          created_at: string
+          follower_id: string
+          following_id: string
+          id: string
+        }
+        Insert: {
+          created_at?: string
+          follower_id: string
+          following_id: string
+          id?: string
+        }
+        Update: {
+          created_at?: string
+          follower_id?: string
+          following_id?: string
+          id?: string
+        }
+        Relationships: []
+      }
+      whatsapp_join_requests: {
+        Row: {
+          created_at: string
+          email: string | null
+          full_name: string | null
+          id: string
+          landing_id: string
+          note: string | null
+          phone: string | null
+          status: string
+          updated_at: string
+          user_id: string
+        }
+        Insert: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          landing_id: string
+          note?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+          user_id: string
+        }
+        Update: {
+          created_at?: string
+          email?: string | null
+          full_name?: string | null
+          id?: string
+          landing_id?: string
+          note?: string | null
+          phone?: string | null
+          status?: string
+          updated_at?: string
+          user_id?: string
+        }
+        Relationships: [
+          {
+            foreignKeyName: "whatsapp_join_requests_landing_id_fkey"
+            columns: ["landing_id"]
+            isOneToOne: false
+            referencedRelation: "whatsapp_landings"
+            referencedColumns: ["id"]
+          },
+        ]
+      }
     }
     Views: {
       v_muhasebe_by_category: {
@@ -2499,6 +3374,17 @@ export type Database = {
           valid_from: string
           valid_until: string
         }[]
+      }
+      generate_ambassador_referral_code: { Args: never; Returns: string }
+      notify_followers: {
+        Args: {
+          _author_id: string
+          _message: string
+          _related_id: string
+          _title: string
+          _type: string
+        }
+        Returns: undefined
       }
     }
     Enums: {
