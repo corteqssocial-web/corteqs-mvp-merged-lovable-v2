@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { Link, useLocation, useNavigate } from "react-router-dom";
-import { Menu, X, User, LogOut, MapPin, PenLine, ChevronDown, Newspaper, MessageCircle, Calendar } from "lucide-react";
+import { Menu, X, User, LogOut, MapPin, PenLine, ChevronDown, Newspaper, MessageCircle, Calendar, Briefcase, Users } from "lucide-react";
 import { Button } from "@/components/ui/button";
 import {
   DropdownMenu,
@@ -122,9 +122,13 @@ const Navbar = () => {
           </div>
 
           <div className="hidden md:flex items-center">
+            <Link to="/feed" className={`${desktopNavItemClass} whitespace-nowrap font-semibold text-foreground hover:text-primary`}>Cadde</Link>
+            <div className={desktopSeparatorClass} />
             <Link to="/consultants" className={`${desktopNavItemClass} whitespace-nowrap`}>{t.nav.consultants}</Link>
             <div className={desktopSeparatorClass} />
             <Link to="/businesses" className={desktopNavItemClass}>{t.nav.businesses}</Link>
+            <div className={desktopSeparatorClass} />
+            <Link to="/career" className={desktopNavItemClass}>Kariyer</Link>
             <div className={desktopSeparatorClass} />
             <Link to="/associations" className={desktopNavItemClass}>{t.nav.organizations}</Link>
             <div className={desktopSeparatorClass} />
@@ -154,6 +158,16 @@ const Navbar = () => {
                   <DropdownMenuItem asChild>
                     <Link to="/events" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
                       <Calendar className="h-3.5 w-3.5 text-primary" />{t.nav.events}
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/diaspora-people" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
+                      <Users className="h-3.5 w-3.5 text-primary" />Diasporada İnsanlar
+                    </Link>
+                  </DropdownMenuItem>
+                  <DropdownMenuItem asChild>
+                    <Link to="/may19" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
+                      🎉 19 Mayıs
                     </Link>
                   </DropdownMenuItem>
                   <DropdownMenuItem asChild>
@@ -242,10 +256,13 @@ const Navbar = () => {
               <Link to="/consultants" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.consultants}</Link>
               <Link to="/associations" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.organizations}</Link>
               <Link to="/businesses" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.businesses}</Link>
+              <Link to="/career" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Briefcase className="h-3 w-3" />Kariyer</Link>
               <Link to="/bloggers" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><PenLine className="h-3 w-3" />{t.nav.vblogger}</Link>
               <Link to="/whatsapp-groups" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.groups}</Link>
               <Link to="/events" className="text-sm font-medium text-muted-foreground hover:text-foreground" onClick={() => setIsOpen(false)}>{t.nav.events}</Link>
+              <Link to="/diaspora-people" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Users className="h-3 w-3" />Diasporada İnsanlar</Link>
               <Link to="/city-news" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><Newspaper className="h-3 w-3" />{t.nav.media}</Link>
+              <Link to="/feed" className="text-sm font-semibold text-foreground hover:text-primary" onClick={() => setIsOpen(false)}>Cadde</Link>
               
               <Link to="/map" className="text-sm font-medium text-muted-foreground hover:text-foreground flex items-center gap-1" onClick={() => setIsOpen(false)}><MapPin className="h-3 w-3" />{t.nav.map}</Link>
               <div className="border-t border-border pt-3 mt-1">
