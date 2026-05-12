@@ -188,15 +188,6 @@ const DiasporaSearchBar = () => {
           {!loading && hasSearched && results.length === 0 && (
             <p className="mt-6 text-sm text-muted-foreground">Sonuç bulunamadı. Farklı bir arama deneyin.</p>
           )}
-
-          {/* Sponsor */}
-          <div className="mt-8 pt-6 border-t border-border/50">
-            <p className="text-xs text-muted-foreground font-body mb-2">Sponsor</p>
-            <div className="flex items-center justify-center gap-2">
-              <span className="text-xl">✈️</span>
-              <span className="text-sm font-semibold text-foreground">Türk Hava Yolları</span>
-            </div>
-          </div>
         </div>
       </div>
     </section>
