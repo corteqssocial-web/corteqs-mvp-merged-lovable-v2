@@ -19,60 +19,30 @@ const desktopNavItemClass =
 const desktopSeparatorClass = "h-5 w-px bg-border/90";
 
 const Navbar = () => {
-  const [isOpen, setIsOpen] = useState(false);
-  const [isMoreOpen, setIsMoreOpen] = useState(false);
-  const { diaspora, t, selectedCountry, setSelectedCountry } = useDiaspora();
-  const { user, profile, signOut } = useAuth();
-  const navigate = useNavigate();
-  const location = useLocation();
-  const moreCloseTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null);
-  const isHome = location.pathname === "/";
-  // Routes that have their own dedicated Country+City selector (CountryCitySelector)
-  // — hide the duplicate navbar selector on these pages.
-  const routesWithOwnSelector = [
-    "/consultants",
-    "/businesses",
-    "/associations",
-    "/events",
-    "/city-news",
-    "/whatsapp-groups",
-    "/map",
-  ];
-  const hasOwnSelector = routesWithOwnSelector.some((p) => location.pathname.startsWith(p));
-  // Country selector only makes sense for the Turkish diaspora (the only one
-  // with full country/city data live). For other diasporas — and the register-
-  // diaspora landing — hide it entirely so it isn't confused with the diaspora picker.
-  const isInternational = diaspora !== "tr";
-  const isRegisterDiaspora = location.pathname.startsWith("/register-diaspora");
-  const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isRegisterDiaspora;
-
-  useEffect(() => {
-    return () => {
-      if (moreCloseTimerRef.current) {
-        clearTimeout(moreCloseTimerRef.current);
-      }
-    };
-  }, []);
-
-  const clearMoreCloseTimer = () => {
-    if (moreCloseTimerRef.current) {
-      clearTimeout(moreCloseTimerRef.current);
-      moreCloseTimerRef.current = null;
-    }
-  };
-
-  const openMoreMenu = () => {
-    clearMoreCloseTimer();
-    setIsMoreOpen(true);
-  };
-
-  const queueMoreMenuClose = () => {
-    clearMoreCloseTimer();
-    moreCloseTimerRef.current = setTimeout(() => {
-      setIsMoreOpen(false);
-      moreCloseTimerRef.current = null;
-    }, 120);
-  };
+const [isOpen, setIsOpen] = useState(false);
+const { diaspora, t, selectedCountry, setSelectedCountry } = useDiaspora();
+const { user, profile, signOut } = useAuth();
+const navigate = useNavigate();
+const location = useLocation();
+const isHome = location.pathname === "/";
+// Routes that have their own dedicated Country+City selector (CountryCitySelector)
+// — hide the duplicate navbar selector on these pages.
+const routesWithOwnSelector = [
+  "/consultants",
+  "/businesses",
+  "/associations",
+  "/events",
+  "/city-news",
+  "/whatsapp-groups",
+  "/map",
+];
+const hasOwnSelector = routesWithOwnSelector.some((p) => location.pathname.startsWith(p));
+// Country selector only makes sense for the Turkish diaspora (the only one
+// with full country/city data live). For other diasporas — and the register-
+// diaspora landing — hide it entirely so it isn't confused with the diaspora picker.
+const isInternational = diaspora !== "tr";
+const isRegisterDiaspora = location.pathname.startsWith("/register-diaspora");
+const showNavbarCountry = !isHome && !hasOwnSelector && !isInternational && !isRegisterDiaspora;
 
   const handleSignOut = async () => {
     await signOut();
@@ -135,59 +105,7 @@ const Navbar = () => {
             <Link to="/bloggers" className={desktopNavItemClass}>{t.nav.vblogger}</Link>
             <div className={desktopSeparatorClass} />
 
-            {/* More Dropdown */}
-            <DropdownMenu open={isMoreOpen} onOpenChange={setIsMoreOpen}>
-              <div onMouseEnter={openMoreMenu} onMouseLeave={queueMoreMenuClose}>
-                <DropdownMenuTrigger asChild>
-                  <Button
-                    variant="ghost"
-                    size="sm"
-                    className={`${desktopNavItemClass} gap-1 px-3 py-2 h-auto hover:bg-[rgba(148,163,184,0.18)] hover:text-[hsl(220_30%_12%)]`}
-                  >
-                    {t.nav.more}
-                    <ChevronDown className="h-3 w-3" />
-                  </Button>
-                </DropdownMenuTrigger>
-                <DropdownMenuContent
-                  align="end"
-                  sideOffset={-2}
-                  className="z-[60] mt-0 w-52 rounded-[1.35rem] border border-[rgba(248,176,121,0.35)] bg-white/96 p-2 shadow-[0_22px_44px_-18px_rgba(15,23,42,0.28)] backdrop-blur-md"
-                  onMouseEnter={openMoreMenu}
-                  onMouseLeave={queueMoreMenuClose}
-                >
-                  <DropdownMenuItem asChild>
-                    <Link to="/events" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
-                      <Calendar className="h-3.5 w-3.5 text-primary" />{t.nav.events}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/diaspora-people" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
-                      <Users className="h-3.5 w-3.5 text-primary" />Diasporada İnsanlar
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/may19" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
-                      🎉 19 Mayıs
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/whatsapp-groups" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
-                      <MessageCircle className="h-3.5 w-3.5 text-primary" />{t.nav.groups}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/city-news" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
-                      <Newspaper className="h-3.5 w-3.5 text-primary" />{t.nav.media}
-                    </Link>
-                  </DropdownMenuItem>
-                  <DropdownMenuItem asChild>
-                    <Link to="/map" className="flex items-center gap-2 cursor-pointer rounded-lg px-3 py-2 text-sm text-foreground/90 hover:bg-[rgba(248,176,121,0.14)]">
-                      <MapPin className="h-3.5 w-3.5 text-primary" />{t.nav.map}
-                    </Link>
-                  </DropdownMenuItem>
-                </DropdownMenuContent>
-              </div>
-            </DropdownMenu>
+
           </div>
 
           <div className="hidden md:flex items-center gap-3">
